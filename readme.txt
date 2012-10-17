@@ -1,5 +1,5 @@
 === WP Event Ticketing ===
-Contributors: toddhuish, vegasgeek, stastic, jrfoell
+Contributors: toddhuish, vegasgeek, stastic, jrfoell, blobaugh
 Donate Link: http://9seeds.com/donate/
 Tags: event, events, ticket, tickets, ticketing, attend, attendee, attending, attendance, conference, wordcamp, admission, entry
 Requires at least: 2.8
