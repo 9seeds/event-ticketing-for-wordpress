@@ -1,0 +1,95 @@
+#eventTicketing div.ticketingerror {
+  color: black;
+  background-color: #ffebe8;
+  border: 1px solid #c00;
+  padding: 1em;
+  margin: 0.5em 0;
+}
+
+#eventTicketing .purchaseInstructions {
+  vertical-align: top;
+  text-align: justify;
+}
+
+#eventTicketing ul.ticketPurchaseInfo {
+  margin: 0;
+}
+#eventTicketing ul.ticketPurchaseInfo li {
+  list-style-type: none;
+  margin: 0.5em 0;
+}
+#eventTicketing ul.ticketPurchaseInfo li label {
+  display: inline-block;
+  width: 6.5em;
+  text-align: right;
+}
+#eventTicketing ul.ticketPurchaseInfo li input {
+  width: 16em;
+}
+
+#eventTicketing table {
+  border: 1px solid #e7e7e7;
+  border: 1px solid rgba(128,128,128,0.5);
+  text-align: left;
+  margin: 20px -1px 24px 0px;
+  width: 100%;
+}
+#eventTicketing tr.odd, #eventTicketing tr:nth-of-type(2n+1) {
+  background: rgba(128,128,128,0.07);
+}
+#eventTicketing tr th,
+#eventTicketing thead th {
+  color: #888;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 18px;
+  padding: 1em 12px 1em 24px;
+  vertical-align: bottom;
+  border-bottom: 1px solid #e7e7e7;
+  border-bottom: 1px solid rgba(128,128,128,0.5);
+}
+#eventTicketing tr td {
+  padding: 0.5em 12px 0.5em 24px;
+  text-align: right;
+}
+#eventTicketing tr > td:last-of-type {
+  padding-right: 24px;
+}
+#eventTicketing tr:first-of-type {
+  background: rgba(0,0,0,0.07);
+}
+#eventTicketing tr th:not(:first-of-type) {
+  text-align: center;
+}
+
+#eventTicketing .packagename, #eventTicketing .packagedescription {
+  text-align: left;
+}
+#eventTicketing .packagedescription {
+  font-style: italic;
+  font-size: 80%;
+}
+
+#eventTicketing select {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+}
+
+#eventTicketing label {
+  font-size: 16px;
+  line-height: 24px;
+  margin-right: 0.5em;
+  margin-left: 1em;
+}
+
+#eventTicketing tr.coupon, #eventTicketing tr.paypalbutton {
+  text-align: right;
+  background: inherit;
+}
+#eventTicketing tr.coupon {
+  background: rgba(0,0,0,0.07);
+}
+#eventTicketing tr.coupon input[name="couponCode"] {
+  width: 10em;
+}

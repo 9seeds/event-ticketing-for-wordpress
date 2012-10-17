@@ -1,0 +1,172 @@
+@import "ui.base.css";
+@import "ui.theme.css";
+
+
+#ticket_options {
+
+width: 40%;
+float: left;
+
+}
+
+#ticket_new_options {
+
+float: left;
+height: auto;
+width: 50%;
+}
+
+#ticket_wrapper_1 {
+
+min-height: 300px;
+height: auto;
+}
+
+#inputTicketOptionDisplay input{
+
+
+}
+
+select.ticket-option-multidropdown{
+height: auto !important;
+}
+
+#inputTicketOptionDisplayType select{
+
+margin-left: 7px;
+}
+
+#ticketOptionDrop1 {
+
+margin-left: 52px;
+}
+
+.clonedInput input{
+
+margin-left: 52px;
+}
+
+#ticket_holder_left {
+
+width: 400px;
+float: left;
+
+}
+
+#ticket_holder_right {
+
+float: left;
+height: auto;
+width: 40%;
+}
+
+#eventTicket {
+
+background: #fff;
+border: 1px solid #ccc;
+padding: 20px;
+margin-top: 20px;
+-moz-border-radius: 10px;
+border-radius: 10px;
+}
+
+#ticket_packages {
+
+width: 60%;
+
+}
+
+#ticket_events {
+
+width: 40%;
+}
+
+#ticket_events_edit {
+
+margin: 10px 0px 20px 0px;
+
+}
+
+.packageName input {
+
+	width: 407px;
+	margin-left: 20px;
+}
+
+.packageDescription textarea{
+
+	width: 408px;
+	margin: 10px 0px 0px 34px;
+	vertical-align: middle;
+	height: 150px;
+}
+
+.ticketName {
+
+margin-bottom: 10px;
+}
+
+#ticket_sales_left {
+
+float: left;
+width: 50%;
+
+}
+
+#summary_reports_left {
+clear: both;
+float: left;
+width: 50%;
+}
+
+.settings_page {
+	clear: both;
+	float: left;
+}
+
+.settings_page h2 {
+
+min-width: 400px;
+}
+
+#attendeeGraph {
+width: 40%;
+padding-top: 52px;
+float: left;
+margin-left: 30px;
+}
+
+#attendeeGraph img {
+
+border: 1px solid #ccc;
+padding: 5px;
+background: #eee;
+}
+
+
+#ticket_sales_bottom {
+
+width: 100%;
+float: left;
+}
+
+.instructional {
+
+float: left;
+margin-top: 30px;
+width: auto;
+border: 1px dashed #999;
+padding: 10px;
+background: #fff;
+
+}
+
+#expireStart, #expireEnd {
+
+display: block;
+}
+
+#event_control {
+
+width: 60%;
+}
