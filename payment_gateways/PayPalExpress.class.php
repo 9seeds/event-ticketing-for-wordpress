@@ -32,6 +32,9 @@ function wpevt_pg_paypal_express( $gateways ) {
             
             public function processPayment( $args ) {
                 echo 'paypal payment processors';
+                echo '<pre>';
+                print_r( $args );
+                echo '</pre>';
             }
             
             public function settingsForm( $data ) {

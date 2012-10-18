@@ -137,7 +137,7 @@ class WPEVT {
     function current_url() {
         $pageURL = 'http';
         
-        if ($_SERVER["HTTPS"] == "on") 
+        if ( isset( $_SERVER['HTTPS'] ) &&  'on' == $_SERVER["HTTPS"] ) 
             $pageURL .= "s";
         
         $pageURL .= "://";

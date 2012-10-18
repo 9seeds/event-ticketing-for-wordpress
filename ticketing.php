@@ -1753,6 +1753,8 @@ class eventTicketingSystem {
         
         // WPEVT configuration settings
         $o = get_option("eventTicketingSystem");
+        
+        $wpevt = WPEVT::instance();
 
         
         /*
@@ -1776,7 +1778,6 @@ class eventTicketingSystem {
          */
         if (!isset($o['eventTicketingStatus']) || $o['eventTicketingStatus'] != 1) {
             echo $o["messages"]["messageRegistrationComingSoon"];
-            //return(ob_get_clean());
             return;
         }
         
@@ -1785,13 +1786,16 @@ class eventTicketingSystem {
          * needs to pay
          */
         if (isset($_POST['packagePurchaseNonce']) && wp_verify_nonce($_POST['packagePurchaseNonce'], plugin_basename(__FILE__))) {
-            WPEVT::instance()->gateway()->processPayment();
+            $args = array(
+                'ticket_url'    => WPEVT::instance()->current_url()
+            );
+            WPEVT::instance()->gateway()->processPayment( $args );
             //die('trying to pay');
         }
 
-        //$_POST['paymentSuccessful'] = true;
+        $_POST['paymentSuccessful'] = true;
         if( isset( $_POST['paymentSuccessful'] ) ) {
-            self::showRegistrationForm();
+            self::ticketEditScreen();
             die( 'payment successful' );
         }
         
