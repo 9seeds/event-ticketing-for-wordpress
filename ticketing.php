@@ -1917,7 +1917,9 @@ class eventTicketingSystem {
             echo '<form action="" method="post">';
             echo '<input type="hidden" name="packagePurchaseNonce" id="packagePurchaseNonce" value="' . wp_create_nonce(plugin_basename(__FILE__)) . '" />';
             echo '<div>Please enter a name and email address for your confirmation and tickets</div>';
-            echo '<ul class="ticketPurchaseInfo"><li><label for="packagePurchaseName">Name:</label><input name="packagePurchaseName" size="35" value="' . $_REQUEST["packagePurchaseName"] . '"></li><li><label for="packagePurchaseEmail">Email:</label><input name="packagePurchaseEmail" size="35" value="' . $_REQUEST["packagePurchaseEmail"] . '"></li></ul>';
+            $packagePurchaseName = ( isset( $_POST['packagePurchaseName'] ) ) ? $_POST['packagePurchaseName']: '';
+            $packagePurchaseEmail = ( isset( $_POST['packagePurchaseEmail'] ) )? $_POST['packagePurchaseEmail']: '';
+            echo '<ul class="ticketPurchaseInfo"><li><label for="packagePurchaseName">Name:</label><input name="packagePurchaseName" size="35" value="' . $packagePurchaseName . '"></li><li><label for="packagePurchaseEmail">Email:</label><input name="packagePurchaseEmail" size="35" value="' . $packagePurchaseEmail . '"></li></ul>';
             echo '<div id="packages">';
             echo '<table>';
             echo '<tr>';
@@ -1931,9 +1933,11 @@ class eventTicketingSystem {
             foreach ($o["packageProtos"] as $k => $v) {
                 //determine remaining tickets so we don't display selectors that allow too many tickets to be sold
                 //overall attendance max takes precendece over individual package quantity limitation
-                $totalRemaining = $o["eventAttendance"] - $o["packageQuantities"]["totalTicketsSold"];
+                $totalTicketsSold = ( isset( $o["packageQuantities"] ) && isset( $o["packageQuantities"]["totalTicketsSold"] ) )? $o["packageQuantities"]["totalTicketsSold"]: 0;
+                $totalRemaining = $o["eventAttendance"] - $totalTicketsSold;
                 if ($v->packageQuantity) {
-                    $packageRemaining = $v->packageQuantity - $o["packageQuantities"][$v->packageId];
+                    $subtractor = ( isset( $o["packageQuantities"] ) && isset( $o["packageQuantities"][$v->packageId] ) )? $o["packageQuantities"][$v->packageId]: 0;
+                    $packageRemaining = $v->packageQuantity - $subtractor;
                     $packageCounter = ($packageRemaining * $v->ticketQuantity) < $totalRemaining ? $packageRemaining : floor($totalRemaining / $v->ticketQuantity);
                     $packageCounter = $packageCounter > 10 ? 10 : $packageCounter;
                 } else {
@@ -2027,7 +2031,7 @@ class eventTicketingSystem {
                 return (false);
             }
             if (strlen($_REQUEST["couponSubmitButton"])) {
-                if (is_array($o["coupons"][$_REQUEST["couponCode"]]) && is_numeric($o["coupons"][$_REQUEST["couponCode"]]["packageId"])) {
+                if ( isset( $o["coupons"] ) && is_array($o["coupons"][$_REQUEST["couponCode"]]) && is_numeric($o["coupons"][$_REQUEST["couponCode"]]["packageId"])) {
                     $coupon = $o["coupons"][$_REQUEST["couponCode"]];
                     if ($coupon["uses"] <= 0) {
                         $_SESSION["ticketingError"] = 'That coupon has already been used the maximum number of times';
