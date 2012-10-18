@@ -1965,7 +1965,10 @@ class eventTicketingSystem {
                 }
             }
             echo '<tr class="coupon"><td colspan="2"><label for="couponCode">Coupon Code:</label><input class="input" name="couponCode"></td><td colspan="' . ($o["displayPackageQuantity"] == 1 ? "2" : "1") . '"><input type="submit" name="couponSubmitButton" value="Apply Coupon"></td></tr>';
-            echo '<tr class="paypalbutton"><td colspan="' . ($o["displayPackageQuantity"] == 1 ? "4" : "3") . '"><input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"><div class="purchaseInstructions" >Choose your tickets and pay for them at PayPal. You will fill in your ticket information after your purchase is completed.</div></td></tr>';
+            
+            $paymentButton = WPEVT::instance()->gateway()->button();
+            
+            echo '<tr class="paypalbutton"><td colspan="' . ($o["displayPackageQuantity"] == 1 ? "4" : "3") . '">' . $paymentButton . '<div class="purchaseInstructions" >Choose your tickets and pay for them at PayPal. You will fill in your ticket information after your purchase is completed.</div></td></tr>';
             echo '</table>';
             echo '</div>'; // id="packages"
             echo '</form>';

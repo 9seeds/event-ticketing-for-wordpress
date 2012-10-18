@@ -103,5 +103,31 @@ class WPEVT {
     public function getPaymentGateways() {
         return $this->mPaymentGateways;
     }
+    
+    /**
+     * Returns an object representing the currently saved payment gateway from
+     * the settings page
+     * 
+     * @since 1.4
+     * @author Ben Lobaugh
+     * @returns WPEVT_PaymentGateway 
+     */
+    public function gateway() {
+        $o = get_option("eventTicketingSystem");
+        $pg = $o['paymentGateway'];
+        
+//        echo '<pre>';
+//        var_dump( $this->getPaymentGateways() );
+//        echo '</pre>';
+        
+        // Find the gateway object
+        foreach( $this->getPaymentGateways() AS $g ) {
+            if( $g->slug() == $pg )
+                return $g;
+        }
+        
+        // If we reach here no gateway was found
+        return null;
+    }
 
 } // end class

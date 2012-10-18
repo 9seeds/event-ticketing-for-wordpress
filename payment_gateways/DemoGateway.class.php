@@ -11,6 +11,10 @@ function wpevt_pg_demo( $gateways ) {
               echo 'There are some possible settings here';
            }
            
+           public function button() {
+               return '<input type="submit" name="paymentButton" />';
+           }
+           
            public function saveSettings() {
                $data = array();
                parent::saveSettings($data);

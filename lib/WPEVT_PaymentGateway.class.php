@@ -58,6 +58,17 @@ abstract class WPEVT_PaymentGateway {
     abstract public function settingsForm( $data );
     
     /**
+     * Payment button to display to the user
+     * 
+     * All buttons should be named 'paymentButton'
+     * 
+     * @since 1.4
+     * @author Ben Lobaugh 
+     */
+    abstract public function button();
+
+
+    /**
      * Retrieves the human friendly payment gateway display name
      * 
      * @since 1.4

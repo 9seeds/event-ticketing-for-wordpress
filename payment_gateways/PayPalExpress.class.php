@@ -26,6 +26,9 @@ function wpevt_pg_paypal_express( $gateways ) {
                 parent::saveSettings( $data );
             }
             
+            public function button() {
+                return '<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" name="paymentButton" />';
+            }
             
             
             public function settingsForm( $data ) {
