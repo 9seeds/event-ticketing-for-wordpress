@@ -2030,7 +2030,7 @@ class eventTicketingSystem {
                 $_SESSION["ticketingError"] = 'Please enter a name and email address';
                 return (false);
             }
-            if (strlen($_REQUEST["couponSubmitButton"])) {
+            if ( isset($_POST["couponSubmitButton"])) {
                 if ( isset( $o["coupons"] ) && is_array($o["coupons"][$_REQUEST["couponCode"]]) && is_numeric($o["coupons"][$_REQUEST["couponCode"]]["packageId"])) {
                     $coupon = $o["coupons"][$_REQUEST["couponCode"]];
                     if ($coupon["uses"] <= 0) {
@@ -2068,7 +2068,7 @@ class eventTicketingSystem {
             }
 
             //check for coupon package in the session...err...transient thing
-            $transient = get_transient($_COOKIE["event-ticketing-cookie"]);
+            $transient = get_transient(@$_COOKIE["event-ticketing-cookie"]);
             if ($transient instanceof package) {
                 $o["packageProtos"][$transient->packageId] = $transient;
             }
