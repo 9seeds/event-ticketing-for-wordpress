@@ -66,9 +66,22 @@ abstract class WPEVT_PaymentGateway {
      * @author Ben Lobaugh 
      */
     abstract public function button();
-
-
+    
     /**
+     * This function handles all of the processing of all payments, from displaying
+     * a payment form, to sending the user through the external payment gateway
+     * to actually pay for the item.
+     * 
+     * After payment has been successfully processed redirect to the ticket page
+     * so the user can complete registration. Set $_POST['paymentSuccessful'] 
+     * to anything
+     * 
+     * @since 1.4
+     * @author Ben Lobaugh 
+     */
+    abstract public function processPayment( $args );
+
+        /**
      * Retrieves the human friendly payment gateway display name
      * 
      * @since 1.4

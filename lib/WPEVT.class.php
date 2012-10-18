@@ -108,6 +108,8 @@ class WPEVT {
      * Returns an object representing the currently saved payment gateway from
      * the settings page
      * 
+     * 
+     * @example WPEVT::instance()->gateway();
      * @since 1.4
      * @author Ben Lobaugh
      * @returns WPEVT_PaymentGateway 
@@ -115,10 +117,6 @@ class WPEVT {
     public function gateway() {
         $o = get_option("eventTicketingSystem");
         $pg = $o['paymentGateway'];
-        
-//        echo '<pre>';
-//        var_dump( $this->getPaymentGateways() );
-//        echo '</pre>';
         
         // Find the gateway object
         foreach( $this->getPaymentGateways() AS $g ) {
@@ -128,6 +126,28 @@ class WPEVT {
         
         // If we reach here no gateway was found
         return null;
+    }
+    
+    /**
+     * Returns the URL to the current page. Correctly with HTTP or HTTPS
+     * 
+     * @see http://webcheatsheet.com/php/get_current_page_url.php
+     * @return string 
+     */
+    function current_url() {
+        $pageURL = 'http';
+        
+        if ($_SERVER["HTTPS"] == "on") 
+            $pageURL .= "s";
+        
+        $pageURL .= "://";
+        
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+        } else {
+            $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+        }
+        return $pageURL;
     }
 
 } // end class

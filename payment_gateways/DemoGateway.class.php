@@ -15,6 +15,9 @@ function wpevt_pg_demo( $gateways ) {
                return '<input type="submit" name="paymentButton" />';
            }
            
+           public function processPayment( $args ) {
+               echo 'processing demo payment';
+           }
            public function saveSettings() {
                $data = array();
                parent::saveSettings($data);

@@ -18,7 +18,7 @@ add_action('wp_print_styles', array("eventTicketingSystem", "frontendscripts"));
 add_action('admin_menu', array("eventTicketingSystem", "options"));
 add_shortcode('wpeventticketing', array("eventTicketingSystem", 'shortcode'));
 add_shortcode('wpeventticketingattendee', array("eventTicketingSystem", 'attendeeShortcode'));
-add_action('template_redirect', array("eventTicketingSystem", "paypal"));
+//add_action('template_redirect', array("eventTicketingSystem", "paypal"));
 add_action('wpmu_new_blog', array("eventTicketingSystem", "activate"), 1);
 
 
@@ -254,6 +254,11 @@ class eventTicketingSystem {
         if( isset( $_POST['paymentGateway'] ) ) {
             $o['paymentGateway'] = $_POST['paymentGateway'];
             update_option( 'eventTicketingSystem', $o );
+        }
+        
+        if (!isset($o["registrationPermalink"]) || (isset($o["registrationPermalink"]) && $o["registrationPermalink"] != get_permalink())) {
+            $o["registrationPermalink"] = get_permalink();
+            update_option("eventTicketingSystem", $o);
         }
         
         if( isset( $_GET['msg'] ) && 'paymentGateway' == $_GET['msg'] ) 
@@ -510,7 +515,9 @@ class eventTicketingSystem {
 
         echo '</div>';
         echo '</div>';
-    }
+        
+        
+    } // end function ticketSettings
 
     function ticketAttendeeEdit() {
         $o = get_option("eventTicketingSystem");
@@ -1725,15 +1732,74 @@ class eventTicketingSystem {
         echo '</div>';
     }
 
+    function showRegistrationForm() {
+        echo 'registration form';
+        
+    }
+    
+    
     function shortcode() {
-        //echo '<pre>'.print_r($_REQUEST,true).'</pre>';
+        /*
+         * Here is how the flow should happen, though it may not be right now...
+         * - If ticket registration not enabled tell user and end function
+         * - Check to see if user has submitted request for tickets
+         * --- Yes - load payment gateway payment processor
+         * - Was payment processed?
+         * --- Show form requesting the remaining ticket details from the user
+         * - Otherwise show the ticket form 
+         * 
+         * Ben Lobaugh - 10-17-2012
+         */
+        
+        // WPEVT configuration settings
         $o = get_option("eventTicketingSystem");
 
-        if (!isset($o["registrationPermalink"]) || (isset($o["registrationPermalink"]) && $o["registrationPermalink"] != get_permalink())) {
-            $o["registrationPermalink"] = get_permalink();
-            update_option("eventTicketingSystem", $o);
+        
+        /*
+         * Should not this be set already in settings? Pretty sure this is not
+         * necessary to have on the front side of things. 
+         * 
+         * Moving into ticketSettings
+         * 
+         * Ben Lobaugh - 10-17-2012
+         */
+//        if (!isset($o["registrationPermalink"]) || (isset($o["registrationPermalink"]) && $o["registrationPermalink"] != get_permalink())) {
+//            $o["registrationPermalink"] = get_permalink();
+//            update_option("eventTicketingSystem", $o);
+//        }
+        
+        
+        
+        /*
+         * Verify that ticket registration is enabled. If not alert the user
+         * and bail out
+         */
+        if (!isset($o['eventTicketingStatus']) || $o['eventTicketingStatus'] != 1) {
+            echo $o["messages"]["messageRegistrationComingSoon"];
+            //return(ob_get_clean());
+            return;
+        }
+        
+        /*
+         * Check to see if the user has submitted a ticket request and now
+         * needs to pay
+         */
+        if (isset($_POST['packagePurchaseNonce']) && wp_verify_nonce($_POST['packagePurchaseNonce'], plugin_basename(__FILE__))) {
+            WPEVT::instance()->gateway()->processPayment();
+            //die('trying to pay');
         }
 
+        //$_POST['paymentSuccessful'] = true;
+        if( isset( $_POST['paymentSuccessful'] ) ) {
+            self::showRegistrationForm();
+            die( 'payment successful' );
+        }
+        
+        
+        // Stop the rest of this function from executing so I can devel the new stuff :) - Ben Lobaugh
+       // return;
+        
+        // Why ob? - Ben Lobaugh 10-17-2012
         ob_start();
 
         if (!isset($o['eventTicketingStatus']) || $o['eventTicketingStatus'] != 1) {
@@ -1774,6 +1840,7 @@ class eventTicketingSystem {
                 $nvp['PAYMENTREQUEST_0_ITEMAMT'] = $total;
                 $nvpStr = nvp($nvp);
                 $resp = PPHttpPost($method, $nvpStr, $cred, $env);
+                die(' PayPaled it up on line 1782' );
             } else {
                 $order = get_option("coupon_" . $_REQUEST["couponSubmitNonce"]);
                 if (!$order) {
@@ -1976,7 +2043,7 @@ class eventTicketingSystem {
 
         echo '</div>'; // class="eventTicketing"
         return (ob_get_clean());
-    }
+    } // end function shortcode
 
     function ticketEditScreen() {
         //ticket form recieved
@@ -2023,7 +2090,8 @@ class eventTicketingSystem {
         }
     }
 
-    function paypal() {
+    function paypal() { 
+        die( 'I am in paypal(). Come and get me poser' );
         $o = get_option("eventTicketingSystem");
 
         //check order and build for later retrieval
