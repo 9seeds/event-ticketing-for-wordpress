@@ -124,4 +124,11 @@ abstract class WPEVT_PaymentGateway {
         wp_redirect( admin_url( 'admin.php?page=ticketsettings&msg=paymentGateway') );
     }
     
+    public function getSettings() {
+        $o = get_option("eventTicketingSystem");
+        
+        return $o['paymentGatewayData'][ $this->slug() ];
+    }
+    
+    
 } // end class

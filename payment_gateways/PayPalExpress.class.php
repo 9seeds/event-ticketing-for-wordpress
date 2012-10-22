@@ -30,11 +30,33 @@ function wpevt_pg_paypal_express( $gateways ) {
                 return '<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" name="paymentButton" />';
             }
             
+            // http://www.saaraan.com/2012/07/paypal-expresscheckout-with-php
             public function processPayment( $args ) {
-                echo 'paypal payment processors';
-                echo '<pre>';
-                print_r( $args );
-                echo '</pre>';
+                $o = $args['o'];
+
+                include(WPEVT_DIR . '/lib/nvp.php');
+                include(WPEVT_DIR . '/lib/paypal.php');
+                $p = $o["paypalInfo"];
+                $p = WPEVT::instance()->gateway()->getSettings();
+                $method = "SetExpressCheckout";
+               
+                $cred = array("apiuser" => $p["paypalAPIUser"], "apipwd" => $p["paypalAPIPwd"], "apisig" => $p["paypalAPISig"]);
+                $env = $p["paypalEnv"];
+                $nvp = array(
+                    'PAYMENTREQUEST_0_AMT' => $args['total'],
+                    "PAYMENTREQUEST_0_PAYMENTACTION" => 'Sale',
+                    "PAYMENTREQUEST_0_CURRENCYCODE" => $p["paypalCurrency"],
+                    'RETURNURL' => $args['ticket_url'],
+                    'CANCELURL' => $args['ticket_url']
+
+              );
+                $nvpStr = nvp($nvp);
+                $resp = PPHttpPost($method, $nvpStr, $cred, $env);
+                
+                if( isset( $resp['ACK'] )  && 'Success' == $resp['ACK'] ) {
+                    
+                }
+                echo '<pre>'; var_dump( $resp ); echo '</pre>';
             }
             
             public function settingsForm( $data ) {
