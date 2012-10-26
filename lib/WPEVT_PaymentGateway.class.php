@@ -80,6 +80,16 @@ abstract class WPEVT_PaymentGateway {
      * @author Ben Lobaugh 
      */
     abstract public function processPayment( $args );
+    
+    /**
+     * If the system needs to process a return from the gateway it can be triggerd
+     * by setting paymentReturn as a URL query param
+     * 
+     * paymentReturn should equal the saved ticket id
+     * 
+     * @param Integer $ticket_id
+     */
+    abstract public function processPaymentReturn( $ticket_id, $o );
 
         /**
      * Retrieves the human friendly payment gateway display name

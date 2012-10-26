@@ -9,8 +9,12 @@
 add_filter( 'wpevt_register_payment_gateway', 'wpevt_pg_paypal_express' );
 
 
+                
+                
 function wpevt_pg_paypal_express( $gateways ) { 
     if( !class_exists( 'PayPalExpress' ) ) {
+        require_once(WPEVT_DIR . '/lib/nvp.php');
+        require_once(WPEVT_DIR . '/lib/paypal.php');
         class PayPalExpress extends WPEVT_PaymentGateway {
 
             public function saveSettings() {
@@ -32,33 +36,97 @@ function wpevt_pg_paypal_express( $gateways ) {
             
             // http://www.saaraan.com/2012/07/paypal-expresscheckout-with-php
             public function processPayment( $args ) {
+                
                 $o = $args['o'];
 
-                include(WPEVT_DIR . '/lib/nvp.php');
-                include(WPEVT_DIR . '/lib/paypal.php');
+                
                 $p = $o["paypalInfo"];
                 $p = WPEVT::instance()->gateway()->getSettings();
                 $method = "SetExpressCheckout";
-               
+              // echo 'args<pre>'; print_r($p); echo '</pre>';
                 $cred = array("apiuser" => $p["paypalAPIUser"], "apipwd" => $p["paypalAPIPwd"], "apisig" => $p["paypalAPISig"]);
                 $env = $p["paypalEnv"];
                 $nvp = array(
-                    'PAYMENTREQUEST_0_AMT' => $args['total'],
-                    "PAYMENTREQUEST_0_PAYMENTACTION" => 'Sale',
-                    "PAYMENTREQUEST_0_CURRENCYCODE" => $p["paypalCurrency"],
-                    'RETURNURL' => $args['ticket_url'],
+                    'AMT' => number_format( $args['total'], 2 ),
+                    "PAYMENTACTION" => 'Sale',
+                    "CURRENCYCODE" => $p["paypalCurrency"],
+                    'RETURNURL' => $args['ticket_url'] . '&paymentReturn=' . $args['purchase_id'],
                     'CANCELURL' => $args['ticket_url']
 
               );
                 $nvpStr = nvp($nvp);
+                //echo $nvpStr; die();
                 $resp = PPHttpPost($method, $nvpStr, $cred, $env);
                 
                 if( isset( $resp['ACK'] )  && 'Success' == $resp['ACK'] ) {
-                    
+                    $paypalurl ='https://www.'.$env.'.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token='.$resp["TOKEN"].'';
+                    header('Location: '.$paypalurl);
+                } else {
+                    echo '<div class="ticketingerror">There was an error from PayPal<br />Error: <strong>' . urldecode($resp["L_LONGMESSAGE0"]) . '</strong></div>';
                 }
-                echo '<pre>'; var_dump( $resp ); echo '</pre>';
+               // echo '<pre>'; var_dump( $resp ); echo '</pre>';
             }
             
+            // We get to this function through RETURNURL
+            public function processPaymentReturn($ticket_id, $o ) { echo 'paymentreturn';
+                // Make sure the proper items are set
+                if(isset($_GET["token"]) && isset($_GET["PayerID"]) ) {
+                    //we will be using these two variables to execute the "DoExpressCheckoutPayment"
+                    //Note: we haven't received any payment yet.
+
+                    $token = $_GET["token"];
+                    $payer_id = $_GET["PayerID"];
+                    
+                    $purchase = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
+                    
+                    // Update the ticket with the PayPal details for posterity
+                    $post_content = unserialize( $purchase->post_content );
+                    
+                    $post_content['token'] = $_GET['token'];
+                    $post_content['PayerID'] = $_GET['PayerID'];
+                    
+                    $purchase->post_content = serialize( $post_content );
+                    
+                    wp_update_post( $purchase );
+                    
+                    $p = $o["paypalInfo"];
+                    $p = WPEVT::instance()->gateway()->getSettings();
+                    $cred = array("apiuser" => $p["paypalAPIUser"], "apipwd" => $p["paypalAPIPwd"], "apisig" => $p["paypalAPISig"]);
+                    $method = "DoExpressCheckoutPayment";
+                    $env = $p["paypalEnv"];
+                    $nvp = array(
+                        'TOKEN' => $_GET['token'],
+                        'PAYERID' => $_GET['PayerID'],
+                        'AMT' => number_format( $post_content['total'], 2 ),
+                        "PAYMENTACTION" => 'Sale',
+                        "CURRENCYCODE" => $p["paypalCurrency"],
+                        'RETURNURL' => $post_content['ticket_url'] . '&paymentSuccessful=' . $post_content['purchase_id'],
+                        'CANCELURL' => $post_content['ticket_url']
+                    );
+                    $nvpStr = nvp($nvp);
+                    $resp = PPHttpPost($method, $nvpStr, $cred, $env);
+                    
+                    echo '<pre>'; var_dump( $resp ); echo '</pre>';
+                    if( "SUCCESS" == strtoupper($resp["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($resp["ACK"]) ) {
+                        // Update post with payment info
+                        $post_content['TIMESTAMP'] = $resp['TIMESTAMP'];
+                        $post_content['CORRELATIONID'] = $resp['CORRELATIONID'];
+                        $post_content['PAYMENTTYPE'] = $resp['PAYMENTTYPE'];
+                        $post_content['ACK'] = $resp['ACK'];
+                        $post_content['ORDERTIME'] = $resp['ORDERTIME'];
+                        $post_content['AMT'] = $resp['AMT'];
+                        $post_content['FEEAMT'] = $resp['FEEAMT'];
+                        $post_content['TAXAMT'] = $resp['TAXAMT'];
+                        $post_content['PAYMENTSTATUS'] = $resp['PAYMENTSTATUS'];
+                        
+                        $purchase->post_content = serialize( $post_content );
+
+                        wp_update_post( $purchase );
+                        header('Location: '. $post_content['ticket_url'] . '&paymentSuccessful=1');
+                    }
+    
+                }
+            }
             public function settingsForm( $data ) {
                 ?>
 

@@ -1781,13 +1781,13 @@ class eventTicketingSystem {
             return;
         }
         
+        
+        
         /*
          * Check to see if the user has submitted a ticket request and now
          * needs to pay
          */
         if ( isset( $_POST['packagePurchaseNonce'] ) && verifyPost() ) { 
-            
-            
             /*
              * Build the package information the user chose
              */
@@ -1812,32 +1812,59 @@ class eventTicketingSystem {
                             break;
                     }
                 }
-                $total += $price;
+                $total += ( $price * $quantity );
                 
                 $p[] = array(
-                    'package'       => $package_id,
+                    'package_id'    => $package_id,
+                    'package'       => $package->packageName,
                     'price'         => $price,
                     'coupon'        => $_POST['couponCode'],
                     'quantity'      => $quantity,
-                    'description'   => $package->packageDescription
+                    'description'   => $package->packageDescription,
+                    'start'         => $package->expireStart,
+                    'end'           => $package->expireEnd
                 );
             }
             
+            
+            $ticket_url = add_query_arg( "ticket", $_POST['packagePurchaseNonce'], WPEVT::instance()->current_url() );
+            
             $args = array(
-                'ticket_url'    => WPEVT::instance()->current_url(),
+                'ticket_url'    => $ticket_url,
                 'o'             => $o,
                 'items'      => $p,
                 'event'         => $o["messages"]["messageEventName"] . ": Registration",
-                    'total'         => $total
+                    'total'         => $total,
+                'purchase_id'   => $_POST['packagePurchaseNonce'],
+                
             );
+            
+            /*
+             * Store ticket to retrieve later
+             */
+            $post = array(
+                'post_title'        => $_POST['packagePurchaseNonce'],
+                'post_content'      => serialize( $args ),
+                'post_type'         => 'wpevt_purchase'
+            );
+            $new_post_id = wp_insert_post( $post );
+            $args['purchase_post_id'] = $new_post_id;
             WPEVT::instance()->gateway()->processPayment( $args );
             //die('trying to pay');
         }
+        
+        
+        else if( isset( $_GET['paymentReturn'] ) ) {
+            WPEVT::instance()->gateway()->processPaymentReturn( $_GET['paymentReturn'], $o );
+        }
 
     //    $_POST['paymentSuccessful'] = false;
-        else if( isset( $_POST['paymentSuccessful'] ) ) {
+        else if( isset( $_REQUEST['paymentSuccessful'] ) ) {
             self::ticketEditScreen();
-            die( 'payment successful' );
+            
+            /*
+             * Subtract package quantity availability
+             */
         } 
         
         else if (!isset($o['eventTicketingStatus']) || $o['eventTicketingStatus'] != 1) {
@@ -2030,48 +2057,122 @@ class eventTicketingSystem {
     } // end function shortcode
 
     function ticketEditScreen() {
-        //ticket form recieved
-        if (wp_verify_nonce($_POST['ticketInformationNonce'], plugin_basename(__FILE__))) {
-            $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
-            //echo '<pre>'.print_r($_REQUEST,true).'</pre>';
-            $ticketHash = $_REQUEST["tickethash"];
-            $packageHash = $_REQUEST["packagehash"];
-            $package = get_option('package_' . $packageHash);
-            if ($package instanceof package) {
-                foreach ($_REQUEST["ticketOption"] as $oid => $oval) {
-                    $package->tickets[$ticketHash]->ticketOptions[$oid]->value = $oval;
+        
+        
+        $purchase = get_page_by_title( $_GET['ticket'], OBJECT, 'wpevt_purchase' );
+        $post_content = unserialize( $purchase->post_content );
+        
+        $o = $post_content['o'];
+        $packages = $o['packageProtos'];
+        $purchased_items = $post_content['items'];
+        
+        
+        
+        
+        
+        
+        
+        
+        // Get purchased pckages
+        $purchased_packages = array();
+        foreach( $purchased_items AS $p ) {
+            if( $p['quantity'] < 1 ) continue;
+            
+            $packages[$p['package_id']]->quantity = $p['quantity'];
+            
+            $purchased_packages[] = $packages[$p['package_id']];
+        }
+        
+        // Grab all the tickets
+        $tickets = array();
+        foreach( $purchased_packages AS $p ) {
+            foreach( $p->tickets AS $t ) {
+                for( $i = 0; $i < $p->quantity; $i++ ) {
+                    $tickets[] = $t;
                 }
-                //echo '<pre>'.print_r($package->tickets,true).'</pre>';
-                $package->tickets[$ticketHash]->final = true;
-                update_option('package_' . $packageHash, $package);
-
-                echo '<div id="message" class="updated">Your ticket has been saved</div>';
-            }
-        } else {
-            //pull ticketinfo
-            //display ticket form (filling in if this is already been finished)
-            $ticketHash = $_REQUEST["tickethash"];
-            $packageHash = get_option('ticket_' . $ticketHash);
-            $package = get_option('package_' . $packageHash);
-            if ($package instanceof package) {
-                $ticket = $package->tickets[$ticketHash];
-
-                //echo '<pre>'.print_r($ticket,true).'</pre>';
-                echo '<form name="ticketInformation" method="post" action="">';
-                echo '<table>';
-                echo '<input type="hidden" name="ticketInformationNonce" id="ticketInformationNonce" value="' . wp_create_nonce(plugin_basename(__FILE__)) . '" />';
-                echo '<input type="hidden" name ="tickethash" value="' . $ticketHash . '" />';
-                echo '<input type="hidden" name ="packagehash" value="' . $packageHash . '" />';
-                foreach ($ticket->ticketOptions as $option) {
-                    echo '<tr><td>' . $option->displayName . ':</td><td>' . $option->displayForm() . '</tr>';
-                }
-                echo '<tr><td colspan="2"><input type="submit" class="button-primary" name="submitbutt" value="Save Ticket Information"></td></tr>';
-                echo '</table>';
-                echo '</form>';
-            } else {
-                echo '<div class="ticketingerror">Your tickethash appears to be incorrect. Please check your link and try again</div>';
             }
         }
+        
+       // echo '<pre>'; print_r($tickets); echo '</pre>';
+        // Store saved ticket info
+        if( isset( $_POST['ticketInformationNonce'] ) ) {
+         //   echo '<pre>'; print_r($_POST); echo '</pre>';
+            
+            // Get each ticket to update
+            $new_tickets = array();
+           // echo '<pre>'; print_r($_POST); echo '</pre>';
+           // echo '<pre>'; print_r($tickets); echo '</pre>';
+            foreach( $tickets AS $k => $ticket ) {
+                $new_options = array();
+                foreach( $ticket->ticketOptions AS $i => $option ) {
+//                    echo '<pre>'; 
+//                    print_r($_POST['ticketOption']); 
+//                    print_r($_POST['ticketOption'][$i]); 
+//                    echo '</pre>';
+                    if( isset( $_POST['ticketOption'][$i] ) ) {
+                        $option->value = $_POST['ticketOption'][$i];
+                //        echo 'set';
+                    }
+                    $new_options[$i] = $option;
+                }
+                $ticket->ticketOptions = $new_options;
+                $new_tickets[] = $ticket;
+            }
+            $tickets = $new_tickets;
+            
+            $purchase->post_content = serialize( $post_content );
+            wp_update_post( $purchase );
+            require_once( WPEVT_DIR . '/views/ticketthanks.php' );
+            return;
+        }
+       // echo '<pre>'; print_r($tickets); echo '</pre>';
+        require_once( WPEVT_DIR . '/views/ticketedit.php' );
+        // echo '<pre>'; print_r($tickets); echo '</pre>';
+       // echo '<pre>'; print_r($post_content); echo '</pre>';
+        
+        return;
+        //ticket form recieved
+//        if (wp_verify_nonce($_POST['ticketInformationNonce'], plugin_basename(__FILE__))) {
+//            $_REQUEST = array_map('stripslashes_deep', $_REQUEST);
+//            //echo '<pre>'.print_r($_REQUEST,true).'</pre>';
+//            $ticketHash = $_REQUEST["tickethash"];
+//            $packageHash = $_REQUEST["packagehash"];
+//            $package = get_option('package_' . $packageHash);
+//            if ($package instanceof package) {
+//                foreach ($_REQUEST["ticketOption"] as $oid => $oval) {
+//                    $package->tickets[$ticketHash]->ticketOptions[$oid]->value = $oval;
+//                }
+//                //echo '<pre>'.print_r($package->tickets,true).'</pre>';
+//                $package->tickets[$ticketHash]->final = true;
+//                update_option('package_' . $packageHash, $package);
+//
+//                echo '<div id="message" class="updated">Your ticket has been saved</div>';
+//            }
+//        } else {
+//            //pull ticketinfo
+//            //display ticket form (filling in if this is already been finished)
+//            $ticketHash = $_REQUEST["tickethash"];
+//            $packageHash = get_option('ticket_' . $ticketHash);
+//            $package = get_option('package_' . $packageHash);
+//            if ($package instanceof package) {
+//                $ticket = $package->tickets[$ticketHash];
+//
+//                //echo '<pre>'.print_r($ticket,true).'</pre>';
+//                echo '<form name="ticketInformation" method="post" action="">';
+//                echo '<table>';
+//                echo '<input type="hidden" name="ticketInformationNonce" id="ticketInformationNonce" value="' . wp_create_nonce(plugin_basename(__FILE__)) . '" />';
+//                echo '<input type="hidden" name ="tickethash" value="' . $ticketHash . '" />';
+//                echo '<input type="hidden" name ="packagehash" value="' . $packageHash . '" />';
+//                foreach ($ticket->ticketOptions as $option) {
+//                    echo '<tr><td>' . $option->displayName . ':</td><td>' . $option->displayForm() . '</tr>';
+//                }
+//                echo '<tr><td colspan="2"><input type="submit" class="button-primary" name="submitbutt" value="Save Ticket Information"></td></tr>';
+//                echo '</table>';
+//                echo '</form>';
+//            } else {
+//                echo '<div class="ticketingerror">Your tickethash appears to be incorrect. Please check your link and try again</div>';
+//            }
+//        }
     }
 
     function paypal() { 

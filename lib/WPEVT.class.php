@@ -90,6 +90,7 @@ class WPEVT {
      */
     public function loadBuiltinPaymentGateways() {
         require_once( WPEVT_DIR . '/payment_gateways/PayPalExpress.class.php' );
+        require_once( WPEVT_DIR . '/payment_gateways/PayPalPayFlow.class.php' );
         require_once( WPEVT_DIR . '/payment_gateways/DemoGateway.class.php' );
     }
     
@@ -112,7 +113,7 @@ class WPEVT {
      * @example WPEVT::instance()->gateway();
      * @since 1.4
      * @author Ben Lobaugh
-     * @returns WPEVT_PaymentGateway 
+     * @return WPEVT_PaymentGateway 
      */
     public function gateway() {
         $o = get_option("eventTicketingSystem");

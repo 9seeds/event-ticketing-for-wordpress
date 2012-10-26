@@ -4,7 +4,7 @@ echo '<div id="eventTicketing">'; // wrap all output in this div for styling
 //This will catch any errors thrown in the paypal() method.
             //Have to use session because paypal() has to happen quite early to allow for the paypal redirect
 
-            if ( isset( $_POST['couponSubmitButton'] ) || !verifyPost() ) { //|| isset($_SESSION["ticketingError"]) && strlen($_SESSION["ticketingError"])) {
+            if ( isset( $_POST['packagePurchaseNonce'] ) && !verifyPost() ) { //|| isset($_SESSION["ticketingError"]) && strlen($_SESSION["ticketingError"])) {
                 
                // echo '<div class="ticketingerror">' . $_SESSION["ticketingError"] . '</div>';
                 echo '<div class="ticketingerror">Invalid form, please check your input</div>';

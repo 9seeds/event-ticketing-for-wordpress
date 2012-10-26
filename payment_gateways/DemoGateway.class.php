@@ -18,6 +18,9 @@ function wpevt_pg_demo( $gateways ) {
            public function processPayment( $args ) {
                echo 'processing demo payment';
            }
+           public function processPaymentReturn($ticket_id, $o) {
+               echo 'processing return from payment gateway';
+           }
            public function saveSettings() {
                $data = array();
                parent::saveSettings($data);
