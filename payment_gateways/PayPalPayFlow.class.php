@@ -47,7 +47,7 @@ function wpevt_pg_paypal_payflow($gateways) {
                 /**
                  * Create new Single Transaction.
                  */
-                $PayFlow = new PayFlow('blobaughtest', 'PayPal', 'blobaughtest', 'Zaq12wsx', 'single');
+                $PayFlow = new PayFlow('blobaughtest', 'PayPal', 'blobaughtest  ', 'Zaq12wsx', 'single');
 
                 $PayFlow->setEnvironment('test');
                 $PayFlow->setTransactionType('S');
