@@ -17,9 +17,10 @@ function wpevt_pg_paypal_payflow($gateways) {
             public function saveSettings() {
 
                 $data = array(
-                    "paypalAPIUser" => trim($_POST["paypalAPIUser"]),
-                    "paypalAPIPwd" => trim($_POST["paypalAPIPwd"]),
-                    "paypalAPISig" => trim($_POST["paypalAPISig"]),
+                    "payflowVendor" => trim($_POST["payflowVendor"]),
+                    "payflowPartner" => trim($_POST["payflowPartner"]),
+                    "payflowUser" => trim($_POST["payflowUser"]),
+                    "payflowPassword" => trim($_POST["payflowPassword"]),
                     "paypalEnv" => trim($_POST["paypalEnv"]),
                     "paypalCurrency" => $_POST["paypalCurrency"]
                 );
@@ -30,129 +31,156 @@ function wpevt_pg_paypal_payflow($gateways) {
             public function button() {
                 return '<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" name="paymentButton" />';
             }
-            
-           
 
             // http://www.richardcastera.com/projects/code/paypal-payflow-api-wrapper-class
             public function processPayment($args) {
-
                 $o = $args['o'];
+                // show payment info form
+                 // echo '<pre>'; print_r( $args ); echo '</pre>';
+                ?>
+                <div id="eventTicketing">
+                    <form method="post" action="">
+                        <input type="hidden" name="args" value="<?php echo serialize($args); ?>" />
+                        <input type="hidden" name="hasPaymentInfo" value="1" />
+                        <input type="hidden" name="paymentReturn" value="<?php echo $args['purchase_id']; ?>" />
+                        <input type="hidden" name="event" value="<?php echo $args['event']; ?>"/>
+                        <input type="hidden" name="total" value="<?php echo $args['total']; ?>" />
+                        <input type="hidden" name="purchase_post_id" value="<?php echo $args['purchase_post_id']; ?>"/>
+
+                        <table>
+                            <tr>
+                                <th><label for="nameOnCard">Name on card:</label></th>
+                                <td><input type="text" id="nameOnCard" name="nameOnCard" /></td>
+                            </tr>
+
+                            <tr>
+                                <th><label for="cardNumber">Card number:</label></th>
+                                <td><input type="text" id="cardNumber" name="cardNumber" /></td>
+                            </tr>
+
+                            <tr>
+                                <th><label for="cardSecurityCode">Card security code:</label></th>
+                                <td><input type="text" id="cardSecurityCode" name="cardSecurityCode" /></td>
+                            </tr>
+
+                            <tr>
+                                <th>Expiration:</th>
+                                <td>
+                                    <select name="expirationMonth">
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                            <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <select name="expirationYear">
+                                        <?php
+                                        $current_year = date('Y', time());
+                                        $end_year = $current_year + 10;
+                                        for ($current_year; $current_year <= $end_year; $current_year++) {
+                                            ?>
+                                            <option value="<?php echo $current_year; ?>"><?php echo $current_year; ?></option>
+                <?php } ?>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2"><input type="submit" name="submit_payment_info" value="Submit Payment Info" /></td>
+                            </tr>
+
+                        </table>
 
 
+                    </form>
+                </div>
+                <?php
+            }
+
+            // We get to this function through RETURNURL
+            public function processPaymentReturn($ticket_id, $o) {
+               
+                // Make sure the proper items are set
 
                 $p = WPEVT::instance()->gateway()->getSettings();
-
+                echo '<pre>';
+                print_r($p);
+                echo '</pre>';
 
                 require_once(WPEVT_DIR . '/lib/Class.PayFlow.php');
                 /**
                  * Create new Single Transaction.
                  */
-                $PayFlow = new PayFlow('blobaughtest', 'PayPal', 'blobaughtest  ', 'Zaq12wsx', 'single');
+                $PayFlow = new PayFlow( $p['payflowVendor'], $p['payflowPartner'], $p['payflowUser'], $p['payflowPassword'] , 'single');
 
                 $PayFlow->setEnvironment('test');
                 $PayFlow->setTransactionType('S');
                 $PayFlow->setPaymentMethod('C');
                 $PayFlow->setPaymentCurrency('USD');
 
-                $PayFlow->setAmount('15.00', FALSE);
-                $PayFlow->setCCNumber('378282246310005');
-                $PayFlow->setCVV('4685');
+                $PayFlow->setAmount( number_format( $_POST['total'], 2 ), FALSE);
+                $PayFlow->setCCNumber( $_POST['cardNumber']);
+                $PayFlow->setCVV( $_POST['cardSecurityCode'] );
+                
+                
+                $card_expiration = $_POST['expirationMonth'] . substr( $_POST['expirationYear'], 2 );
+               
                 $PayFlow->setExpiration('1112');
                 $PayFlow->setCreditCardName('Richard Castera');
 
-                $PayFlow->setCustomerFirstName('Richard');
-                $PayFlow->setCustomerLastName('Castera');
-                $PayFlow->setCustomerAddress('589 8th Ave Suite 10');
-                $PayFlow->setCustomerCity('New York');
-                $PayFlow->setCustomerState('NY');
-                $PayFlow->setCustomerZip('10018');
-                $PayFlow->setCustomerCountry('US');
-                $PayFlow->setCustomerPhone('212-123-1234');
-                $PayFlow->setCustomerEmail('richard.castera@gmail.com');
-                $PayFlow->setPaymentComment('New Regular Transaction');
-                $PayFlow->setPaymentComment2('Product 233');
+//                    $PayFlow->setCustomerFirstName('Richard');
+//                    $PayFlow->setCustomerLastName('Castera');
+//                    $PayFlow->setCustomerAddress('589 8th Ave Suite 10');
+//                    $PayFlow->setCustomerCity('New York');
+//                    $PayFlow->setCustomerState('NY');
+//                    $PayFlow->setCustomerZip('10018');
+//                    $PayFlow->setCustomerCountry('US');
+//                    $PayFlow->setCustomerPhone('212-123-1234');
+//                    $PayFlow->setCustomerEmail('richard.castera@gmail.com');
+//                    $PayFlow->setPaymentComment('New Regular Transaction');
+//                    $PayFlow->setPaymentComment2('Product 233');
 
-                if ($PayFlow->processTransaction()):
-                    echo('Transaction Processed Successfully!');
-                else:
-                    echo('Transaction could not be processed at this time.');
-                endif;
-
-                echo('<h2>Name Value Pair String:</h2>');
-                echo('<pre>');
-                print_r($PayFlow->debugNVP('array'));
-                echo('</pre>');
-
-                echo('<h2>Response From Paypal:</h2>');
-                echo('<pre>');
-                print_r($PayFlow->getResponse());
-                echo('</pre>');
-
-                unset($PayFlow);
-               
+                if ($PayFlow->processTransaction()) {
+                    //echo('Transaction Processed Successfully!');
+                    $purchase = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
+                    
+                    // Update the ticket with the PayPal details for posterity
+                    $post_content = unserialize( $purchase->post_content );
+                    
+                    $post_content['payflowResponse'] = $PayFlow->getResponse();
+                    $post_content['payflowDebug'] = $PayFlow->debugNVP('array');
+                    
+                    $purchase->post_content = serialize( $post_content );
+                    
+                    wp_update_post( $purchase );
+                    
+                    header('Location: '. $post_content['ticket_url'] . '&paymentSuccessful=1');
+                } else {
+                    echo('Transaction from PayPal could not be processed at this time.');
+                    $purchase = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
+                    
+                    // Update the ticket with the PayPal details for posterity
+                    $post_content = unserialize( $purchase->post_content );
+                    
+                    $post_content['payflowResponse'] = $PayFlow->getResponse();
+                    $post_content['payflowDebug'] = $PayFlow->debugNVP('array');
+                    
+                    $purchase->post_content = serialize( $post_content );
+                    
+                    wp_update_post( $purchase );
                 }
 
-                // We get to this function through RETURNURL
-                public function processPaymentReturn($ticket_id, $o ) { echo 'paymentreturn';
-                // Make sure the proper items are set
-                if(isset($_GET["token"]) && isset($_GET["PayerID"]) ) {
-                //we will be using these two variables to execute the "DoExpressCheckoutPayment"
-                //Note: we haven't received any payment yet.
+//                echo('<h2>Name Value Pair String:</h2>');
+//                echo('<pre>');
+//                print_r($PayFlow->debugNVP('array'));
+//                echo('</pre>');
+//
+//                echo('<h2>Response From Paypal:</h2>');
+//                echo('<pre>');
+//                print_r($PayFlow->getResponse());
+//                echo('</pre>');
+            }
 
-                $token = $_GET["token"];
-                $payer_id = $_GET["PayerID"];
-
-                $purchase = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
-
-                // Update the ticket with the PayPal details for posterity
-                $post_content = unserialize( $purchase->post_content );
-
-                $post_content['token'] = $_GET['token'];
-                $post_content['PayerID'] = $_GET['PayerID'];
-
-                $purchase->post_content = serialize( $post_content );
-
-                wp_update_post( $purchase );
-
-                $p = $o["paypalInfo"];
-                $p = WPEVT::instance()->gateway()->getSettings();
-                $cred = array("apiuser" => $p["paypalAPIUser"], "apipwd" => $p["paypalAPIPwd"], "apisig" => $p["paypalAPISig"]);
-                $method = "DoExpressCheckoutPayment";
-                $env = $p["paypalEnv"];
-                $nvp = array(
-                'TOKEN' => $_GET['token'],
-                'PAYERID' => $_GET['PayerID'],
-                'AMT' => number_format( $post_content['total'], 2 ),
-                "PAYMENTACTION" => 'Sale',
-                "CURRENCYCODE" => $p["paypalCurrency"],
-                'RETURNURL' => $post_content['ticket_url'] . '&paymentSuccessful=' . $post_content['purchase_id'],
-                'CANCELURL' => $post_content['ticket_url']
-                );
-                $nvpStr = nvp($nvp);
-                $resp = PPHttpPost($method, $nvpStr, $cred, $env);
-
-                echo '<pre>'; var_dump( $resp ); echo '</pre>';
-                if( "SUCCESS" == strtoupper($resp["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($resp["ACK"]) ) {
-                // Update post with payment info
-                $post_content['TIMESTAMP'] = $resp['TIMESTAMP'];
-                $post_content['CORRELATIONID'] = $resp['CORRELATIONID'];
-                $post_content['PAYMENTTYPE'] = $resp['PAYMENTTYPE'];
-                $post_content['ACK'] = $resp['ACK'];
-                $post_content['ORDERTIME'] = $resp['ORDERTIME'];
-                $post_content['AMT'] = $resp['AMT'];
-                $post_content['FEEAMT'] = $resp['FEEAMT'];
-                $post_content['TAXAMT'] = $resp['TAXAMT'];
-                $post_content['PAYMENTSTATUS'] = $resp['PAYMENTSTATUS'];
-
-                $purchase->post_content = serialize( $post_content );
-
-                wp_update_post( $purchase );
-                header('Location: '. $post_content['ticket_url'] . '&paymentSuccessful=1');
-                }
-
-                }
-                }
-                public function settingsForm( $data ) {
+            public function settingsForm($data) {
                 ?>
 
                 <table class="form-table">			
@@ -164,16 +192,21 @@ function wpevt_pg_paypal_payflow($gateways) {
                             </select></td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="paypalAPIUser">API User: </label></th>
-                        <td><input id="paypalAPIUser" type="text" maxlength="110" size="45" name="paypalAPIUser" value="<?php echo $data["paypalAPIUser"]; ?>" /></td>
+                        <th scope="row"><label for="payflowVendor">Vendor: </label></th>
+                        <td><input id="payflowVendor" type="text" maxlength="110" size="45" name="payflowVendor" value="<?php echo @$data["payflowVendor"]; ?>" /></td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="paypalAPIPwd">API Password: </label></th>
-                        <td><input id="paypalAPIPwd" type="text" maxlength="110" size="24" name="paypalAPIPwd" value="<?php echo $data["paypalAPIPwd"]; ?>" /></td>
+                        <th scope="row"><label for="payflowPartner">Partner: </label></th>
+                        <td><input id="payflowPartner" type="text" maxlength="110" size="24" name="payflowPartner" value="<?php echo @$data["payflowPartner"]; ?>" /></td>
                     </tr>
                     <tr valign="top">
-                        <th scope="row"><label for="paypalAPISig">API Signature: </label></th>
-                        <td><input id="paypalAPISig" type="text" maxlength="110" size="75" name="paypalAPISig" value="<?php echo $data["paypalAPISig"]; ?>" /></td>
+                        <th scope="row"><label for="payflowUser">User: </label></th>
+                        <td><input id="payflowUser" type="text" maxlength="110" size="75" name="payflowUser" value="<?php echo @$data["payflowUser"]; ?>" /></td>
+
+                    </tr>
+                    <tr valign="top">
+                        <th scope="row"><label for="payflowPassword">Password: </label></th>
+                        <td><input id="payflowPassword" type="text" maxlength="110" size="75" name="payflowPassword" value="<?php echo @$data["payflowPassword"]; ?>" /></td>
 
                     </tr>
                     <tr valign="top">

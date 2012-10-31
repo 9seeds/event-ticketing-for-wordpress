@@ -1781,7 +1781,7 @@ class eventTicketingSystem {
             return;
         }
         
-        
+       // echo '<pre>'; print_r($_POST); echo '</pre>';
         
         /*
          * Check to see if the user has submitted a ticket request and now
@@ -1836,6 +1836,8 @@ class eventTicketingSystem {
                 'event'         => $o["messages"]["messageEventName"] . ": Registration",
                     'total'         => $total,
                 'purchase_id'   => $_POST['packagePurchaseNonce'],
+                'name'          => $_POST['packagePurchaseName'],
+                'email'         => $_POST['packagePurchaseEmail']
                 
             );
             
@@ -1854,8 +1856,8 @@ class eventTicketingSystem {
         }
         
         
-        else if( isset( $_GET['paymentReturn'] ) ) {
-            WPEVT::instance()->gateway()->processPaymentReturn( $_GET['paymentReturn'], $o );
+        else if( isset( $_REQUEST['paymentReturn'] ) ) {
+            WPEVT::instance()->gateway()->processPaymentReturn( $_REQUEST['paymentReturn'], $o );
         }
 
     //    $_POST['paymentSuccessful'] = false;
@@ -2055,6 +2057,25 @@ class eventTicketingSystem {
             //require_once( WPEVT_DIR . '/views/ticketform.php' );
         }
     } // end function shortcode
+    
+    function emailTicketInfo( $name, $email, $ticket_url ) {
+        $o = get_option("eventTicketingSystem");
+        
+        $headers = 'From: ' . $o["messages"]["messageEmailFromName"] . ' <' . $o["messages"]["messageEmailFromEmail"] . '>' . "\r\n";
+        $headers .= 'Bcc: ' . $o["messages"]["messageEmailBcc"] . "\r\n";
+        wp_mail($email, $o["messages"]["messageEmailSubj"], str_replace('[ticketlinks]', $ticket_url, $o["messages"]["messageEmailBody"]), $headers);
+        
+        echo 'wp_mail('.$email.', '.$o["messages"]["messageEmailSubj"].', '.str_replace('[ticketlinks]', $ticket_url, $o["messages"]["messageEmailBody"]).', '.$headers.');';
+
+        $ordersummarymsg = "Order Placed\r\n";
+
+        $ordersummarymsg .= $name . ' <' . $email . '> ordered ticket';
+//        foreach ($order["items"] as $ord) {
+//            $ordersummarymsg .= $ord["quantity"] . ' X ' . $ord["name"] . ' for ' . eventTicketingSystem::currencyFormat($ord["price"]) . " each\r\n";
+//        }
+        $ordersummarymsg .= "\r\n";
+        wp_mail($o["messages"]["messageEmailBcc"], "Event Order Placed", $ordersummarymsg, $headers);
+    }
 
     function ticketEditScreen() {
         
@@ -2122,6 +2143,10 @@ class eventTicketingSystem {
             
             $purchase->post_content = serialize( $post_content );
             wp_update_post( $purchase );
+            
+            // Email user about their ticket
+            self::emailTicketInfo( $post_content['name'], $post_content['email'], $post_content['ticket_url'] );
+            
             require_once( WPEVT_DIR . '/views/ticketthanks.php' );
             return;
         }
