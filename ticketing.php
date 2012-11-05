@@ -123,8 +123,8 @@ class eventTicketingSystem {
 //        echo '<h3>' . __('Create Tickets Manually') . '</h3>';
 //        echo '<p>' . __('You may find it necessary to create a ticket for somebody manually. Use the form on the <a href="admin.php?page=ticketattendeeedit">Attendees</a> page to create a ticket, as an example, for somebody who may have paid cash.') . '</p>';
 
-        echo '<h3>' . __('Export Attendee List') . '</h3>';
-        echo '<p>' . __('Also on the Attendee page you have the option to export a list of all the attendees. This creates a CSV of all attendees and the data they\'ve provided.') . '</p>';
+//        echo '<h3>' . __('Export Attendee List') . '</h3>';
+//        echo '<p>' . __('Also on the Attendee page you have the option to export a list of all the attendees. This creates a CSV of all attendees and the data they\'ve provided.') . '</p>';
 
         echo '<h3>' . __('Display Attendees Shortcode') . '</h3>';
         echo '<p>' . __('Place a shortcode on a page and your attendees will be displayed. [wpeventticketingattendee] will display the list sorted by sold time. You can sort the list by first name [wpeventticketingattendee sort="First Name"], last name [wpeventticketingattendee sort="Last Name"] or twitter id [wpeventticketingattendee sort="Twitter"] as well.<br /><br />If you use the shortcode you will have to put something similar to the following into your stylesheet.') . '</p><pre>.event-attendee {
