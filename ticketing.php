@@ -74,7 +74,7 @@ class eventTicketingSystem {
         add_submenu_page('eventticketing', 'Tickets', 'Tickets', 'activate_plugins', 'tickettickets', array('eventTicketingSystem', 'ticketTicketsControl'));
         add_submenu_page('eventticketing', 'Packages', 'Packages', 'activate_plugins', 'ticketpackages', array('eventTicketingSystem', 'ticketPackagesControl'));
         add_submenu_page('eventticketing', 'Coupons', 'Coupons', 'activate_plugins', 'ticketcoupons', array('eventTicketingSystem', 'ticketCouponsControl'));
-        add_submenu_page('eventticketing', 'Notify Attendees', 'Notify Attendees', 'activate_plugins', 'ticketnotify', array('eventTicketingSystem', 'ticketNotify'));
+       // add_submenu_page('eventticketing', 'Notify Attendees', 'Notify Attendees', 'activate_plugins', 'ticketnotify', array('eventTicketingSystem', 'ticketNotify'));
         add_submenu_page('eventticketing', 'Attendees', 'Attendees', 'activate_plugins', 'ticketattendeeedit', array('eventTicketingSystem', 'ticketAttendeeEdit'));
         add_submenu_page('eventticketing', 'Instructions', 'Instructions', 'activate_plugins', 'ticketinstructions', array('eventTicketingSystem', 'ticketInstructions'));
         add_submenu_page('eventticketing', 'Settings', 'Settings', 'activate_plugins', 'ticketsettings', array('eventTicketingSystem', 'ticketSettings'));
@@ -117,11 +117,11 @@ class eventTicketingSystem {
         echo '<h3>' . __('Create Coupons') . '</h3>';
         echo '<p>' . __('On the <a href="admin.php?page=ticketcoupons">Coupons</a> page you can create an easy way to give discounts on tickets. Create a ticket code, set a flat-rate or percentage discount and select the number of times it can be used. This is handy for giving your speakers free entry to the event, but having them register so they are included in the attendee list and receive email notifications you might send.') . '</p>';
 
-        echo '<h3>' . __('Send Emails to Attendees') . '</h3>';
-        echo '<p>' . __('The <a href="admin.php?page=ticketnotify">Notify Attendees</a> page will let you send an email to everybody on the Attendee list. A copy of the email gets sent to the admin automatically. A history of the messages sent is stored and displayed at the bottom of the page.') . '</p>';
+//        echo '<h3>' . __('Send Emails to Attendees') . '</h3>';
+//        echo '<p>' . __('The <a href="admin.php?page=ticketnotify">Notify Attendees</a> page will let you send an email to everybody on the Attendee list. A copy of the email gets sent to the admin automatically. A history of the messages sent is stored and displayed at the bottom of the page.') . '</p>';
 
-        echo '<h3>' . __('Create Tickets Manually') . '</h3>';
-        echo '<p>' . __('You may find it necessary to create a ticket for somebody manually. Use the form on the <a href="admin.php?page=ticketattendeeedit">Attendees</a> page to create a ticket, as an example, for somebody who may have paid cash.') . '</p>';
+//        echo '<h3>' . __('Create Tickets Manually') . '</h3>';
+//        echo '<p>' . __('You may find it necessary to create a ticket for somebody manually. Use the form on the <a href="admin.php?page=ticketattendeeedit">Attendees</a> page to create a ticket, as an example, for somebody who may have paid cash.') . '</p>';
 
         echo '<h3>' . __('Export Attendee List') . '</h3>';
         echo '<p>' . __('Also on the Attendee page you have the option to export a list of all the attendees. This creates a CSV of all attendees and the data they\'ve provided.') . '</p>';
@@ -580,7 +580,7 @@ class eventTicketingSystem {
         }
 
         if (!((isset($_REQUEST["edit"]) && is_numeric($_REQUEST["edit"])) || (isset($_REQUEST["manualCreatePackageId"]) && is_numeric($_REQUEST["manualCreatePackageId"])))) {
-            if (is_array($o["packageProtos"])) {
+            if (false && is_array($o["packageProtos"])) {
                 echo '<div id="icon-users" class="icon32"></div><h2>Create Manual Ticket</h2>';
                 echo '<form method="post" action="">';
                 echo '<input type="hidden" name="manualCreatePackageNonce" id="manualCreatePackageNonce" value="' . wp_create_nonce(plugin_basename(__FILE__)) . '" />';
@@ -599,9 +599,10 @@ class eventTicketingSystem {
 
             echo '<div id="icon-profile" class="icon32"></div><h2>Attendee List</h2>';
 
-            if (!isset($_REQUEST["attendeesort"]))
-                $_REQUEST["attendeesort"] = 'Sold Time';
-            eventTicketingSystem::generateAttendeeTable(urldecode($_REQUEST["attendeesort"]));
+//            if (!isset($_REQUEST["attendeesort"]))
+//                $_REQUEST["attendeesort"] = 'Sold Time';
+//            eventTicketingSystem::generateAttendeeTable(urldecode($_REQUEST["attendeesort"]));
+            eventTicketingSystem::showAdminAttendeeList();
         }
         echo '</div>';
         //echo '</div>';
@@ -844,6 +845,44 @@ class eventTicketingSystem {
         }
         return array();
     }
+    
+    function showAttendeeList() {
+        
+        // Remove user if requested
+        if( isset( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) ) { 
+            // Injection point. Shore up with nonce
+            wp_delete_post( $_GET['delete'] );
+        }
+        
+        // Get list of sold tickets
+        $args = array(
+            'post_type' => 'wpevt_purchase',
+            'post_status' => 'any'
+        );
+        $results = new WP_Query( $args );
+        $results = $results->get_posts();
+        
+        require_once( WPEVT_DIR . '/views/attendeelist.php' );
+    }
+    
+    function showAdminAttendeeList() {
+        
+        // Remove user if requested
+        if( isset( $_GET['delete'] ) && is_numeric( $_GET['delete'] ) ) { 
+            // Injection point. Shore up with nonce
+            wp_delete_post( $_GET['delete'] );
+        }
+        
+        // Get list of sold tickets
+        $args = array(
+            'post_type' => 'wpevt_purchase',
+            'post_status' => 'any'
+        );
+        $results = new WP_Query( $args );
+        $results = $results->get_posts();
+        
+        require_once( WPEVT_DIR . '/views/admin/attendeelist.php' );
+    }
 
     function getAttendeeArr() {
         $o = get_option("eventTicketingSystem");
@@ -885,6 +924,9 @@ class eventTicketingSystem {
     }
 
     function attendeeShortcode($atts) {
+        
+        eventTicketingSystem::showAttendeeList();
+        return;
 
         extract(shortcode_atts(array(
                     'sort' => 'Sold Time',
