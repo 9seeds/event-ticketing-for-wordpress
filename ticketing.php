@@ -1737,6 +1737,13 @@ class eventTicketingSystem {
         require_once( WPEVT_DIR . '/views/ticketform.php' );
     }
     
+    function showTicket( $ticket_id ) {
+        $ticket = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
+        $ticket = unserialize( $ticket->post_content );
+        
+        require_once( WPEVT_DIR . '/views/showticket.php' );
+    }
+    
     
     function shortcode() {
         /*
@@ -1872,6 +1879,14 @@ class eventTicketingSystem {
         else if (!isset($o['eventTicketingStatus']) || $o['eventTicketingStatus'] != 1) {
             echo $o["messages"]["messageRegistrationComingSoon"];
            
+        }
+        
+        else if( isset( $_GET['ticket'] ) ) {
+            /*
+             * User wants to see their ticket
+             */
+            
+            self::showTicket( $_GET['ticket'] );
         }
         
         else { 
@@ -2065,7 +2080,7 @@ class eventTicketingSystem {
         $headers .= 'Bcc: ' . $o["messages"]["messageEmailBcc"] . "\r\n";
         wp_mail($email, $o["messages"]["messageEmailSubj"], str_replace('[ticketlinks]', $ticket_url, $o["messages"]["messageEmailBody"]), $headers);
         
-        echo 'wp_mail('.$email.', '.$o["messages"]["messageEmailSubj"].', '.str_replace('[ticketlinks]', $ticket_url, $o["messages"]["messageEmailBody"]).', '.$headers.');';
+       // echo 'wp_mail('.$email.', '.$o["messages"]["messageEmailSubj"].', '.str_replace('[ticketlinks]', $ticket_url, $o["messages"]["messageEmailBody"]).', '.$headers.');';
 
         $ordersummarymsg = "Order Placed\r\n";
 
