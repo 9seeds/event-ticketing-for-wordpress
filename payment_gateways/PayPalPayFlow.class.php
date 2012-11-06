@@ -102,9 +102,9 @@ function wpevt_pg_paypal_payflow($gateways) {
                 // Make sure the proper items are set
 
                 $p = WPEVT::instance()->gateway()->getSettings();
-                echo '<pre>';
-                print_r($p);
-                echo '</pre>';
+//                echo '<pre>';
+//                print_r($p);
+//                echo '</pre>';
 
                 require_once(WPEVT_DIR . '/lib/Class.PayFlow.php');
                 /**
