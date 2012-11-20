@@ -23,7 +23,7 @@ add_shortcode('wpeventticketingattendee', array("eventTicketingSystem", 'attende
 add_action('wpmu_new_blog', array("eventTicketingSystem", "activate"), 1);
 
 
-
+// <meta http-equiv="Location" content="http://example.com/">
 class eventTicketingSystem {
     
 
@@ -1788,6 +1788,7 @@ class eventTicketingSystem {
     
     
     function shortcode() {
+        ob_start(); // Bad hack to prevent header() errors
         /*
          * Here is how the flow should happen, though it may not be right now...
          * - If ticket registration not enabled tell user and end function
@@ -1935,6 +1936,7 @@ class eventTicketingSystem {
             self::showRegistrationForm( $o );
            // die();
         }
+        ob_end_flush();
         return;
         
         // Stop the rest of this function from executing so I can devel the new stuff :) - Ben Lobaugh
