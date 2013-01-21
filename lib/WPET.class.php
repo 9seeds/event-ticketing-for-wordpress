@@ -4,10 +4,24 @@ class WPET {
     
     
     public function __construct() {
-       add_action('admin_menu', array( &$this, 'setupMenu' ) );
+        
+        /*
+         * Items that should only run in wp-admin
+         * 
+         * Reduces overhead on page load
+         */
+        if( is_admin() ) {
+            add_action('admin_menu', array( &$this, 'setupMenu' ) );
+        }
+       
     }
     
-    
+    /**
+     * Builds the Ticket menu in wp-admin
+     * 
+     * @since 2.0
+     * @uses wpet_admin_menu_items 
+     */
     public function setupMenu() {
         add_object_page('Tickets', 'Tickets', 'add_users', 'tickets', array( &$this, 'vtReporting' ) );
         $menu_items = array(
@@ -22,7 +36,6 @@ class WPET {
         );
         
         $menu_items = apply_filters( 'wpet_admin_menu_items', $menu_items );
-        
         
         foreach( $menu_items AS $i ) {
             add_submenu_page( 'tickets', $i[0], $i[1], $i[2], $i[3], $i[4] );
