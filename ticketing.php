@@ -6,20 +6,20 @@ Description: The WP Event Ticketing plugin makes it easy to sell and manage tick
 Author: 9seeds.com
 Version: 2.0
 Author URI: http://9seeds.com/
-Text Domain: wpevt
+Text Domain: wpet
 */
 
-define( 'WPEVT_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );
-define( 'WPEVT_PLUGIN_URL', trailingslashit( WP_CONTENT_URL . '/' . basename( __DIR__ ))  );
+define( 'WPET_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );
+define( 'WPET_PLUGIN_URL', trailingslashit( WP_CONTENT_URL . '/' . basename( __DIR__ ))  );
 
 
-require_once( 'lib/WPEVT.class.php' );
+require_once( 'lib/WPET.class.php' );
 
-register_activation_hook( __FILE__, array( 'WPEVT', 'activate' ) );
+register_activation_hook( __FILE__, array( 'WPET', 'activate' ) );
 
-register_deactivation_hook( __FILE__, array( 'WPEVT', 'deactivate' ) );
+register_deactivation_hook( __FILE__, array( 'WPET', 'deactivate' ) );
 
-register_uninstall_hook( __FILE__, array( 'WPEVT', 'uninstall' ) );
+register_uninstall_hook( __FILE__, array( 'WPET', 'uninstall' ) );
 
-$wpevt = new WPEVT();
+$wpet = new WPET();
 
