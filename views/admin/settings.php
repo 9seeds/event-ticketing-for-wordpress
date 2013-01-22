@@ -1,7 +1,8 @@
-settings<?php
+settings
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-?>
+<?php 
+
+foreach( $data['settings'] AS $inst ) {
+    echo "<h2>{$inst['title']}</h2>";
+    echo "<p>{$inst['text']}</p>";
+}

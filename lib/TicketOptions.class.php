@@ -20,7 +20,7 @@ class TicketOptions {
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Ticket Options', 'Ticket Options', 'add_users', 'tickets', array( &$this, 'vtTicketOptions' ) );
+        $menu[] = array( 'Ticket Options', 'Ticket Options', 'add_users', 'ticket_options', array( &$this, 'vtTicketOptions' ) );
         return $menu;
     }
 } // end class
