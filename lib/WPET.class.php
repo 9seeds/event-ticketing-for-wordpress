@@ -4,7 +4,8 @@ class WPET {
     
     
     public function __construct() {
-        
+        require_once 'Attendees.class.php';
+        new Attendees();
         /*
          * Items that should only run in wp-admin
          * 
@@ -30,13 +31,13 @@ class WPET {
             array( 'Tickets', 'Tickets', 'add_users', 'tickets', array( &$this, 'vtTickets' ) ),
             array( 'Packages', 'Packages', 'add_users', 'packages', array( &$this, 'vtPackages' ) ),
             array( 'Coupons', 'Coupons', 'add_users', 'coupons', array( &$this, 'vtCoupons' ) ),
-            array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'notify-attendees', array( &$this, 'vtNotify' ) ),
-            array( 'Attendees', 'Attendees', 'add_users', 'attendees', array( &$this, 'vtAttendees' ) ),
+            
+            
             array( 'Instructions', 'Instructions', 'add_users', 'instructions', array( &$this, 'vtInstructions' ) ),
             array( 'Settings', 'Settings', 'add_users', 'settings', array( &$this, 'vtSettings' ) )
         );
         
-        $menu_items = apply_filters( 'wpet_admin_menu_items', $menu_items );
+        $menu_items = apply_filters( 'wpet_admin_menu', $menu_items );
         
         foreach( $menu_items AS $i ) {
             add_submenu_page( 'tickets', $i[0], $i[1], $i[2], $i[3], $i[4] );
