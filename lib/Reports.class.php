@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class Tickets {
+class Reports {
 
     /**
      * @since 2.0 
@@ -13,14 +13,14 @@ class Tickets {
     }
     
     /**
-     * Add Tickets links to the Tickets menu
+     * Add Reports links to the Tickets menu
      * 
      * @since 2.0
      * @param type $menu
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Tickets', 'Tickets', 'add_users', 'tickets', array( &$this, 'vtTickets' ) );
+        $menu[] = array( 'Reports', 'Reports', 'add_users', 'reporting', array( &$this, 'vtReporting' ) );
         return $menu;
     }
 } // end class

@@ -21,5 +21,5 @@ register_deactivation_hook( __FILE__, array( 'WPET', 'deactivate' ) );
 
 register_uninstall_hook( __FILE__, array( 'WPET', 'uninstall' ) );
 
-$wpet = new WPET();
+$wpet = WPET::getInstance();
 
