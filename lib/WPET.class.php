@@ -13,7 +13,7 @@ class WPET {
          */
         if( is_admin() ) {
             add_action( 'admin_menu', array( &$this, 'setupMenu' ) );
-			add_action( 'current_screen', array( $this, 'onCurrentScreen' ) );
+			add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
         }
        
     }
@@ -69,7 +69,7 @@ class WPET {
         require_once( WPET_PLUGIN_DIR . '/views/admin/settings.php' );
     }
 
-	public function onCurrentScreen( $current_screen ) {
+	public function onAdminScreen( $current_screen ) {
 		if ( strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
 			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
 			wp_enqueue_style( 'wpet-admin-style' );
