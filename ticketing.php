@@ -10,7 +10,7 @@ Text Domain: wpet
 */
 
 define( 'WPET_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );
-define( 'WPET_PLUGIN_URL', trailingslashit( WP_CONTENT_URL . '/' . basename( __DIR__ ))  );
+define( 'WPET_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 
 
 require_once( 'lib/WPET.class.php' );

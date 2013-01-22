@@ -46,7 +46,8 @@ class WPET {
          * Reduces overhead on page load
          */
         if( is_admin() ) {
-            add_action('admin_menu', array( &$this, 'setupMenu' ) );
+            add_action( 'admin_menu', array( &$this, 'setupMenu' ) );
+			add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
         }
        
     }
@@ -185,7 +186,14 @@ class WPET {
     public function vtSettings() {
         require_once( WPET_PLUGIN_DIR . '/views/admin/settings.php' );
     }
-    
+
+	public function onAdminScreen( $current_screen ) {
+		if ( strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
+			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
+			wp_enqueue_style( 'wpet-admin-style' );
+		}
+	}
+	
     /**
      * Method called on plugin activation
      * 
