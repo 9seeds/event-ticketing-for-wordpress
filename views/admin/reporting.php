@@ -1,5 +1,5 @@
 <div class="wrap">
-	<a href="http://9seeds.com/" target="_blank"><div id="9seeds-icon" style="background: url('/wp-content/plugins/wp-event-ticketing/images/9seeds-logo.png') no-repeat; height: 32px; width: 32px; float: left; margin: 7px 5px 0 0;"></div></a>
+	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
 	<h2><?php _e( 'Reporting', 'wpet' ); ?></h2>
 	<div id="9seeds_content_top" class="postbox-container" style="">
 		<div class="metabox-holder" style="width: 70%; border: solid 1px; float: left;">
