@@ -20,7 +20,12 @@ class Reports {
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Reports', 'Reports', 'add_users', 'reporting', array( &$this, 'vtReporting' ) );
+        $menu[] = array( 'Reports', 'Reports', 'add_users', 'reporting', array( &$this, 'renderAdminPage' ) );
         return $menu;
+    }
+    
+    public function renderAdminPage() {
+        //$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+        WPET::getInstance()->display( 'reports.php', $inst );
     }
 } // end class

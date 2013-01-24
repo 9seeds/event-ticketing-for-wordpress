@@ -20,7 +20,12 @@ class Coupons {
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Coupons', 'Coupons', 'add_users', 'coupons', array( &$this, 'vtCoupons' ) );
+        $menu[] = array( 'Coupons', 'Coupons', 'add_users', 'coupons', array( &$this, 'renderAdminPage' ) );
         return $menu;
+    }
+    
+    public function renderAdminPage() {
+       // $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+        WPET::getInstance()->display( 'coupons.php', $inst );
     }
 } // end class

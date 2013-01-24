@@ -21,7 +21,12 @@ class Attendees {
      */
     public function adminMenu( $menu ) {
         $menu[] = array( 'Attendees', 'Attendees', 'add_users', 'attendees', array( &$this, 'vtAttendees' ) );
-        $menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'notify-attendees', array( &$this, 'vtNotify' ) );
+        $menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'notify-attendees', array( &$this, 'renderAdminPage' ) );
         return $menu;
+    }
+    
+    public function renderAdminPage() {
+        //$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+        WPET::getInstance()->display( 'attendees.php', $inst );
     }
 } // end class

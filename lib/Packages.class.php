@@ -20,7 +20,12 @@ class Packages {
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Packages', 'Packages', 'add_users', 'packages', array( &$this, 'vtPackages' ) );
+        $menu[] = array( 'Packages', 'Packages', 'add_users', 'packages', array( &$this, 'renderAdminPage' ) );
         return $menu;
+    }
+    
+    public function renderAdminPage() {
+       // $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+        WPET::getInstance()->display( 'packages.php', $inst );
     }
 } // end class

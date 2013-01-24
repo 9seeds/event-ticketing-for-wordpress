@@ -22,7 +22,7 @@ class Settings {
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Settings', 'Settings', 'add_users', 'settings', array( &$this, 'renderAdminPage' ) );
+$menu[] = array( 'Settings', 'Settings', 'add_users', 'settings', array( &$this, 'renderAdminPage' ) );
         return $menu;
     }
     

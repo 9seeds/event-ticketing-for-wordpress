@@ -20,7 +20,12 @@ class Tickets {
      * @return array 
      */
     public function adminMenu( $menu ) {
-        $menu[] = array( 'Tickets', 'Tickets', 'add_users', 'tickets', array( &$this, 'vtTickets' ) );
+        $menu[] = array( 'Tickets', 'Tickets', 'add_users', 'tickets', array( &$this, 'renderAdminPage' ) );
         return $menu;
+    }
+    
+    public function renderAdminPage() {
+      //  $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+        WPET::getInstance()->display( 'tickets.php', $inst );
     }
 } // end class
