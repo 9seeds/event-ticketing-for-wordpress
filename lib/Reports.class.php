@@ -9,7 +9,7 @@ class Reports {
      * @since 2.0 
      */
     public function __construct() {
-	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'));
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ) );
     }
 
     /**
@@ -19,14 +19,14 @@ class Reports {
      * @param type $menu
      * @return array 
      */
-    public function adminMenu($menu) {
-	$menu[] = array('Reports', 'Reports', 'add_users', 'tickets', array($this, 'renderAdminPage'));
-	return $menu;
+    public function adminMenu( $menu ) {
+		$menu[] = array( 'Reports', 'Reports', 'add_users', 'tickets', array( $this, 'renderAdminPage' ) );
+		return $menu;
     }
 
     public function renderAdminPage() {
-	//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display( 'reporting.php' );
+		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		WPET::getInstance()->display( 'reporting.php' );
     }
 
 }// end class
