@@ -24,7 +24,8 @@ class WPET {
     static $mWpet = false;
 
     /**
-     * @since 2.0 
+     * @since 2.0
+     * @uses wpet_init
      */
     private function __construct() {
 
@@ -32,7 +33,7 @@ class WPET {
          * Let add-ons know wpet has started. They could do things such as setup
          * hooks to wpet_admin_menu at this point
          */
-        do_action('wpet_init');
+        do_action( 'wpet_init' );
 
         // Horrible name. This needs to be done better
         $this->initBuiltIn();
@@ -43,9 +44,9 @@ class WPET {
          * 
          * Reduces overhead on page load
          */
-        if (is_admin()) {
-            add_action('admin_menu', array(&$this, 'setupMenu'));
-            add_action('current_screen', array($this, 'onAdminScreen'));
+        if ( is_admin() ) {
+            add_action( 'admin_menu', array( $this, 'setupMenu' ) );
+            add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
         }
     }
 
@@ -56,7 +57,7 @@ class WPET {
      * @return WPET 
      */
     public static function getInstance() {
-        if (!(self::$mWpet instanceof self)) {
+        if ( ! ( self::$mWpet instanceof self ) ) {
             self::$mWpet = new self();
         }
         return self::$mWpet;
@@ -147,8 +148,13 @@ class WPET {
         exit();
     }
 
+	/**
+	 * Method called on current admin screen
+	 * 
+	 * @since 2.0
+	 */
     public function onAdminScreen($current_screen) {
-        if (strpos($current_screen->base, 'tickets_page_') === 0) {
+        if ( strpos( $current_screen->base, 'tickets_page_') === 0) {
             wp_register_style('wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css');
             wp_enqueue_style('wpet-admin-style');
         }
