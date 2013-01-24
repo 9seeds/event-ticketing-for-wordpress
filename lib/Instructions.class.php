@@ -23,13 +23,19 @@ class Instructions {
      */
     public function adminMenu($menu) {
 	global $wpet;
-
 	$menu[] = array('Instructions', 'Instructions', 'add_users', 'instructions', array(&$this, 'renderAdminPage'));
 	return $menu;
     }
 
     public function renderAdminPage() {
+	
+	WPET::getInstance()->debug( 'Loading Instructions', 'Rendering...' );
+	
 	$inst = apply_filters('wpet_instructions', $inst = array('instructions' => array()));
+	
+
+	WPET::getInstance()->debug( 'Instruction Data', $inst, 'dump' );
+	
 	WPET::getInstance()->display('instructions.php', $inst);
     }
 

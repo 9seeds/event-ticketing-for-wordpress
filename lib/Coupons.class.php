@@ -19,7 +19,7 @@ class Coupons {
      * @param type $menu
      * @return array 
      */
-    public function adminMenu($menu) {
+    public function adminMenu($menu) { 
 	$menu[] = array('Coupons', 'Coupons', 'add_users', 'coupons', array(&$this, 'renderAdminPage'));
 	return $menu;
     }
@@ -29,4 +29,5 @@ class Coupons {
 	WPET::getInstance()->display('coupons.php');
     }
 
+    
 }// end class

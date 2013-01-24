@@ -27,12 +27,18 @@ class WPET {
      * @since 2.0 
      */
     private function __construct() {
+	
+	/*
+	 * Include the Debug Bar extension
+	 */
+	require_once( WPET_PLUGIN_DIR . '/lib/WPETDebugBar.class.php' );
 
 	/*
 	 * Let add-ons know wpet has started. They could do things such as setup
 	 * hooks to wpet_admin_menu at this point
 	 */
 	do_action('wpet_init');
+	$this->debug( 'WP Event Ticketing', 'Started' );
 
 	// Horrible name. This needs to be done better
 	$this->initBuiltIn();
@@ -106,6 +112,7 @@ class WPET {
 
 	$menu_items = apply_filters('wpet_admin_menu', $menu_items);
 
+	$this->debug( 'Adding menu items', $menu_items, 'dump' );
 	foreach ($menu_items AS $i) {
 	    add_submenu_page('tickets', $i[0], $i[1], $i[2], $i[3], $i[4]);
 	}
@@ -152,6 +159,19 @@ class WPET {
 	    wp_register_style('wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css');
 	    wp_enqueue_style('wpet-admin-style');
 	}
+    }
+    
+    
+    /**
+     * Sends debugging data to a custom debug bar extension
+     * 
+     * @since 1.0
+     * @param String $title
+     * @param Mixed $data
+     * @param String $format Optional - (Default:log) log | warning | error | notice | dump
+     */
+    function debug( $title, $data, $format='log' ) {
+        do_action( 'wpet_debug', $title, $data, $format );
     }
 
     /**
