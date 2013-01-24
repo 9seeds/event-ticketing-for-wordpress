@@ -26,9 +26,7 @@ class Coupons {
 
     public function renderAdminPage() {
 	// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display('coupons.php', $inst);
+	WPET::getInstance()->display('coupons.php');
     }
 
-}
-
-// end class
+}// end class

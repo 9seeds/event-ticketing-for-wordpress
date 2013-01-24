@@ -41,6 +41,4 @@ class Settings {
 	return $settings;
     }
 
-}
-
-// end class
+}// end class

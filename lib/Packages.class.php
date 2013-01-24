@@ -26,9 +26,7 @@ class Packages {
 
     public function renderAdminPage() {
 	// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display('packages.php', $inst);
+	WPET::getInstance()->display('packages.php');
     }
 
-}
-
-// end class
+}// end class

@@ -26,9 +26,7 @@ class Reports {
 
     public function renderAdminPage() {
 	//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display('reports.php', $inst);
+	WPET::getInstance()->display( 'reports.php' );
     }
 
-}
-
-// end class
+}// end class

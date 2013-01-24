@@ -43,6 +43,4 @@ class Instructions {
 	return $inst;
     }
 
-}
-
-// end class
+}// end class
