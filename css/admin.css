@@ -1,0 +1,49 @@
+#seeds-icon {
+	background: url('../images/9seeds-logo.png') no-repeat;
+	height: 32px;
+	width: 32px;
+	float: left;
+	margin: 7px 5px 0 0;
+}
+
+.seeds-admin-left {
+	width: 65%;
+	float: left;
+	margin-bottom: 10px;
+	border: solid 1px #000;
+}
+
+.seeds-admin-right {
+	width: 30%;
+	float: right;
+}
+
+.seeds-sidebar-box {
+	border: solid 1px #DDD;
+	background: #f0e9da;
+	margin-bottom: 20px;
+	padding: 5px;
+	-moz-border-radius: 20px 0 20px 0;
+	border-radius: 20px 0 20px 0;
+}
+
+.seeds-sidebar-box-2 {
+	border: solid 1px #DDD;
+	background: #f6d388;
+	margin-bottom: 20px;
+	padding: 5px;
+	-moz-border-radius: 20px 0 20px 0;
+	border-radius: 20px 0 20px 0;
+}
+
+.report-left {
+	padding: 5px;
+	float: left;
+	width: 45%;
+}
+
+.report-right {
+	padding: 5px;
+	float: right;
+	width: 45%;
+}
