@@ -21,7 +21,7 @@ class Attendees {
      */
     public function adminMenu( $menu ) {
 		$menu[] = array( 'Attendees', 'Attendees', 'add_users', 'wpet_attendees', array( $this, 'renderAdminPage' ) );
-		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notify-attendees', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notify_attendees', array( $this, 'renderAdminPage' ) );
 		return $menu;
     }
 

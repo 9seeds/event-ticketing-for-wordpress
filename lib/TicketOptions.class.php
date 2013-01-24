@@ -26,7 +26,7 @@ class TicketOptions {
 
     public function renderAdminPage() {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->display( 'ticket_options.php' );
+		WPET::getInstance()->display( 'ticket-options.php' );
     }
 
 }// end class
