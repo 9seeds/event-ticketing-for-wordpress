@@ -74,20 +74,20 @@ class WPET {
 		require_once 'Reports.class.php';
 		$this->mModule['reports'] = new Reports();
 
-		require_once 'Attendees.class.php';
-		$this->mModule['attendees'] = new Attendees();
-
-		require_once 'Coupons.class.php';
-		$this->mModule['coupons'] = new Coupons();
-
-		require_once 'Packages.class.php';
-		$this->mModule['packages'] = new packages();
-
 		require_once 'TicketOptions.class.php';
 		$this->mModule['ticket_options'] = new TicketOptions();
 
 		require_once 'Tickets.class.php';
 		$this->mModule['tickets'] = new Tickets();
+
+		require_once 'Packages.class.php';
+		$this->mModule['packages'] = new packages();
+
+		require_once 'Coupons.class.php';
+		$this->mModule['coupons'] = new Coupons();
+
+		require_once 'Attendees.class.php';
+		$this->mModule['attendees'] = new Attendees();
 
 		require_once 'Instructions.class.php';
 		$this->mModule['instructions'] = new Instructions();
@@ -103,13 +103,13 @@ class WPET {
 	 * @uses wpet_admin_menu
 	 */
 	public function setupMenu() {
-		add_menu_page( 'Tickets', 'Tickets', 'add_users', 'tickets', array( $this->mModule['reports'], 'renderAdminPage' ) );
+		add_menu_page( 'Tickets', 'Tickets', 'add_users', 'wpet_reports', array( $this->mModule['reports'], 'renderAdminPage' ) );
 		$menu_items = array();
 
 		$menu_items = apply_filters( 'wpet_admin_menu', $menu_items );
 
 		foreach ( $menu_items as $i ) {
-			add_submenu_page( 'tickets', $i[0], $i[1], $i[2], $i[3], $i[4] );
+			add_submenu_page( 'wpet_reports', $i[0], $i[1], $i[2], $i[3], $i[4] );
 		}
 	}
 
@@ -155,7 +155,7 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function onAdminScreen( $current_screen ) {
-		if ( $current_screen->base == 'toplevel_page_tickets' ||
+		if ( $current_screen->base == 'toplevel_page_wpet_reports' ||
 			 strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
 			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
 			wp_enqueue_style( 'wpet-admin-style' );

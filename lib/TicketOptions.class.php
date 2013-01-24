@@ -9,7 +9,7 @@ class TicketOptions {
      * @since 2.0 
      */
     public function __construct() {
-	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'));
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ) );
     }
 
     /**
@@ -19,14 +19,14 @@ class TicketOptions {
      * @param type $menu
      * @return array 
      */
-    public function adminMenu($menu) {
-	$menu[] = array('Ticket Options', 'Ticket Options', 'add_users', 'ticket_options', array(&$this, 'renderAdminPage'));
-	return $menu;
+    public function adminMenu( $menu ) {
+		$menu[] = array( 'Ticket Options', 'Ticket Options', 'add_users', 'wpet_ticket_options', array( $this, 'renderAdminPage' ) );
+		return $menu;
     }
 
     public function renderAdminPage() {
-	// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display('ticket_options.php');
+		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		WPET::getInstance()->display( 'ticket_options.php' );
     }
 
 }// end class

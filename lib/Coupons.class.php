@@ -9,7 +9,7 @@ class Coupons {
      * @since 2.0 
      */
     public function __construct() {
-	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'));
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ) );
     }
 
     /**
@@ -19,14 +19,14 @@ class Coupons {
      * @param type $menu
      * @return array 
      */
-    public function adminMenu($menu) {
-	$menu[] = array('Coupons', 'Coupons', 'add_users', 'coupons', array(&$this, 'renderAdminPage'));
-	return $menu;
+    public function adminMenu( $menu ) {
+		$menu[] = array( 'Coupons', 'Coupons', 'add_users', 'wpet_coupons', array( $this, 'renderAdminPage' ) );
+		return $menu;
     }
 
     public function renderAdminPage() {
-	// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display('coupons.php');
+		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		WPET::getInstance()->display( 'coupons.php' );
     }
 
 }// end class
