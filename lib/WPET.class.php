@@ -70,6 +70,10 @@ class WPET {
 	 * @since 2.0 
 	 */
 	private function initBuiltIn() {
+		//reports must come first to override the default option
+		require_once 'Reports.class.php';
+		$this->mModule['reports'] = new Reports();
+
 		require_once 'Attendees.class.php';
 		$this->mModule['attendees'] = new Attendees();
 
@@ -85,9 +89,6 @@ class WPET {
 		require_once 'Tickets.class.php';
 		$this->mModule['tickets'] = new Tickets();
 
-		require_once 'Reports.class.php';
-		$this->mModule['reports'] = new Reports();
-
 		require_once 'Instructions.class.php';
 		$this->mModule['instructions'] = new Instructions();
 
@@ -99,10 +100,10 @@ class WPET {
 	 * Builds the Ticket menu in wp-admin
 	 * 
 	 * @since 2.0
-	 * @uses wpet_admin_menu_items 
+	 * @uses wpet_admin_menu
 	 */
 	public function setupMenu() {
-		add_object_page( 'Tickets', 'Tickets', 'add_users', 'tickets', array( 'Reports', 'renderAdminPage' ) );
+		add_menu_page( 'Tickets', 'Tickets', 'add_users', 'tickets', array( $this->mModule['reports'], 'renderAdminPage' ) );
 		$menu_items = array();
 
 		$menu_items = apply_filters( 'wpet_admin_menu', $menu_items );
@@ -154,9 +155,10 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function onAdminScreen( $current_screen ) {
-		if ( strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
-			wp_register_style('wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css');
-			wp_enqueue_style('wpet-admin-style');
+		if ( $current_screen->base == 'toplevel_page_tickets' ||
+			 strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
+			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
+			wp_enqueue_style( 'wpet-admin-style' );
 		}
 	}
 
