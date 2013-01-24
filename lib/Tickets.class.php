@@ -9,9 +9,9 @@ class Tickets {
      * @since 2.0 
      */
     public function __construct() {
-        add_filter( 'wpet_admin_menu', array( &$this, 'adminMenu' ) );
+	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'));
     }
-    
+
     /**
      * Add Tickets links to the Tickets menu
      * 
@@ -19,8 +19,14 @@ class Tickets {
      * @param type $menu
      * @return array 
      */
-    public function adminMenu( $menu ) {
-        $menu[] = array( 'Tickets', 'Tickets', 'add_users', 'tickets', array( &$this, 'vtTickets' ) );
-        return $menu;
+    public function adminMenu($menu) {
+	//$menu[] = array('Tickets', 'Tickets', 'add_users', 'tickets', array(&$this, 'renderAdminPage'));
+	return $menu;
     }
-} // end class
+
+    public function renderAdminPage() {
+	//  $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+	WPET::getInstance()->display('tickets.php');
+    }
+
+}// end class
