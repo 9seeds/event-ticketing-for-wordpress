@@ -9,9 +9,9 @@ class Reports {
      * @since 2.0 
      */
     public function __construct() {
-        add_filter( 'wpet_admin_menu', array( &$this, 'adminMenu' ) );
+	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'));
     }
-    
+
     /**
      * Add Reports links to the Tickets menu
      * 
@@ -19,13 +19,16 @@ class Reports {
      * @param type $menu
      * @return array 
      */
-    public function adminMenu( $menu ) {
-        $menu[] = array( 'Reports', 'Reports', 'add_users', 'reporting', array( &$this, 'renderAdminPage' ) );
-        return $menu;
+    public function adminMenu($menu) {
+	$menu[] = array('Reports', 'Reports', 'add_users', 'reporting', array(&$this, 'renderAdminPage'));
+	return $menu;
     }
-    
+
     public function renderAdminPage() {
-        //$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-        WPET::getInstance()->display( 'reports.php', $inst );
+	//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+	WPET::getInstance()->display('reports.php', $inst);
     }
-} // end class
+
+}
+
+// end class
