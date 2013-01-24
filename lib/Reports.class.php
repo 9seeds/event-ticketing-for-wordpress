@@ -20,7 +20,7 @@ class Reports {
      * @return array 
      */
     public function adminMenu( $menu ) {
-		$menu[] = array( 'Reports', 'Reports', 'add_users', 'tickets', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( 'Reports', 'Reports', 'add_users', 'wpet_reports', array( $this, 'renderAdminPage' ) );
 		return $menu;
     }
 
