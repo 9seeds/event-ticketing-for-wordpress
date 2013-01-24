@@ -20,7 +20,7 @@ class Tickets {
      * @return array 
      */
     public function adminMenu($menu) {
-	$menu[] = array('Tickets', 'Tickets', 'add_users', 'tickets', array(&$this, 'renderAdminPage'));
+	//$menu[] = array('Tickets', 'Tickets', 'add_users', 'tickets', array(&$this, 'renderAdminPage'));
 	return $menu;
     }
 

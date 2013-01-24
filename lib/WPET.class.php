@@ -101,7 +101,7 @@ class WPET {
      * @uses wpet_admin_menu_items 
      */
     public function setupMenu() {
-	add_object_page('Tickets', 'Tickets', 'add_users', 'tickets', array(&$this, 'vtReporting'));
+	add_object_page('Tickets', 'Tickets', 'add_users', 'tickets', array('Reports', 'renderAdminPage'));
 	$menu_items = array();
 
 	$menu_items = apply_filters('wpet_admin_menu', $menu_items);
