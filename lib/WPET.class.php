@@ -157,9 +157,6 @@ class WPET {
 
 		require_once 'Settings.class.php';
 		$this->mModule['settings'] = new Settings();
-		
-		require_once 'ProStore.class.php';
-		$this->mModule['prostore'] = new ProStore();
 	}
 
 	/**
