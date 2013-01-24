@@ -1,6 +1,6 @@
 <div class="wrap">
 	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
-	<h2><?php _e( 'Reporting', 'wpet' ); ?></h2>
+	<h2><?php _e( 'Reports', 'wpet' ); ?></h2>
 	
 	<div class="seeds-admin-left">
 		<div class="report-left">
