@@ -7,7 +7,7 @@
  */
 class WPET {
 
-    /**
+	/**
 	 * Holds links the various initialized WPET modules. Uses magic functions
 	 * 
 	 * @since 2.0
@@ -28,6 +28,7 @@ class WPET {
 	 * @uses wpet_init
 	 */
 	private function __construct() {
+		require_once( WPET_PLUGIN_DIR . '/lib/WPETDebugBar.class.php' );
 
 		/*
 		 * Let add-ons know wpet has started. They could do things such as setup
@@ -111,6 +112,12 @@ class WPET {
 		foreach ( $menu_items as $i ) {
 			add_submenu_page( 'wpet_reports', $i[0], $i[1], $i[2], $i[3], $i[4] );
 		}
+		
+		
+		$this->debug( 'Some title', 'This is a normal log message' );
+		$this->debug( 'Some title', 'This is a warning message', 'warning' );
+		$this->debug( 'Some title', 'This is an error message', 'error' );
+		$this->debug( 'Variable dump', $menu_items, 'dump' );
 	}
 
 	/**
@@ -161,6 +168,20 @@ class WPET {
 			wp_enqueue_style( 'wpet-admin-style' );
 		}
 	}
+	
+	
+	
+	/**
+	* Sends debugging data to a custom debug bar extension
+	* 
+	* @since 1.0
+	* @param String $title
+	* @param Mixed $data
+	* @param String $format Optional - (Default:log) log | warning | error | notice | dump
+	*/
+	function debug( $title, $data, $format='log' ) { 
+		do_action( 'wpet_debug', $title, $data, $format );
+	}
 
 	/**
 	 * Method called on plugin activation
@@ -201,6 +222,4 @@ class WPET {
 		return 'WPET::__toString';
 	}
 
-}
-
-// end class
+}// end class
