@@ -13,7 +13,7 @@ class Attendees {
 	 * @since 2.0 
 	 */
 	public function __construct() {
-		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ) );
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 25 );
 		
 		add_action( 'init', array( $this, 'registerPostType' ) );
 	}

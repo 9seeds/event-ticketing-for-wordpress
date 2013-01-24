@@ -140,8 +140,6 @@ class WPET {
 	/**
 	 * Builds the Ticket menu in wp-admin
 	 * 
-	 * @todo Add ability to provide an order parameter
-	 * 
 	 * @since 2.0
 	 * @uses wpet_admin_menu
 	 */
