@@ -16,15 +16,15 @@ function wpet_load_debug_bar($panels) {
 			private static $debug_log = array();
 			
 			function init() {
-                                // Title to display in left column of debug bar
+				// Title to display in left column of debug bar
 				$this->title( __('WP Event Ticketing', 'wpet') );
-                                
-                                // Custom styling for the debug bar output
+
+				// Custom styling for the debug bar output
 				wp_enqueue_style( 'wpet-debug-bar-css', WPET_PLUGIN_URL . 'css/debug-bar.css' );
-                                
-                                // Action hook called when new dbug info is submitted
-                                add_action( 'wpet_debug', array( &$this, 'logDebug' ), 10, 3 );
-                                
+
+				// Action hook called when new dbug info is submitted
+				add_action( 'wpet_debug', array( &$this, 'logDebug' ), 10, 3 );
+
 			}
 
 			function prerender() {
@@ -38,15 +38,15 @@ function wpet_load_debug_bar($panels) {
 					foreach(self::$debug_log as $k => $v) {
 						echo "<li class='wpet-debug-{$v['format']}'>";
 						echo "<div class='wpet-debug-entry-title'>{$v['title']}</div>";
-                                                
+
 						if ( 'dump' != $v['format'] ) {
 							echo '<div class="wpet-debug-entry-data">';
 							echo $v['data'];
 							echo '</div>';
 						} else {
-						    if( !class_exists( 'dBug' ) ) require_once( 'dBug.php' );
-                                                    dBug( $v['data'] );
-                                                }
+							if( !class_exists( 'dBug' ) ) require_once( 'dBug.php' );
+								dBug( $v['data'] );
+						}
 						echo '</li>';
 					}
 					echo '</ul>';
@@ -57,7 +57,7 @@ function wpet_load_debug_bar($panels) {
 			/**
 			 * log debug statements for display in debug bar
 			 *
-                         * @since 1.0
+			 * @since 1.0
 			 * @param string $title - message to display in log
 			 * @param string $data - optional data to display
 			 * @param string $format - optional format (log|warning|error|notice|dump)

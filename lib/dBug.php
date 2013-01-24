@@ -373,9 +373,9 @@ class dBug {
 	//parse xml
 	function xmlParse($xml_parser,$data,$bFinal) {
 		if (!xml_parse($xml_parser,$data,$bFinal)) {
-				   die(sprintf("XML error: %s at line %d\n",
-							   xml_error_string(xml_get_error_code($xml_parser)),
-							   xml_get_current_line_number($xml_parser)));
+			die(sprintf("XML error: %s at line %d\n",
+				xml_error_string(xml_get_error_code($xml_parser)),
+				xml_get_current_line_number($xml_parser)));
 		}
 	}
 

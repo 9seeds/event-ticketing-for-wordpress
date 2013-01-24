@@ -1,4 +1,5 @@
-coupons<?php
+coupons
+<?php
 
 /*
  * To change this template, choose Tools | Templates
