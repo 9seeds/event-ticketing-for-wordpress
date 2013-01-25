@@ -35,12 +35,10 @@
 					<a class="prev-page disabled" title="Go to the previous page" href="http://wcphx2012.dev/wp-admin/network/users.php?paged=1">‹</a>
 					<span class="paging-input"><input class="current-page" title="Current page" type="text" name="paged" value="1" size="1"> of <span class="total-pages">1</span></span>
 					<a class="next-page disabled" title="Go to the next page" href="http://wcphx2012.dev/wp-admin/network/users.php?paged=1">›</a>
-					<a class="last-page disabled" title="Go to the last page" href="http://wcphx2012.dev/wp-admin/network/users.php?paged=1">»</a></span></div>		<input type="hidden" name="mode" value="list">
-			<div class="view-switch">
-				<a href="/wp-admin/network/users.php?mode=list" class="current"><img id="view-switch-list" src="http://wcphx2012.dev/wp-includes/images/blank.gif" width="20" height="20" title="List View" alt="List View"></a>
-				<a href="/wp-admin/network/users.php?mode=excerpt"><img id="view-switch-excerpt" src="http://wcphx2012.dev/wp-includes/images/blank.gif" width="20" height="20" title="Excerpt View" alt="Excerpt View"></a>
+					<a class="last-page disabled" title="Go to the last page" href="http://wcphx2012.dev/wp-admin/network/users.php?paged=1">»</a>
+				</span>
 			</div>
-
+			<input type="hidden" name="mode" value="list">
 			<br class="clear">
 		</div>
 		<table class="wp-list-table widefat fixed users-network" cellspacing="0">
