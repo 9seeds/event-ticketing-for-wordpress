@@ -1,5 +1,7 @@
 jQuery(document).ready(function($) {
 	jQuery("#tabs").tabs({
-		cookie: {}
+		cookie: {
+			name: 'wpet_settings_tab'
+		}
 	});
 });
