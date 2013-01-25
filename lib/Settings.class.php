@@ -26,12 +26,11 @@ class Settings {
 	}
 
 	public function renderAdminPage() {
-		$settings_url = admin_url( 'admin.php?page=wpet_settings' );
 		$tabs = array(
-			'event'   => array( 'label' => __( 'Event', 'wpet' ),   'url' => add_query_arg( array( 'tab' => 'event' ),   $settings_url ) ),
-			'payment' => array( 'label' => __( 'Payment', 'wpet' ), 'url' => add_query_arg( array( 'tab' => 'payment' ), $settings_url ) ),
-			'email'   => array( 'label' => __( 'Email', 'wpet' ),   'url' => add_query_arg( array( 'tab' => 'email' ),   $settings_url ) ),
-			'reset'   => array( 'label' => __( 'Reset', 'wpet' ),   'url' => add_query_arg( array( 'tab' => 'reset' ),   $settings_url ) ),
+			'event'   => array( 'label' => __( 'Event', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-event.php' ) ),
+			'payment' => array( 'label' => __( 'Payment', 'wpet' ), 'tab_content' => WPET::getInstance()->getDisplay( 'settings-payment.php' ) ),
+			'email'   => array( 'label' => __( 'Email', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-email.php' ) ),
+			'reset'   => array( 'label' => __( 'Reset', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-reset.php' ) ),
 		);
 
 		$tabs = apply_filters( 'wpet_settings_tabs', $tabs, $settings_url );
@@ -49,7 +48,7 @@ class Settings {
 		    
 		$settings['settings'][] = array(
 			'title' => 'Settings Title',
-			'text' => WPET::getInstance()->getDisplay( 'settings-tickets.php' )//"Life is pain, Highness. Anyone who says differently is selling something. Westley didn't reach his destination. His ship was attacked by the Dread Pirate Roberts, who never left captives alive. When Buttercup got the news that Westley was murdered... Murdered by pirates is good... Get used to disappointment. Are you the Miracle Max who worked for the king all those years? So it's to be torture? If you're in such a hurry, you could lower a rope or a tree branch or find something useful to do. Yes, yes, some of the time. "
+			'text' => "Life is pain, Highness. Anyone who says differently is selling something. Westley didn't reach his destination. His ship was attacked by the Dread Pirate Roberts, who never left captives alive. When Buttercup got the news that Westley was murdered... Murdered by pirates is good... Get used to disappointment. Are you the Miracle Max who worked for the king all those years? So it's to be torture? If you're in such a hurry, you could lower a rope or a tree branch or find something useful to do. Yes, yes, some of the time. "
 		);
 		
 		$settings['settings'][] = array(

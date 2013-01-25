@@ -5,26 +5,18 @@
 	<form>
 	 <div id="tabs">
 	 <ul>
-        <li><a href="#tab-event">Event</a></li>
-        <li><a href="#tab-payment">Payment</a></li>
-		<li><a href="#tab-email">Email</a></li>
-        <li><a href="#tab-reset">Reset</a></li>
+		<?php
+		foreach( $data['tabs'] as $tab_id => $tab ) {
+			echo "<li><a href='#tab-{$tab_id}'>{$tab['label']}</a></li>\n";
+ 		}
+		?>
     </ul>
-	<div id="tab-event">
-	Event
-	</div>
 
-	<div id="tab-payment">
-	Payment
-	</div>
-
-	<div id="tab-email">
-	Email
-	</div>
-
-	<div id="tab-reset">
-	Reset
-	</div>
+	<?php
+	foreach( $data['tabs'] as $tab_id => $tab ) {
+		echo "<div id='tab-{$tab_id}'>{$tab['tab_content']}</div>\n";
+	}
+	?>
 	</div>
 	</form>
 
