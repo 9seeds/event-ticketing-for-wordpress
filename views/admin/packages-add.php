@@ -25,7 +25,7 @@
 ?>
 				<td>
 					<select name="" id="">
-						<option value="options[ticket-id]">Ticket Name</option>
+						<option value="options[ticket-id]"><?php _e('Ticket Name', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>

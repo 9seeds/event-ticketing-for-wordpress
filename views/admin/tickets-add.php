@@ -11,8 +11,8 @@
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Ticket Options', 'wpet'); ?></th>
 				<td>
-					<input type="checkbox" name="options[name]" value="1" checked="checked" disabled="disabled"> Name<br />
-					<input type="checkbox" name="options[email]" value="1" checked="checked" disabled="disabled"> Email<br />
+					<input type="checkbox" name="options[name]" value="1" checked="checked" disabled="disabled"> <?php _e('Name', 'wpet'); ?><br />
+					<input type="checkbox" name="options[email]" value="1" checked="checked" disabled="disabled"> <?php _e('Email', 'wpet'); ?><br />
 <?php
 // @TODO
 // auto-fill checkboxes with all available ticket options

@@ -12,9 +12,9 @@
 				<th scope="row"><?php _e('Option Type', 'wpet'); ?></th>
 				<td>
 					<select name="options[option-type]" id="option-type">
-						<option value="text">Text Input</option>
-						<option value="dropdown">Dropdown</option>
-						<option value="multiselect">Multi Select</option>
+						<option value="text"><?php _e('Text Input', 'wpet'); ?></option>
+						<option value="dropdown"><?php _e('Dropdown', 'wpet'); ?></option>
+						<option value="multiselect"><?php _e('Multi Select', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>

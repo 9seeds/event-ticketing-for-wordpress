@@ -4,9 +4,9 @@
 
 	<form action="" method="get" class="search-form">
 		<p class="search-box">
-			<label class="screen-reader-text" for="all-package-search-input">Search Coupons:</label>
+			<label class="screen-reader-text" for="all-package-search-input"><?php _e('Search Coupons', 'wpet'); ?>:</label>
 			<input type="search" id="all-user-search-input" name="s" value="">
-			<input type="submit" name="" id="search-submit" class="button" value="Search Coupons"></p>
+			<input type="submit" name="" id="search-submit" class="button" value="<?php _e('Search Coupons', 'wpet'); ?>"></p>
 	</form>
 <?php
 // @TODO

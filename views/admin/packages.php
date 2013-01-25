@@ -1,12 +1,12 @@
 <div class="wrap">
 	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
-	<h2><?php _e('Ticket Packages', 'wpet'); ?> <a href="?page=wpet_packages&add-package=1" class="add-new-h2">Add New</a></h2>
+	<h2><?php _e('Ticket Packages', 'wpet'); ?> <a href="?page=wpet_packages&add-package=1" class="add-new-h2"><?php _e('Add New', 'wpet'); ?></a></h2>
 
 	<form action="" method="get" class="search-form">
 		<p class="search-box">
-			<label class="screen-reader-text" for="all-package-search-input">Search Packages:</label>
+			<label class="screen-reader-text" for="all-package-search-input"><?php _e('Search Packages', 'wpet'); ?>:</label>
 			<input type="search" id="all-user-search-input" name="s" value="">
-			<input type="submit" name="" id="search-submit" class="button" value="Search Packages"></p>
+			<input type="submit" name="" id="search-submit" class="button" value="<?php _e('Search Packages', 'wpet'); ?>"></p>
 	</form>
 <?php
 // @TODO
