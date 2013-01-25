@@ -47,3 +47,18 @@
 	float: right;
 	width: 45%;
 }
+
+.wpet-delete a {
+	text-indent: -9999px;
+	overflow: hidden;
+	height: 10px;
+	width: 10px;
+	position: absolute;
+    margin: 8px 0 0 0;
+	background: url("../../../../wp-admin/images/xit.gif") no-repeat scroll 0 0 transparent;
+}
+
+.wpet-delete a:hover { 
+	cursor: pointer;
+	background: url("../../../../wp-admin/images/xit.gif") no-repeat scroll -10px 0 transparent;
+}

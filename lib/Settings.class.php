@@ -13,6 +13,9 @@ class WPET_Settings extends WPET_AddOn {
 		add_filter( 'wpet_settings', array( $this, 'defaultSettings' ) );
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public function enqueueAdminScripts() {
 		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'wpet-jquery-cookie' ) );
 		wp_enqueue_script( 'wpet-admin-settings' );
@@ -24,6 +27,7 @@ class WPET_Settings extends WPET_AddOn {
 	 * @since 2.0
 	 * @param type $menu
 	 * @return array
+	 * @uses wpet_settings_tabs, wpet_settings
 	 */
 	public function adminMenu( $menu ) {
 		$menu[] = array( 'Settings', 'Settings', 'add_users', 'wpet_settings', array( $this, 'renderAdminPage' ) );
@@ -69,6 +73,9 @@ class WPET_Settings extends WPET_AddOn {
 		return $settings;
 	}
 
+	/**
+	 * @since 2.0
+	 */
 	public function update() {
 		die(print_r($_POST, true));
 	}

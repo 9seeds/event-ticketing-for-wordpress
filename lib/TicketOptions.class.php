@@ -15,6 +15,14 @@ class WPET_TicketOptions extends WPET_AddOn {
 	}
 
 	/**
+	 * @since 2.0
+	 */
+	public function enqueueAdminScripts() {
+		wp_register_script( 'wpet-admin-ticket-options', WPET_PLUGIN_URL . 'js/admin_ticket_options.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpet-admin-ticket-options' );
+	}
+
+	/**
 	 * Add Ticket Options links to the Tickets menu
 	 *
 	 * @since 2.0

@@ -11,11 +11,31 @@
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Option Type', 'wpet'); ?></th>
 				<td>
-					<select name="options[option-type]" id="">
+					<select name="options[option-type]" id="option-type">
 						<option value="text">Text Input</option>
 						<option value="dropdown">Dropdown</option>
 						<option value="multiselect">Multi Select</option>
 					</select>
+				</td>
+			</tr>
+		</tbody>
+		<tbody style="display: none;" id="option-values">
+			<tr class="form-field">
+				<th scope="row"><?php _e('Option Value', 'wpet'); ?></th>
+				<td>
+					<input type="text" name="options[option-value-0]" class="option-value" />
+				</td>
+			</tr>
+			<tr class="form-field" id="add-another">
+	 			<th></th>
+				<td>
+					<a id="add-value"><?php _e( 'Add Another Value', 'wpet' ) ?></a>
+				</td>
+			</tr>
+			<tr class="form-field" style="display: none;" id="new-value">
+				<th scope="row"><?php _e('Option Value', 'wpet'); ?></th>
+				<td>
+					<input type="text" value="" class="option-value-new" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
 				</td>
 			</tr>
 		</tbody>
