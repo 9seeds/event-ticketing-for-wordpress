@@ -230,6 +230,14 @@ class WPET {
 			 strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
 			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
 			wp_enqueue_style( 'wpet-admin-style' );
+
+			wp_register_style( 'wpet-jquery-ui-theme', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/themes/base/jquery-ui.css' );
+			wp_enqueue_style( 'wpet-jquery-ui-theme' );
+
+			wp_register_script( 'wpet-jquery-cookie', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/external/cookie.js' );
+
+			wp_register_script( 'wpet-admin-tabs', WPET_PLUGIN_URL . 'js/admin_tabs.js', array( 'jquery-ui-tabs', 'wpet-jquery-cookie' ) );
+			wp_enqueue_script( 'wpet-admin-tabs' );
 		}
 	}
 	

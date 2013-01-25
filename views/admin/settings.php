@@ -2,25 +2,32 @@
 	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
 	<h2><?php _e('Event Settings', 'wpet'); ?></h2>
 
-	<h3 class="nav-tab-wrapper">
-		<?php
+	<form>
+	 <div id="tabs">
+	 <ul>
+        <li><a href="#tab-event">Event</a></li>
+        <li><a href="#tab-payment">Payment</a></li>
+		<li><a href="#tab-email">Email</a></li>
+        <li><a href="#tab-reset">Reset</a></li>
+    </ul>
+	<div id="tab-event">
+	Event
+	</div>
 
-		$current_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'event';
-		foreach ( $data['tabs'] as $tab_id => $tab ) {
-			$class = ( $tab_id == $current_tab ) ? ' nav-tab-active' : '';
-			echo '<a href="' . $tab['url'] .'" class="nav-tab' . $class . '">' . esc_html( $tab['label'] ) . '</a>';
-		}
-		?>
-	</h3>
+	<div id="tab-payment">
+	Payment
+	</div>
 
-	
-	<?php
-	if ( isset( $data['tabs'][$current_tab]['tab_content'] ) )
-		echo $data['tabs'][$current_tab]['tab_content'];
-	else
-		WPET::getInstance()->display( "settings-{$current_tab}.php", $data );
-	?>
-	
+	<div id="tab-email">
+	Email
+	</div>
+
+	<div id="tab-reset">
+	Reset
+	</div>
+	</div>
+	</form>
+
 </div>
 
 
