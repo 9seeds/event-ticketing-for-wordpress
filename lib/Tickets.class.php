@@ -27,8 +27,13 @@ class Tickets {
 	}
 
 	public function renderAdminPage() {
+	    
+	    if( isset( $_GET['add-ticket'] ) ) {
+		WPET::getInstance()->display( 'tickets-add.php' );
+	    } else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
 		WPET::getInstance()->display( 'tickets.php' );
+	    }
 	}
 	
 	/**
