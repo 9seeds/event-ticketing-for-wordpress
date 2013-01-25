@@ -15,6 +15,9 @@
 
 	
 	<?php
+	if ( isset( $data['tabs'][$current_tab]['tab_content'] ) )
+		echo $data['tabs'][$current_tab]['tab_content'];
+	else
 		WPET::getInstance()->display( "settings-{$current_tab}.php", $data );
 	?>
 	
