@@ -9,7 +9,7 @@ class TicketOptions {
 	 * @since 2.0 
 	 */
 	public function __construct() {
-		//add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 5 );
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 5 );
 		
 		add_action( 'init', array( $this, 'registerPostType' ) );
 	}
@@ -56,13 +56,13 @@ class TicketOptions {
 	    );
 
 	    $args = array(
-		'public' => true,
+		'public' => false,
 		'supports' => array( 'page-attributes' ),
 		'labels' => $labels,
 		'hierarchical' => false,
 		'has_archive' => true,
-		'query_var' => 'shiplog',
-		'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
+		'query_var' => 'wpet_ticket_option',
+		//'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
 		'show_ui' => false
