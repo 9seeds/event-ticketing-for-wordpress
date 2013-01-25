@@ -2,7 +2,7 @@
 	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
 	<h2><?php _e('Event Settings', 'wpet'); ?></h2>
 
-	<form>
+	 <form action="" method="post">
 	 <div id="tabs">
 	 <ul>
 		<?php
@@ -18,6 +18,8 @@
 	}
 	?>
 	</div>
+	<p class="submit">
+		<input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save All Settings', 'wpet'); ?>">
+	</p>
 	</form>
-</div>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save All Settings', 'wpet'); ?>"></p>
+</div><!-- .wrap -->
