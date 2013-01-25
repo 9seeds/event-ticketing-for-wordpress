@@ -13,7 +13,7 @@ class WPET_Coupons extends WPET_AddOn {
 	
 	    add_action( 'init', array( $this, 'registerPostType' ) );
 	    
-	    add_action( 'load-tickets_page_coupons', array( $this, 'contextHelp' ) );
+	    add_action( 'load-tickets_page_wpet_coupons', array( $this, 'contextHelp' ) );
 	}
 	
 	/**
