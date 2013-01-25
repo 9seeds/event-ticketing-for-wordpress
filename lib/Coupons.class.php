@@ -46,8 +46,13 @@ class WPET_Coupons extends WPET_AddOn {
 	}
 
 	public function renderAdminPage() {
+	    
+	    if( isset( $_GET['add-coupons'] ) ) {
+		WPET::getInstance()->display( 'coupons-add.php' );
+	    } else {
 		// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
 		WPET::getInstance()->display( 'coupons.php' );
+	    }
 	}
 	
 	/**
