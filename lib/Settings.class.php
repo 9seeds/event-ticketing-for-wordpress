@@ -26,8 +26,23 @@ class Settings {
 	}
 
 	public function renderAdminPage() {
-		$settings = apply_filters( 'wpet_settings', $settings = array( 'settings' => array() ) );
-		WPET::getInstance()->display( 'settings-event.php', $settings );
+		$settings_url = admin_url( 'admin.php?page=wpet_settings' );
+		$tabs = array(
+			'event'   => array( 'label' => __( 'Event', 'wpet' ),   'url' => add_query_arg( array( 'tab' => 'event' ),   $settings_url ) ),
+			'payment' => array( 'label' => __( 'Payment', 'wpet' ), 'url' => add_query_arg( array( 'tab' => 'payment' ), $settings_url ) ),
+			'email'   => array( 'label' => __( 'Email', 'wpet' ),   'url' => add_query_arg( array( 'tab' => 'email' ),   $settings_url ) ),
+			'reset'   => array( 'label' => __( 'Reset', 'wpet' ),   'url' => add_query_arg( array( 'tab' => 'reset' ),   $settings_url ) ),
+		);
+
+		$tabs = apply_filters( 'wpet_settings_tabs', $tabs, $settings_url );
+		
+		$settings = apply_filters(
+			'wpet_settings',
+			$settings = array(
+				'settings' => array(),
+				'tabs' => $tabs,
+		) );
+		WPET::getInstance()->display( 'settings.php', $settings );
 	}
 
 	public function defaultSettings( $settings ) {

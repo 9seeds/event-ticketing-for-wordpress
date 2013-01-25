@@ -12,8 +12,8 @@ Text Domain: wpet
 define( 'WPET_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );
 define( 'WPET_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 
-
 require_once( 'lib/WPET.class.php' );
+require_once 'hooker.php'; //for testing
 
 register_activation_hook( __FILE__, array( 'WPET', 'activate' ) );
 
