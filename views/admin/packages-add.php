@@ -6,11 +6,11 @@
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Package Name', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<td><input name="options[package-name]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Description', 'wpet'); ?></th>
-				<td><textarea name="" type="text" id="" value=""></textarea></td>
+				<td><textarea name="options[description]" type="text" id="" value=""></textarea></td>
 			</tr>
 		</tbody>
 	</table>
@@ -19,8 +19,15 @@
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Ticket Name', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""><br />
-				<a href=""><?php _e('remove', 'wpet'); ?></a></td>
+<?php
+// @TODO
+// Pull list of available tickets
+?>
+				<td>
+					<select name="" id="">
+						<option value="options[ticket-id]">Ticket Name</option>
+					</select>
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -33,11 +40,11 @@
 ?>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Start Date', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<td><input name="options[start-date]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('End Date', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<td><input name="options[end-date]" type="text" id="" value=""></td>
 			</tr>
 		</tbody>
 	</table>
@@ -46,7 +53,7 @@
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Package Cost', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<td><input name="options[package-cost]" type="text" id="" value=""></td>
 			</tr>
 		</tbody>
 	</table>
@@ -55,7 +62,7 @@
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Quantity', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<td><input name="options[quantity]" type="text" id="" value=""></td>
 			</tr>
 		</tbody>
 	</table>
