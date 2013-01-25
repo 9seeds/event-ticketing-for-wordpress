@@ -15,11 +15,15 @@ jQuery(document).ready(function($) {
 	});
 
 	$('#add-value').click(function() {
-		$('#new-value')
+		var copy = $('#new-value')
 			.clone()
 			.removeAttr('id')
 			.insertBefore('#add-another')
 			.show();
+
+		copy.find('.option-value-new')
+			.removeClass('option-value-new')
+			.removeAttr('disabled');
 	});
 	
 });

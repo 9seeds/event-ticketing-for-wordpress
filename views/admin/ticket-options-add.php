@@ -35,7 +35,7 @@
 			<tr class="form-field" style="display: none;" id="new-value">
 				<th scope="row"><?php _e('Option Value', 'wpet'); ?></th>
 				<td>
-					<input type="text" name="options[option-value][]" value="" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
+					<input type="text" name="options[option-value][]" class="option-value-new" value="" disabled="disabled" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
 				</td>
 			</tr>
 		</tbody>
