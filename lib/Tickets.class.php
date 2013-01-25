@@ -26,6 +26,11 @@ class Tickets {
 		return $menu;
 	}
 
+	/**
+	 * Displays the menu page
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {
 	    
 	    if( isset( $_GET['add-ticket'] ) ) {

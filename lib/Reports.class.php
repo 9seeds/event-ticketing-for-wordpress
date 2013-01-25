@@ -24,6 +24,11 @@ class Reports {
 		return $menu;
 	}
 
+	/**
+	 * Displays the menu page
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
 		WPET::getInstance()->display( 'reporting.php' );
