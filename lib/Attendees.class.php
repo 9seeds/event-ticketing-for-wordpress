@@ -61,8 +61,17 @@ class WPET_Attendees extends WPET_AddOn {
 	 */
 	public function adminMenu( $menu ) {
 		$menu[] = array( 'Attendees', 'Attendees', 'add_users', 'wpet_attendees', array( $this, 'renderAdminPage' ) );
-		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notify_attendees', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notify_attendees', array( $this, 'renderAttendeeNotifyPage' ) );
 		return $menu;
+	}
+	
+	public function renderAttendeeNotifyPage() {
+	    if( isset( $_GET['add-notify'] ) ) {
+		    WPET::getInstance()->display( 'notify-add.php' );
+		} else {
+		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		    WPET::getInstance()->display( 'notify.php' );
+		}
 	}
 
 	public function renderAdminPage() {
@@ -72,7 +81,7 @@ class WPET_Attendees extends WPET_AddOn {
 		    WPET::getInstance()->display( 'attendees-add.php' );
 		} else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->display( 'attendees.php' );
+		    WPET::getInstance()->display( 'attendees.php' );
 		}
 	}
 	

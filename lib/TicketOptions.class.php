@@ -42,9 +42,23 @@ class WPET_TicketOptions extends WPET_AddOn {
 	public function renderAdminPage() {
 
 	    if( isset( $_GET['add-ticket-options'] ) ) {
-		echo '<pre>';
-		var_dump( $_POST);
-		echo '</pre>';
+//		echo '<pre>';
+//		var_dump( $_POST);
+//		echo '</pre>';
+		
+		if( isset( $_POST['submit'] ) ) {
+		    $this->add(
+			    array(
+				'post_title' => sanitize_title( $_POST['options']['display-name'] ),
+				'post_name' => sanitize_title_with_dashes( $_POST['options']['display-name'] ),
+				'meta' => array(
+				    '_type' => sanitize_title( $_POST['options']['option-type'] ),
+				    '_values' => serialize( $_POST['options']['option-value'] )
+				)
+			    )
+		    );
+			    
+		}
 		WPET::getInstance()->display( 'ticket-options-add.php' );
 	    } else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
@@ -108,7 +122,15 @@ class WPET_TicketOptions extends WPET_AddOn {
 
 	    $data = apply_filters( 'wpet_ticket_option_add', $data );
 
-	    wp_insert_post( $data );
+	    $post_id = wp_insert_post( $data );
+	    
+	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
+		foreach( $data['meta'] AS $k => $v ) {
+		    update_post_meta( $post_id, $k, $v );
+		}
+	    }
+	    
+	    return $post_id;
 	}
 
 	/**
