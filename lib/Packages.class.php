@@ -27,8 +27,13 @@ class Packages {
 	}
 
 	public function renderAdminPage() {
+	    
+	    if( isset( $_GET['add-package'] ) ) {
+		WPET::getInstance()->display( 'packages-add.php' );
+	    } else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
 		WPET::getInstance()->display( 'packages.php' );
+	    }
 	}
 	
 	
