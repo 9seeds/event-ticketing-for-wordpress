@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class TicketOptions {
+class WPET_TicketOptions extends WPET_AddOn {
 
 	/**
 	 * @since 2.0 

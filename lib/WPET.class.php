@@ -133,30 +133,32 @@ class WPET {
 	 * @since 2.0 
 	 */
 	private function initBuiltIn() {
+		require_once 'AddOn.class.php';
+		
 		//reports must come first to override the default option
 		require_once 'Reports.class.php';
-		$this->mModule['reports'] = new Reports();
+		$this->mModule['reports'] = new WPET_Reports();
 
 		require_once 'TicketOptions.class.php';
-		$this->mModule['ticket_options'] = new TicketOptions();
+		$this->mModule['ticket_options'] = new WPET_TicketOptions();
 
 		require_once 'Tickets.class.php';
-		$this->mModule['tickets'] = new Tickets();
+		$this->mModule['tickets'] = new WPET_Tickets();
 
 		require_once 'Packages.class.php';
-		$this->mModule['packages'] = new packages();
+		$this->mModule['packages'] = new WPET_packages();
 
 		require_once 'Coupons.class.php';
-		$this->mModule['coupons'] = new Coupons();
+		$this->mModule['coupons'] = new WPET_Coupons();
 
 		require_once 'Attendees.class.php';
-		$this->mModule['attendees'] = new Attendees();
+		$this->mModule['attendees'] = new WPET_Attendees();
 
 		require_once 'Instructions.class.php';
-		$this->mModule['instructions'] = new Instructions();
+		$this->mModule['instructions'] = new WPET_Instructions();
 
 		require_once 'Settings.class.php';
-		$this->mModule['settings'] = new Settings();
+		$this->mModule['settings'] = new WPET_Settings();
 	}
 
 	/**
@@ -196,7 +198,7 @@ class WPET {
 		global $post;
 
 		if ( is_admin() ) {
-			require_once( WPET_PLUGIN_DIR . '/views/admin/' . $template );
+			require_once( WPET_PLUGIN_DIR . "views/admin/{$template}" );
 			return;
 		}
 
@@ -212,7 +214,7 @@ class WPET {
 
 		if ( '' == locate_template( array( $template ) ) ) {
 			// Template could not be found in child or parent theme
-			$file = WPET_PLUGIN_DIR . "views/$template";
+			$file = WPET_PLUGIN_DIR . "views/{$template}";
 			require_once( $file );
 		}
 
@@ -240,8 +242,9 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function onAdminScreen( $current_screen ) {
-		if ( $current_screen->base == 'toplevel_page_wpet_reports' ||
-			 strpos( $current_screen->base, 'tickets_page_' ) === 0 ) {
+		if ( ( $pos = strpos( $current_screen->base, 'tickets_page_wpet_' ) ) === 0 ||
+			$current_screen->base == 'toplevel_page_wpet_reports' ) {
+
 			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
 			wp_enqueue_style( 'wpet-admin-style' );
 
@@ -250,8 +253,12 @@ class WPET {
 
 			wp_register_script( 'wpet-jquery-cookie', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/external/cookie.js' );
 
-			wp_register_script( 'wpet-admin-tabs', WPET_PLUGIN_URL . 'js/admin_tabs.js', array( 'jquery-ui-tabs', 'wpet-jquery-cookie' ) );
-			wp_enqueue_script( 'wpet-admin-tabs' );
+			//allow individual pages to load per-page assets			
+			if ( $pos === 0 ) {
+				$page = substr( $current_screen->base, 18 ); //'tickets_page_wpet_'
+				if ( ! empty( $this->mModule[$page] ) )
+					$this->mModule[$page]->enqueueAdminScripts();
+			}
 		}
 	}
 	

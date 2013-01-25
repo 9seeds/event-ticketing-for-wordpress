@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class Coupons {
+class WPET_Coupons extends WPET_AddOn {
 
 	/**
 	 * @since 2.0 
@@ -41,7 +41,7 @@ class Coupons {
 	 * @return array 
 	 */
 	public function adminMenu($menu) { 
-	$menu[] = array('Coupons', 'Coupons', 'add_users', 'coupons', array(&$this, 'renderAdminPage'));
+	$menu[] = array('Coupons', 'Coupons', 'add_users', 'wpet_coupons', array(&$this, 'renderAdminPage'));
 	return $menu;
 	}
 

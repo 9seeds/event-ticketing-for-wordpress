@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class Reports {
+class WPET_Reports extends WPET_AddOn {
 
 	/**
 	 * @since 2.0

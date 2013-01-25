@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class Tickets {
+class WPET_Tickets extends WPET_AddOn {
 
 	/**
 	 * @since 2.0 
