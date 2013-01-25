@@ -16,6 +16,35 @@ class Attendees {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 25 );
 		
 		add_action( 'init', array( $this, 'registerPostType' ) );
+		
+		add_action( 'init', array( $this, 'registerShortcodes' ) );
+	}
+	
+	
+	/**
+	 * Registers shortcodes for pretty reports on the front end
+	 * 
+	 * @since 2.0 
+	 */
+	public function registerShortcodes() {
+	    add_shortcode( 'wpet_attendees',  array( $this, 'renderAttendeesShortcode' ) );
+	}
+
+	/**
+	 * Displays the [wpet_attendees] shortcode to visitors
+	 * 
+	 * Valid attributes:
+	 * - event_id
+	 * 
+	 * @since 2.0
+	 * @param array $atts 
+	 */
+	public function renderAttendeesShortcode( $atts ) {
+	    echo "This is a fancy attendee list! Whoop!";
+	}
+	
+	public function findAllByEventId( $event ) {
+	    
 	}
 
 	/**

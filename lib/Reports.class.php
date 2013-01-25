@@ -11,7 +11,8 @@ class Reports {
 	public function __construct() {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 1 );
 	}
-
+	
+	
 	/**
 	 * Add Reports links to the Tickets menu
 	 * 

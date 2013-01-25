@@ -32,8 +32,13 @@ class TicketOptions {
 	 * @since 2.0 
 	 */
 	public function renderAdminPage() {
+	    
+	    if( isset( $_GET['add-ticket-options'] ) ) {
+		
+	    } else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
 		WPET::getInstance()->display( 'ticket-options.php' );
+	    }
 	}
 
 	/**
