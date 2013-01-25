@@ -33,5 +33,40 @@
 
 		</tbody>
 	</table>
+	<h2><?php _e( 'Sandbox Settings', 'wpet' ); ?></h2>
+	<table class="form-table">
+		<tbody>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('API Username', 'wpet'); ?></th>
+				<td><input name="options[sandbox-api-username]" type="text" id="" value=""></td>
+			</tr>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('API Password', 'wpet'); ?></th>
+				<td><input name="options[sandbox-api-password]" type="password" id="" value=""></td>
+			</tr>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('API Signature', 'wpet'); ?></th>
+				<td><input name="options[sandbox-api-signature]" type="text" id="" value=""></td>
+			</tr>
+		</tbody>
+	</table>
+	<h2><?php _e( 'Live Settings', 'wpet' ); ?></h2>
+	<table class="form-table">
+		<tbody>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('API Username', 'wpet'); ?></th>
+				<td><input name="options[live-api-username]" type="text" id="" value=""></td>
+			</tr>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('API Password', 'wpet'); ?></th>
+				<td><input name="options[live-api-password]" type="password" id="" value=""></td>
+			</tr>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('API Signature', 'wpet'); ?></th>
+				<td><input name="options[live-api-signature]" type="text" id="" value=""></td>
+			</tr>
+		</tbody>
+	</table>
+
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save Changes', 'wpet'); ?>"></p>
 </form>
