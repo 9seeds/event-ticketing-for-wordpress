@@ -42,6 +42,9 @@ class WPET_TicketOptions extends WPET_AddOn {
 	public function renderAdminPage() {
 
 	    if( isset( $_GET['add-ticket-options'] ) ) {
+		echo '<pre>';
+		var_dump( $_POST);
+		echo '</pre>';
 		WPET::getInstance()->display( 'ticket-options-add.php' );
 	    } else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
