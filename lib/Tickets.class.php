@@ -80,6 +80,8 @@ class Tickets {
 	/**
 	 * Adds the object data to the database
 	 * 
+	 * Must pass in an array of ticket option ids as $data['ticket_options']
+	 * 
 	 * @since 2.0
 	 * @param array $data 
 	 */
@@ -90,6 +92,10 @@ class Tickets {
 		'post_name' => uniqid()
 	    );
 	    
+	    if( !isset( $data['ticket_options'] ) ) {
+		return WP_Error( 1001, 'ticket_options is a required field' );
+	    }
+	    
 	    if( $user_id = get_current_user_id() )
 		$defaults['post_author'] = $user_id;
 	    
@@ -97,7 +103,7 @@ class Tickets {
 	    
 	    $data = apply_filters( 'wpet_ticket_add', $data );
 	    
-	    wp_insert_post( $data );
+	    return wp_insert_post( $data );
 	}
 	
 	/**
