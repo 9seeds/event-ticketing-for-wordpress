@@ -219,6 +219,20 @@ class WPET {
 		// Do not continue loading
 		//exit();
 	}
+	
+	/**
+	 * Returns the string containing the contents of a template rather than
+	 * echoing it
+	 * 
+	 * @param string $template
+	 * @param array $data
+	 * @return string 
+	 */
+	public function getDisplay( $template, $data = array() ) {
+	    ob_start();
+	    $this->display( $template, $data );
+	    return ob_get_clean();
+	}
 
 	/**
 	 * Method called on current admin screen
