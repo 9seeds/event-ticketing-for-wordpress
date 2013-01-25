@@ -31,6 +31,10 @@ class WPET_Settings extends WPET_AddOn {
 	}
 
 	public function renderAdminPage() {
+		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
+			$this->update();
+		}
+		
 		$tabs = array(
 			'event'   => array( 'label' => __( 'Event', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-event.php' ) ),
 			'payment' => array( 'label' => __( 'Payment', 'wpet' ), 'tab_content' => WPET::getInstance()->getDisplay( 'settings-payment.php' ) ),
@@ -45,6 +49,7 @@ class WPET_Settings extends WPET_AddOn {
 			$settings = array(
 				'settings' => array(),
 				'tabs' => $tabs,
+				'nonce' => wp_nonce_field( 'wpet_settings_update', 'wpet_settings_nonce', true, false ),
 		) );
 		WPET::getInstance()->display( 'settings.php', $settings );
 	}
@@ -62,6 +67,10 @@ class WPET_Settings extends WPET_AddOn {
 		);
 
 		return $settings;
+	}
+
+	public function update() {
+		die(print_r($_POST, true));
 	}
 
 }// end class

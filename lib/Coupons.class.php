@@ -9,7 +9,7 @@ class WPET_Coupons extends WPET_AddOn {
 	 * @since 2.0 
 	 */
 	public function __construct() {
-	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'), 20 );
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 20 );
 	
 	    add_action( 'init', array( $this, 'registerPostType' ) );
 	    
@@ -27,7 +27,7 @@ class WPET_Coupons extends WPET_AddOn {
 	    $screen->add_help_tab( 
 		    array(
 			'id'	=> 'my_help_tab',
-			'title'	=> __('My Help Tab'),
+			'title'	=> __( 'My Help Tab' ),
 			'content'	=> '<p>' . __( 'Descriptive content that will show in My Help Tab-body goes here.' ) . '</p>',
 		    ) 
 	    );
@@ -41,13 +41,13 @@ class WPET_Coupons extends WPET_AddOn {
 	 * @return array 
 	 */
 	public function adminMenu($menu) { 
-	$menu[] = array('Coupons', 'Coupons', 'add_users', 'wpet_coupons', array(&$this, 'renderAdminPage'));
-	return $menu;
+		$menu[] = array( 'Coupons', 'Coupons', 'add_users', 'wpet_coupons', array( $this, 'renderAdminPage' ) );
+		return $menu;
 	}
 
 	public function renderAdminPage() {
-	// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-	WPET::getInstance()->display('coupons.php');
+		// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		WPET::getInstance()->display( 'coupons.php' );
 	}
 	
 	/**
@@ -57,29 +57,29 @@ class WPET_Coupons extends WPET_AddOn {
 	 */
 	public function registerPostType() {
 	    $labels = array(
-		'name' => 'Coupons',
-		'singular_name' => 'Coupon',
-		'add_new' => 'Create Coupon',
-		'add_new_item' => 'New Coupon',
-		'edit_item' => 'Edit Coupon',
-		'new_item' => 'New Coupon',
-		'view_item' => 'View Coupon',
-		'search_items' => 'Search Coupons',
-		'not_found' => 'No Coupons found',
-		'not_found_in_trash' => 'No Coupons found in trash'
+			'name' => 'Coupons',
+			'singular_name' => 'Coupon',
+			'add_new' => 'Create Coupon',
+			'add_new_item' => 'New Coupon',
+			'edit_item' => 'Edit Coupon',
+			'new_item' => 'New Coupon',
+			'view_item' => 'View Coupon',
+			'search_items' => 'Search Coupons',
+			'not_found' => 'No Coupons found',
+			'not_found_in_trash' => 'No Coupons found in trash'
 	    );
 
 	    $args = array(
-		'public' => true,
-		'supports' => array( 'page-attributes' ),
-		'labels' => $labels,
-		'hierarchical' => false,
-		'has_archive' => true,
-		'query_var' => 'shiplog',
-		'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
-		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
-		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
-		'show_ui' => false
+			'public' => true,
+			'supports' => array( 'page-attributes' ),
+			'labels' => $labels,
+			'hierarchical' => false,
+			'has_archive' => true,
+			'query_var' => 'shiplog',
+			'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
+			//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
+			//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
+			'show_ui' => false
 	    );
 
 	    register_post_type( 'wpet_coupons', $args );
