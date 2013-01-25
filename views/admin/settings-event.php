@@ -46,5 +46,4 @@
 			</tr>
 		</tbody>
 	</table>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes"></p>
 </form>

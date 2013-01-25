@@ -22,7 +22,6 @@
 			</tr>
 		</tbody>
 	</table>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Ticket', 'wpet'); ?>"></p>
 </form>
 
 </div>

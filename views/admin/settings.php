@@ -19,7 +19,5 @@
 	?>
 	</div>
 	</form>
-
 </div>
-
-
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Save All Settings', 'wpet'); ?>"></p>
