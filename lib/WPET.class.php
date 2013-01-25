@@ -174,7 +174,7 @@ class WPET {
 		foreach ( $menu_items as $i ) {
 			add_submenu_page( 'wpet_reports', $i[0], $i[1], $i[2], $i[3], $i[4] );
 		}
-		
+		//die();
 		
 		$this->debug( 'Some title', 'This is a normal log message' );
 		$this->debug( 'Some title', 'This is a warning message', 'warning' );
