@@ -1,7 +1,9 @@
-instructions
-<?php 
+<div class="wrap">
+	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
+	<h2><?php _e('Instructions', 'wpet'); ?></h2>
 
-foreach( $data['instructions'] AS $inst ) {
-	echo "<h2>{$inst['title']}</h2>";
-	echo "<p>{$inst['text']}</p>";
-}
+	<h3><?php _e('Page Specific Help', 'wpet'); ?></h2>
+	<p><?php _e('Just a reminder, while you are working inside WP Event Ticketing you can click the Help button in the top-right corner of the screen to receive page-specific help.', 'wpet'); ?></p>
+
+	<p>Hold your horses. More is on the way. Gosh.</p>
+</div>
