@@ -40,11 +40,16 @@ class WPET_Attendees extends WPET_AddOn {
 	 * @param array $atts 
 	 */
 	public function renderAttendeesShortcode( $atts ) {
-	    echo "This is a fancy attendee list! Whoop!";
+	    $data = $this->findAllByEventId(1);
+	    WPET::getInstance()->display( 'attendees_shortcode.php', $data );
 	}
 	
 	public function findAllByEventId( $event ) {
-	    
+	    return array( 
+			array( 'name' => 'John Hawkins', 'event' => 'WPET Hack' ),
+			array( 'name' => 'Justin Foell', 'event' => 'WPET Hack' ),
+			array( 'name' => 'Ben Lobaugh', 'event' => "WPET Hack" )
+		   );
 	}
 
 	/**
