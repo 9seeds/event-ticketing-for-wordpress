@@ -3,7 +3,7 @@
 /**
  * @since 2.0
  */
-class Settings {
+class WPET_Settings extends WPET_AddOn {
 
 	/**
 	 * @since 2.0
@@ -13,6 +13,11 @@ class Settings {
 		add_filter( 'wpet_settings', array( $this, 'defaultSettings' ) );
 	}
 
+	public function enqueueAdminScripts() {
+		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'wpet-jquery-cookie' ) );
+		wp_enqueue_script( 'wpet-admin-settings' );
+	}
+	
 	/**
 	 * Add Settings links to the Tickets menu
 	 *
@@ -20,7 +25,7 @@ class Settings {
 	 * @param type $menu
 	 * @return array
 	 */
-	public function adminMenu($menu) {
+	public function adminMenu( $menu ) {
 		$menu[] = array( 'Settings', 'Settings', 'add_users', 'wpet_settings', array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
@@ -33,7 +38,7 @@ class Settings {
 			'reset'   => array( 'label' => __( 'Reset', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-reset.php' ) ),
 		);
 
-		$tabs = apply_filters( 'wpet_settings_tabs', $tabs, $settings_url );
+		$tabs = apply_filters( 'wpet_settings_tabs', $tabs );
 		
 		$settings = apply_filters(
 			'wpet_settings',

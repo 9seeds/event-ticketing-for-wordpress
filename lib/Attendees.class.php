@@ -7,7 +7,7 @@
  * 
  * @since 2.0 
  */
-class Attendees {
+class WPET_Attendees extends WPET_AddOn {
 
 	/**
 	 * @since 2.0 

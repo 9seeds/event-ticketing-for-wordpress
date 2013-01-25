@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class Instructions {
+class WPET_Instructions extends WPET_AddOn {
 
 	/**
 	 * @since 2.0 
@@ -21,7 +21,7 @@ class Instructions {
 	 * @return array 
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Instructions', 'Instructions', 'add_users', 'instructions', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( 'Instructions', 'Instructions', 'add_users', 'wpet_instructions', array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
