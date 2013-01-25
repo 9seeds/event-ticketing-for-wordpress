@@ -61,7 +61,7 @@ class Packages {
 		'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
-		'show_ui' => true
+		'show_ui' => false
 	    );
 
 	    register_post_type( 'wpet_packages', $args );
