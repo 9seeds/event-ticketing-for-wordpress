@@ -29,6 +29,10 @@
 					</select>
 				</td>
 			</tr>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('Quantity', 'wpet'); ?></th>
+				<td><input name="options[ticket-quantity]" type="text" id="" value=""></td>
+			</tr>
 		</tbody>
 	</table>
 	<h2><?php _e('On Sale Date', 'wpet'); ?></h2>

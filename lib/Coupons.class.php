@@ -12,6 +12,25 @@ class WPET_Coupons extends WPET_AddOn {
 	add_filter('wpet_admin_menu', array(&$this, 'adminMenu'), 20 );
 	
 	    add_action( 'init', array( $this, 'registerPostType' ) );
+	    
+	    add_action( 'load-tickets_page_coupons', array( $this, 'contextHelp' ) );
+	}
+	
+	/**
+	 * Displays page specific contextual help through the contextual help API
+	 * 
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp() {
+	    $screen = get_current_screen();
+	    $screen->add_help_tab( 
+		    array(
+			'id'	=> 'my_help_tab',
+			'title'	=> __('My Help Tab'),
+			'content'	=> '<p>' . __( 'Descriptive content that will show in My Help Tab-body goes here.' ) . '</p>',
+		    ) 
+	    );
 	}
 
 	/**

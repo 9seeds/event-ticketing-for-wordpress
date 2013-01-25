@@ -85,11 +85,11 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function registerShortcodes() {
-	    add_shortcode( 'wpet',  array( $this, 'renderOrderFormShortcode' ) );
+	    add_shortcode( 'wpeventticketing',  array( $this, 'renderwpeventticketingShortcode' ) );
 	}
 	
 	/**
-	 * Displays the [wpet] shortcode to visitors
+	 * Displays the [wpeventticketing] shortcode to visitors
 	 * 
 	 * Valid attributes:
 	 * - event_id
@@ -97,7 +97,7 @@ class WPET {
 	 * @since 2.0
 	 * @param array $atts 
 	 */
-	public function renderOrderFormShortcode( $atts ) {
+	public function renderwpeventticketingShortcode( $atts ) {
 	    
 	    /*
 	     * Find the event to display here
@@ -176,7 +176,7 @@ class WPET {
 		foreach ( $menu_items as $i ) {
 			add_submenu_page( 'wpet_reports', $i[0], $i[1], $i[2], $i[3], $i[4] );
 		}
-		
+		//die();
 		
 		$this->debug( 'Some title', 'This is a normal log message' );
 		$this->debug( 'Some title', 'This is a warning message', 'warning' );
