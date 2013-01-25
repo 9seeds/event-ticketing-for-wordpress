@@ -1,4 +1,3 @@
-<form method="post" action="">
 	<h2><?php _e('Registration Email', 'wpet'); ?></h2>
 	<table class="form-table">
 		<tbody>
@@ -18,11 +17,7 @@
 				<th scope="row"><?php _e('Email Body', 'wpet'); ?></th>
 				<td><textarea name="options[email-body]" type="text" id="" value=""></textarea><br />
 					<em><?php _e('Note: Include the shortcode [ticketlinks] in the email body to send the buyer the link to edit their ticket information.', 'wpet'); ?></em>
-
-
-
-				</textarea></td>
+				</td>
 			</tr>
 		</tbody>
 	</table>
-</form>

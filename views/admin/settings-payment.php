@@ -1,4 +1,3 @@
-<form method="post" action="">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
@@ -67,4 +66,3 @@
 			</tr>
 		</tbody>
 	</table>
-</form>

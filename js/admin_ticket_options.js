@@ -15,18 +15,11 @@ jQuery(document).ready(function($) {
 	});
 
 	$('#add-value').click(function() {
-		var index = $('.option-value').length;
-
-		var copy = $('#new-value')
+		$('#new-value')
 			.clone()
 			.removeAttr('id')
 			.insertBefore('#add-another')
 			.show();
-
-		copy.find('.option-value-new')
-			.removeClass('option-value-new')
-			.addClass('option-value')
-			.attr('name', 'options[option-value-' + index + ']');
 	});
 	
 });
