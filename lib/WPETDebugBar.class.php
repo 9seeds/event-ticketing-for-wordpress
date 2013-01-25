@@ -8,7 +8,7 @@
 // Don't load directly
 if ( !defined('ABSPATH') ) { die('-1'); }
 
-add_filter( 'debug_bar_panels', 'wpet_load_debug_bar' );
+add_filter( 'debug_bar_panels', 'wpet_load_debug_bar', 1 );
 function wpet_load_debug_bar($panels) {
 	if (!class_exists('WPETDebugBar') && class_exists('Debug_Bar_Panel')) {
 		class WPETDebugBar extends Debug_Bar_Panel {
@@ -23,7 +23,7 @@ function wpet_load_debug_bar($panels) {
 				wp_enqueue_style( 'wpet-debug-bar-css', WPET_PLUGIN_URL . 'css/debug-bar.css' );
 
 				// Action hook called when new dbug info is submitted
-				add_action( 'wpet_debug', array( &$this, 'logDebug' ), 10, 3 );
+				add_action( 'wpet_debug', array( &$this, 'logDebug' ), 1, 3 );
 
 			}
 

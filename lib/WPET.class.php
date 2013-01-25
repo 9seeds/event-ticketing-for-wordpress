@@ -1,7 +1,15 @@
 <?php
 
 /**
- * Uses Singleton design pattern
+ * Base WP Event Ticketing object. Sets up all the modules and inits the plugin.
+ * 
+ * WPET is a singleton. Get a reference with WPET::getInstance()
+ * 
+ * @todo Add button to wp_editor() for WPET shortcodes. Should be able to select from list of events
+ * @todo Remove pro store. Plugins that purchase things directly are not allowed in the .org repo
+ * @todo Add code to allow alternate payment gateways. Do now show this ability to change in free edition?
+ * @todo How do we reliably check to see if Pro is installed?
+ * @todo How can we reliably allow plugins to tap into our hooks? If the free base is activated first the hooks will all execute before the addons/Pro are loaded. Look at The Events Calendar and Easy Digital Downloads for ideas
  * 
  * @since 2.0 
  */
@@ -22,13 +30,31 @@ class WPET {
 	 * @var WPET 
 	 */
 	static $mWpet = false;
+	
+	/**
+	 * Flag to determine if WPET Pro is installed
+	 * 
+	 * @var bool 
+	 */
+	static $mProInstalled;
 
 	/**
+	 * Private object constructor. This class is a singleton. 
+	 * Use WPET::getInstance()
+	 * 
 	 * @since 2.0
 	 * @uses wpet_init
 	 */
 	private function __construct() {
 		require_once( WPET_PLUGIN_DIR . '/lib/WPETDebugBar.class.php' );
+		
+		/*
+		 * Determine if WPET Pro is installed. Of itself this flag does 
+		 * nothing. No special features are "unlocked". It does however 
+		 * help add-ons ensure the special features provided by Pro 
+		 * are available for use
+		 */
+		self::$mProInstalled = apply_filters( 'wpet_pro_installed', false );
 
 		/*
 		 * Let add-ons know wpet has started. They could do things such as setup
@@ -49,6 +75,42 @@ class WPET {
 			add_action( 'admin_menu', array( $this, 'setupMenu' ) );
 			add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
 		}
+		
+		add_action( 'init', array( $this, 'registerShortcodes' ) );
+	}
+	
+	/**
+	 * Registers the shortcodes required by the WPET base plugin
+	 * 
+	 * @since 2.0
+	 */
+	public function registerShortcodes() {
+	    add_shortcode( 'wpet',  array( $this, 'renderOrderFormShortcode' ) );
+	}
+	
+	/**
+	 * Displays the [wpet] shortcode to visitors
+	 * 
+	 * Valid attributes:
+	 * - event_id
+	 * 
+	 * @since 2.0
+	 * @param array $atts 
+	 */
+	public function renderOrderFormShortcode( $atts ) {
+	    
+	    /*
+	     * Find the event to display here
+	     */
+	    $this->display( 'order_form.php' );
+	    
+	    echo "<p>Is pro installed? ";
+	    if( self::$mProInstalled )
+		echo " It sure is you lucky dog!!";
+	    else 
+		echo "Noppers :'(";
+	    
+	    echo "</p>";
 	}
 
 	/**
@@ -124,6 +186,8 @@ class WPET {
 	 * Handles the display of templates to the user. Pass it in associative
 	 * array of data that can be used by the template
 	 * 
+	 * @todo Does not allow site owners to override templates in their theme yet. Add that
+	 * @since 2.0
 	 * @global WP_Post $post
 	 * @param String $template
 	 * @param Array $data - OPTIONAL - data to display in the template
@@ -136,7 +200,7 @@ class WPET {
 			return;
 		}
 
-		if ( $this->mLogPostType != $post->post_type )
+/*		if ( $this->mLogPostType != $post->post_type )
 			return;
 
 		if ( is_singular( $this->mLogPostType ) ) {
@@ -144,16 +208,16 @@ class WPET {
 		} else if ( is_post_type_archive( $this->mLogPostType ) ) {
 			$template = "archive-$this->mLogPostType.php";
 		}
-
+*/
 
 		if ( '' == locate_template( array( $template ) ) ) {
 			// Template could not be found in child or parent theme
-			$file = SHIPS_LOG_PLUGIN_DIR . "views/$template";
+			$file = WPET_PLUGIN_DIR . "views/$template";
 			require_once( $file );
 		}
 
 		// Do not continue loading
-		exit();
+		//exit();
 	}
 
 	/**
@@ -174,7 +238,7 @@ class WPET {
 	/**
 	* Sends debugging data to a custom debug bar extension
 	* 
-	* @since 1.0
+	* @since 2.0
 	* @param String $title
 	* @param Mixed $data
 	* @param String $format Optional - (Default:log) log | warning | error | notice | dump
