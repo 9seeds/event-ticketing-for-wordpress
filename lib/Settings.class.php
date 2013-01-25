@@ -1,12 +1,12 @@
 <?php
 
 /**
- * @since 2.0 
+ * @since 2.0
  */
 class Settings {
 
 	/**
-	 * @since 2.0 
+	 * @since 2.0
 	 */
 	public function __construct() {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 2 );
@@ -15,10 +15,10 @@ class Settings {
 
 	/**
 	 * Add Settings links to the Tickets menu
-	 * 
+	 *
 	 * @since 2.0
 	 * @param type $menu
-	 * @return array 
+	 * @return array
 	 */
 	public function adminMenu($menu) {
 		$menu[] = array( 'Settings', 'Settings', 'add_users', 'wpet_settings', array( $this, 'renderAdminPage' ) );
@@ -27,7 +27,7 @@ class Settings {
 
 	public function renderAdminPage() {
 		$settings = apply_filters( 'wpet_settings', $settings = array( 'settings' => array() ) );
-		WPET::getInstance()->display( 'settings.php', $settings );
+		WPET::getInstance()->display( 'settings-event.php', $settings );
 	}
 
 	public function defaultSettings( $settings ) {
