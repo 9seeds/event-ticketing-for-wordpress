@@ -8,11 +8,6 @@
 				<th scope="row"><label for="options[display-name]"><?php _e('Display Name', 'wpet'); ?></label></th>
 				<td><input name="options[display-name]" type="text" id="options[display-name]" value=""></td>
 			</tr>
-<?php
-/**
- * @todo hawkins broke the javascript by changing the ids
- */
-?>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[option-type]"><?php _e('Option Type', 'wpet'); ?></label></th>
 				<td>
