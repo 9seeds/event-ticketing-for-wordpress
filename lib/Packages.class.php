@@ -12,6 +12,8 @@ class WPET_Packages extends WPET_Module {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 15 );
 		
 		add_action( 'init', array( $this, 'registerPostType' ) );
+		
+		add_filter( 'wpet_packages_columns', array( $this, 'defaultColumns' ) );
 	}
 
 	/**
@@ -34,11 +36,77 @@ class WPET_Packages extends WPET_Module {
 	public function renderAdminPage() {
 	    
 	    if( isset( $_GET['add-package'] ) ) {
+		
+		if( isset( $_POST['submit'] ) ) {
+		    $data = array(
+			'post_title' => $_POST['options']['package-name'],
+			'post_name' => sanitize_title_with_dashes( $_POST['options']['package-name'] ),
+			'post_content' => stripslashes( $_POST['options']['description'] ),
+			'meta' => array(
+			    '_wpet_start-date' => $_POST['options']['start-date'],
+			    '_wpet_end-date' => $_POST['options']['end-date'],
+			    '_wpet_cost' => $_POST['options']['package-cost'],
+			    '_wpet_quantity' => $_POST['options']['quantity'],
+			    '_wpet_quantity_remaining' => $_POST['options']['quantity']
+			)
+
+		    );
+		    $this->add( $data );
+		}
+		
 		WPET::getInstance()->display( 'packages-add.php' );
 	    } else {
-		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->display( 'packages.php' );
+		
+		$columns = array();
+		
+		$rows = $this->findAllByEvent();
+		
+		
+		$data['columns'] = apply_filters( 'wpet_packages_columns', $columns );
+		$data['rows'] = apply_filters( 'wpet_packages_rows', $rows );
+		WPET::getInstance()->display( 'packages.php', $data );
 	    }
+	}
+	
+	public function findAllByEvent() {
+	    $args = array(
+		'post_type' => 'wpet_packages',
+		'showposts' => '-1',
+		'posts_per_page' => '-1'
+	    );
+	    
+	    $posts = get_posts( $args );
+	    
+	    $arr = array();
+	    foreach( $posts AS $p ) {
+		$meta = get_post_meta( $p->ID );
+		 
+		foreach( $meta AS $k => $v ) {
+		   $p->$k = $v[0];
+		}
+		
+		$arr[] = $p;
+	    }
+	    
+	    return $arr;    
+	}
+	
+	/**
+	 * Adds the default columns to the packages list in wp-admin
+	 * 
+	 * @since 2.0
+	 * @param type $columns
+	 * @return type 
+	 */
+	public function defaultColumns( $columns ) {
+	    return array(
+		'post_title' => 'Package Name',
+		'_wpet_cost' => 'Price',
+		'_wpet_quantity_remaining' => 'Remaining',
+		'_wpet_quantity' => 'Total Qty',
+		'_wpet_start-date' => 'Start',
+		'_wpet_end-date' => 'End'
+	    );
 	}
 	
 	
@@ -98,7 +166,12 @@ class WPET_Packages extends WPET_Module {
 	    
 	    $data = apply_filters( 'wpet_package_add', $data );
 	    
-	    wp_insert_post( $data );
+	    $post_id = wp_insert_post( $data );
+	    
+	    foreach( $data['meta'] AS $k => $v ) {
+		update_post_meta( $post_id, $k, $v );
+	    }
+	    return $post_id;
 	}
 	
 	/**
