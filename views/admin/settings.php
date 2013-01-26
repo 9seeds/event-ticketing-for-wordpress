@@ -20,7 +20,7 @@
 		echo "<div id='tab-{$tab_id}'>";
 		
 		foreach( $settings AS $set ) {
-		    echo "<h2>{$set['title']}</h2>";
+//		    echo "<h2>{$set['title']}</h2>";
 		    echo $set['text'];
 		}
 		
