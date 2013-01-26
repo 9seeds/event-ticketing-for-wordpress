@@ -297,6 +297,14 @@ class WPET {
 	public static function activate() {
 		$plugin_data = get_plugin_data( WPET_PLUGIN_DIR . '/ticketing.php' );
 		update_option( 'wpet_install_data', $plugin_data );
+		require_once 'Module.class.php';
+		require_once 'Events.class.php';
+
+		$event = new WPET_Events();
+		$event->registerPostType();
+		$events = $event->findActive();
+		if ( empty( $events ) )
+			$event->add();
 	}
 
 	/**

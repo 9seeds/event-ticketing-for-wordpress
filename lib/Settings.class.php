@@ -43,24 +43,7 @@ class WPET_Settings extends WPET_Module {
 		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
 			$this->update( $_POST );
 		}
-		
-		/*$tabs = array(
-			'event'   => array( 'label' => __( 'Event', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-event.php' ) ),
-			'payment' => array( 'label' => __( 'Payment', 'wpet' ), 'tab_content' => WPET::getInstance()->getDisplay( 'settings-payment.php' ) ),
-			'email'   => array( 'label' => __( 'Email', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-email.php' ) ),
-			'reset'   => array( 'label' => __( 'Reset', 'wpet' ),   'tab_content' => WPET::getInstance()->getDisplay( 'settings-reset.php' ) ),
-		);
-
-		$tabs = apply_filters( 'wpet_settings_tabs', $tabs );
-		
-		$settings = apply_filters(
-			'wpet_settings',
-			$settings = array(
-				'settings' => array(),
-				'tabs' => $tabs,
-				'nonce' => wp_nonce_field( 'wpet_settings_update', 'wpet_settings_nonce', true, false ),
-		) );*/
-		
+				
 		
 		$tabs = apply_filters( 'wpet_settings_tabs', array() );
 		
@@ -71,6 +54,7 @@ class WPET_Settings extends WPET_Module {
 		    'settings' => $this->sortByTab( $settings ),
 		    'nonce' => wp_nonce_field( 'wpet_settings_update', 'wpet_settings_nonce', true, false ),
 		);
+
 		WPET::getInstance()->display( 'settings.php', $data );
 	}
 	
@@ -91,6 +75,8 @@ class WPET_Settings extends WPET_Module {
 	}
 
 	public function defaultSettings( $settings ) {
+
+		//$event = WPET::getInstance()->events->getWorkingEvent();
 
 		$event_data = array(
 			//@TODO real data
