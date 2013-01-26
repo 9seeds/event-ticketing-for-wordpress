@@ -2,7 +2,7 @@
 
 require_once WPET_PLUGIN_DIR . 'lib/Table.class.php';
 
-class WPET_TicketOptionsTable extends WPET_Table {
+class WPET_Table_TicketOptions extends WPET_Table {
 
 	protected function get_prepare_args( $defaults ) {
 		$override = array(
