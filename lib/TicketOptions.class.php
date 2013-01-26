@@ -12,9 +12,9 @@ class WPET_TicketOptions extends WPET_Module {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 5 );
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
-		
+
 		add_filter( 'wpet_ticket_options_columns', array( $this, 'defaultColumns' ) );
-		
+
 	}
 
 	/**
@@ -48,7 +48,7 @@ class WPET_TicketOptions extends WPET_Module {
 //		echo '<pre>';
 //		var_dump( $_POST);
 //		echo '</pre>';
-		
+
 		if( isset( $_POST['submit'] ) ) {
 		    $this->add(
 			    array(
@@ -60,34 +60,34 @@ class WPET_TicketOptions extends WPET_Module {
 				)
 			    )
 		    );
-			    
+
 		}
 		WPET::getInstance()->display( 'ticket-options-add.php' );
 	    } else {
-		
+
 		$columns = array(
 		    'name' => 'Option Name',
 		    'type' => 'Type'
 		);
-		
+
 		$rows = $this->findAll();
-		
+
 		$data['columns'] = apply_filters( 'wpet_ticket_options_columns', $columns );
 		$data['rows'] = apply_filters( 'wpet_ticket_options_rows', $rows );
 		WPET::getInstance()->display( 'ticket-options.php', $data );
 	    }
 	}
-	
+
 	/**
 	 * Creates the ticket options form for the wp-admin area
-	 * 
+	 *
 	 * @since 2.0
-	 * @return string 
+	 * @return string
 	 */
 	public function buildAdminOptionsHtmlForm() {
 	    $options = $this->findAll();
-	    
-	    
+
+
 	    $s = '';
 	    foreach( $options AS $o ) {
 		$opts = unserialize( $o['option-value'] );
@@ -96,70 +96,70 @@ class WPET_TicketOptions extends WPET_Module {
 		$s .= '<td>';
 		// Figure out the type to build the proper display
 		switch( $o['option-type'] ) {
-		    
+
 		    case 'multiselect':
 			$opts = unserialize( $o['option-value'] );
 			$s .= '<select multiple>';
-			
-			foreach( $opts AS $oi ) { 
+
+			foreach( $opts AS $oi ) {
 			    $s .= '<option value="' . $oi . '">' . $oi . '</option>';
 			}
 			$s .= '</select>';
 			break;
 		    case 'dropdown':
 			$s .= '<select>';
-			
+
 			foreach( $opts AS $oi ) {
-			   
+
 			    $s .= '<option value="' . $oi . '">' . $oi . '</option>';
 			}
 			$s .= '</select>';
 			break;
-		    
+
 		    case 'text':
 		    default:
 			$s .= '<input type="text" value="' .  $opts[0] . '" />';
-			
+
 		}
 		$s .= '</td>';
 		$s .= '</tr>';
 	    }
-	    
+
 	    return $s;
 	}
-	
-	
+
+
 	/**
 	 * Creates the ticket options form for the wp-admin area
-	 * 
+	 *
 	 * @since 2.0
-	 * @return string 
+	 * @return string
 	 */
 	public function buildAdminOptionsCheckboxForm() {
 	    $options = $this->findAll();
-	    
-	    
+
+
 	    $s = '';
 	    foreach( $options AS $o ) {
 		$opts = unserialize( $o['option-value'] );
 		$s .= '<tr class="form-field form-required">';
 		$s .= '<th scope="row"><label for="' . sanitize_title_with_dashes( $o['display-name'] ) . '">' . $o['display-name'] . '</label></th>';
 		$s .= '<td>';
-		$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o['display-name'] ) . '" name="ticket_options[' . $o['ID'] . ']"/>';
+		$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o['display-name'] ) . '" name="options[' . $o['ID'] . ']"/>';
 		$s .= '</td>';
 		$s .= '</tr>';
 	    }
-	    
+
 	    return $s;
 	}
-	
-	
+
+
 	/**
 	 * Adds the default columns to the ticket options list in wp-admin
-	 * 
+	 *
 	 * @since 2.0
 	 * @param type $columns
-	 * @return type 
+	 * @return type
 	 */
 	public function defaultColumns( $columns ) {
 	    return array(
@@ -167,23 +167,23 @@ class WPET_TicketOptions extends WPET_Module {
 		'option-type' => 'Type'
 	    );
 	}
-	
+
 	/**
 	 * Returns an array of all ticket options
-	 * 
+	 *
 	 * @since 2.0
-	 * @return array 
+	 * @return array
 	 */
 	public function findAll() {
-	    
+
 	    $args = array(
 		'post_type' => 'wpet_ticket_options',
 		'showposts' => '-1',
 		'posts_per_page' => '-1'
 	    );
-	    
+
 	    $posts = get_posts( $args );
-	    
+
 	    $ret = array();
 	    foreach( $posts AS $p ) {
 		$data = array(
@@ -255,13 +255,13 @@ class WPET_TicketOptions extends WPET_Module {
 	    $data = apply_filters( 'wpet_ticket_option_add', $data );
 
 	    $post_id = wp_insert_post( $data );
-	    
+
 	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
 		foreach( $data['meta'] as $k => $v ) {
 		    update_post_meta( $post_id, $k, $v );
 		}
 	    }
-	    
+
 	    return $post_id;
 	}
 

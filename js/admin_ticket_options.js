@@ -1,12 +1,12 @@
 jQuery(document).ready(function($) {
-	$('#option-type').change(wpet_ticket_option_change);
-	$('#option-type').keyup(wpet_ticket_option_change);
+	$('#options[option-type]').change(wpet_ticket_option_change);
+	$('#options[option-type]').keyup(wpet_ticket_option_change);
 
 	function wpet_ticket_option_change() {
 		if ( $(this).val() == 'text' ) {
-			$('#option-values').hide();
+			$('#options[option-values]').hide();
 		} else {
-			$('#option-values').show();
+			$('#options[option-values]').show();
 		}
 	}
 
@@ -25,5 +25,5 @@ jQuery(document).ready(function($) {
 			.removeClass('option-value-new')
 			.removeAttr('disabled');
 	});
-	
+
 });
