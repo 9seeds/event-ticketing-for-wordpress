@@ -113,22 +113,133 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => '',
-				'code' => '',
-				'symbol' => '',
+				'display' => 'Hong Kong Dollars',
+				'code' => 'HKD',
+				'symbol' => 'HK$',
 				'location' => 'before',
 				'dec_point' => '.',
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => '',
-				'code' => '',
-				'symbol' => '',
+				'display' => 'Hungarian Forint',
+				'code' => 'HUF',
+				'symbol' => 'Ft',
+				'location' => 'after',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Israeli Shekel',
+				'code' => 'ILS',
+				'symbol' => '₪',
 				'location' => 'before',
 				'dec_point' => '.',
 				'thousands_sep' => ','
 			),
-
+			array(
+				'display' => 'Malaysian Ringgits (only for Malaysian users)',
+				'code' => 'MYR',
+				'symbol' => 'RM',
+				'location' => 'after',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Mexican Peso',
+				'code' => 'MXN',
+				'symbol' => 'Mex$',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'New Zealand Dollars',
+				'code' => 'NZD',
+				'symbol' => '$',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Norwegian Krone',
+				'code' => 'NOK',
+				'symbol' => 'kr',
+				'location' => 'after',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Philippine Pesos',
+				'code' => 'PHP',
+				'symbol' => '₱',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Polish Zloty',
+				'code' => 'PLN',
+				'symbol' => 'zł',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Pounds Sterling',
+				'code' => 'GBP',
+				'symbol' => '£',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Singapore Dollar',
+				'code' => 'SGD',
+				'symbol' => '$',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Swedish Krona',
+				'code' => 'SEK',
+				'symbol' => 'kr',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Swiss Franc',
+				'code' => 'CHF',
+				'symbol' => 'CHF',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Taiwan New Dollars',
+				'code' => 'TWD',
+				'symbol' => '$',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Thai Baht',
+				'code' => 'THB',
+				'symbol' => '฿',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
+			array(
+				'display' => 'Yen',
+				'code' => 'JYP',
+				'symbol' => '¥',
+				'location' => 'before',
+				'dec_point' => '.',
+				'thousands_sep' => ','
+			),
 		);
 
 		foreach( $c AS $cur ) {
