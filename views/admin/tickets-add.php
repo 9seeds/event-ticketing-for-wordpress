@@ -1,5 +1,5 @@
 <div class="wrap">
-	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
+	<?php echo $admin_page_icon; ?>
 	<h2><?php _e('Add Ticket', 'wpet'); ?></h2>
 <form method="post" action="">
 	<table class="form-table">

@@ -207,6 +207,8 @@ class WPET {
 	 */
 	public function display( $template, $data = array() ) {
 		global $post;
+		
+		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>' );
 
 		if ( is_admin() ) {
 			require_once( WPET_PLUGIN_DIR . "views/admin/{$template}" );
