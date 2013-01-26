@@ -34,7 +34,7 @@ class WPET_Tickets extends WPET_Module {
 	public function renderAdminPage() {
 	    
 	    if( isset( $_GET['add-ticket'] ) ) {
-		WPET::getInstance()->display( 'tickets-add.php' );
+		WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->findAll() );
 	    } else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
 		WPET::getInstance()->display( 'tickets.php' );
