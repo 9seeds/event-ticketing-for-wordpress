@@ -1,6 +1,6 @@
 <div class="wrap">
 	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Coupons', 'wpet'); ?> <a href="?page=wpet_coupon&add-coupon=1" class="add-new-h2">Add New</a></h2>
+	<h2><?php _e('Coupons', 'wpet'); ?> <a href="?page=wpet_coupons&add-coupons=1" class="add-new-h2">Add New</a></h2>
 
 	<form action="" method="get" class="search-form">
 		<p class="search-box">
