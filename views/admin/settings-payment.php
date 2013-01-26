@@ -11,7 +11,7 @@
 				<td>
 				<?php //@TODO payment-gateway ?>
 					<select name="options[payment-gateway]" id="options[payment-gateway]">
-						<option value=""><?php _e('PayPal Standard', 'wpet'); ?></option>
+						<option value=""><?php _e('PayPal Express', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>
