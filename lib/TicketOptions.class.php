@@ -13,6 +13,8 @@ class WPET_TicketOptions extends WPET_AddOn {
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
 		
+		add_filter( 'wpet_ticket_options_columns', array( $this, 'defaultColumns' ) );
+		
 	}
 
 	/**
@@ -74,6 +76,13 @@ class WPET_TicketOptions extends WPET_AddOn {
 		$data['rows'] = apply_filters( 'wpet_ticket_options_rows', $rows );
 		WPET::getInstance()->display( 'ticket-options.php', $data );
 	    }
+	}
+	
+	public function defaultColumns( $columns ) {
+	    return array(
+		'display-name' => 'Option Name',
+		'option-type' => 'Type'
+	    );
 	}
 	
 	public function findAll() {
