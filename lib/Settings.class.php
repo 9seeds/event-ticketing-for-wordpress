@@ -39,7 +39,7 @@ class WPET_Settings extends WPET_Module {
 
 	public function renderAdminPage() {
 		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
-			$this->update();
+			$this->update( $_POST );
 		}
 		
 		/*$tabs = array(
@@ -92,8 +92,13 @@ class WPET_Settings extends WPET_Module {
 
 		$event_data = array(
 			//@TODO real data
-			'event_date' => '04/27/2012',
-			
+			'event-date' => '04/27/2012',
+			'organizer-name' => get_option( 'wpet-organizer-name', '' ),
+			'organizer-email' => get_option( 'wpet-organizer-email', '' ),
+			'max-attendance' => '',
+			'event-status' => '',
+			'coming-soon' => get_option( 'wpet-coming-soon', '' ),
+			'thank-you' => get_option( 'wpet-thank-you', '' ),
 		);
 		
 		$settings[] = array(
@@ -101,16 +106,32 @@ class WPET_Settings extends WPET_Module {
 			'title' => 'Settings Title',
 			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data ) 
 			);
+
+		$email_data = array(
+		);
 		
 		$settings[] = array(
 		    'tab' => 'email',
 			'title' => 'Disable upgrade nag?',
-			'text' => WPET::getInstance()->getDisplay( 'settings-email.php' )
+			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data )
 		);
+
+		$payment_data = array(
+			'payment-gateway' => '',
+			'currency' => '',
+			'payment-gateway-status' => '',
+			'sandbox-api-username' => get_option( 'wpet-sandbox-api-username', '' ),
+			'sandbox-api-password' => get_option( 'wpet-sandbox-api-password', '' ),
+			'sandbox-api-signature' => get_option( 'wpet-sandbox-api-signature', '' ),
+			'live-api-username' => get_option( 'wpet-live-api-username', '' ),
+			'live-api-password' => get_option( 'wpet-live-api-password', '' ),
+			'live-api-signature' => get_option( 'wpet-live-api-signature', '' ),
+		);
+
 		$settings[] = array(
 		    'tab' => 'payment',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php' )
+			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data )
 		);
 		$settings[] = array(
 		    'tab' => 'form_display',
@@ -143,8 +164,19 @@ class WPET_Settings extends WPET_Module {
 	/**
 	 * @since 2.0
 	 */
-	public function update() {
-		die(print_r($_POST, true));
+	public function update( $post ) {
+		$options = $post['options'];
+		
+		//these go with the active event
+		//$this->updateEvent();		
+		unset( $options['event-date'] );
+		unset( $options['max-attendance'] );
+		unset( $options['event-status'] );
+
+		foreach ( $options as $key => $value ) {
+			update_option( "wpet-{$key}", $value );
+		}
+		
 	}
 
 }// end class

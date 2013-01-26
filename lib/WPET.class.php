@@ -331,12 +331,11 @@ class WPET {
 	 * @since 2.0
 	 * @return WPET_Module
 	 */
-
 	public function __get( $name ) {
 		if ( ! empty( $this->mModules[$name] ) )
 			return $this->mModules[$name];
 
-		return $this->{$name};
+		return NULL;
 	}
 
 	
