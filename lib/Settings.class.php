@@ -92,7 +92,7 @@ class WPET_Settings extends WPET_Module {
 		    'tab' => 'event',
 			'title' => 'Settings Title',
 			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data ) 
-			);
+		);
 
 		$email_data = array(
 			'from-name' => get_option( 'wpet-from-name', '' ),
