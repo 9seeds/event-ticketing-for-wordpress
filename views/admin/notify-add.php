@@ -38,7 +38,7 @@
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Email Body', 'wpet'); ?></th>
-				<td><textarea name="options[email-body]" type="text" id="" value=""></textarea><br />
+				<td><?php wp_editor( '', 'options[email-body]' ); ?>
 				</td>
 			</tr>
 

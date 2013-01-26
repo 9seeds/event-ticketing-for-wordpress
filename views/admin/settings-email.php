@@ -15,7 +15,7 @@
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Email Body', 'wpet'); ?></th>
-				<td><textarea name="options[email-body]" type="text" id="" value=""></textarea><br />
+				<td><?php wp_editor( '', 'options[email-body]' ); ?><br />
 					<em><?php _e('Note: Include the shortcode [ticketlinks] in the email body to send the buyer the link to edit their ticket information.', 'wpet'); ?></em>
 				</td>
 			</tr>
