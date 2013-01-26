@@ -1,52 +1,69 @@
 <?php
 
 /**
- * @since 2.0 
+ * @since 2.0
  */
 class WPET_Coupons extends WPET_AddOn {
 
 	/**
-	 * @since 2.0 
+	 * @since 2.0
 	 */
 	public function __construct() {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 20 );
-	
+
 	    add_action( 'init', array( $this, 'registerPostType' ) );
-	    
+
 	    add_action( 'load-tickets_page_wpet_coupons', array( $this, 'contextHelp' ) );
 	}
-	
+
 	/**
 	 * Displays page specific contextual help through the contextual help API
-	 * 
+	 *
 	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 	 * @since 2.0
 	 */
 	public function contextHelp() {
 	    $screen = get_current_screen();
-	    $screen->add_help_tab( 
+	    $screen->add_help_tab(
 		    array(
-			'id'	=> 'my_help_tab',
-			'title'	=> __( 'My Help Tab' ),
-			'content'	=> '<p>' . __( 'Descriptive content that will show in My Help Tab-body goes here.' ) . '</p>',
-		    ) 
+			'id'	=> 'overview',
+			'title'	=> __( 'Overview' ),
+			'content'	=> '<p>' . __( 'This screen provides access to all of your posts.' ) . '</p>',
+		    )
 	    );
+	    $screen->add_help_tab(
+		    array(
+			'id'	=> 'available-actions',
+			'title'	=> __( 'Available Actions' ),
+			'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:' ) . '</p>'.
+				'<ul>'.
+					'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself.' ) .'</li>'.
+				'</ul>',
+		    )
+	    );
+
+//		$screen->set_help_sidebar(
+//			'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
+//			'<p>' . __( '<a href="http://codex.wordpress.org/Administration_Screens#Comments" target="_blank">Documentation on Comments</a>' ) . '</p>' .
+//			'<p>' . __( '<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
+//		);
+
 	}
 
 	/**
 	 * Add Coupons links to the Tickets menu
-	 * 
+	 *
 	 * @since 2.0
 	 * @param type $menu
-	 * @return array 
+	 * @return array
 	 */
-	public function adminMenu($menu) { 
+	public function adminMenu($menu) {
 		$menu[] = array( 'Coupons', 'Coupons', 'add_users', 'wpet_coupons', array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
 	public function renderAdminPage() {
-	    
+
 	    if( isset( $_GET['add-coupons'] ) ) {
 		WPET::getInstance()->display( 'coupons-add.php' );
 	    } else {
@@ -54,11 +71,11 @@ class WPET_Coupons extends WPET_AddOn {
 		WPET::getInstance()->display( 'coupons.php' );
 	    }
 	}
-	
+
 	/**
 	 * Add post type for object
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function registerPostType() {
 	    $labels = array(
@@ -90,12 +107,12 @@ class WPET_Coupons extends WPET_AddOn {
 	    register_post_type( 'wpet_coupons', $args );
 	}
 
-	
+
 	/**
 	 * Adds the object data to the database
-	 * 
+	 *
 	 * @since 2.0
-	 * @param array $data 
+	 * @param array $data
 	 */
 	public function add( $data ) {
 	    $defaults = array(
@@ -103,28 +120,28 @@ class WPET_Coupons extends WPET_AddOn {
 		'post_status' => 'publish',
 		'post_name' => uniqid()
 	    );
-	    
+
 	    if( $user_id = get_current_user_id() )
 		$defaults['post_author'] = $user_id;
-	    
+
 	    $data = wp_parse_args( $data, $defaults );
-	    
+
 	    $data = apply_filters( 'wpet_coupon_add', $data );
-	    
+
 	    wp_insert_post( $data );
 	}
-	
+
 	/**
 	 * Helper function to update the post record in the database
-	 * 
+	 *
 	 * @param integer $post_id
 	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success. 
+	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
 	public function update( $post_id, $data ) {
-	    
+
 	    $data['ID'] = $post_id;
 	    return $this->add( $data );
 	}
-	
+
 }// end class
