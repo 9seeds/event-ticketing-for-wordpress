@@ -1,6 +1,19 @@
 <div class="wrap">
 	<?php echo $admin_page_icon; ?>
 	<h2><?php _e('Ticket Options', 'wpet'); ?> <a href="?page=wpet_ticket_options&add-ticket-options=1" class="add-new-h2">Add New</a></h2>
+<?php
+
+require_once WPET_PLUGIN_DIR . 'lib/TicketOptionsTable.class.php';
+$wp_list_table = new WPET_TicketOptionsTable();
+$wp_list_table->prepare_items();
+$wp_list_table->display();
+
+?>
+</div><!-- .wrap -->
+<?php
+/*
+?>
+
 
 	<form action="" method="get" class="search-form">
 		<p class="search-box">
@@ -139,4 +152,4 @@
 		</div>
 	</form>
 
-</div>
+*/ ?>
