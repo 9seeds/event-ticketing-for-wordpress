@@ -52,7 +52,7 @@ class WPET_TicketOptions extends WPET_Module {
 		if( isset( $_POST['submit'] ) ) {
 		    $this->add(
 			    array(
-				'post_title' => sanitize_title( $_POST['options']['display-name'] ),
+				'post_title' => $_POST['options']['display-name'],
 				'post_name' => sanitize_title_with_dashes( $_POST['options']['display-name'] ),
 				'meta' => array(
 				    '_type' => sanitize_title( $_POST['options']['option-type'] ),
@@ -78,6 +78,89 @@ class WPET_TicketOptions extends WPET_Module {
 	    }
 	}
 	
+	/**
+	 * Creates the ticket options form for the wp-admin area
+	 * 
+	 * @since 2.0
+	 * @return string 
+	 */
+	public function buildAdminOptionsHtmlForm() {
+	    $options = $this->findAll();
+	    
+	    
+	    $s = '';
+	    foreach( $options AS $o ) {
+		$opts = unserialize( $o['option-value'] );
+		$s .= '<tr class="form-field form-required">';
+		$s .= '<th scope="row">' . $o['display-name'] . '</th>';
+		$s .= '<td>';
+		// Figure out the type to build the proper display
+		switch( $o['option-type'] ) {
+		    
+		    case 'multiselect':
+			$opts = unserialize( $o['option-value'] );
+			$s .= '<select multiple>';
+			
+			foreach( $opts AS $oi ) { 
+			    $s .= '<option value="' . $oi . '">' . $oi . '</option>';
+			}
+			$s .= '</select>';
+			break;
+		    case 'dropdown':
+			$s .= '<select>';
+			
+			foreach( $opts AS $oi ) {
+			   
+			    $s .= '<option value="' . $oi . '">' . $oi . '</option>';
+			}
+			$s .= '</select>';
+			break;
+		    
+		    case 'text':
+		    default:
+			$s .= '<input type="text" value="' .  $opts[0] . '" />';
+			
+		}
+		$s .= '</td>';
+		$s .= '</tr>';
+	    }
+	    
+	    return $s;
+	}
+	
+	
+	/**
+	 * Creates the ticket options form for the wp-admin area
+	 * 
+	 * @since 2.0
+	 * @return string 
+	 */
+	public function buildAdminOptionsCheckboxForm() {
+	    $options = $this->findAll();
+	    
+	    
+	    $s = '';
+	    foreach( $options AS $o ) {
+		$opts = unserialize( $o['option-value'] );
+		$s .= '<tr class="form-field form-required">';
+		$s .= '<th scope="row"><label for="' . sanitize_title_with_dashes( $o['display-name'] ) . '">' . $o['display-name'] . '</label></th>';
+		$s .= '<td>';
+		$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o['display-name'] ) . '" />';
+		$s .= '</td>';
+		$s .= '</tr>';
+	    }
+	    
+	    return $s;
+	}
+	
+	
+	/**
+	 * Adds the default columns to the ticket options list in wp-admin
+	 * 
+	 * @since 2.0
+	 * @param type $columns
+	 * @return type 
+	 */
 	public function defaultColumns( $columns ) {
 	    return array(
 		'display-name' => 'Option Name',
@@ -85,6 +168,12 @@ class WPET_TicketOptions extends WPET_Module {
 	    );
 	}
 	
+	/**
+	 * Returns an array of all ticket options
+	 * 
+	 * @since 2.0
+	 * @return array 
+	 */
 	public function findAll() {
 	    
 	    $args = array(
