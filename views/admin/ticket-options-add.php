@@ -21,21 +21,21 @@
 		</tbody>
 		<tbody style="display: none;" id="option-values">
 			<tr class="form-field">
-				<th scope="row"><label for="options[option-value]"><?php _e('Option Value', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[option-value][0]"><?php _e('Option Value', 'wpet'); ?></label></th>
 				<td>
-					<input type="text" name="options[option-value]" id="options[option-vaulue]" />
+					<input type="text" name="options[option-value][]" id="options[option-value][0]" class="option-value" />
 				</td>
 			</tr>
 			<tr class="form-field" id="add-another">
 	 			<th></th>
 				<td>
-					<a id="add-value"><?php _e( 'Add Another Value', 'wpet' ) ?></a>
+					<a id="add-ticket-option"><?php _e( 'Add Another Value', 'wpet' ) ?></a>
 				</td>
 			</tr>
 			<tr class="form-field" style="display: none;" id="new-value">
-				<th scope="row"><label for="options[option-value][]"><?php _e('Option Value', 'wpet'); ?></label></th>
+				<th scope="row"><label><?php _e('Option Value', 'wpet'); ?></label></th>
 				<td>
-					<input type="text" name="options[option-value][]" id="options[option-value][]" class="option-value-new" value="" disabled="disabled" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
+					<input type="text" name="options[option-value][]" id="options[option-value]" class="option-value-new" value="" disabled="disabled" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
 				</td>
 			</tr>
 		</tbody>

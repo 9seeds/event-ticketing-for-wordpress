@@ -55,8 +55,8 @@ class WPET_TicketOptions extends WPET_Module {
 				'post_title' => $_POST['options']['display-name'],
 				'post_name' => sanitize_title_with_dashes( $_POST['options']['display-name'] ),
 				'meta' => array(
-				    '_type' => sanitize_title( $_POST['options']['option-type'] ),
-				    '_values' => serialize( $_POST['options']['option-value'] )
+				    'type' => sanitize_title( $_POST['options']['option-type'] ),
+				    'values' => stripslashes_deep( $_POST['options']['option-value'] )
 				)
 			    )
 		    );
@@ -258,7 +258,7 @@ class WPET_TicketOptions extends WPET_Module {
 
 	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
 		foreach( $data['meta'] as $k => $v ) {
-		    update_post_meta( $post_id, $k, $v );
+		    update_post_meta( $post_id, "wpet_{$k}", $v );
 		}
 	    }
 

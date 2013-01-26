@@ -128,7 +128,7 @@ class WPET_Events extends WPET_Module {
 	    
 	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
 			foreach( $data['meta'] as $k => $v ) {
-				update_post_meta( $post_id, "wpet-{$k}", $v );
+				update_post_meta( $post_id, "wpet_{$k}", $v );
 			}
 	    }
 
