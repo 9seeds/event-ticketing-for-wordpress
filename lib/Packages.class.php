@@ -68,6 +68,13 @@ class WPET_Packages extends WPET_Module {
 	    }
 	}
 	
+	/**
+	 * Find all packages attached to an event
+	 * 
+	 * @todo Make it attach to an event
+	 * @since 2.0
+	 * @return array 
+	 */
 	public function findAllByEvent() {
 	    $args = array(
 		'post_type' => 'wpet_packages',
