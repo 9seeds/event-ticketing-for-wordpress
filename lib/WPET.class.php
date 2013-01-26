@@ -302,7 +302,8 @@ class WPET {
 
 		$event = new WPET_Events();
 		$event->registerPostType();
-		$events = $event->findActive();
+		//install an event if there are none
+		$events = $event->find( array( 'post_status' => 'publish' ) );
 		if ( empty( $events ) )
 			$event->add();
 	}

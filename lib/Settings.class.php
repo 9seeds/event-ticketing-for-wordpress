@@ -76,15 +76,14 @@ class WPET_Settings extends WPET_Module {
 
 	public function defaultSettings( $settings ) {
 
-		//$event = WPET::getInstance()->events->getWorkingEvent();
+		$event = WPET::getInstance()->events->getWorkingEvent();
 
 		$event_data = array(
-			//@TODO real data
-			'event-date' => '04/27/2012',
+			'event-date' => $event['meta']['event-date'],
 			'organizer-name' => get_option( 'wpet-organizer-name', '' ),
 			'organizer-email' => get_option( 'wpet-organizer-email', '' ),
-			'max-attendance' => '',
-			'event-status' => '',
+			'max-attendance' => $event['meta']['max-attendance'],
+			'event-status' => $event['meta']['event-status'],
 			'coming-soon' => get_option( 'wpet-coming-soon', '' ),
 			'thank-you' => get_option( 'wpet-thank-you', '' ),
 		);
@@ -108,6 +107,7 @@ class WPET_Settings extends WPET_Module {
 			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data )
 		);
 
+		//@TODO real data
 		$payment_data = array(
 			'payment-gateway' => '',
 			'currency' => '',
@@ -141,14 +141,13 @@ class WPET_Settings extends WPET_Module {
 	
 	private function sortByTab( $settings ) {
 	    $s = array();
-	    
-	    
-	    foreach( $settings AS $set ) {
-		//echo '<pre>';var_dump($settings); echo '</pre>';
-		$s[$set['tab']][] = array(
-		    'title' => $set['title'],
-		    'text' => $set['text']
-		);
+	    	    
+	    foreach( $settings as $set ) {
+			//echo '<pre>';var_dump($settings); echo '</pre>';
+			$s[$set['tab']][] = array(
+				'title' => $set['title'],
+				'text' => $set['text']
+			);
 	    }
 	    return $s;
 	}
@@ -161,7 +160,15 @@ class WPET_Settings extends WPET_Module {
 		$options = $post['options'];
 		
 		//these go with the active event
-		//$this->updateEvent();		
+		$event = WPET::getInstance()->events->getWorkingEvent();
+
+		$event['meta']['event-date'] = $options['event-date'];
+		$event['meta']['max-attendance'] = $options['max-attendance'];
+		$event['meta']['event-status'] = $options['event-status'];
+
+		WPET::getInstance()->events->update( $event['ID'], $event );
+
+		//don't update these in options
 		unset( $options['event-date'] );
 		unset( $options['max-attendance'] );
 		unset( $options['event-status'] );
