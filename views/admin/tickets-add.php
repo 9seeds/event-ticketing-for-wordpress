@@ -5,8 +5,8 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Ticket Name', 'wpet'); ?></th>
-				<td><input name="ticket_name" type="text" id="" value=""></td>
+				<th scope="row"><label for="options[ticket-name]"><?php _e('Ticket Name', 'wpet'); ?></label></th>
+				<td><input name="options[ticket-name]" id="options[ticket-name]" type="text" id="options[ticket-name]" value=""></td>
 			</tr>
 		</tbody>
 	</table>
@@ -30,14 +30,14 @@
  * @todo auto-fill checkboxes with all available ticket options
  */
 // @TODO
-// 
+//
 ?>
-			
+
 			<?php echo WPET::getInstance()->ticket_options->buildAdminOptionsCheckboxForm(); ?>
-			
+
 		</tbody>
 	</table>
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Ticket', 'wpet'); ?>"></p>
 </form>
-	
+
 </div>

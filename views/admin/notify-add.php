@@ -6,21 +6,21 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('All attendees', 'wpet'); ?></th>
+				<th scope="row"><label for="options[all-attendees]"><?php _e('All attendees', 'wpet'); ?></label></th>
 				<td>
-					<label><input type="checkbox" name="options[all-attendees]" value="1"></label>
+					<input type="checkbox" name="options[all-attendees]" id="options[all-attendees]" value="1">
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Have filled out info', 'wpet'); ?></th>
+				<th scope="row"><label for="options[have-info]"><?php _e('Have filled out info', 'wpet'); ?></label></th>
 				<td>
-					<label><input type="checkbox" name="options[have-info]" value="1"></label>
+					<input type="checkbox" name="options[have-info]" id="options[have-info]" value="1">
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Have not filled out info', 'wpet'); ?></th>
+				<th scope="row"><label for="options[no-info]"><?php _e('Have not filled out info', 'wpet'); ?></label></th>
 				<td>
-					<label><input type="checkbox" name="options[no-info]" value="1"></label>
+					<input type="checkbox" name="options[no-info]" id="options[no-info]" value="1">
 				</td>
 			</tr>
 <?php
@@ -33,11 +33,11 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Subject', 'wpet'); ?></th>
-				<td><input name="options[subject]" type="text" id="" value=""></td>
+				<th scope="row"><label for="options[subject]"><?php _e('Subject', 'wpet'); ?></label></th>
+				<td><input name="options[subject]" type="text" id="options[subject]" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Email Body', 'wpet'); ?></th>
+				<th scope="row"><label for="options[email-body]"><?php _e('Email Body', 'wpet'); ?></label></th>
 				<td><?php wp_editor( '', 'options[email-body]' ); ?>
 				</td>
 			</tr>
