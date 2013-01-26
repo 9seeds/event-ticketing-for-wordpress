@@ -11,15 +11,13 @@
 //	return $tabs;
 //}
 
-function my_add_tab( $tabs ) {
+function my_custom_tab( $tabs ) {
     $tabs['justin'] = 'Justin';
-    unset( $tabs['event']);
     return $tabs;
 }
-add_filter( 'wpet_settings_tabs', 'my_add_tab' );
+add_filter( 'wpet_settings_tabs', 'my_custom_tab' );
 
-
-function my_add_settings( $settings ) {
+function my_custom_tab_settings( $settings ) {
     $settings[] = array(
 	'tab' => 'justin',
 	'title' => "I'm a hooker",
@@ -27,11 +25,18 @@ function my_add_settings( $settings ) {
     );
     return $settings;
 }
-add_filter( 'wpet_settings', 'my_add_settings' );
+add_filter( 'wpet_settings', 'my_custom_tab_settings' );
 
+/*
+function my_event_tab_remove( $tabs ) {
+    unset( $tabs['event']);
+	return $tabs;
+}
+add_filter( 'wpet_settings_tabs', 'my_event_tab_remove' );
 
-function my_event( $menu ) {
-    $menu[] = array( 'Events', 'Event', 'add_users', 'wpet_ticket_events',  array( WPET::getInstance()->events, 'renderAdminPage' )  );
+function my_event_menu( $menu ) {
+	$menu[] = array( 'Events', 'Events', 'add_users', 'wpet_events', array( WPET::getInstance()->events, 'renderAdminPage' ) );
 	return $menu;
 }
-add_filter( 'wpet_admin_menu', 'my_event', 5 );
+add_filter( 'wpet_admin_menu', 'my_event_menu' );
+*/

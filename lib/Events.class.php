@@ -1,20 +1,12 @@
 <?php
 
-class WPET_Events extends WPET_AddOn {
+class WPET_Events extends WPET_Module {
 
 	/**
 	 * @since 2.0
 	 */
 	public function __construct() {
 		add_action( 'init', array( $this, 'registerPostType' ) );
-	}
-
-	public function adminMenu( $menu ) {
-		return $menu;
-	}
-
-	public function renderAdminPage() {
-		?><h2>Events!</h2><?php
 	}
 
 	/**

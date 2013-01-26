@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class WPET_Tickets extends WPET_AddOn {
+class WPET_Tickets extends WPET_Module {
 
 	/**
 	 * @since 2.0 
@@ -22,7 +22,7 @@ class WPET_Tickets extends WPET_AddOn {
 	 * @return array 
 	 */
 	public function adminMenu($menu) {
-		$menu[] = array('Tickets', 'Tickets', 'add_users', 'wpet_tickets', array(&$this, 'renderAdminPage'));
+		$menu[] = array( 'Tickets', 'Tickets', 'add_users', 'wpet_tickets', array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 

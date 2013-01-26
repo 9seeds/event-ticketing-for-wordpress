@@ -21,7 +21,7 @@ class WPET {
 	 * @since 2.0
 	 * @var Array 
 	 */
-	private $mModule = array();
+	private $mModules = array();
 
 	/**
 	 * Singleton link
@@ -133,35 +133,39 @@ class WPET {
 	 * @since 2.0 
 	 */
 	private function initBuiltIn() {
-		require_once 'AddOn.class.php';
-		
+		require_once 'Module.class.php';
+
+		$modules = array();
+			
 		//reports must come first to override the default option
 		require_once 'Reports.class.php';
-		$this->mModule['reports'] = new WPET_Reports();
+		$modules['reports'] = new WPET_Reports();
 
 		require_once 'TicketOptions.class.php';
-		$this->mModule['ticket_options'] = new WPET_TicketOptions();
+		$modules['ticket_options'] = new WPET_TicketOptions();
 
 		require_once 'Tickets.class.php';
-		$this->mModule['tickets'] = new WPET_Tickets();
+		$modules['tickets'] = new WPET_Tickets();
 
 		require_once 'Packages.class.php';
-		$this->mModule['packages'] = new WPET_Packages();
+		$modules['packages'] = new WPET_Packages();
 
 		require_once 'Coupons.class.php';
-		$this->mModule['coupons'] = new WPET_Coupons();
+		$modules['coupons'] = new WPET_Coupons();
 
 		require_once 'Attendees.class.php';
-		$this->mModule['attendees'] = new WPET_Attendees();
+		$modules['attendees'] = new WPET_Attendees();
 
 		require_once 'Instructions.class.php';
-		$this->mModule['instructions'] = new WPET_Instructions();
+		$modules['instructions'] = new WPET_Instructions();
 
 		require_once 'Settings.class.php';
-		$this->mModule['settings'] = new WPET_Settings();
+		$modules['settings'] = new WPET_Settings();
 		
 		require_once 'Events.class.php';
-		$this->mModule['events'] = new WPET_Events();
+		$modules['events'] = new WPET_Events();
+
+		$this->mModules = apply_filters( 'wpet_modules', $modules );
 	}
 
 	/**
@@ -171,7 +175,7 @@ class WPET {
 	 * @uses wpet_admin_menu
 	 */
 	public function setupMenu() {
-		add_object_page( 'Tickets', 'Tickets', 'add_users', 'wpet_reports', array( $this->mModule['reports'], 'renderAdminPage' ), WPET_PLUGIN_URL . '/images/menu_icon.png' );
+		add_object_page( 'Tickets', 'Tickets', 'add_users', 'wpet_reports', array( $this->mModules['reports'], 'renderAdminPage' ), WPET_PLUGIN_URL . '/images/menu_icon.png' );
 		$menu_items = array();
 
 		$menu_items = apply_filters( 'wpet_admin_menu', $menu_items );
@@ -259,8 +263,8 @@ class WPET {
 			//allow individual pages to load per-page assets			
 			if ( $pos === 0 ) {
 				$page = substr( $current_screen->base, 18 ); //'tickets_page_wpet_'
-				if ( ! empty( $this->mModule[$page] ) )
-					$this->mModule[$page]->enqueueAdminScripts();
+				if ( ! empty( $this->mModules[$page] ) )
+					$this->mModules[$page]->enqueueAdminScripts();
 			}
 		}
 	}
@@ -321,12 +325,12 @@ class WPET {
 	 * Magic method to access WPET modules
 	 * 
 	 * @since 2.0
-	 * @return WPET_AddOn
+	 * @return WPET_Module
 	 */
 
 	public function __get( $name ) {
-		if ( ! empty( $this->mModule[$name] ) )
-			return $this->mModule[$name];
+		if ( ! empty( $this->mModules[$name] ) )
+			return $this->mModules[$name];
 
 		return $this->{$name};
 	}

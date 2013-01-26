@@ -3,7 +3,7 @@
 /**
  * @since 2.0 
  */
-class WPET_Packages extends WPET_AddOn {
+class WPET_Packages extends WPET_Module {
 
 	/**
 	 * @since 2.0 
