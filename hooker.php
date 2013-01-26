@@ -27,6 +27,15 @@ function my_custom_tab_settings( $settings ) {
 }
 add_filter( 'wpet_settings', 'my_custom_tab_settings' );
 
+
+add_filter( 'wpet_admin_page_icon', 'my_logo' );
+
+function my_logo() {
+    return '<img src="' . WPET_PLUGIN_URL . '/images/wp_toilet_paper.png' . '" style="height: 32px;
+	width: 32px;
+	float: left;
+	margin: 7px 5px 0 0;" />';
+}
 /*
 function my_event_tab_remove( $tabs ) {
     unset( $tabs['event']);

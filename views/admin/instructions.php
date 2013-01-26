@@ -1,5 +1,5 @@
 <div class="wrap">
-	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
+	<?php echo $admin_page_icon; ?>
 	<h2><?php _e('Instructions', 'wpet'); ?></h2>
 
 	<h3><?php _e('Page Specific Help', 'wpet'); ?></h2>

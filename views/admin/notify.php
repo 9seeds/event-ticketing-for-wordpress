@@ -1,5 +1,5 @@
 <div class="wrap">
-	<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>
+	<?php echo $admin_page_icon; ?>
 	<h2><?php _e('Notify Attendees', 'wpet'); ?> <a href="?page=wpet_notify_attendees&add-notify=1" class="add-new-h2">Add New</a></h2>
 
 	<form action="" method="get" class="search-form">
