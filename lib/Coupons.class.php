@@ -82,8 +82,8 @@ class WPET_Coupons extends WPET_Module {
 			'meta' => array(
 			    'type' => $_POST['options']['type'],
 			    'amount' => $_POST['options']['amount'],
-			    'quantity' => (int)$_POST['options']['uses'],
-			    'quantity_remaining' => (int)$_POST['options']['uses']
+			    'quantity' => (int)$_POST['options']['quantity'],
+			    'quantity_remaining' => (int)$_POST['options']['quantity']
 			)
 		    );
 		    
@@ -95,14 +95,13 @@ class WPET_Coupons extends WPET_Module {
 		$columns = array();
 		
 		$rows = $this->findAll( true );
-		die(print_r($rows, true));
-		
 		
 		$data['columns'] = apply_filters( 'wpet_coupons_columns', $columns );
 		$data['rows'] = apply_filters( 'wpet_coupons_rows', $rows );
 		WPET::getInstance()->display( 'coupons.php', $data );
 	    }
 	}
+	
 	
 	/**
 	 * Adds the default columns to the ticket options list in wp-admin
@@ -137,12 +136,12 @@ class WPET_Coupons extends WPET_Module {
 	    
 	    if( $prettyAmount ) {
 		foreach( $posts AS $p ) {
-		    switch( $p->_wpet_type ) {
+		    switch( $p->wpet_type ) {
 			case 'percentage':
-			    $p->_wpet_pretty_amount = $p->_wpet_amount . '%';
+			    $p->wpet_pretty_amount = $p->wpet_amount . '%';
 			    break;
 			case 'flat-rate':
-			    $p->_wpet_pretty_amount = WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $p->_wpet_amount );
+			    $p->wpet_pretty_amount = WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $p->wpet_amount );
 			    break;
 		    }
 		}

@@ -34,8 +34,8 @@
 				<td><input name="options[amount]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Uses', 'wpet'); ?></th>
-				<td><input name="options[uses]" type="text" id="" value=""></td>
+				<th scope="row"><?php _e('Quantity', 'wpet'); ?></th>
+				<td><input name="options[quantity]" type="text" id="" value=""></td>
 			</tr>
 
 			</tbody>

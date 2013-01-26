@@ -19,7 +19,7 @@ class WPET_Attendees extends WPET_Module {
 		
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
 
-		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
+		//add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 	}
 	
 	
@@ -46,7 +46,7 @@ class WPET_Attendees extends WPET_Module {
 	    WPET::getInstance()->display( 'attendees_shortcode.php', $data );
 	}
 	
-	public function findAllByEventId( $event ) {
+	public function findAllByEvent( $event ) {
 	    return array( 
 			array( 'name' => 'John Hawkins', 'event' => 'WPET Hack' ),
 			array( 'name' => 'Justin Foell', 'event' => 'WPET Hack' ),
@@ -98,12 +98,10 @@ class WPET_Attendees extends WPET_Module {
 			echo '<pre>'; print_r( $_POST ); echo '</pre>';
 			$data = array(
 				    'post_title' => $_POST['options']['name'],
-				    'meta' => array(
-					'email' => $_POST['options']['email']
-				    )
+				    'meta' => $_POST['options']
 			);
 
-			//$this->add( $data );
+			$this->add( $data );
 		    }
 		    
 		    WPET::getInstance()->display( 'attendees-add.php' );
@@ -156,44 +154,6 @@ class WPET_Attendees extends WPET_Module {
 	    );
 
 	    register_post_type( 'wpet_attendees', $args );
-	}
-	
-	
-	/**
-	 * Adds the object data to the database
-	 * 
-	 * @since 2.0
-	 * @param array $data 
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-	 */
-	public function add( $data ) {
-	    $defaults = array(
-		'post_type' => 'wpet_attendees',
-		'post_status' => 'publish',
-		'post_name' => uniqid()
-	    );
-	    
-	    if( $user_id = get_current_user_id() )
-		$defaults['post_author'] = $user_id;
-	    
-	    $data = wp_parse_args( $data, $defaults );
-	    
-	    $data = apply_filters( 'wpet_attendee_add', $data );
-	    
-	    return wp_insert_post( $data );
-	}
-	
-	/**
-	 * Helper function to update the post record in the database
-	 * 
-	 * @param integer $post_id
-	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success. 
-	 */
-	public function update( $post_id, $data ) {
-	    
-	    $data['ID'] = $post_id;
-	    return $this->add( $data );
 	}
 
 } // end class

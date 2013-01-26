@@ -137,18 +137,5 @@ class WPET_Events extends WPET_Module {
 			self::$WORKING_EVENT = $data;
 	    return $post_id;
 	}
-	
-	/**
-	 * Helper function to update the post record in the database
-	 *
-	 * @param integer $post_id
-	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-	 */
-	public function update( $post_id, $data ) {
-
-	    $data['ID'] = $post_id;
-	    return $this->add( $data );
-	}
 
 }

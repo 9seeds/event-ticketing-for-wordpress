@@ -9,6 +9,8 @@ class WPET_Packages extends WPET_Module {
 	 * @since 2.0 
 	 */
 	public function __construct() {
+	    $this->mPostType = 'wpet_packages';
+	    
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 15 );
 		
 		add_action( 'init', array( $this, 'registerPostType' ) );
@@ -43,11 +45,11 @@ class WPET_Packages extends WPET_Module {
 			'post_name' => sanitize_title_with_dashes( $_POST['options']['package-name'] ),
 			'post_content' => stripslashes( $_POST['options']['description'] ),
 			'meta' => array(
-			    '_wpet_start-date' => $_POST['options']['start-date'],
-			    '_wpet_end-date' => $_POST['options']['end-date'],
-			    '_wpet_cost' => $_POST['options']['package-cost'],
-			    '_wpet_quantity' => $_POST['options']['quantity'],
-			    '_wpet_quantity_remaining' => $_POST['options']['quantity']
+			    'start-date' => $_POST['options']['start-date'],
+			    'end-date' => $_POST['options']['end-date'],
+			    'cost' => $_POST['options']['package-cost'],
+			    'quantity' => $_POST['options']['quantity'],
+			    'quantity_remaining' => $_POST['options']['quantity']
 			)
 
 		    );
@@ -108,11 +110,11 @@ class WPET_Packages extends WPET_Module {
 	public function defaultColumns( $columns ) {
 	    return array(
 		'post_title' => 'Package Name',
-		'_wpet_cost' => 'Price',
-		'_wpet_quantity_remaining' => 'Remaining',
-		'_wpet_quantity' => 'Total Qty',
-		'_wpet_start-date' => 'Start',
-		'_wpet_end-date' => 'End'
+		'wpet_cost' => 'Price',
+		'wpet_quantity_remaining' => 'Remaining',
+		'wpet_quantity' => 'Total Qty',
+		'wpet_start-date' => 'Start',
+		'wpet_end-date' => 'End'
 	    );
 	}
 	
@@ -153,45 +155,5 @@ class WPET_Packages extends WPET_Module {
 	}
 	
 	
-	/**
-	 * Adds the object data to the database
-	 * 
-	 * @since 2.0
-	 * @param array $data 
-	 */
-	public function add( $data ) {
-	    $defaults = array(
-		'post_type' => 'wpet_packages',
-		'post_status' => 'publish',
-		'post_name' => uniqid()
-	    );
-	    
-	    if( $user_id = get_current_user_id() )
-		$defaults['post_author'] = $user_id;
-	    
-	    $data = wp_parse_args( $data, $defaults );
-	    
-	    $data = apply_filters( 'wpet_package_add', $data );
-	    
-	    $post_id = wp_insert_post( $data );
-	    
-	    foreach( $data['meta'] AS $k => $v ) {
-		update_post_meta( $post_id, $k, $v );
-	    }
-	    return $post_id;
-	}
 	
-	/**
-	 * Helper function to update the post record in the database
-	 * 
-	 * @param integer $post_id
-	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success. 
-	 */
-	public function update( $post_id, $data ) {
-	    
-	    $data['ID'] = $post_id;
-	    return $this->add( $data );
-	}
-
 }// end class
