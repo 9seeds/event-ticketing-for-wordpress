@@ -4,4 +4,6 @@ jQuery(document).ready(function($) {
 			name: 'wpet_settings_tab'
 		}
 	});
+
+	$("#event-date").datepicker();
 });

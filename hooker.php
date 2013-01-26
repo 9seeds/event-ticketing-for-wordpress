@@ -18,7 +18,6 @@ function my_add_tab( $tabs ) {
 }
 add_filter( 'wpet_settings_tabs', 'my_add_tab' );
 
-add_filter( 'wpet_settings', 'my_add_settings' );
 
 function my_add_settings( $settings ) {
     $settings[] = array(
@@ -28,11 +27,11 @@ function my_add_settings( $settings ) {
     );
     return $settings;
 }
+add_filter( 'wpet_settings', 'my_add_settings' );
 
-
-add_filter( 'wpet_admin_menu', 'my_event', 5 );
 
 function my_event( $menu ) {
-    $menu[] = array( 'Events', 'Event', 'add_users', 'wpet_ticket_events',  'renderAdminPage'  );
-		return $menu;
+    $menu[] = array( 'Events', 'Event', 'add_users', 'wpet_ticket_events',  array( WPET::getInstance()->events, 'renderAdminPage' )  );
+	return $menu;
 }
+add_filter( 'wpet_admin_menu', 'my_event', 5 );

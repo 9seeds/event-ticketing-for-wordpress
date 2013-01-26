@@ -20,7 +20,7 @@ class WPET_Settings extends WPET_AddOn {
 	 * @since 2.0
 	 */
 	public function enqueueAdminScripts() {
-		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'wpet-jquery-cookie' ) );
+		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'jquery-ui-datepicker', 'wpet-jquery-cookie' ) );
 		wp_enqueue_script( 'wpet-admin-settings' );
 	}
 	
@@ -89,11 +89,17 @@ class WPET_Settings extends WPET_AddOn {
 	}
 
 	public function defaultSettings( $settings ) {
-		    
+
+		$event_data = array(
+			//@TODO real data
+			'event_date' => '04/27/2012',
+			
+		);
+		
 		$settings[] = array(
 		    'tab' => 'event',
 			'title' => 'Settings Title',
-			'text' => WPET::getInstance()->getDisplay( 'settings-event.php' ) 
+			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data ) 
 			);
 		
 		$settings[] = array(
