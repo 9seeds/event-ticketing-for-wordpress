@@ -10,6 +10,7 @@
  * @todo Add code to allow alternate payment gateways. Do now show this ability to change in free edition?
  * @todo How do we reliably check to see if Pro is installed?
  * @todo How can we reliably allow plugins to tap into our hooks? If the free base is activated first the hooks will all execute before the addons/Pro are loaded. Look at The Events Calendar and Easy Digital Downloads for ideas
+ * @todo Send HTML emails
  * 
  * @since 2.0 
  */
@@ -77,6 +78,9 @@ class WPET {
 		}
 		
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
+		
+		
+		// Send HTML emails
 	}
 	
 	/**
