@@ -12,6 +12,7 @@ class WPET_TicketOptions extends WPET_AddOn {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 5 );
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
+		
 	}
 
 	/**
@@ -61,9 +62,30 @@ class WPET_TicketOptions extends WPET_AddOn {
 		}
 		WPET::getInstance()->display( 'ticket-options-add.php' );
 	    } else {
-		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		
+		$columns = array(
+		    'name' => 'Option Name',
+		    'type' => 'Type'
+		);
+		
+		$rows = $this->findAll();
+		
+		$data['columns'] = apply_filters( 'wpet_ticket_options_columns', $columns );
+		$data['rows'] = apply_filters( 'wpet_ticket_options_rows', $rows );
 		WPET::getInstance()->display( 'ticket-options.php' );
 	    }
+	}
+	
+	public function findAll() {
+	    
+	    $args = array(
+		'post_type' => 'wpet_ticket_option',
+		'showposts' => '-1',
+		'posts_per_page' => '-1'
+	    );
+	    
+	    
+	    die();
 	}
 
 	/**

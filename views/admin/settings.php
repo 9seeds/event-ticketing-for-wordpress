@@ -7,14 +7,23 @@
 	<ul>
 		<?php
 		foreach( $data['tabs'] as $tab_id => $tab ) {
-			echo "<li><a href='#tab-{$tab_id}'>{$tab['label']}</a></li>\n";
+			echo "<li><a href='#tab-{$tab_id}'>{$tab}</a></li>\n";
  		}
 		?>
     </ul>
 
 	<?php
-	foreach( $data['tabs'] as $tab_id => $tab ) {
-		echo "<div id='tab-{$tab_id}'>{$tab['tab_content']}</div>\n";
+	 
+	foreach( $data['settings'] as $tab_id => $settings ) {
+	   
+		echo "<div id='tab-{$tab_id}'>";
+		
+		foreach( $settings AS $set ) {
+		    echo "<h2>{$set['title']}</h2>";
+		    echo $set['text'];
+		}
+		
+		echo "</div>\n";
 	}
 	?>
 	</div><!-- #tabs -->
