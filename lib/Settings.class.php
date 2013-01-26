@@ -41,7 +41,7 @@ class WPET_Settings extends WPET_Module {
 
 	public function renderAdminPage() {
 		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
-			$this->update( $_POST );
+			$this->submit( $_POST );
 		}
 				
 		
@@ -154,9 +154,9 @@ class WPET_Settings extends WPET_Module {
 
 	/**
 	 * @since 2.0
-	 * @uses wpet_settings_save
+	 * @uses wpet_settings_submit
 	 */
-	public function update( $post ) {
+	public function submit( $post ) {
 		$options = $post['options'];
 		
 		//these go with the active event
@@ -177,7 +177,7 @@ class WPET_Settings extends WPET_Module {
 			update_option( "wpet-{$key}", stripslashes( $value ) );
 		}
 
-		do_action( 'wpet_settings_save', $post );
+		do_action( 'wpet_settings_submit', $post );
 	}
 
 }// end class
