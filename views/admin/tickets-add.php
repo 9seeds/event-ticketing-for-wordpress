@@ -6,7 +6,7 @@
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Ticket Name', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<td><input name="ticket_name" type="text" id="" value=""></td>
 			</tr>
 		</tbody>
 	</table>
@@ -22,7 +22,7 @@
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Email', 'wpet'); ?></th>
 				<td>
-					<input type="checkbox" name="options[email]" value="1" checked="checked" disabled="disabled">
+				    <input type="checkbox" name="options[email]" value="1" checked="checked" disabled="disabled">
 				</td>
 			</tr>
 <?php
