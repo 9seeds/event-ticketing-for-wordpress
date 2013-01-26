@@ -48,11 +48,15 @@ class WPET_Currency extends WPET_Module {
 		return $currencies;
 	}
 	
-	public function selectMenu( $name ) {
+	public function selectMenu( $name, $selected_value ) { 
 	    $s = "<select name='$name' id='$name'>";
 	    
 	    foreach( $this->getCurrencies() AS $currency ) {
-		$s .= '<option value="' . $currency['code'] . '">';
+		$s .= '<option value="' . $currency['code'] . '"';
+			
+		$s .= selected( $selected_value, $currency['code'], false ) ;
+			
+		$s .= '>';
 		
 		$s .= $currency['display'] . ' ( ' . $currency['symbol'] . ' )';
 		

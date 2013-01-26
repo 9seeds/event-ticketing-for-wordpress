@@ -3,14 +3,7 @@
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[currency]"><?php _e('Currency', 'wpet'); ?></label></th>
 				<td>
-				<?php //@TODO currency ?>
-					<select name="options[currency]" id="options[currency]">
-						<option value="">$ <?php _e('US Dollars', 'wpet'); ?></option>
-<?php
-// @TODO
-// Add dropdown items for all available currencies
-?>
-					</select>
+				    <?php echo WPET::getInstance()->currency->selectMenu( 'options[currency]', $data['currency']); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
