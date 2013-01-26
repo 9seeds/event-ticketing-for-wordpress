@@ -168,6 +168,9 @@ class WPET {
 		
 		require_once 'Events.class.php';
 		$modules['events'] = new WPET_Events();
+		
+		require_once 'Currency.class.php';
+		$modules['currency'] = new WPET_Currency();
 
 		$this->mModules = apply_filters( 'wpet_modules', $modules );
 	}
