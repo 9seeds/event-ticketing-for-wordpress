@@ -18,6 +18,8 @@ class WPET_Attendees extends WPET_Module {
 		add_action( 'init', array( $this, 'registerPostType' ) );
 		
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
+
+		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 	}
 	
 	
@@ -67,6 +69,9 @@ class WPET_Attendees extends WPET_Module {
 	
 	public function renderAttendeeNotifyPage() {
 	    if( isset( $_GET['add-notify'] ) ) {
+		
+		    
+		    
 		    WPET::getInstance()->display( 'notify-add.php' );
 		} else {
 		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
@@ -78,9 +83,31 @@ class WPET_Attendees extends WPET_Module {
 		WPET::getInstance()->debug( 'Rendering Attendees page', 'Doing it...' );
 		
 		if( isset( $_GET['add-attendee'] ) ) {
+		    
+		    if( isset( $_POST['submit'] ) ) {
+			echo '<pre>'; print_r( $_POST ); echo '</pre>';
+			$data = array(
+				    'post_title' => $_POST['options']['name'],
+				    'meta' => array(
+					'email' => $_POST['options']['email']
+				    )
+			);
+
+			//$this->add( $data );
+		    }
+		    
 		    WPET::getInstance()->display( 'attendees-add.php' );
 		} else {
-		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
+		    $columns = array(
+			    'name' => 'Option Name',
+			    'type' => 'Type'
+		    );
+
+		    $rows = $this->findAllByEvent( 1 );
+
+
+		    $data['columns'] = apply_filters( 'wpet_tickets_columns', $columns );
+		    $data['rows'] = apply_filters( 'wpet_tickets_rows', $rows );
 		    WPET::getInstance()->display( 'attendees.php' );
 		}
 	}

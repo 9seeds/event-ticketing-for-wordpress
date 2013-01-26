@@ -151,6 +151,11 @@ class WPET_Settings extends WPET_Module {
 	    }
 	    return $s;
 	}
+	
+	public function __get( $name ) {
+	    $name = 'wpet-' . str_replace( '-', '_', $name );
+	    return get_option( $name, '' );
+	}
 
 	/**
 	 * @since 2.0

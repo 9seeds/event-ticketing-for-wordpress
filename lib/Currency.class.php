@@ -19,6 +19,35 @@ class WPET_Currency extends WPET_Module {
 	    return $this->mCurrencies;
 	}
 	
+	public function format( $code, $number ) {
+	   $currency = $this->getCurrency( $code );
+	   
+	   
+	   
+	   $num = number_format( (double)$number, 2, $currency['dec_point'], $currency['thousands_sep'] );
+	   
+	   switch( $currency['location'] ) {
+	       case 'before':
+		   $num = $currency['symbol'] . $num;
+		   break;
+	       case 'after':
+		   $num = $num . ' ' . $currency['symbol'];
+		   break;
+	   }
+	   return $num;
+	}
+	
+	public function getCurrency( $code ) {
+	    $currencies = $this->getCurrencies();
+	    $currency = array();
+	    foreach( $currencies AS $c ) {
+		if( $code == $c['code'] ) {
+		    $currency = $c;
+		}
+	    }
+	    return $currency;
+	}
+	
 	public function defaultCurrencies( $currencies ) {
 		$c = array(
 		    array(
