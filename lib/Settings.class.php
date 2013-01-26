@@ -110,7 +110,7 @@ class WPET_Settings extends WPET_Module {
 		//@TODO real data
 		$payment_data = array(
 			'payment-gateway' => '',
-			'currency' => '',
+			'currency' => get_option( 'wpet-currency'),
 			'payment-gateway-status' => '',
 			'sandbox-api-username' => get_option( 'wpet-sandbox-api-username', '' ),
 			'sandbox-api-password' => get_option( 'wpet-sandbox-api-password', '' ),
@@ -150,6 +150,11 @@ class WPET_Settings extends WPET_Module {
 			);
 	    }
 	    return $s;
+	}
+	
+	public function __get( $name ) {
+	    $name = 'wpet-' . str_replace( '-', '_', $name );
+	    return get_option( $name, '' );
 	}
 
 	/**

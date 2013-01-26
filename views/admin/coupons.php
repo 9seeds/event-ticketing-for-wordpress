@@ -108,9 +108,6 @@
 			    <?php } ?>
 			</tbody>
 		</table>
-		<?php
-		    echo WPET::getInstance()->currency->selectMenu( 'bob' );
-		?>
 		<div class="tablenav bottom">
 
 			<div class="alignleft actions">

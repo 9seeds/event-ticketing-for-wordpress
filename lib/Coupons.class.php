@@ -63,6 +63,11 @@ class WPET_Coupons extends WPET_Module {
 		return $menu;
 	}
 
+	/**
+	 * Renders the admin page in wp-admin
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {
 
 	    if( isset( $_GET['add-coupons'] ) ) {
@@ -113,6 +118,11 @@ class WPET_Coupons extends WPET_Module {
 	    );
 	}
 	
+	/**
+	 * Retrieves all the coupons from the db
+	 * @param type $prettyAmount
+	 * @return array 
+	 */
 	public function findAll( $prettyAmount = false ) {
 	    $args = array(
 		'post_type' => 'wpet_coupons',
@@ -129,7 +139,7 @@ class WPET_Coupons extends WPET_Module {
 			    $p->_wpet_pretty_amount = $p->_wpet_amount . '%';
 			    break;
 			case 'flat-rate':
-			    $p->_wpet_pretty_amount = '$' . $p->_wpet_amount;
+			    $p->_wpet_pretty_amount = WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $p->_wpet_amount );
 			    break;
 		    }
 		}
