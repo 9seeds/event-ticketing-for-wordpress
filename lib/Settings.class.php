@@ -39,6 +39,11 @@ class WPET_Settings extends WPET_Module {
 		return $menu;
 	}
 
+	/**
+	 * Displays the admin page in wp-admin
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {
 		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
 			$this->submit( $_POST );
@@ -58,6 +63,13 @@ class WPET_Settings extends WPET_Module {
 		WPET::getInstance()->display( 'settings.php', $data );
 	}
 	
+	/**
+	 * Sets up the default settings tabs
+	 * 
+	 * @since 2.0
+	 * @param array $tabs
+	 * @return array 
+	 */
 	public function defaultTabs( $tabs ) {
 	    
 	    $tabs['event'] = 'Events';
@@ -68,12 +80,26 @@ class WPET_Settings extends WPET_Module {
 	    return $tabs;
 	}
 	
+	/**
+	 * Adds the reset tab. In it's own function to move it to the far right
+	 * 
+	 * @since 2.0
+	 * @param array $tabs
+	 * @return array 
+	 */
 	public function resetTab( $tabs ) {
 	    $tabs['reset'] = 'Reset';
 	    
 	    return $tabs;
 	}
 
+	/**
+	 * Sets up the default settings available
+	 * 
+	 * @ince 2.0
+	 * @param array $settings
+	 * @return array 
+	 */
 	public function defaultSettings( $settings ) {
 
 		$event = WPET::getInstance()->events->getWorkingEvent();
@@ -139,6 +165,12 @@ class WPET_Settings extends WPET_Module {
 		return $settings;
 	}
 	
+	/**
+	 * Sorts the settings into tabs
+	 * 
+	 * @param array $settings
+	 * @return array 
+	 */
 	private function sortByTab( $settings ) {
 	    $s = array();
 	    	    
@@ -152,6 +184,12 @@ class WPET_Settings extends WPET_Module {
 	    return $s;
 	}
 	
+	/**
+	 * Magic method. Will return the specified setting from the wp_options table
+	 * 
+	 * @param string $name
+	 * @return mixed 
+	 */
 	public function __get( $name ) {
 	    $name = 'wpet-' . str_replace( '-', '_', $name );
 	    return get_option( $name, '' );
