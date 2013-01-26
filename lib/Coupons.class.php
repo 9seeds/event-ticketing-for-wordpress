@@ -95,6 +95,7 @@ class WPET_Coupons extends WPET_Module {
 		$columns = array();
 		
 		$rows = $this->findAll( true );
+		die(print_r($rows, true));
 		
 		
 		$data['columns'] = apply_filters( 'wpet_coupons_columns', $columns );
