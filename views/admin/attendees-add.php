@@ -5,9 +5,9 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Package', 'wpet'); ?></th>
+				<th scope="row"><label for="options[package]"><?php _e('Package', 'wpet'); ?></label></th>
 				<td>
-					<select name="options[package]" id="">
+					<select name="options[package]" id="options[package]">
 						<option value="">List of Ticket Packages</option>
 <?php
 // @TODO
@@ -17,12 +17,12 @@
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Name', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<th scope="row"><label for="options[name]"><?php _e('Name', 'wpet'); ?></label></th>
+				<td><input name="options[name]" type="text" id="options[name]" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><?php _e('Email', 'wpet'); ?></th>
-				<td><input name="" type="text" id="" value=""></td>
+				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
+				<td><input name="options[email]" type="text" id="options[email]" value=""></td>
 			</tr>
 <?php
 // @TODO
