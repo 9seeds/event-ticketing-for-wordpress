@@ -40,27 +40,25 @@ class WPET_Tickets extends WPET_Module {
 
 		if( isset( $_POST['submit'] ) ) {
 		    $data = array(
-			'post_title' => $_POST['options[ticket-name]'],
-			'post_name' => sanitize_title_with_dashes( $_POST['options[ticket-name]'] ),
-			'post_content' => serialize( $_POST['options'] )
+				'post_title' => $_POST['options']['ticket-name'],
+				'post_content' => serialize( $_POST['options'] )
 		    );
 
 		    $this->add( $data );
 		}
-		WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->findAll() );
+			WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->findAll() );
 	    } else {
+			$columns = array(
+				'name' => 'Option Name',
+				'type' => 'Type'
+			);
 
-		$columns = array(
-		    'name' => 'Option Name',
-		    'type' => 'Type'
-		);
-
-		$rows = $this->findAllByEvent( 1 );
+			$rows = $this->findAllByEvent( 1 );
 
 
-		$data['columns'] = apply_filters( 'wpet_tickets_columns', $columns );
-		$data['rows'] = apply_filters( 'wpet_tickets_rows', $rows );
-		WPET::getInstance()->display( 'tickets.php', $data );
+			$data['columns'] = apply_filters( 'wpet_tickets_columns', $columns );
+			$data['rows'] = apply_filters( 'wpet_tickets_rows', $rows );
+			WPET::getInstance()->display( 'tickets.php', $data );
 	    }
 	}
 
@@ -118,7 +116,7 @@ class WPET_Tickets extends WPET_Module {
 		'query_var' => 'shiplog',
 		'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
-		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
+		//'register_meta_box_cb' => array( $this, 'registerMetaBox' ),
 		'show_ui' => false
 	    );
 
@@ -138,7 +136,7 @@ class WPET_Tickets extends WPET_Module {
 	    $defaults = array(
 		'post_type' => 'wpet_tickets',
 		'post_status' => 'publish',
-		'post_name' => uniqid()
+		'post_title' => uniqid()
 	    );
 
 //	    if( !isset( $data['ticket_options'] ) ) {
