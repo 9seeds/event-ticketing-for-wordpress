@@ -40,6 +40,31 @@ class WPET_Events extends WPET_Module {
 
 	    register_post_type( 'wpet_event', $args );
 	}
+
+	/**
+	 * Returns an array of all active events
+	 * 
+	 * @since 2.0
+	 * @return array 
+	 */
+	public function getWorkingEvent() {
+	    
+	    $args = array(
+			'post_type' => 'wpet_event',
+			'numposts' => '1',
+			'orderby' => 'date',
+			'order' => 'ASC',
+			'post_status' => 'publish',
+	    );
+	    
+	    $posts = get_posts( $args );
+
+		if ( ! empty( $posts ) )
+			return current( $posts );
+		
+		return NULL;
+	}
+	
 	
 	/**
 	 * Adds the object data to the database
