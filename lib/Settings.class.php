@@ -108,6 +108,10 @@ class WPET_Settings extends WPET_Module {
 			);
 
 		$email_data = array(
+			'from-name' => get_option( 'wpet-from-name', '' ),
+			'from-email' => get_option( 'wpet-from-email', '' ),
+			'subject' => get_option( 'wpet-subject', '' ),
+			'email-body' => get_option( 'wpet-email-body', '' ),
 		);
 		
 		$settings[] = array(
@@ -163,6 +167,7 @@ class WPET_Settings extends WPET_Module {
 
 	/**
 	 * @since 2.0
+	 * @uses wpet_settings_save
 	 */
 	public function update( $post ) {
 		$options = $post['options'];
@@ -174,9 +179,10 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event-status'] );
 
 		foreach ( $options as $key => $value ) {
-			update_option( "wpet-{$key}", $value );
+			update_option( "wpet-{$key}", stripslashes( $value ) );
 		}
-		
+
+		do_action( 'wpet_settings_save', $post );
 	}
 
 }// end class
