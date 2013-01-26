@@ -148,6 +148,7 @@ class WPET_TicketOptions extends WPET_AddOn {
 	 *
 	 * @since 2.0
 	 * @param array $data
+	 * @uses wpet_ticket_option_add
 	 */
 	public function add( $data ) {
 	    $defaults = array(
@@ -166,7 +167,7 @@ class WPET_TicketOptions extends WPET_AddOn {
 	    $post_id = wp_insert_post( $data );
 	    
 	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
-		foreach( $data['meta'] AS $k => $v ) {
+		foreach( $data['meta'] as $k => $v ) {
 		    update_post_meta( $post_id, $k, $v );
 		}
 	    }

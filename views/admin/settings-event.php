@@ -1,12 +1,8 @@
-<?php
-// @TODO
-// Add date picker for event date
-?>
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Event Date', 'wpet'); ?></th>
-				<td><input name="options[event-date]" type="text" id="" value=""></td>
+				<td><input name="options[event-date]" type="text" id="event-date" value="<?php echo $data['event_date'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><?php _e('Organizer Name', 'wpet'); ?></th>

@@ -21,7 +21,7 @@ class WPET {
 	 * @since 2.0
 	 * @var Array 
 	 */
-	private $mModules = array();
+	private $mModule = array();
 
 	/**
 	 * Singleton link
@@ -146,7 +146,7 @@ class WPET {
 		$this->mModule['tickets'] = new WPET_Tickets();
 
 		require_once 'Packages.class.php';
-		$this->mModule['packages'] = new WPET_packages();
+		$this->mModule['packages'] = new WPET_Packages();
 
 		require_once 'Coupons.class.php';
 		$this->mModule['coupons'] = new WPET_Coupons();
@@ -159,6 +159,9 @@ class WPET {
 
 		require_once 'Settings.class.php';
 		$this->mModule['settings'] = new WPET_Settings();
+		
+		require_once 'Events.class.php';
+		$this->mModule['events'] = new WPET_Events();
 	}
 
 	/**
@@ -283,7 +286,6 @@ class WPET {
 	 */
 	public static function activate() {
 		$plugin_data = get_plugin_data( WPET_PLUGIN_DIR . '/ticketing.php' );
-
 		update_option( 'wpet_install_data', $plugin_data );
 	}
 
@@ -315,4 +317,19 @@ class WPET {
 		return 'WPET::__toString';
 	}
 
+	/**
+	 * Magic method to access WPET modules
+	 * 
+	 * @since 2.0
+	 * @return WPET_AddOn
+	 */
+
+	public function __get( $name ) {
+		if ( ! empty( $this->mModule[$name] ) )
+			return $this->mModule[$name];
+
+		return $this->{$name};
+	}
+
+	
 }// end class
