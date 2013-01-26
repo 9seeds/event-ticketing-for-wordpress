@@ -9,6 +9,8 @@ class WPET_Coupons extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function __construct() {
+	    $this->mPostType = 'wpet_coupons';
+	    
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 20 );
 
 	    add_action( 'init', array( $this, 'registerPostType' ) );
@@ -78,10 +80,10 @@ class WPET_Coupons extends WPET_Module {
 			'post_title' => $_POST['options']['coupon-code'],
 			'post_name' => sanitize_title_with_dashes( $_POST['options']['coupon-code'] ),
 			'meta' => array(
-			    '_wpet_type' => $_POST['options']['type'],
-			    '_wpet_amount' => $_POST['options']['amount'],
-			    '_wpet_quantity' => (int)$_POST['options']['uses'],
-			    '_wpet_quantity_remaining' => (int)$_POST['options']['uses']
+			    'type' => $_POST['options']['type'],
+			    'amount' => $_POST['options']['amount'],
+			    'quantity' => (int)$_POST['options']['uses'],
+			    'quantity_remaining' => (int)$_POST['options']['uses']
 			)
 		    );
 		    
@@ -112,9 +114,9 @@ class WPET_Coupons extends WPET_Module {
 	    return array(
 		'post_title' => 'Name',
 		'post_name' => 'Coupon Code',
-		'_wpet_pretty_amount' => 'Amount',
-		'_wpet_quantity_remaining' => 'Remaining',
-		'_wpet_quantity' => 'Total'
+		'wpet_pretty_amount' => 'Amount',
+		'wpet_quantity_remaining' => 'Remaining',
+		'wpet_quantity' => 'Total'
 	    );
 	}
 	
@@ -182,47 +184,4 @@ class WPET_Coupons extends WPET_Module {
 
 	    register_post_type( 'wpet_coupons', $args );
 	}
-
-
-	/**
-	 * Adds the object data to the database
-	 *
-	 * @since 2.0
-	 * @param array $data
-	 */
-	public function add( $data ) {
-	    $defaults = array(
-		'post_type' => 'wpet_coupons',
-		'post_status' => 'publish',
-		'post_name' => uniqid()
-	    );
-
-	    if( $user_id = get_current_user_id() )
-		$defaults['post_author'] = $user_id;
-
-	    $data = wp_parse_args( $data, $defaults );
-
-	    $data = apply_filters( 'wpet_coupon_add', $data );
-
-	    $post_id = wp_insert_post( $data );
-	    
-	    foreach( $data['meta'] AS $k => $v ) {
-		update_post_meta( $post_id, $k, $v );
-	    }
-	    return $post_id;
-	}
-
-	/**
-	 * Helper function to update the post record in the database
-	 *
-	 * @param integer $post_id
-	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-	 */
-	public function update( $post_id, $data ) {
-
-	    $data['ID'] = $post_id;
-	    return $this->add( $data );
-	}
-
 }// end class
