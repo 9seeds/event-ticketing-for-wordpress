@@ -12,6 +12,9 @@ class WPET_Tickets extends WPET_Module {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 10 );
 		
 		add_action( 'init', array( $this, 'registerPostType' ) );
+		
+		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
+		
 	}
 
 	/**
@@ -34,11 +37,56 @@ class WPET_Tickets extends WPET_Module {
 	public function renderAdminPage() {
 	    
 	    if( isset( $_GET['add-ticket'] ) ) {
+		
+		if( isset( $_POST['submit'] ) ) {
+		    $data = array(
+			'post_title' => $_POST['ticket_name'],
+			'post_name' => sanitize_title_with_dashes( $_POST['ticket_name'] ),
+			'post_content' => serialize( $_POST['ticket_options'] )
+		    );
+		    
+		    $this->add( $data );
+		}
 		WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->findAll() );
 	    } else {
-		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->display( 'tickets.php' );
+		
+		$columns = array(
+		    'name' => 'Option Name',
+		    'type' => 'Type'
+		);
+		
+		$rows = $this->findAllByEvent( 1 );
+		
+		
+		$data['columns'] = apply_filters( 'wpet_tickets_columns', $columns );
+		$data['rows'] = apply_filters( 'wpet_tickets_rows', $rows );
+		WPET::getInstance()->display( 'tickets.php', $data );
 	    }
+	}
+	
+	/**
+	 * Adds the default columns to the ticket options list in wp-admin
+	 * 
+	 * @since 2.0
+	 * @param type $columns
+	 * @return type 
+	 */
+	public function defaultColumns( $columns ) {
+	    return array(
+		'title' => 'Ticket Name'
+	    );
+	}
+	
+	public function findAllByEvent() {
+	    $args = array(
+		'post_type' => 'wpet_tickets',
+		'showposts' => '-1',
+		'posts_per_page' => '-1'
+	    );
+	    
+	    return get_posts( $args );
+	    
+	    
 	}
 	
 	
@@ -93,9 +141,9 @@ class WPET_Tickets extends WPET_Module {
 		'post_name' => uniqid()
 	    );
 	    
-	    if( !isset( $data['ticket_options'] ) ) {
-		return WP_Error( 1001, 'ticket_options is a required field' );
-	    }
+//	    if( !isset( $data['ticket_options'] ) ) {
+//		return new WP_Error( 1001, 'ticket_options is a required field' );
+//	    }
 	    
 	    if( $user_id = get_current_user_id() )
 		$defaults['post_author'] = $user_id;

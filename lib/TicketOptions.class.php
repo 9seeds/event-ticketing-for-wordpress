@@ -145,7 +145,7 @@ class WPET_TicketOptions extends WPET_Module {
 		$s .= '<tr class="form-field form-required">';
 		$s .= '<th scope="row"><label for="' . sanitize_title_with_dashes( $o['display-name'] ) . '">' . $o['display-name'] . '</label></th>';
 		$s .= '<td>';
-		$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o['display-name'] ) . '" />';
+		$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o['display-name'] ) . '" name="ticket_options[' . $o['ID'] . ']"/>';
 		$s .= '</td>';
 		$s .= '</tr>';
 	    }
@@ -187,6 +187,7 @@ class WPET_TicketOptions extends WPET_Module {
 	    $ret = array();
 	    foreach( $posts AS $p ) {
 		$data = array(
+		    'ID' => $p->ID,
 		    'display-name' => $p->post_title,
 		    'option-type' => get_post_meta( $p->ID, '_type', true ),
 		    'option-value' => get_post_meta( $p->ID, '_values', true )
