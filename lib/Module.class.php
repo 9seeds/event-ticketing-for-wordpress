@@ -26,10 +26,26 @@ abstract class WPET_Module {
 	 */
 	public function enqueueAdminScripts() {
 	}
-	
-	
-	
-	
+
+	/**
+	 * Finds wpet objects
+	 *
+	 * @since 2.0
+	 * @param array $args
+	 * @return array of WP_Posts
+	 */
+	public function find( $args ) {		
+	    $defaults = array(
+			'post_type' => $this->mPostType,
+			'numposts' => -1,
+			'post_status' => array( 'publish', 'draft' ),
+	    );
+
+		$data = wp_parse_args( $args, $defaults );
+
+	    return get_posts( $data );
+	}
+
 	
 	/**
 	 * Adds the object data to the database
@@ -38,10 +54,11 @@ abstract class WPET_Module {
 	 * @param array $data 
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
-	public function add( $data ) {
+	public function add( $data = array() ) {
 	    $defaults = array(
-		'post_type' => $this->mPostType,
-		'post_status' => 'publish'
+			'post_type' => $this->mPostType,
+			'post_status' => 'publish',
+			'post_title' => uniqid(),
 	    );
 	    
 	    if( $user_id = get_current_user_id() )
@@ -55,9 +72,9 @@ abstract class WPET_Module {
 	    $post_id = wp_insert_post( $data );
 	    
 	    if( isset( $data['meta'] ) ) {
-		foreach( $data['meta'] AS $k => $v ) {
-		    update_post_meta( $post_id, "wpet_$k", $v );
-		}
+			foreach( $data['meta'] as $k => $v ) {
+				update_post_meta( $post_id, "wpet_{$k}", $v );
+			}
 	    }
 	    return $post_id;
 	}

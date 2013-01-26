@@ -8,6 +8,7 @@ class WPET_Events extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function __construct() {
+		$this->mPostType = 'wpet_event';
 		add_action( 'init', array( $this, 'registerPostType' ) );
 	}
 
@@ -40,7 +41,7 @@ class WPET_Events extends WPET_Module {
 			'show_ui' => false,
 	    );
 
-	    register_post_type( 'wpet_event', $args );
+	    register_post_type( $this->mPostType, $args );
 	}
 
 	/**
@@ -72,33 +73,16 @@ class WPET_Events extends WPET_Module {
 	 * @since 2.0
 	 * @param array $args
 	 */
-	public function find( $args ) {
-		
+	public function find( $args ) {		
 	    $defaults = array(
-			'post_type' => 'wpet_event',
-			'numposts' => -1,
 			'orderby' => 'date',
 			'order' => 'ASC',
 			'post_status' => array( 'publish', 'archive' ),
 	    );
 
 		$data = wp_parse_args( $args, $defaults );
-		
-	    $posts = get_posts( $data );
 
-	    $ret = array();
-	    foreach ( $posts as $p ) {
-			$ret[] = array(
-				'ID' => $p->ID,
-				'display-name' => $p->post_title,
-				'meta' => array(
-					'event-date' => get_post_meta( $p->ID, 'wpet-event-date', true ),
-					'max-attendance' => get_post_meta( $p->ID, 'wpet-max-attendance', true ),
-					'event-status' => get_post_meta( $p->ID, 'wpet-event-status', true ),
-				),
-			);
-	    }
-	    return $ret;
+		return parent::find( $data );
 	}
 	
 	
@@ -108,33 +92,16 @@ class WPET_Events extends WPET_Module {
 	 * @since 2.0
 	 * @param array $data
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-	 * @uses wpet_event_add
 	 */
-	public function add( $data = array() ) {
+	public function add( $data = array() ) {				
 	    $defaults = array(
-			'post_type' => 'wpet_event',
-			'post_status' => 'publish',
 			'post_title' => __( 'My Event', 'wpet' ),
 		);
 
-	    if( $user_id = get_current_user_id() )
-			$defaults['post_author'] = $user_id;
-
 	    $data = wp_parse_args( $data, $defaults );
 
-	    $data = apply_filters( 'wpet_event_add', $data );
+		$post_id = parent::add( $data );
 
-	    $post_id = wp_insert_post( $data );
-	    
-	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
-			foreach( $data['meta'] as $k => $v ) {
-				update_post_meta( $post_id, "wpet_{$k}", $v );
-			}
-	    }
-
-		if ( isset( $data['ID'] ) && isset( self::$WORKING_EVENT['ID'] ) &&
-			 $data['ID'] == self::$WORKING_EVENT['ID'] )
-			self::$WORKING_EVENT = $data;
 	    return $post_id;
 	}
 
