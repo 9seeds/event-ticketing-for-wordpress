@@ -48,7 +48,6 @@ class WPET_Settings extends WPET_Module {
 		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
 			$this->submit( $_POST );
 		}
-				
 		
 		$tabs = apply_filters( 'wpet_settings_tabs', array() );
 		
@@ -105,11 +104,11 @@ class WPET_Settings extends WPET_Module {
 		$event = WPET::getInstance()->events->getWorkingEvent();
 
 		$event_data = array(
-			'event-date' => $event['meta']['event-date'],
+			'event-date' => $event->wpet_event_date,
 			'organizer-name' => get_option( 'wpet-organizer-name', '' ),
 			'organizer-email' => get_option( 'wpet-organizer-email', '' ),
-			'max-attendance' => $event['meta']['max-attendance'],
-			'event-status' => $event['meta']['event-status'],
+			'max-attendance' => $event->wpet_max_attendance,
+			'event-status' => $event->wpet_event_status,
 			'coming-soon' => get_option( 'wpet-coming-soon', '' ),
 			'thank-you' => get_option( 'wpet-thank-you', '' ),
 		);
@@ -203,13 +202,13 @@ class WPET_Settings extends WPET_Module {
 		$options = $post['options'];
 		
 		//these go with the active event
-		$event = WPET::getInstance()->events->getWorkingEvent();
+		$event = (array)WPET::getInstance()->events->getWorkingEvent();
 
-		$event['meta']['event-date'] = $options['event-date'];
-		$event['meta']['max-attendance'] = $options['max-attendance'];
-		$event['meta']['event-status'] = $options['event-status'];
+		$event['meta']['event_date'] = $options['event-date'];
+		$event['meta']['max_attendance'] = $options['max-attendance'];
+		$event['meta']['event_status'] = $options['event-status'];
 
-		WPET::getInstance()->events->update( $event['ID'], $event );
+		WPET::getInstance()->events->add( $event );
 
 		//don't update these in options
 		unset( $options['event-date'] );
@@ -217,7 +216,7 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event-status'] );
 
 		foreach ( $options as $key => $value ) {
-			update_option( "wpet-{$key}", stripslashes( $value ) );
+			update_option( "wpet_{$key}", stripslashes( $value ) );
 		}
 
 		do_action( 'wpet_settings_submit', $post );

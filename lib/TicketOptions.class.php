@@ -9,6 +9,8 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function __construct() {
+		$this->mPostType = 'wpet_ticket_options';
+
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 5 );
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
@@ -33,7 +35,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Ticket Options', 'Ticket Options', 'add_users', 'wpet_ticket_options', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( 'Ticket Options', 'Ticket Options', 'add_users', $this->mPostType, array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
@@ -62,110 +64,10 @@ class WPET_TicketOptions extends WPET_Module {
 		    );
 
 		}
-		WPET::getInstance()->display( 'ticket-options-add.php' );
+			WPET::getInstance()->display( 'ticket-options-add.php' );
 	    } else {
-
-		$columns = array(
-		    'name' => 'Option Name',
-		    'type' => 'Type'
-		);
-
-		$rows = $this->findAll();
-
-		$data['columns'] = apply_filters( 'wpet_ticket_options_columns', $columns );
-		$data['rows'] = apply_filters( 'wpet_ticket_options_rows', $rows );
-		WPET::getInstance()->display( 'ticket-options.php', $data );
+			WPET::getInstance()->display( 'ticket-options.php' );
 	    }
-	}
-
-	/**
-	 * Creates the ticket options form for the wp-admin area
-	 *
-	 * @since 2.0
-	 * @return string
-	 */
-	public function buildAdminOptionsHtmlForm() {
-	    $options = $this->findAll();
-
-
-	    $s = '';
-	    foreach( $options AS $o ) {
-		$opts = unserialize( $o['option-value'] );
-		$s .= '<tr class="form-field form-required">';
-		$s .= '<th scope="row">' . $o['display-name'] . '</th>';
-		$s .= '<td>';
-		// Figure out the type to build the proper display
-		switch( $o['option-type'] ) {
-
-		    case 'multiselect':
-			$opts = unserialize( $o['option-value'] );
-			$s .= '<select multiple>';
-
-			foreach( $opts AS $oi ) {
-			    $s .= '<option value="' . $oi . '">' . $oi . '</option>';
-			}
-			$s .= '</select>';
-			break;
-		    case 'dropdown':
-			$s .= '<select>';
-
-			foreach( $opts AS $oi ) {
-
-			    $s .= '<option value="' . $oi . '">' . $oi . '</option>';
-			}
-			$s .= '</select>';
-			break;
-
-		    case 'text':
-		    default:
-			$s .= '<input type="text" value="' .  $opts[0] . '" />';
-
-		}
-		$s .= '</td>';
-		$s .= '</tr>';
-	    }
-
-	    return $s;
-	}
-
-
-	/**
-	 * Creates the ticket options form for the wp-admin area
-	 *
-	 * @since 2.0
-	 * @return string
-	 */
-	public function buildAdminOptionsCheckboxForm() {
-	    $options = $this->findAll();
-
-
-	    $s = '';
-	    foreach( $options AS $o ) {
-		$opts = unserialize( $o['option-value'] );
-		$s .= '<tr class="form-field form-required">';
-		$s .= '<th scope="row"><label for="' . sanitize_title_with_dashes( $o['display-name'] ) . '">' . $o['display-name'] . '</label></th>';
-		$s .= '<td>';
-		$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o['display-name'] ) . '" name="options[' . $o['ID'] . ']"/>';
-		$s .= '</td>';
-		$s .= '</tr>';
-	    }
-
-	    return $s;
-	}
-
-
-	/**
-	 * Adds the default columns to the ticket options list in wp-admin
-	 *
-	 * @since 2.0
-	 * @param type $columns
-	 * @return type
-	 */
-	public function defaultColumns( $columns ) {
-	    return array(
-		'display-name' => 'Option Name',
-		'option-type' => 'Type'
-	    );
 	}
 
 	/**
@@ -177,7 +79,7 @@ class WPET_TicketOptions extends WPET_Module {
 	public function findAll() {
 
 	    $args = array(
-		'post_type' => 'wpet_ticket_options',
+		'post_type' => $this->mPostType,
 		'showposts' => '-1',
 		'posts_per_page' => '-1'
 	    );
@@ -189,8 +91,8 @@ class WPET_TicketOptions extends WPET_Module {
 		$data = array(
 		    'ID' => $p->ID,
 		    'display-name' => $p->post_title,
-		    'option-type' => get_post_meta( $p->ID, '_type', true ),
-		    'option-value' => get_post_meta( $p->ID, '_values', true )
+		    'option-type' => get_post_meta( $p->ID, 'wpet_type', true ),
+		    'option-value' => get_post_meta( $p->ID, 'wpet_values', true )
 		);
 		$ret[] = $data;
 	    }
@@ -229,52 +131,6 @@ class WPET_TicketOptions extends WPET_Module {
 		'show_ui' => false
 	    );
 
-	    register_post_type( 'wpet_ticket_options', $args );
-	}
-
-
-	/**
-	 * Adds the object data to the database
-	 *
-	 * @since 2.0
-	 * @param array $data
-	 * @uses wpet_ticket_option_add
-	 */
-	public function add( $data ) {
-	    $defaults = array(
-		'post_type' => 'wpet_ticket_options',
-		'post_status' => 'publish',
-		'post_name' => uniqid()
-	    );
-
-	    if( $user_id = get_current_user_id() )
-		$defaults['post_author'] = $user_id;
-
-	    $data = wp_parse_args( $data, $defaults );
-
-	    $data = apply_filters( 'wpet_ticket_option_add', $data );
-
-	    $post_id = wp_insert_post( $data );
-
-	    if( isset( $data['meta'] ) && is_array( $data['meta'] ) ) {
-		foreach( $data['meta'] as $k => $v ) {
-		    update_post_meta( $post_id, "wpet_{$k}", $v );
-		}
-	    }
-
-	    return $post_id;
-	}
-
-	/**
-	 * Helper function to update the post record in the database
-	 *
-	 * @param integer $post_id
-	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-	 */
-	public function update( $post_id, $data ) {
-
-	    $data['ID'] = $post_id;
-	    return $this->add( $data );
+	    register_post_type( $this->mPostType, $args );
 	}
 }// end class
