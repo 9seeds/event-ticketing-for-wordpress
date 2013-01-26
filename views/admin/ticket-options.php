@@ -61,7 +61,16 @@
 			</tfoot>
 
 			<tbody id="the-list">
-				<tr class="alternate">
+			    
+			    <?php
+			    $i = 1;
+			    foreach( $data['rows'] AS $row ) {
+				$class = '';
+				if( $i % 2 ) 
+				    $class = 'class="alternate"';
+				?>
+			    
+			    <tr <?php echo $class; ?>>
 					<th scope="row" class="check-column">
 						<input type="checkbox" id="blog_1" name="allusers[]" value="1">
 					</th>
@@ -71,6 +80,10 @@
 					<td class="name column-name"> </td>
 					</td>
 				</tr>
+				
+				
+			    <?php } ?>
+				
 			</tbody>
 		</table>
 		<div class="tablenav bottom">

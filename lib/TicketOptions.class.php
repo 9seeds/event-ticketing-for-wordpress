@@ -72,7 +72,7 @@ class WPET_TicketOptions extends WPET_AddOn {
 		
 		$data['columns'] = apply_filters( 'wpet_ticket_options_columns', $columns );
 		$data['rows'] = apply_filters( 'wpet_ticket_options_rows', $rows );
-		WPET::getInstance()->display( 'ticket-options.php' );
+		WPET::getInstance()->display( 'ticket-options.php', $data );
 	    }
 	}
 	

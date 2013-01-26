@@ -13,9 +13,10 @@
     </ul>
 
 	<?php
-	 
 	foreach( $data['settings'] as $tab_id => $settings ) {
-	   
+	    
+	    if( !in_array( $tab_id, array_keys ($data['tabs'] ) ) ) continue;
+	    
 		echo "<div id='tab-{$tab_id}'>";
 		
 		foreach( $settings AS $set ) {
