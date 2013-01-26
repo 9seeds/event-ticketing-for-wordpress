@@ -62,3 +62,7 @@
 	cursor: pointer;
 	background: url("../../../../wp-admin/images/xit.gif") no-repeat scroll -10px 0 transparent;
 }
+
+#add-ticket-option {
+	cursor: pointer;
+}

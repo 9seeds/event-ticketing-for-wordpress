@@ -14,16 +14,26 @@ jQuery(document).ready(function($) {
 		$(this).parent().parent().parent().remove();
 	});
 
-	$('#add-value').click(function() {
+	$('#add-ticket-option').click(function() {
+		var options = $('.option-value');
+
 		var copy = $('#new-value')
 			.clone()
 			.removeAttr('id')
 			.insertBefore('#add-another')
 			.show();
 
+		var id = 'options[option-value]['+options.length+']';
+
 		copy.find('.option-value-new')
 			.removeClass('option-value-new')
+			.addClass('option-value')
+			.removeAttr('id')
+			.attr('id', id)
 			.removeAttr('disabled');
+
+		copy.find('label').attr('for', id);
+
 	});
 
 });
