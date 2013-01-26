@@ -22,6 +22,8 @@ class WPET_Settings extends WPET_Module {
 	public function enqueueAdminScripts() {
 		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'jquery-ui-datepicker', 'wpet-jquery-cookie' ) );
 		wp_enqueue_script( 'wpet-admin-settings' );
+
+		wp_enqueue_style( 'editor' );
 	}
 	
 	/**
