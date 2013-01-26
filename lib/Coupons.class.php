@@ -63,6 +63,11 @@ class WPET_Coupons extends WPET_Module {
 		return $menu;
 	}
 
+	/**
+	 * Renders the admin page in wp-admin
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {
 
 	    if( isset( $_GET['add-coupons'] ) ) {
