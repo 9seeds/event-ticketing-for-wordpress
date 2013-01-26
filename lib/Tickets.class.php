@@ -41,6 +41,7 @@ class WPET_Tickets extends WPET_Module {
 	    }
 	}
 	
+	
 	/**
 	 * Add post type for object
 	 * 
