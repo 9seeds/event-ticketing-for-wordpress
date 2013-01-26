@@ -19,6 +19,7 @@ class WPET_Currency extends WPET_Module {
 	    return $this->mCurrencies;
 	}
 
+<<<<<<< Updated upstream
 	public function format( $code, $number ) {
 	   $currency = $this->getCurrency( $code );
 
@@ -46,6 +47,8 @@ class WPET_Currency extends WPET_Module {
 	    return $currency;
 	}
 
+=======
+>>>>>>> Stashed changes
 	public function defaultCurrencies( $currencies ) {
 		$c = array(
 			array(
@@ -113,14 +116,21 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
+<<<<<<< Updated upstream
 				'display' => 'Hong Kong Dollars',
 				'code' => 'HKD',
 				'symbol' => 'HK$',
+=======
+				'display' => '',
+				'code' => '',
+				'symbol' => '',
+>>>>>>> Stashed changes
 				'location' => 'before',
 				'dec_point' => '.',
 				'thousands_sep' => ','
 			),
 			array(
+<<<<<<< Updated upstream
 				'display' => 'Hungarian Forint',
 				'code' => 'HUF',
 				'symbol' => 'Ft',
@@ -236,10 +246,19 @@ class WPET_Currency extends WPET_Module {
 				'display' => 'Yen',
 				'code' => 'JYP',
 				'symbol' => '¥',
+=======
+				'display' => '',
+				'code' => '',
+				'symbol' => '',
+>>>>>>> Stashed changes
 				'location' => 'before',
 				'dec_point' => '.',
 				'thousands_sep' => ','
 			),
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 		);
 
 		foreach( $c AS $cur ) {
