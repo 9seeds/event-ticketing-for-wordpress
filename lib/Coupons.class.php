@@ -113,6 +113,11 @@ class WPET_Coupons extends WPET_Module {
 	    );
 	}
 	
+	/**
+	 * Retrieves all the coupons from the db
+	 * @param type $prettyAmount
+	 * @return array 
+	 */
 	public function findAll( $prettyAmount = false ) {
 	    $args = array(
 		'post_type' => 'wpet_coupons',

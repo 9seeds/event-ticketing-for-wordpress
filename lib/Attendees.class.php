@@ -67,6 +67,11 @@ class WPET_Attendees extends WPET_Module {
 		return $menu;
 	}
 	
+	/**
+	 * Renders the attendee notify page in wp-admin
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAttendeeNotifyPage() {
 	    if( isset( $_GET['add-notify'] ) ) {
 		
@@ -79,6 +84,11 @@ class WPET_Attendees extends WPET_Module {
 		}
 	}
 
+	/**
+	 * Renders the attendee page in wp-admin
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {
 		WPET::getInstance()->debug( 'Rendering Attendees page', 'Doing it...' );
 		
