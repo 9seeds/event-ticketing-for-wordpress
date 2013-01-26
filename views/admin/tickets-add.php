@@ -26,8 +26,11 @@
 				</td>
 			</tr>
 <?php
+/**
+ * @todo auto-fill checkboxes with all available ticket options
+ */
 // @TODO
-// auto-fill checkboxes with all available ticket options
+// 
 ?>
 		</tbody>
 	</table>

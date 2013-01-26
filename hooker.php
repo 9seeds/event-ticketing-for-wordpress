@@ -13,6 +13,7 @@
 
 function my_add_tab( $tabs ) {
     $tabs['justin'] = 'Justin';
+    unset( $tabs['event']);
     return $tabs;
 }
 add_filter( 'wpet_settings_tabs', 'my_add_tab' );
@@ -26,4 +27,12 @@ function my_add_settings( $settings ) {
 	'text' => "View my site at http://justinhooker.me"
     );
     return $settings;
+}
+
+
+add_filter( 'wpet_admin_menu', 'my_event', 5 );
+
+function my_event( $menu ) {
+    $menu[] = array( 'Events', 'Event', 'add_users', 'wpet_ticket_events',  'renderAdminPage'  );
+		return $menu;
 }

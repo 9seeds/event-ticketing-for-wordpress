@@ -79,17 +79,23 @@ class WPET_TicketOptions extends WPET_AddOn {
 	public function findAll() {
 	    
 	    $args = array(
-		'post_type' => 'wpet_ticket_option',
+		'post_type' => 'wpet_ticket_options',
 		'showposts' => '-1',
 		'posts_per_page' => '-1'
 	    );
 	    
 	    $posts = get_posts( $args );
 	    
+	    $ret = array();
 	    foreach( $posts AS $p ) {
-		
+		$data = array(
+		    'display-name' => $p->post_title,
+		    'option-type' => get_post_meta( $p->ID, '_type', true ),
+		    'option-value' => get_post_meta( $p->ID, '_values', true )
+		);
+		$ret[] = $data;
 	    }
-	    die();
+	    return $ret;
 	}
 
 	/**
