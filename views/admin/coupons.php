@@ -44,37 +44,68 @@
 		<table class="wp-list-table widefat fixed users-network" cellspacing="0">
 			<thead>
 				<tr>
-					<th scope="col" id="cb" class="manage-column column-cb check-column" style=""><input type="checkbox"></th>
-					<th scope="col" id="coupon" class="manage-column column-username sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=login&amp;order=asc"><span><?php _e('Coupon Code', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" id="package" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Package', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" id="type" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Type', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" id="amount" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Amount', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" id="uses" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Uses', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
+					<?php 
+					    foreach( $data['columns'] AS $k => $v ) {
+					?>
+					<th scope="col" class="manage-column column-<?php echo $k; ?> sortable">
+					    <a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=login&amp;order=asc"><span>
+						<?php echo $v;?>
+						</span><span class="sorting-indicator"></span></a>
+					</th>
+					<?php } ?>
 				</tr>
 			</thead>
 
 			<tfoot>
 				<tr>
-					<th scope="col" class="manage-column column-cb check-column" style=""><input type="checkbox"></th>
-					<th scope="col" class="manage-column column-username sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=login&amp;order=asc"><span><?php _e('Coupon Code', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Package', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Type', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Amount', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
-					<th scope="col" class="manage-column column-name sortable desc" style=""><a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=name&amp;order=asc"><span><?php _e('Uses', 'wpet'); ?></span><span class="sorting-indicator"></span></a></th>
+					<?php 
+					    foreach( $data['columns'] AS $k => $v ) {
+					?>
+					<th scope="col" class="manage-column column-<?php echo $k; ?> sortable">
+					    <a href="http://wcphx2012.dev/wp-admin/network/users.php?orderby=login&amp;order=asc"><span>
+						<?php echo $v;?>
+						</span><span class="sorting-indicator"></span></a>
+					</th>
+					<?php } ?>
 				</tr>
 			</tfoot>
 
 			<tbody id="the-list">
-				<tr class="alternate">
-					<th scope="row" class="check-column">
+				<?php
+			    $i = 1;
+			    foreach( $data['rows'] AS $row ) {
+				$ci = 1; // Only show action in first column
+				$class = '';
+				if( $i % 2 ) 
+				    $class = 'class="alternate"';
+				
+				$i++;
+				?>
+			    
+			    <tr <?php echo $class; ?>>
+					<!--<th scope="row" class="check-column">
 						<input type="checkbox" id="blog_1" name="allusers[]" value="1">
-					</th>
-					<td class="username column-username"><strong>Ticket Name</strong>
-						<br>
-						<div class="row-actions"><span class="edit"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Edit</a></span></div>						</td>
-					<td class="name column-name"> </td>
+					</th>-->
+					<?php 
+					//echo '<pre>'; var_dump($row); echo '</pre>';
+					
+					foreach( $data['columns'] AS $k => $v ) { ?>
+					<td class="username column-username">
+					    <strong><?php echo $row->$k; ?></strong>
+					     <?php if( 1 == $ci ) { ?>
+						<div class="row-actions">
+						    <span class="edit"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Edit</a></span>
+						    | <span class="trash"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Trash</a></span>
+						</div>
+						<?php $ci = 2; } ?>
+					</td>
+					
+					<?php } ?>
 					</td>
 				</tr>
+				
+				
+			    <?php } ?>
 			</tbody>
 		</table>
 		<div class="tablenav bottom">

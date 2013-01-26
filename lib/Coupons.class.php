@@ -14,6 +14,7 @@ class WPET_Coupons extends WPET_Module {
 	    add_action( 'init', array( $this, 'registerPostType' ) );
 
 	    add_action( 'load-tickets_page_wpet_coupons', array( $this, 'contextHelp' ) );
+		add_filter( 'wpet_coupons_columns', array( $this, 'defaultColumns' ) );
 	}
 
 	/**
@@ -65,11 +66,76 @@ class WPET_Coupons extends WPET_Module {
 	public function renderAdminPage() {
 
 	    if( isset( $_GET['add-coupons'] ) ) {
+		
+		if( isset( $_POST['submit'] ) ) {
+		    
+		    $data = array(
+			'post_title' => $_POST['options']['coupon-code'],
+			'post_name' => sanitize_title_with_dashes( $_POST['options']['coupon-code'] ),
+			'meta' => array(
+			    '_wpet_type' => $_POST['options']['type'],
+			    '_wpet_amount' => $_POST['options']['amount'],
+			    '_wpet_quantity' => (int)$_POST['options']['uses'],
+			    '_wpet_quantity_remaining' => (int)$_POST['options']['uses']
+			)
+		    );
+		    
+		    $this->add( $data );
+		}
+		
 		WPET::getInstance()->display( 'coupons-add.php' );
 	    } else {
-		// $inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->display( 'coupons.php' );
+		$columns = array();
+		
+		$rows = $this->findAll( true );
+		
+		
+		$data['columns'] = apply_filters( 'wpet_coupons_columns', $columns );
+		$data['rows'] = apply_filters( 'wpet_coupons_rows', $rows );
+		WPET::getInstance()->display( 'coupons.php', $data );
 	    }
+	}
+	
+	/**
+	 * Adds the default columns to the ticket options list in wp-admin
+	 * 
+	 * @since 2.0
+	 * @param type $columns
+	 * @return type 
+	 */
+	public function defaultColumns( $columns ) {
+	    return array(
+		'post_title' => 'Name',
+		'post_name' => 'Coupon Code',
+		'_wpet_pretty_amount' => 'Amount',
+		'_wpet_quantity_remaining' => 'Remaining',
+		'_wpet_quantity' => 'Total'
+	    );
+	}
+	
+	public function findAll( $prettyAmount = false ) {
+	    $args = array(
+		'post_type' => 'wpet_coupons',
+		'showposts' => '-1',
+		'posts_per_page' => '-1'
+	    );
+	    
+	    $posts = get_posts( $args );
+	    
+	    if( $prettyAmount ) {
+		foreach( $posts AS $p ) {
+		    switch( $p->_wpet_type ) {
+			case 'percentage':
+			    $p->_wpet_pretty_amount = $p->_wpet_amount . '%';
+			    break;
+			case 'flat-rate':
+			    $p->_wpet_pretty_amount = '$' . $p->_wpet_amount;
+			    break;
+		    }
+		}
+	    }
+	    
+	    return $posts;
 	}
 
 	/**
@@ -128,7 +194,12 @@ class WPET_Coupons extends WPET_Module {
 
 	    $data = apply_filters( 'wpet_coupon_add', $data );
 
-	    wp_insert_post( $data );
+	    $post_id = wp_insert_post( $data );
+	    
+	    foreach( $data['meta'] AS $k => $v ) {
+		update_post_meta( $post_id, $k, $v );
+	    }
+	    return $post_id;
 	}
 
 	/**

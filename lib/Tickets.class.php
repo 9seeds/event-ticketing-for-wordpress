@@ -40,8 +40,8 @@ class WPET_Tickets extends WPET_Module {
 		
 		if( isset( $_POST['submit'] ) ) {
 		    $data = array(
-			'post_title' => $_POST['ticket_name'],
-			'post_name' => sanitize_title_with_dashes( $_POST['ticket_name'] ),
+			'post_title' => $_POST['options']['ticket_name'],
+			'post_name' => sanitize_title_with_dashes( $_POST['options']['ticket_name'] ),
 			'post_content' => serialize( $_POST['ticket_options'] )
 		    );
 		    
