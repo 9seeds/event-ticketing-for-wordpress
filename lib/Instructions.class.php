@@ -25,13 +25,25 @@ class WPET_Instructions extends WPET_Module {
 		return $menu;
 	}
 
+	/**
+	 * Renders the page for the wp-admin area
+	 * 
+	 * @since 2.0 
+	 */
 	public function renderAdminPage() {	
-		WPET::getInstance()->debug( 'Loading Instructions', 'Rendering...' );	
+			
 		$inst = apply_filters('wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->debug( 'Instruction Data', $inst, 'dump' );
+		
 		WPET::getInstance()->display( 'instructions.php', $inst );
 	}
 
+	/**
+	 * Adds a set of default instructions to the Instructions page
+	 * 
+	 * @since 2.0
+	 * @param array $inst
+	 * @return string 
+	 */
 	public function defaultInstructions( $inst ) {
 		$inst['instructions'][] = array(
 			'title' => 'Instructions Title',
