@@ -104,7 +104,12 @@
 					foreach( $data['columns'] AS $k => $v ) { ?>
 					<td class="username column-username">
 					    <strong><?php echo $row[$k]; ?></strong>
-					     <?php if( 1 == $ci ) { ?><div class="row-actions"><span class="edit"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Edit</a></span></div><?php $ci = 2; } ?>
+					     <?php if( 1 == $ci ) { ?>
+						<div class="row-actions">
+						    <span class="edit"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Edit</a></span>
+						    | <span class="trash"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Trash</a></span>
+						</div>
+						<?php $ci = 2; } ?>
 					</td>
 					
 					<?php } ?>
