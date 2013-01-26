@@ -5,43 +5,37 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row">Event Date</th>
-				<td><input name="" type="text" id="" value=""></td>
+				<th scope="row"><?php _e('Event Date', 'wpet'); ?></th>
+				<td><input name="options[event-date]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row">Organizer Name</th>
-				<td><input name="" type="text" id="" value=""></td>
+				<th scope="row"><?php _e('Organizer Name', 'wpet'); ?></th>
+				<td><input name="options[organizer-name]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row">Organizer Email</th>
-				<td><input name="" type="text" id="" value=""></td>
+				<th scope="row"><?php _e('Organizer Email', 'wpet'); ?></th>
+				<td><input name="options[organizer-email]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row">Maximum Attendance</th>
-				<td><input name="" type="text" id="" value=""></td>
+				<th scope="row"><?php _e('Maximum Attendance', 'wpet'); ?></th>
+				<td><input name="options[max-attendance]" type="text" id="" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row">Event Status</th>
+				<th scope="row"><?php _e('Event Status', 'wpet'); ?></th>
 				<td>
-					<select name="" id="">
-						<option value="">Registration is closed</option>
-						<option value="">Registration is open</option>
+					<select name="options[event-status]" id="">
+						<option value="closed"><?php _e('Registration is closed', 'wpet'); ?></option>
+						<option value="open"><?php _e('Registration is open', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>
-			<tr>
-				<th scope="row">Display totals in form</th>
-				<td>
-					<label><input type="checkbox" name="" value="1" checked="checked"></label>
-				</td>
+			<tr class="form-field form-required">
+				<th scope="row"><?php _e('Coming soon text', 'wpet'); ?></th>
+				<td><textarea name="options[coming-soon]" id="" value=""></textarea></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row">Coming soon text</th>
-				<td><textarea name="" id="" value=""></textarea></td>
-			</tr>
-			<tr class="form-field form-required">
-				<th scope="row">Thank you page text</th>
-				<td><textarea name="" id="" value=""></textarea></td>
+				<th scope="row"><?php _e('Thank you page text', 'wpet'); ?></th>
+				<td><textarea name="options[thank-you]" id="" value=""></textarea></td>
 			</tr>
 		</tbody>
 	</table>
