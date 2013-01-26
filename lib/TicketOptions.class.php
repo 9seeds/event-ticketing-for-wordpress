@@ -84,7 +84,11 @@ class WPET_TicketOptions extends WPET_AddOn {
 		'posts_per_page' => '-1'
 	    );
 	    
+	    $posts = get_posts( $args );
 	    
+	    foreach( $posts AS $p ) {
+		
+	    }
 	    die();
 	}
 
