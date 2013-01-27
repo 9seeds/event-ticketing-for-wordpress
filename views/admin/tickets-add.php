@@ -37,8 +37,8 @@
 ?>
 
 			<?php
-		//die(print_r($data['ticket']->wpet_values, true));
-			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes();
+			$selected = empty( $data['ticket'] ) ? array() : $data['ticket']->wpet_options_selected;
+			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes( $selected );
 			foreach ( $checkboxes as $cb_info ):
 			?>
 			<tr class="form-field">
@@ -53,7 +53,7 @@
 	</table>
 	<?php
 	echo $data['nonce'];
-	$button_label = empty( $_REQUEST['post'] ) ? __('Add Ticket', 'wpet') : __('Edit Ticket', 'wpet');
+	$button_label = empty( $_REQUEST['post'] ) ? __('Add Ticket', 'wpet') : __('Save Ticket', 'wpet');
 	?>
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo $button_label; ?>"></p>
 </form>

@@ -39,16 +39,20 @@ class WPET_Tickets extends WPET_Module {
 
 		if ( ! empty($_POST['wpet_tickets_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_tickets_update_nonce'], 'wpet_tickets_update' ) ) {
 
+			$options = $_POST['options'];
 		    $post_data = array(
-				'post_title' => $_POST['options']['ticket-name'],
-				'post_content' => serialize( $_POST['options'] ), //I don't like this
+				'post_title' => $options['ticket-name'],				
 		    );
+			unset($options['ticket-name']);
+			$post_data['meta'] = array(
+				'options_selected' => array_keys( $options )
+			);
 			
 			if ( ! empty( $_REQUEST['post'] ) )
 				$post_data['ID'] = $_REQUEST['post'];
 
 			//kind of a hack
-		    $_REQUEST['post'] = $this->add( $data );
+		    $_REQUEST['post'] = $this->add( $post_data );
 		}
 
 		
