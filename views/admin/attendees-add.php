@@ -31,7 +31,7 @@
 
 		</tbody>
 	</table>
-    <?php echo $data['nonce']; ?>
+    <?php //echo $data['nonce']; ?>
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Attendee', 'wpet'); ?>"></p>
 </form>
 

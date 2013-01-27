@@ -13,14 +13,7 @@
 			<td><input type="text" name="email" id="email" value="<?php echo $post->wpet_email; ?>"></td>
 		</tr>
 		<?php
-		/**
-		 * @todo display all other ticket options
-		 */
-		
-		$ticket_id = get_post_meta( $post->wpet_package, 'wpet_ticket-id', true );
-		echo WPET::getInstance()->tickets->buildOptionsHtmlForm( $ticket_id );
-			
-			// ticket-id
+		    echo WPET::getInstance()->tickets->buildOptionsHtmlFormForPackage( $post->wpet_package ); 
 		?>
 		<tr>
 			<td>

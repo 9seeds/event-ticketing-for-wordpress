@@ -16,6 +16,15 @@ class WPET_Tickets extends WPET_Module {
 
 		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 
+		add_action('wp_ajax_get_ticket_options', array( $this, 'ajaxGetTicketOption' ) );
+		add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );	
+	}
+	
+	public function ajaxGetTicketOption() {
+	    $package_id = (int)$_POST['package_id'];
+	    die(1);
+	    echo $this->buildOptionsHtmlFormForPackage( $package_id );
+	    exit();
 	}
 
 	/**
@@ -70,6 +79,22 @@ class WPET_Tickets extends WPET_Module {
 			WPET::getInstance()->display( 'tickets.php', $data );
 		}
 	}
+	
+	
+	
+	/**
+	 * Returns the HTML form with all the ticket options for the ticket
+	 * contained within a package
+	 * 
+	 * @param integer $package_id 
+	 * @return string
+	 */
+	public function buildOptionsHtmlFormForPackage( $package_id ) {
+	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket-id', true );
+	    
+	    return $this->buildOptionsHtmlForm( $ticket_id );
+	}
+	
 	
 	/**
 	 * Creates the ticket options form for the wp-admin area
