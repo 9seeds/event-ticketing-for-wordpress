@@ -133,7 +133,7 @@ class WPET_Tickets extends WPET_Module {
 	 * @param array $data - Array of WP_Post Form field values
 	 * @return string
 	 */
-	public function buildOptionsHtmlFormForPackage( $package_id, $data = array() ) {
+	public function buildOptionsHtmlFormForPackage( $package_id, $data = null ) {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket-id', true );
 
 	    return $this->buildOptionsHtmlForm( $ticket_id, $data );
@@ -148,7 +148,7 @@ class WPET_Tickets extends WPET_Module {
 	 * @param array $data - Array of WP_Post form field values
 	 * @return string
 	 */
-	public function buildOptionsHtmlForm( $ticket_id, $data = array() ) {
+	public function buildOptionsHtmlForm( $ticket_id, $data = null ) {
 		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
 
 
@@ -158,7 +158,10 @@ class WPET_Tickets extends WPET_Module {
 
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
 			$field = $opts->post_name;
-			$value = $data->{"wpet_$field"};
+			
+			$value = '';
+			if( !is_null( $data ) ) 
+			    $value = $data->{"wpet_$field"};
 
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">' . $opts->post_title . '</th>';
@@ -172,7 +175,7 @@ class WPET_Tickets extends WPET_Module {
 				     
 					foreach( ( $opts->wpet_values ) AS $oi ) {
 						$s .= '<option value="' . $oi . '"';
-						$s .= ( in_array($oi, $value) )? ' selected': 'false';
+						$s .= ( in_array($oi, (array)$value) )? ' selected': 'false';
 						$s .= '>' . $oi . '</option>';
 					}
 					$s .= '</select>';
