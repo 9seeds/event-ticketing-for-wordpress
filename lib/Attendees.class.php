@@ -84,7 +84,7 @@ class WPET_Attendees extends WPET_Module {
 				    'meta' => $_POST['options']
 			);
 
-			var_dump($this->add( $data ));
+			$this->add( $data );
 			
 			
 			// $this->sendNotification( $to, $_POST['subject'], $_POST['email-body'] )

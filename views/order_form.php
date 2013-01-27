@@ -20,10 +20,21 @@
 		<div id="packages">
 			<table>
 				<tr>
-					<th><?php _e( 'Description', 'wpet' ); ?></th>
+				<!--	<th><?php _e( 'Description', 'wpet' ); ?></th>
 					<th><?php _e( 'Price', 'wpet' ); ?></th>
 					<th><?php _e( 'Remaining', 'wpet' ); ?></th>
-					<th><?php _e( 'Quantity', 'wpet' ); ?></th>
+					<th><?php _e( 'Quantity', 'wpet' ); ?></th>-->
+				    <?php 
+				    $num_columns = 0;
+				    
+				    foreach( $data['columns'] AS $k => $v ) {
+					if( !WPET::getInstance()->settings->show_package_count && 'wpet_quantity' == $k)
+					    echo "<th colspan='2'>$v</th>";
+					else
+					    echo "<th>$v</th>";
+					
+				    }
+				    ?>
 				</tr>
 				<tr>
 					<td>

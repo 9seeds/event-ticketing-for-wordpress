@@ -80,11 +80,10 @@ class WPET {
 		}
 
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
-
-
+		
 		// Send HTML emails
 	}
-
+	
 	/**
 	 * Registers the shortcodes required by the WPET base plugin
 	 *
@@ -104,19 +103,35 @@ class WPET {
 	 * @param array $atts
 	 */
 	public function renderwpeventticketingShortcode( $atts ) {
-
+	    $data = array();
+	    
+	    $defaults = array(
+		'event' => $this->events->getWorkingEvent()
+	    );
+	    
+	    $atts = wp_parse_args( $atts, $defaults );
 	    /*
 	     * Find the event to display here
 	     */
-	    $this->display( 'order_form.php' );
+	    $columns = array(
+		'post_content' => __( 'Description', 'wpet' ),
+		'wpet_cost' => __( 'Price', 'wpet' )
+	    );
+	    
+	    
+	    // show_package_count
+	    if( $this->settings->show_package_count ) {
+		$columns['wpet_quantity_remaining'] = __( 'Remaining', 'wpet' );
+	    }
+	    
+	    $columns['wpet_quantity'] = __( 'Quantity', 'wpet' );
+		
+	    $rows = $this->packages->findAllByEvent( $atts['event'] );
 
-	    echo "<p>Is pro installed? ";
-	    if( self::$mProInstalled )
-		echo " It sure is you lucky dog!!";
-	    else
-		echo "Noppers :'(";
 
-	    echo "</p>";
+	    $data['columns'] = apply_filters( 'wpet_wpeventticketing_shortcode_columns', $columns );
+	    $data['rows'] = apply_filters( 'wpet_wpeventticketing_shortcode_rows', $rows );
+	    $this->display( 'order_form.php', $data );
 	}
 
 	/**
