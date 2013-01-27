@@ -31,14 +31,12 @@ class WPET_Attendees extends WPET_Module {
 	
 	public function saveAttendeeFront() {
 	    global $post;
-	    
+	   
 	    if( isset( $_POST['submit'] ) && is_single() && $this->mPostType == $post->post_type && !is_admin() ) {
-		
-			//echo '<pre>'; var_dump( $_POST ); echo '</pre>';
 			$data['meta'] = $_POST;
-			$data['page_title'] . $data['first_name'] . ' ' . $data['last_name'];
-			$this->update( $post->ID, $data );
-			echo 'updated';
+			$data['post_title'] = $_POST['first_name'] . ' ' . $_POST['last_name'];
+			$data['ID'] = $post->ID;
+			$this->add( $data );
 	    }
 	}
 	
