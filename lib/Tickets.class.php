@@ -130,9 +130,10 @@ class WPET_Tickets extends WPET_Module {
 	 * contained within a package
 	 *
 	 * @param integer $package_id
+	 * @data array - Form field values
 	 * @return string
 	 */
-	public function buildOptionsHtmlFormForPackage( $package_id ) {
+	public function buildOptionsHtmlFormForPackage( $package_id, $data = array() ) {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket-id', true );
 
 	    return $this->buildOptionsHtmlForm( $ticket_id );
@@ -145,7 +146,7 @@ class WPET_Tickets extends WPET_Module {
 	 * @since 2.0
 	 * @return string
 	 */
-	public function buildOptionsHtmlForm( $ticket_id ) {
+	public function buildOptionsHtmlForm( $ticket_id, $data ) {
 		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
 
 		//echo '<pre>'; var_dump( $options) ; echo '</pre>';
