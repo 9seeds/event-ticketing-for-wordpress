@@ -37,31 +37,36 @@ class WPET_Packages extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 	    
-	    if( isset( $_GET['add-package'] ) ) {
-		
-		if( isset( $_POST['submit'] ) ) {
-		    
+		if ( ! empty($_POST['wpet_tickets_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_tickets_update_nonce'], 'wpet_tickets_update' ) ) {
 		    $data = array(
-			'post_title' => $_POST['options']['package-name'],
-			'post_name' => sanitize_title_with_dashes( $_POST['options']['package-name'] ),
-			'post_content' => stripslashes( $_POST['options']['description'] ),
-			'meta' => $_POST['options']
+				'post_title' => $_POST['options']['package-name'],
+				'post_name' => sanitize_title_with_dashes( $_POST['options']['package-name'] ),
+				'post_content' => stripslashes( $_POST['options']['description'] ),
+				'meta' => $_POST['options']
 		    );
-		    $this->add( $data );
+		    
+			
+			if ( ! empty( $_REQUEST['post'] ) )
+				$data['ID'] = $_REQUEST['post'];
+
+			//kind of a hack
+		    $_REQUEST['post'] = $this->add( $data );
 		}
+
+
+		$data = array();
+		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
 		
-		WPET::getInstance()->display( 'packages-add.php' );
-	    } else {
-		
-		$columns = array();
-		
-		$rows = $this->findAllByEvent();
-		
-		
-		$data['columns'] = apply_filters( 'wpet_packages_columns', $columns );
-		$data['rows'] = apply_filters( 'wpet_packages_rows', $rows );
-		WPET::getInstance()->display( 'packages.php', $data );
-	    }
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+			if ( ! empty( $_REQUEST['post'] ) ) {
+				$data['package'] = $this->findByID( $_REQUEST['post'] );
+				$data['edit_url'] = add_query_arg( array( 'post' => $_REQUEST['post'] ), $data['edit_url'] );
+			}
+			$data['nonce'] = wp_nonce_field( 'wpet_tickets_update', 'wpet_tickets_update_nonce', true, false );
+			WPET::getInstance()->display( 'packages-add.php' );
+		} else {			
+			WPET::getInstance()->display( 'packages.php', $data );
+		}
 	}
 	
 	/**

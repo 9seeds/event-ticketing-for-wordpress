@@ -28,14 +28,6 @@
 				    <input type="checkbox" name="options[email]" value="1" checked="checked" disabled="disabled">
 				</td>
 			</tr>
-<?php
-/**
- * @todo auto-fill checkboxes with all available ticket options
- */
-// @TODO
-//
-?>
-
 			<?php
 			$selected = empty( $data['ticket'] ) ? array() : $data['ticket']->wpet_options_selected;
 			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes( $selected );
