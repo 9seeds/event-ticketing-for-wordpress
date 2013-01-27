@@ -22,10 +22,6 @@
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="ticket_id"><?php _e('Ticket Name', 'wpet'); ?></label></th>
-<?php
-// @TODO
-// select saved ticket
-?>
 				<td>
 					<?php
 						$ticket_id = empty( $data['package'] ) ? NULL : $data['package']->wpet_ticket_id;
