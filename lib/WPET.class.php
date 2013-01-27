@@ -323,7 +323,7 @@ class WPET {
 	 *
 	 * @since 2.0
 	 */
-	public static function activate() {
+	public function activate() {
 		$plugin_data = get_plugin_data( WPET_PLUGIN_DIR . '/ticketing.php' );
 		update_option( 'wpet_install_data', $plugin_data );
 		require_once 'Module.class.php';
@@ -340,26 +340,26 @@ class WPET {
 		    update_option( 'wpet_activate_once', true );
 
 			// events tab
-			$this->settings->set( 'event_status', 'closed' );
-			$this->settings->set( 'closed_message', 'Tickets for this event will go on sale shortly.' );
-			$this->settings->set( 'thank_you', 'Thanks for purchasing a ticket to our event!' . "\n".
+			$this->settings->event_status = 'closed';
+			$this->settings->closed_message = 'Tickets for this event will go on sale shortly.';
+			$this->settings->thank_you = 'Thanks for purchasing a ticket to our event!' . "\n".
 				'Your ticket link(s) are below' . "\n".
 				'[ticketlinks]' . "\n\n".
-				'If you have any questions please let us know!' );
+				'If you have any questions please let us know!';
 
 			// payments tab
-			$this->settings->set( 'currency', 'USD' );
-			$this->settings->set( 'payment_gateway', 'paypal_express' );
-			$this->settings->set( 'payment_gateway_status', 'sandbox' );
+			$this->settings->currency = 'USD';
+			$this->settings->payment_gateway = 'paypal_express';
+			$this->settings->payment_gateway_status = 'sandbox';
 
 			// email tab
-			$this->settings->set( 'email_body', 'Thanks for purchasing a ticket to our event!' . "\n".
+			$this->settings->email_body = 'Thanks for purchasing a ticket to our event!' . "\n".
 				'Your ticket link(s) are below' . "\n".
 				'[ticketlinks]' . "\n\n".
-				'If you have any questions please let us know!' );
+				'If you have any questions please let us know!';
 
 			// form display tab
-			$this->settings->set( 'show_package_count', 1 );
+			$this->settings->show_package_count = 1;
 		}
 	}
 

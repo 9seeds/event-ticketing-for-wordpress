@@ -37,11 +37,11 @@
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[closed_message]"><?php _e('Closed Message text', 'wpet'); ?></label></th>
-				<td><textarea name="options[closed_message]" id="options[closed_message]"><?php esc_attr_e( $data['closed_message'] ) ?></textarea></td>
+				<td><textarea name="options[closed_message]" id="options[closed_message]" rows="10"><?php esc_attr_e( $data['closed_message'] ) ?></textarea></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[thank_you]"><?php _e('Thank you page text', 'wpet'); ?></label></th>
-				<td><textarea name="options[thank_you]" id="options[thank_you]"><?php esc_attr_e( $data['thank_you'] ) ?></textarea><br />
+				<td><textarea name="options[thank_you]" id="options[thank_you]" rows="10"><?php esc_attr_e( $data['thank_you'] ) ?></textarea><br />
 					<em><?php _e( 'Note: To display the link to each ticket on the thank you page, include the [ticketlinks] shortcode.', 'wpet' ); ?></em>
 				</td>
 			</tr>

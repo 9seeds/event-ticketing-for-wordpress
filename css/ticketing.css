@@ -102,6 +102,7 @@
 
 .event-attendee {
 	float: left;
+	width: 48%;
 }
 
 .event-attendee.odd {
