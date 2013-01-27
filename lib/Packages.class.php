@@ -177,4 +177,28 @@ class WPET_Packages extends WPET_Module {
 	    $s .= '</select>';
 	    return $s;
 	}
+	
+	/**
+	 * Returns the max number of packages that can be sold for the specified
+	 * event.
+	 * 
+	 * @param int $event_id
+	 * @param int $package_id
+	 * @return int
+	 */
+	public function remaining( $event_id, $package_id ) {	    
+	    $max_attendance = (int)get_post_meta( $event_id, 'wpet_max_attendance', true);
+	    $packages_total_quantity = (int)get_post_meta( $package_id, 'wpet_quantity', true);
+	    $ticket_quantity = (int)get_post_meta( $package_id, 'wpet_ticket-quantity', true );
+	    
+	    if( 0 == $max_attendance || 0 == $ticket_quantity ) return 0;
+	    
+	    $max_packages = floor( $max_attendance / $ticket_quantity );
+	    
+	    if( $max_packages > $packages_total_quantity )
+		return $packages_total_quantity;
+	    
+	    return $max_packages;
+	}
+	
 }// end class

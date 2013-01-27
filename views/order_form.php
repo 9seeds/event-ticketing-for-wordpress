@@ -49,11 +49,13 @@
 					} else {
 					    echo "<td colspan='2'>";
 					}
+					
+					$remaining =  WPET::getInstance()->packages->remaining( WPET::getInstance()->events->getWorkingEvent()->ID, $row->ID );
 					?>
 					<!--<td>-->
-						<select name="packagePurchase[0]">
+						<select name="packagePurchase[0]" >
 							<?php
-							for( $i = 1; $i <= $row->wpet_quantity_remaining; $i++ ) {
+							for( $i = 1; $i <= $remaining; $i++ ) {
 							    echo "<option value='$i'>$i</option>";
 							}
 							?>

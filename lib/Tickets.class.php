@@ -114,8 +114,8 @@ class WPET_Tickets extends WPET_Module {
 		'labels' => $labels,
 		'hierarchical' => false,
 		'has_archive' => true,
-		'query_var' => 'shiplog',
-		'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
+		'query_var' => 'wpet_tickets',
+		'rewrite' => array( 'slug' => 'tickets', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 		//'register_meta_box_cb' => array( $this, 'registerMetaBox' ),
 		'show_ui' => false
