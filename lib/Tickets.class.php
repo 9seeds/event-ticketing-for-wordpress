@@ -124,6 +124,14 @@ class WPET_Tickets extends WPET_Module {
 	    register_post_type( 'wpet_tickets', $args );
 	}
 
+	/**
+	 * Builds a select menu of Tickets
+	 * 
+	 * @since 2.0
+	 * @param string $name
+	 * @param string $selected_value
+	 * @return string 
+	 */
 	public function selectMenu( $name, $selected_value ) {
 	    $s = "<select name='$name' id='$name'>";
 

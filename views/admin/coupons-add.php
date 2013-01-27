@@ -11,13 +11,8 @@
 				<tr class="form-field form-required">
 					<th scope="row"><?php _e('Package', 'wpet'); ?></th>
 					<td>
-						<select name="options[package-id]" id="">
-							<option value="any"><?php _e('Any Package', 'wpet'); ?></option>
-					<?php
-// @TODO
-// Pull list of packages
-					?>
-						</select>
+						<?php echo WPET::getInstance()->packages->selectMenu( 'options[package_id]', 1 ); ?>	
+					    
 					</td>
 				</tr>
 				<tr class="form-field form-required">
