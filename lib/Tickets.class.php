@@ -130,13 +130,13 @@ class WPET_Tickets extends WPET_Module {
 	 * contained within a package
 	 *
 	 * @param integer $package_id
-	 * @data array - Form field values
+	 * @param array $data - Array of WP_Post Form field values
 	 * @return string
 	 */
 	public function buildOptionsHtmlFormForPackage( $package_id, $data = array() ) {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket-id', true );
 
-	    return $this->buildOptionsHtmlForm( $ticket_id );
+	    return $this->buildOptionsHtmlForm( $ticket_id, $data );
 	}
 
 
@@ -144,18 +144,22 @@ class WPET_Tickets extends WPET_Module {
 	 * Creates the ticket options form for the wp-admin area
 	 *
 	 * @since 2.0
+	 * @param integer $ticket_id
+	 * @param array $data - Array of WP_Post form field values
 	 * @return string
 	 */
-	public function buildOptionsHtmlForm( $ticket_id, $data ) {
+	public function buildOptionsHtmlForm( $ticket_id, $data = array() ) {
 		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
 
-		//echo '<pre>'; var_dump( $options) ; echo '</pre>';
+		//echo '<pre>'; var_dump( $data ) ; echo '</pre>';
 
 		$s = '';
 		if( !is_array( $options ) ) return '';
 		foreach( $options AS $o ) {
 
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
+			$field = $opts->post_name;
+			$value = $data->{"wpet_$field"};
 
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">' . $opts->post_title . '</th>';
@@ -166,24 +170,29 @@ class WPET_Tickets extends WPET_Module {
 
 				case 'multiselect':
 					$s .= '<select  name="' . $opts->post_name . '[]" multiple>';
-				        //echo '<pre>'; var_dump( $opts->wpet_values) ; echo '</pre>';
+				     
 					foreach( ( $opts->wpet_values ) AS $oi ) {
-						$s .= '<option value="' . $oi . '">' . $oi . '</option>';
+						$s .= '<option value="' . $oi . '"';
+						$s .= ( in_array($oi, $value) )? ' selected': 'false';
+						$s .= '>' . $oi . '</option>';
 					}
 					$s .= '</select>';
+					var_dump( in_array($oi, $value) );
 					break;
 				case 'dropdown':
 					$s .= '<select name="' . $opts->post_name . '" >';
 
 					foreach( $opts->wpet_values AS $oi ) {
-						$s .= '<option value="' . $oi . '">' . $oi . '</option>';
+						$s .= '<option value="' . $oi . '"';
+						$s .= selected( $value, $oi, false );
+						$s .= '>' . $oi . '</option>';
 					}
 					$s .= '</select>';
 					break;
 
 				case 'text':
 				default:
-					$s .= '<input  name="' . $opts->post_name . '" type="text" value="' . $opts->wpet_values[0] . '" />';
+					$s .= '<input  name="' . $opts->post_name . '" type="text" value="' . $value . '" />';
 
 			}
 			$s .= '</td>';
