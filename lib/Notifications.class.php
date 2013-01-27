@@ -13,7 +13,7 @@ class WPET_Notifications extends WPET_Module {
 	 * @since 2.0 
 	 */
 	public function __construct() {
-	    $this->mPostType = 'wpet_notify_attendees';
+	    $this->mPostType = 'wpet_notifications';
 	    
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 26 );
 		
@@ -24,6 +24,15 @@ class WPET_Notifications extends WPET_Module {
 	}
 	
 	/**
+	 * @since 2.0
+	 */
+	public function enqueueAdminScripts() {
+		if ( isset( $_GET['action'] ) ) {
+			wp_enqueue_style( 'editor' );
+		}
+	}
+
+	/**
 	 * Add Notify Attendees links to the Tickets menu
 	 * 
 	 * @since 2.0
@@ -31,7 +40,7 @@ class WPET_Notifications extends WPET_Module {
 	 * @return array 
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notify_attendees', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notifications', array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 	
@@ -116,7 +125,7 @@ class WPET_Notifications extends WPET_Module {
 		'show_ui' => false
 	    );
 
-	    register_post_type( 'wpet_notifications', $args );
+	    register_post_type( $this->mPostType, $args );
 	}
 
 }
