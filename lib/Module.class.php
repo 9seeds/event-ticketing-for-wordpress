@@ -34,7 +34,7 @@ abstract class WPET_Module {
 	 * @param array $args
 	 * @return array of WP_Posts
 	 */
-	public function find( $args ) {		
+	public function find( $args = array() ) {		
 	    $defaults = array(
 			'post_type' => $this->mPostType,
 			'showposts' => -1,
@@ -47,7 +47,7 @@ abstract class WPET_Module {
 	    return get_posts( $data );
 	}
 
-	public function findOne( $args ) {
+	public function findOne( $args = array() ) {
 	    $defaults = array(
 			'showposts' => 1
 		);
@@ -65,7 +65,6 @@ abstract class WPET_Module {
 	public function findByID( $post_id ) {
 		return WP_Post::get_instance( $post_id );
 	}
-
 	
 	/**
 	 * Adds the object data to the database

@@ -47,7 +47,7 @@ class WPET_Tickets extends WPET_Module {
 
 		    $this->add( $data );
 		}
-			WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->findAll() );
+			WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->find() );
 	    } else {
 			$columns = array(
 				'name' => 'Option Name',

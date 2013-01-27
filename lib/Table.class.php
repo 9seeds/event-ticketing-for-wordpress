@@ -66,6 +66,8 @@ abstract class WPET_Table extends WP_List_Table {
 	//abstract protected function get_prepare_args( $defaults );
 
 	protected function column_default( $data, $column_name ) {
+		if ( isset( $data->{'post_'.$column_name} ) )
+			return $data->{'post_'.$column_name};
 		return $data->{$column_name};
 	}
 
@@ -94,9 +96,9 @@ abstract class WPET_Table extends WP_List_Table {
 		return $actions;
 	}
 
-	protected function column_cb( $object ) {
+	protected function column_cb( $post ) {
 		// Set up the checkbox ( because the  is editable, otherwise its empty )
-		return "<input type='checkbox' name='objects[]' id='{$object->ID}' value='{$object->ID}' />";
+		return "<input type='checkbox' name='posts[]' id='{$post->ID}' value='{$post->ID}' />";
 	}
 
 }
