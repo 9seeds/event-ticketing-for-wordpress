@@ -8,6 +8,23 @@
 abstract class WPET_Module {
     
 	protected $mPostType;
+	protected $render_data;
+
+	public function __construct() {
+		add_action( 'init', array( $this, 'setupRenderData' ) );
+	}
+
+	public function setupRenderData() {
+		$this->render_data = array();
+		$this->render_data['nonce'] = wp_nonce_field( 'wpet_submit', 'wpet_submit_nonce', true, false );
+
+		if ( isset( $this->mPostType ) ) {
+			$this->render_data['base_url'] = admin_url( "admin.php?page={$this->mPostType}" );
+			$this->render_data['edit_url'] = add_query_arg( array( 'action' => 'edit' ), $this->render_data['base_url'] );
+			$this->render_data['new_url'] = add_query_arg( array( 'action' => 'new' ), $this->render_data['base_url'] );
+		}
+	}
+	
 	/**
 	 * @since 2.0
 	 */
@@ -27,6 +44,38 @@ abstract class WPET_Module {
 	public function enqueueAdminScripts() {
 	}
 
+	/**
+	 * @since 2.0
+	 */
+	public function maybeSubmit() {
+		if ( ! empty($_POST['wpet_submit_nonce'] ) && wp_verify_nonce( $_POST['wpet_submit_nonce'], 'wpet_submit' ) ) {
+
+			$post_data = $this->getPostData();
+
+			if ( ! empty( $_REQUEST['post'] ) )
+				$post_data['ID'] = $_REQUEST['post'];
+
+			$post_id = $this->add( $post_data );
+
+			wp_redirect( add_query_arg( array( 'post' => $post_id ), $this->render_data['edit_url'] ) );
+		}
+	}
+
+	/**
+	 * Prepare the page submit data for save
+	 *
+	 * @since 2.0
+	 */
+	public function getPostData() {
+		return array();
+	}
+	
+	/**
+	 * @since 2.0
+	 */
+	public function contextHelp( $screen ) {
+	}
+	
 	/**
 	 * Finds wpet objects
 	 *

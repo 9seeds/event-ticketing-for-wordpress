@@ -16,6 +16,9 @@ class WPET_Packages extends WPET_Module {
 		add_action( 'init', array( $this, 'registerPostType' ) );
 		
 		add_filter( 'wpet_packages_columns', array( $this, 'defaultColumns' ) );
+
+		//do this after post type is set
+		parent::__construct();
 	}
 
 	/**
@@ -44,41 +47,35 @@ class WPET_Packages extends WPET_Module {
 	 * @since 2.0 
 	 */
 	public function renderAdminPage() {
-	    
-		if ( ! empty($_POST['wpet_tickets_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_tickets_update_nonce'], 'wpet_tickets_update' ) ) {
-			$options = $_POST['options'];
-		    $data = array(
-				'post_title' => $options['package_name'],
-				'post_name' => sanitize_title_with_dashes( $options['package_name'] ),
-				'post_content' => stripslashes( $options['description'] ),
-		    );
-			unset( $options['package_name'] );
-			unset( $options['description'] );
-			
-			$data['meta'] = $options;
-			
-			if ( ! empty( $_REQUEST['post'] ) )
-				$data['ID'] = $_REQUEST['post'];
-
-			//kind of a hack
-		    $_REQUEST['post'] = $this->add( $data );
-		}
-
-
-		$data = array();
-		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
-		
-		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+	    		
+		if ( isset( $_GET['action'] ) ) {
 			if ( ! empty( $_REQUEST['post'] ) ) {
-				$data['package'] = $this->findByID( $_REQUEST['post'] );
-				$data['edit_url'] = add_query_arg( array( 'post' => $_REQUEST['post'] ), $data['edit_url'] );
+				$this->render_data['package'] = $this->findByID( $_REQUEST['post'] );
 			}
-			$data['nonce'] = wp_nonce_field( 'wpet_tickets_update', 'wpet_tickets_update_nonce', true, false );
-			WPET::getInstance()->display( 'packages-add.php', $data );
+			WPET::getInstance()->display( 'packages-add.php', $this->render_data );
 		} else {			
-			WPET::getInstance()->display( 'packages.php', $data );
+			WPET::getInstance()->display( 'packages.php', $this->render_data );
 		}
 	}
+
+	/**
+	 * Prepare the page submit data for save
+	 *
+	 * @since 2.0
+	 */
+	public function getPostData() {
+		$options = $_POST['options'];
+		$data = array(
+			'post_title' => $options['package_name'],
+			'post_name' => sanitize_title_with_dashes( $options['package_name'] ),
+			'post_content' => stripslashes( $options['description'] ),
+		);
+		unset( $options['package_name'] );
+		unset( $options['description'] );
+			
+		$data['meta'] = $options;
+		return $data;
+	}	
 	
 	/**
 	 * Add post type for object

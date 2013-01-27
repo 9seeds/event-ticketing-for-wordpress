@@ -295,11 +295,14 @@ class WPET {
 
 			wp_register_script( 'wpet-jquery-cookie', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/external/cookie.js' );
 
-			//allow individual pages to load per-page assets
+			//allow individual pages to do pre-header actions
 			if ( $pos === 0 ) {
 				$page = substr( $current_screen->base, 18 ); //'tickets_page_wpet_'
-				if ( ! empty( $this->mModules[$page] ) )
+				if ( ! empty( $this->mModules[$page] ) ) {
+					$this->mModules[$page]->maybeSubmit();
 					$this->mModules[$page]->enqueueAdminScripts();
+					$this->mModules[$page]->contextHelp( $current_screen );
+				}
 			}
 		}
 	}

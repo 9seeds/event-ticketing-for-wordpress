@@ -49,3 +49,17 @@ function my_event_menu( $menu ) {
 }
 add_filter( 'wpet_admin_menu', 'my_event_menu' );
 */
+
+function my_meta_test( ) {
+	$post = get_post( 1 );
+
+	if ( $post ) {
+		$meta = get_post_meta( $post->ID, 'wpet_test' );
+		if ( count( $meta ) < 4 ) {
+			add_post_meta( $post->ID, 'wpet_test', uniqid() );
+			add_post_meta( $post->ID, 'wpet_test', uniqid() );
+		}
+	}
+	//die( print_r($post,  true));
+}
+add_action( 'init', 'my_meta_test' );
