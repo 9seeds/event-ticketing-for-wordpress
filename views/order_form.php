@@ -20,57 +20,47 @@
 		<div id="packages">
 			<table>
 				<tr>
-				<!--	<th><?php _e( 'Description', 'wpet' ); ?></th>
+					<th><?php _e( 'Description', 'wpet' ); ?></th>
 					<th><?php _e( 'Price', 'wpet' ); ?></th>
-					<th><?php _e( 'Remaining', 'wpet' ); ?></th>
-					<th><?php _e( 'Quantity', 'wpet' ); ?></th>-->
-				    <?php 
-				    $num_columns = 0;
-				    
-				    foreach( $data['columns'] AS $k => $v ) {
-					if( !WPET::getInstance()->settings->show_package_count && 'wpet_quantity' == $k)
-					    echo "<th colspan='2'>$v</th>";
-					else
-					    echo "<th>$v</th>";
 					
-				    }
-				    ?>
+					<?php if( WPET::getInstance()->settings->show_package_count ) {
+					    echo "<th>" . __( 'Remaining', 'wpet' ) . "</th>";
+					    echo "<th>";
+					} else {
+					    echo "<th colspan='2'>";
+					}
+					?>
+					<?php _e( 'Quantity', 'wpet' ); ?></th>
 				</tr>
+				<?php
+				    foreach( $data['rows'] AS $row ) { ?>
 				<tr>
+				    
 					<td>
-						<div class="packagename"><strong><?php
-							/**
-							 * @todo display package title
-							 */ ?></strong></div>
-						<div class="packagedescription"><?php
-							/**
-							 * @todo display package description
-							 */ ?></div>
+						<div class="packagename"><strong><?php echo $row->post_title ?></strong></div>
+						<div class="packagedescription"><?php echo nl2br( $row->post_content ); ?></div>
 					</td>
-					<td><?php
-							/**
-							 * @todo display package price
-							 */ ?></td>
-					<td><?php
-							/**
-							 * @todo display package remaining
-							 */ ?></td>
-					<td>
+					<td><?php echo WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $row->wpet_package_cost ); ?>
+							</td>
+							
+					<?php if( WPET::getInstance()->settings->show_package_count ) {
+					    echo "<td>" . $row->wpet_quantity_remaining . "</td>";
+					    echo "<td>";
+					} else {
+					    echo "<td colspan='2'>";
+					}
+					?>
+					<!--<td>-->
 						<select name="packagePurchase[0]">
-							<option>0</option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
-							<option>7</option>
-							<option>8</option>
-							<option>9</option>
-							<option>10</option>
+							<?php
+							for( $i = 1; $i <= $row->wpet_quantity_remaining; $i++ ) {
+							    echo "<option value='$i'>$i</option>";
+							}
+							?>
 						</select>
 					</td>
 				</tr>
+				<?php } ?>
 				<tr class="coupon">
 					<td colspan="2">
 						<label for="couponCode"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>

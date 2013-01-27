@@ -128,7 +128,6 @@ class WPET {
 		
 	    $rows = $this->packages->findAllByEvent( $atts['event'] );
 
-
 	    $data['columns'] = apply_filters( 'wpet_wpeventticketing_shortcode_columns', $columns );
 	    $data['rows'] = apply_filters( 'wpet_wpeventticketing_shortcode_rows', $rows );
 	    $this->display( 'order_form.php', $data );
