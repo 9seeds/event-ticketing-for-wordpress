@@ -32,6 +32,7 @@ class WPET_Attendees extends WPET_Module {
 	 * @since 2.0 
 	 */
 	public function registerShortcodes() {
+	    add_shortcode( 'wpeventticketingattendee',  array( $this, 'renderAttendeesShortcode' ) );
 	    add_shortcode( 'wpet_attendees',  array( $this, 'renderAttendeesShortcode' ) );
 	}
 
@@ -45,7 +46,7 @@ class WPET_Attendees extends WPET_Module {
 	 * @param array $atts 
 	 */
 	public function renderAttendeesShortcode( $atts ) {
-	    $data = $this->findAllByEventId(1);
+	    $data = $this->findAllByEvent(1);
 	    WPET::getInstance()->display( 'attendees_shortcode.php', $data );
 	}
 	

@@ -124,6 +124,24 @@ class WPET_Tickets extends WPET_Module {
 	    register_post_type( 'wpet_tickets', $args );
 	}
 
+	public function selectMenu( $name, $selected_value ) {
+	    $s = "<select name='$name' id='$name'>";
+
+	    foreach( $this->findAllByEvent() AS $tix ) {
+		$s .= '<option value="' . $tix['code'] . '"';
+
+		$s .= selected( $selected_value, $tix['code'], false ) ;
+
+		$s .= '>';
+
+		$s .= $currency['display'] . ' ( ' . $tix['symbol'] . ' )';
+
+		$s .= '</option>';
+	    }
+
+	    $s .= '</select>';
+	    return $s;
+	}
 
 	
 }// end class
