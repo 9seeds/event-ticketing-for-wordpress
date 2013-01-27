@@ -17,8 +17,8 @@
 		?>
 		<tr>
 			<td>
-			    <input type="hidden" value="<?php echo $ticket_id; ?>" name="ticket_id" />
-			    <input type="submit" value="<?php _e('Save Changes', 'wpet'); ?>">
+			    <input type="hidden" value="<?php //echo $ticket_id; ?>" name="ticket_id" />
+			    <input type="submit" name="submit" value="<?php _e('Save Changes', 'wpet'); ?>">
 			</td>
 			<td></td>
 		</tr>
