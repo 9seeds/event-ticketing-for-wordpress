@@ -190,7 +190,7 @@ class WPET_Settings extends WPET_Module {
 	 * @return mixed
 	 */
 	public function __get( $name ) {
-	    $name = 'wpet_' . str_replace( '_', '-', $name );
+	    $name = 'wpet_' . $name;
 	    return get_option( $name, '' );
 	}
 
