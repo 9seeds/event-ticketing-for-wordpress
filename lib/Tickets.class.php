@@ -16,7 +16,7 @@ class WPET_Tickets extends WPET_Module {
 
 		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 
-		add_action('wp_ajax_get_ticket_options', array( $this, 'ajaxGetTicketOption' ) );
+		add_action('wp_ajax_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
 		add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );	
 	}
 	

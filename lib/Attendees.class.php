@@ -26,10 +26,9 @@ class WPET_Attendees extends WPET_Module {
 		add_filter( 'wpet_attendees_columns', array( $this, 'defaultColumns' ) );
 		add_filter( 'wpet_notify_attendees_columns', array( $this, 'defaultNotifyColumns' ) );
 		
-		/**
-		 * @todo Rename this 
-		 */
-		add_filter( 'the_content', array( $this, 'blah' ) );
+		 add_action( 'wp_enqueue_scripts', array( $this, 'enqueueAdminScripts' ) );
+		 
+		add_filter( 'the_content', array( $this, 'viewSingleAttendee' ) );
 	}
 	
 	public function saveAttendeeFront() {
@@ -48,7 +47,7 @@ class WPET_Attendees extends WPET_Module {
 	/**
 	 * @todo Rename this 
 	 */
-	public function blah( $content ) {
+	public function viewSingleAttendee( $content ) {
 	    global $post;
 	    
 	    // Make sure we are on the attendee page
@@ -136,6 +135,15 @@ class WPET_Attendees extends WPET_Module {
 		    $data['rows'] = apply_filters( 'wpet_notify_attendees_rows', $rows );
 		    WPET::getInstance()->display( 'notify.php', $data );
 		}
+	}
+	
+	public function enqueueAdminScripts() { 
+	    $screen = get_current_screen();
+	    if( 'tickets_page_wpet_attendees' == get_current_screen()->base
+		    && isset( $_GET['add-attendee'] ) ) 
+		echo 'got it';
+	    wp_register_script( 'wpet-admin-attendee-add', WPET_PLUGIN_URL . '/js/admin_attendee_add.js', array( 'jquery' ) );
+	    wp_enqueue_script( 'wpet-admin-attendee-add' );
 	}
 
 	/**
