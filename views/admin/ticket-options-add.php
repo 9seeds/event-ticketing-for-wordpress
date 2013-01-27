@@ -1,25 +1,40 @@
 <div class="wrap">
 	<?php echo $admin_page_icon; ?>
 	<h2><?php _e('Add Ticket Options', 'wpet'); ?></h2>
-	<form method="post" action="">
+	<form method="post" action="<?php echo $data['edit_url'] ?>">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[display-name]"><?php _e('Display Name', 'wpet'); ?></label></th>
-				<td><input name="options[display-name]" type="text" id="options[display-name]" value=""></td>
+				<td><input name="options[display-name]" type="text" id="options[display-name]" value="<?php echo isset( $data['option'] ) ? $data['option']->post_title : '' ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[option-type]"><?php _e('Option Type', 'wpet'); ?></label></th>
 				<td>
 					<select name="options[option-type]" id="options[option-type]">
-						<option value="text"><?php _e('Text Input', 'wpet'); ?></option>
-						<option value="dropdown"><?php _e('Dropdown', 'wpet'); ?></option>
-						<option value="multiselect"><?php _e('Multi Select', 'wpet'); ?></option>
+					<?php
+					$value = isset( $data['option'] ) ? $data['option']->wpet_type : '';
+					$options = array( 'text' => __('Text Input', 'wpet'),
+					   'dropdown' => __('Dropdown', 'wpet'),
+					   'multiselect' => _e('Multi Select', 'wpet')
+					  );
+					foreach ( $options as $index => $label ) {
+						$selected = $index == $value ? ' selected="selected"' : '';
+						echo "<option value='{$index}'{$selected}>{$label}</option>\n";
+					}
+					?>
 					</select>
 				</td>
 			</tr>
 		</tbody>
-		<tbody style="display: none;" id="option-values">
+<? //@TODO real values ?>
+		<?php
+		$extra_style = 'style="display: none;" ';
+		if ( isset( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'select' ) ) ) {
+			$extra_style = '';	
+		}
+		?>
+		<tbody <?php echo $extra_style ?>id="option-values">
 			<tr class="form-field">
 				<th scope="row"><label for="options[option-value][0]"><?php _e('Option Value', 'wpet'); ?></label></th>
 				<td>

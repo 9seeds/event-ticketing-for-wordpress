@@ -4,11 +4,10 @@ require_once WPET_PLUGIN_DIR . 'lib/Table.class.php';
 
 class WPET_Table_TicketOptions extends WPET_Table {
 
-	protected function get_prepare_args( $defaults ) {
-		$override = array(
-			'post_type' => 'wpet_ticket_options'
-		);
-		return wp_parse_args( $override, $defaults );
+	public function __construct( $args = array() ) {
+		$defaults = array( 'post_type' => 'wpet_ticket_options' );
+		$args = wp_parse_args( $args, $defaults );
+		parent::__construct( $args );
 	}
 
 	function get_columns() {

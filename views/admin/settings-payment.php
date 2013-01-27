@@ -7,19 +7,19 @@
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[payment-gateway]"><?php _e('Payment Gateway', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[payment_gateway]"><?php _e('Payment Gateway', 'wpet'); ?></label></th>
 				<td>
-				<?php //@TODO payment-gateway ?>
-					<select name="options[payment-gateway]" id="options[payment-gateway]">
+				<?php //@TODO payment_gateway ?>
+					<select name="options[payment_gateway]" id="options[payment_gateway]">
 						<option value=""><?php _e('PayPal Express', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[payment-gateway-status]"><?php _e('Gateway Status', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[payment_gateway_status]"><?php _e('Gateway Status', 'wpet'); ?></label></th>
 				<td>
-				<?php //@TODO payment-gateway-status ?>
-					<select name="options[payment-gateway-status]" id="options[payment-gateway-status]">
+				<?php //@TODO payment_gateway_status ?>
+					<select name="options[payment_gateway_status]" id="options[payment_gateway_status]">
 						<option value=""><?php _e('Sandbox', 'wpet'); ?></option>
 						<option value=""><?php _e('Live', 'wpet'); ?></option>
 					</select>
@@ -32,16 +32,16 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[sandbox-api-username]"><?php _e('API Username', 'wpet'); ?></label></th>
-				<td><input name="options[sandbox-api-username]" type="text" id="options[sandbox-api-username]" value="<?php echo $data['sandbox-api-username'] ?>"></td>
+				<th scope="row"><label for="options[sandbox_api_username]"><?php _e('API Username', 'wpet'); ?></label></th>
+				<td><input name="options[sandbox_api_username]" type="text" id="options[sandbox_api_username]" value="<?php echo $data['sandbox_api_username'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[sandbox-api-password]"><?php _e('API Password', 'wpet'); ?></label></th>
-				<td><input name="options[sandbox-api-password]" type="password" id="options[sandbox-api-password]" value="<?php echo $data['sandbox-api-password'] ?>"></td>
+				<th scope="row"><label for="options[sandbox_api_password]"><?php _e('API Password', 'wpet'); ?></label></th>
+				<td><input name="options[sandbox_api_password]" type="password" id="options[sandbox_api_password]" value="<?php echo $data['sandbox_api_password'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[sandbox-api-signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
-				<td><input name="options[sandbox-api-signature]" type="text" id="options[sandbox-api-signature]" value="<?php echo $data['sandbox-api-signature'] ?>"></td>
+				<th scope="row"><label for="options[sandbox_api_signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
+				<td><input name="options[sandbox_api_signature]" type="text" id="options[sandbox_api_signature]" value="<?php echo $data['sandbox_api_signature'] ?>"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -49,16 +49,16 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[live-api-username]"><?php _e('API Username', 'wpet'); ?></label></th>
-				<td><input name="options[live-api-username]" type="text" id="options[live-api-username]" value="<?php echo $data['live-api-username'] ?>"></td>
+				<th scope="row"><label for="options[live_api_username]"><?php _e('API Username', 'wpet'); ?></label></th>
+				<td><input name="options[live_api_username]" type="text" id="options[live_api_username]" value="<?php echo $data['live_api_username'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[live-api-password]"><?php _e('API Password', 'wpet'); ?></label></th>
-				<td><input name="options[live-api-password]" type="password" id="options[live-api-password]" value="<?php echo $data['live-api-password'] ?>"></td>
+				<th scope="row"><label for="options[live_api_password]"><?php _e('API Password', 'wpet'); ?></label></th>
+				<td><input name="options[live_api_password]" type="password" id="options[live_api_password]" value="<?php echo $data['live_api_password'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[live-api-signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
-				<td><input name="options[live-api-signature]" type="text" id="options[live-api-signature]" value="<?php echo $data['live-api-signature'] ?>"></td>
+				<th scope="row"><label for="options[live_api_signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
+				<td><input name="options[live_api_signature]" type="text" id="options[live_api_signature]" value="<?php echo $data['live_api_signature'] ?>"></td>
 			</tr>
 		</tbody>
 	</table>

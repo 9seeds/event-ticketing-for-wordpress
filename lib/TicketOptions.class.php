@@ -46,12 +46,18 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-		if ( $_GET['action'] == 'edit' ) {
+		$data = array();
+		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
+		
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+			if ( ! empty( $_REQUEST['post'] ) ) {
+				$data['option'] = $this->findByID( $_REQUEST['post'] );
+				$data['edit_url'] = add_query_arg( array( 'post' => $_REQUEST['post'] ), $data['edit_url'] );
+			}
 			$data['nonce'] = wp_nonce_field( 'wpet_ticket_options_update', 'wpet_ticket_options_update_nonce', true, false );
-			//$data['form_url'] = admin_url( 
-			WPET::getInstance()->display( 'ticket-options-add.php' );			
-		} else {
-			WPET::getInstance()->display( 'ticket-options.php' );
+			WPET::getInstance()->display( 'ticket-options-add.php', $data );
+		} else {			
+			WPET::getInstance()->display( 'ticket-options.php', $data );
 		}
 
 	    if( isset( $_GET['add-ticket-options'] ) ) {

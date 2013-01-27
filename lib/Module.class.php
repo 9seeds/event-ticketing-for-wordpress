@@ -37,13 +37,33 @@ abstract class WPET_Module {
 	public function find( $args ) {		
 	    $defaults = array(
 			'post_type' => $this->mPostType,
-			'numposts' => -1,
+			'showposts' => -1,
+			'posts_per_page' => -1,
 			'post_status' => array( 'publish', 'draft' ),
 	    );
 
 		$data = wp_parse_args( $args, $defaults );
 
 	    return get_posts( $data );
+	}
+
+	public function findOne( $args ) {
+	    $defaults = array(
+			'showposts' => 1
+		);
+		
+		$data = wp_parse_args( $args, $defaults );
+
+		$posts = $this->find( $data );
+		
+		if ( ! empty( $posts ) )
+			return current( $posts );
+
+		return NULL;
+	}
+
+	public function findByID( $post_id ) {
+		return WP_Post::get_instance( $post_id );
 	}
 
 	

@@ -6,42 +6,42 @@
  */
 ?>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[event-date]"><?php _e('Event Date', 'wpet'); ?></label></th>
-				<td><input name="options[event-date]" id="options[event-date]" type="text" value="<?php esc_attr_e( $data['event-date'] ) ?>"></td>
+				<th scope="row"><label for="options[event_date]"><?php _e('Event Date', 'wpet'); ?></label></th>
+				<td><input name="options[event_date]" id="options[event_date]" type="text" value="<?php esc_attr_e( $data['event_date'] ) ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[organizer-name]"><?php _e('Organizer Name', 'wpet'); ?></label></th>
-				<td><input name="options[organizer-name]" id="options[organizer-name]" type="text" value="<?php esc_attr_e( $data['organizer-name'] ) ?>"></td>
+				<th scope="row"><label for="options[organizer_name]"><?php _e('Organizer Name', 'wpet'); ?></label></th>
+				<td><input name="options[organizer_name]" id="options[organizer_name]" type="text" value="<?php esc_attr_e( $data['organizer_name'] ) ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[organizer-email]"><?php _e('Organizer Email', 'wpet'); ?></label></th>
-				<td><input name="options[organizer-email]" id="options[organizer-email]" type="text" value="<?php esc_attr_e( $data['organizer-email'] ) ?>"></td>
+				<th scope="row"><label for="options[organizer_email]"><?php _e('Organizer Email', 'wpet'); ?></label></th>
+				<td><input name="options[organizer_email]" id="options[organizer_email]" type="text" value="<?php esc_attr_e( $data['organizer_email'] ) ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[max-attendance]"><?php _e('Maximum Attendance', 'wpet'); ?></label></th>
-				<td><input name="options[max-attendance]" id="options[max-attendance]" type="text" value="<?php esc_attr_e( $data['max-attendance'] ) ?>"></td>
+				<th scope="row"><label for="options[max_attendance]"><?php _e('Maximum Attendance', 'wpet'); ?></label></th>
+				<td><input name="options[max_attendance]" id="options[max_attendance]" type="text" value="<?php esc_attr_e( $data['max_attendance'] ) ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[event-status]"><?php _e('Event Status', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[event_status]"><?php _e('Event Status', 'wpet'); ?></label></th>
 				<td>
 		<?php
 		/**
 		 * @TODO event-status
 		 */
 		?>
-					<select name="options[event-status]"  id="options[event-status]">
+					<select name="options[event_status]"  id="options[event_status]">
 						<option value="closed"><?php _e('Registration is closed', 'wpet'); ?></option>
 						<option value="open"><?php _e('Registration is open', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[coming-soon]"><?php _e('Coming soon text', 'wpet'); ?></label></th>
-				<td><textarea name="options[coming-soon]" id="options[coming-soon]"><?php esc_attr_e( $data['coming-soon'] ) ?></textarea></td>
+				<th scope="row"><label for="options[closed_message]"><?php _e('Closed Message text', 'wpet'); ?></label></th>
+				<td><textarea name="options[closed_message]" id="options[closed_message]"><?php esc_attr_e( $data['closed_message'] ) ?></textarea></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[thank-you]"><?php _e('Thank you page text', 'wpet'); ?></label></th>
-				<td><textarea name="options[thank-you]" id="options[thank-you]"><?php esc_attr_e( $data['thank-you'] ) ?></textarea></td>
+				<th scope="row"><label for="options[thank_you]"><?php _e('Thank you page text', 'wpet'); ?></label></th>
+				<td><textarea name="options[thank_you]" id="options[thank_you]"><?php esc_attr_e( $data['thank_you'] ) ?></textarea></td>
 			</tr>
 		</tbody>
 	</table>

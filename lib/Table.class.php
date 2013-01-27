@@ -19,7 +19,7 @@ abstract class WPET_Table extends WP_List_Table {
 		$paged = $this->get_pagenum();
 
 		$args = array(
-			'numposts' => $this->per_page,
+			'posts_per_page' => $this->per_page,
 			'offset' => ( $paged - 1 ) * $this->per_page,
 		);
 
@@ -57,7 +57,13 @@ abstract class WPET_Table extends WP_List_Table {
 		) );
 	}
 
-	abstract protected function get_prepare_args( $defaults );
+	protected function get_prepare_args( $defaults ) {
+		$override = array(
+			'post_type' => $this->_args['post_type'],
+		);
+		return wp_parse_args( $override, $defaults );
+	}
+	//abstract protected function get_prepare_args( $defaults );
 
 	protected function column_default( $data, $column_name ) {
 		return $data->{$column_name};
@@ -67,7 +73,7 @@ abstract class WPET_Table extends WP_List_Table {
 		$column = $post->post_title;
 
 		$actions = array();
-		$actions = $this->get_row_actions( $actions );
+		$actions = $this->get_row_actions( $actions, $post );
 		if ( ! empty( $actions ) ) {
 			$column .= "<div class='row-actions'>\n";
 
@@ -79,9 +85,9 @@ abstract class WPET_Table extends WP_List_Table {
 		return $column;
 	}
 
-	protected function get_row_actions( $actions ) {
+	protected function get_row_actions( $actions, $post ) {
 		$actions['edit'] = array( 'class' => 'edit',
-								  'href' => '',
+								  'href' => add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] ),
 								  'label' => __( 'Edit' )
 		);
 

@@ -37,8 +37,8 @@
 				<td><input name="options[subject]" type="text" id="options[subject]" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[email-body]"><?php _e('Email Body', 'wpet'); ?></label></th>
-				<td><?php wp_editor( '', 'options[email-body]' ); ?>
+				<th scope="row"><label for="options[email_body]"><?php _e('Email Body', 'wpet'); ?></label></th>
+				<td><?php wp_editor( esc_attr( $data['email_body'] ), 'options[email_body]', array( 'textarea_rows' => 20 ) ); ?>
 				</td>
 			</tr>
 
