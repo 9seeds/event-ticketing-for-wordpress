@@ -128,13 +128,13 @@ class WPET_Tickets extends WPET_Module {
 	    $s = "<select name='$name' id='$name'>";
 
 	    foreach( $this->findAllByEvent() AS $tix ) {
-		$s .= '<option value="' . $tix['code'] . '"';
+		$s .= '<option value="' . $tix->ID . '"';
 
-		$s .= selected( $selected_value, $tix['code'], false ) ;
+		$s .= selected( $selected_value, $tix->ID, false ) ;
 
 		$s .= '>';
 
-		$s .= $currency['display'] . ' ( ' . $tix['symbol'] . ' )';
+		$s .= $tix->post_title;
 
 		$s .= '</option>';
 	    }
