@@ -204,9 +204,9 @@ class WPET_Settings extends WPET_Module {
 		//these go with the active event
 		$event = (array)WPET::getInstance()->events->getWorkingEvent();
 
-		$event['meta']['event_date'] = $options['event-date'];
-		$event['meta']['max_attendance'] = $options['max-attendance'];
-		$event['meta']['event_status'] = $options['event-status'];
+		$event['meta']['event_date'] = $options['event_date'];
+		$event['meta']['max_attendance'] = $options['max_attendance'];
+		$event['meta']['event_status'] = $options['event_status'];
 
 		WPET::getInstance()->events->add( $event );
 
