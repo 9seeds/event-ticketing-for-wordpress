@@ -32,7 +32,7 @@ abstract class WPET_Module {
 	 *
 	 * @since 2.0
 	 * @param array $args
-	 * @return array of WP_Posts
+	 * @return array of WP_Post objects
 	 */
 	public function find( $args = array() ) {		
 	    $defaults = array(
@@ -47,6 +47,13 @@ abstract class WPET_Module {
 	    return get_posts( $data );
 	}
 
+	/**
+	 * Finds one wpet object
+	 *
+	 * @since 2.0
+	 * @param array $args
+	 * @return WP_Post|NULL
+	 */
 	public function findOne( $args = array() ) {
 	    $defaults = array(
 			'showposts' => 1
@@ -62,6 +69,13 @@ abstract class WPET_Module {
 		return NULL;
 	}
 
+	/**
+	 * Finds one wpet object
+	 *
+	 * @since 2.0
+	 * @param int $post_id
+	 * @return WP_Post
+	 */
 	public function findByID( $post_id ) {
 		return WP_Post::get_instance( $post_id );
 	}
