@@ -116,7 +116,7 @@ class WPET_Settings extends WPET_Module {
 		$settings[] = array(
 		    'tab' => 'event',
 			'title' => 'Settings Title',
-			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data )
+			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data, true )
 		);
 
 		$email_data = array(
@@ -129,7 +129,7 @@ class WPET_Settings extends WPET_Module {
 		$settings[] = array(
 		    'tab' => 'email',
 			'title' => 'Disable upgrade nag?',
-			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data )
+			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data, true )
 		);
 
 		//@TODO real data
@@ -148,17 +148,17 @@ class WPET_Settings extends WPET_Module {
 		$settings[] = array(
 		    'tab' => 'payment',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data )
+			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
 		$settings[] = array(
 		    'tab' => 'form_display',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php' )
+			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', true )
 		);
 		$settings[] = array(
 		    'tab' => 'reset',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php' )
+			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', true )
 		);
 
 		return $settings;

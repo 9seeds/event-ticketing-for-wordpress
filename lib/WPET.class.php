@@ -226,18 +226,21 @@ class WPET {
 	 * @global WP_Post $post
 	 * @param String $template
 	 * @param Array $data - OPTIONAL - data to display in the template
+	 * @param Boolean $is_sub - OPTIONAL ( Default: false ) - If is subpage head will not show
 	 */
-	public function display( $template, $data = array() ) {
+	public function display( $template, $data = array(), $is_sub = false ) {
 		global $post;
 
 		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>' );
 
 		if ( is_admin() ) {
-			echo '<div class="wrap">';
-			echo $admin_page_icon;
+			if( !$is_sub ) {
+			    echo '<div class="wrap">';
+			    echo $admin_page_icon;
+			}
 
 			require_once( WPET_PLUGIN_DIR . "views/admin/{$template}" );
-			echo '</div><!-- end .wrap -->';
+			if( !$is_sub ) echo '</div><!-- end .wrap -->';
 			return;
 		}
 
@@ -269,9 +272,9 @@ class WPET {
 	 * @param array $data
 	 * @return string
 	 */
-	public function getDisplay( $template, $data = array() ) {
+	public function getDisplay( $template, $data = array(), $is_sub = false ) {
 	    ob_start();
-	    $this->display( $template, $data );
+	    $this->display( $template, $data, $is_sub );
 	    return ob_get_clean();
 	}
 
