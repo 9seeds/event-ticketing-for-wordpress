@@ -1,4 +1,4 @@
-<h2><?php _e('Event Settings', 'wpet'); ?> <a href="<?php echo $data['new_url'] ?>" class="add-new-h2"><?php _e('Add New', 'wpet'); ?></a></h2>
+<h2><?php _e('Event Settings', 'wpet'); ?></h2>
 
 <form action="" method="post">
 	<div id="tabs">
