@@ -107,8 +107,6 @@ class WPET_TicketOptions extends WPET_Module {
 		}
 	}
 
-	
-
 	/**
 	 * Creates the ticket options form for the wp-admin area
 	 *
