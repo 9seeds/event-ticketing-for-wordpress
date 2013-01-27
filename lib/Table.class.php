@@ -66,12 +66,12 @@ abstract class WPET_Table extends WP_List_Table {
 	//abstract protected function get_prepare_args( $defaults );
 
 	protected function column_default( $data, $column_name ) {
-		if ( isset( $data->{'post_'.$column_name} ) )
-			return $data->{'post_'.$column_name};
+		//if ( isset( $data->{'post_'.$column_name} ) )
+		//	return $data->{'post_'.$column_name};
 		return $data->{$column_name};
 	}
 
-	protected function column_post_title( $post ) {
+	protected function column_title( $post ) {
 		$column = $post->post_title;
 
 		$actions = array();

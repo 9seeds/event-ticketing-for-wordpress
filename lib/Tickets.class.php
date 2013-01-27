@@ -37,30 +37,34 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-	    if( isset( $_GET['add-ticket'] ) ) {
+		if ( ! empty($_POST['wpet_tickets_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_tickets_update_nonce'], 'wpet_tickets_update' ) ) {
 
-		if( isset( $_POST['submit'] ) ) {
-		    $data = array(
+		    $post_data = array(
 				'post_title' => $_POST['options']['ticket-name'],
-				'post_content' => serialize( $_POST['options'] )
+				'post_content' => serialize( $_POST['options'] ), //I don't like this
 		    );
+			
+			if ( ! empty( $_REQUEST['post'] ) )
+				$post_data['ID'] = $_REQUEST['post'];
 
-		    $this->add( $data );
+			//kind of a hack
+		    $_REQUEST['post'] = $this->add( $data );
 		}
-			WPET::getInstance()->display( 'tickets-add.php', WPET::getInstance()->ticket_options->find() );
-	    } else {
-			$columns = array(
-				'name' => 'Option Name',
-				'type' => 'Type'
-			);
 
-			$rows = $this->findAllByEvent( 1 );
-
-
-			$data['columns'] = apply_filters( 'wpet_tickets_columns', $columns );
-			$data['rows'] = apply_filters( 'wpet_tickets_rows', $rows );
+		
+		$data = array();
+		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
+		
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+			if ( ! empty( $_REQUEST['post'] ) ) {
+				$data['ticket'] = $this->findByID( $_REQUEST['post'] );
+				$data['edit_url'] = add_query_arg( array( 'post' => $_REQUEST['post'] ), $data['edit_url'] );
+			}
+			$data['nonce'] = wp_nonce_field( 'wpet_tickets_update', 'wpet_tickets_update_nonce', true, false );
+			WPET::getInstance()->display( 'tickets-add.php', $data );
+		} else {			
 			WPET::getInstance()->display( 'tickets.php', $data );
-	    }
+		}
 	}
 
 	/**

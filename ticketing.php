@@ -16,11 +16,10 @@ define( 'WPET_JQUERY_VERSION', '1.9.2' );
 require_once( 'lib/WPET.class.php' );
 require_once 'hooker.php'; //for testing
 
-register_activation_hook( __FILE__, array( 'WPET', 'activate' ) );
-
-register_deactivation_hook( __FILE__, array( 'WPET', 'deactivate' ) );
-
-register_uninstall_hook( __FILE__, array( 'WPET', 'uninstall' ) );
-
 $wpet = WPET::getInstance();
 
+register_activation_hook( __FILE__, array( $wpet, 'activate' ) );
+
+register_deactivation_hook( __FILE__, array( $wpet, 'deactivate' ) );
+
+// register_uninstall_hook( __FILE__, array( $wpet, 'uninstall' ) );
