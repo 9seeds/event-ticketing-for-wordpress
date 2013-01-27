@@ -80,10 +80,10 @@ class WPET {
 		}
 
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
-		
+
 		// Send HTML emails
 	}
-	
+
 	/**
 	 * Registers the shortcodes required by the WPET base plugin
 	 *
@@ -104,11 +104,11 @@ class WPET {
 	 */
 	public function renderwpeventticketingShortcode( $atts ) {
 	    $data = array();
-	    
+
 	    $defaults = array(
 		'event' => $this->events->getWorkingEvent()
 	    );
-	    
+
 	    $atts = wp_parse_args( $atts, $defaults );
 	    /*
 	     * Find the event to display here
@@ -117,15 +117,15 @@ class WPET {
 		'post_content' => __( 'Description', 'wpet' ),
 		'wpet_cost' => __( 'Price', 'wpet' )
 	    );
-	    
-	    
+
+
 	    // show_package_count
 	    if( $this->settings->show_package_count ) {
 		$columns['wpet_quantity_remaining'] = __( 'Remaining', 'wpet' );
 	    }
-	    
+
 	    $columns['wpet_quantity'] = __( 'Quantity', 'wpet' );
-		
+
 	    $rows = $this->packages->findAllByEvent( $atts['event'] );
 
 
@@ -336,12 +336,31 @@ class WPET {
 		$my_event = $event->getWorkingEvent();
 		if ( ! $my_event )
 			$event->add();
-		
+
 		if( !get_option( 'wpet_activated_once' ) ) {
 		    update_option( 'wpet_activate_once', true );
-		    
-		    
-		    
+
+			// events tab
+			$this->settings->set( 'event_status', 'closed' );
+			$this->settings->set( 'closed_message', 'Tickets for this event will go on sale shortly.' );
+			$this->settings->set( 'thank_you', 'Thanks for purchasing a ticket to our event!' . "\n".
+				'Your ticket link(s) are below' . "\n".
+				'[ticketlinks]' . "\n\n".
+				'If you have any questions please let us know!' );
+
+			// payments tab
+			$this->settings->set( 'currency', 'USD' );
+			$this->settings->set( 'payment_gateway', 'paypal_express' );
+			$this->settings->set( 'payment_gateway_status', 'sandbox' );
+
+			// email tab
+			$this->settings->set( 'email_body', 'Thanks for purchasing a ticket to our event!' . "\n".
+				'Your ticket link(s) are below' . "\n".
+				'[ticketlinks]' . "\n\n".
+				'If you have any questions please let us know!' );
+
+			// form display tab
+			$this->settings->set( 'show_package_count', 1 );
 		}
 	}
 

@@ -41,7 +41,9 @@
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[thank_you]"><?php _e('Thank you page text', 'wpet'); ?></label></th>
-				<td><textarea name="options[thank_you]" id="options[thank_you]"><?php esc_attr_e( $data['thank_you'] ) ?></textarea></td>
+				<td><textarea name="options[thank_you]" id="options[thank_you]"><?php esc_attr_e( $data['thank_you'] ) ?></textarea><br />
+					<em><?php _e( 'Note: To display the link to each ticket on the thank you page, include the [ticketlinks] shortcode.', 'wpet' ); ?></em>
+				</td>
 			</tr>
 		</tbody>
 	</table>
