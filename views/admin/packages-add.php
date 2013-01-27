@@ -5,8 +5,8 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[package-name]"><?php _e('Package Name', 'wpet'); ?></label></th>
-				<td><input name="options[package-name]" type="text" id="options[package-name]" value=""></td>
+				<th scope="row"><label for="options[package_name]"><?php _e('Package Name', 'wpet'); ?></label></th>
+				<td><input name="options[package_name]" type="text" id="options[package_name]" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[description]"><?php _e('Description', 'wpet'); ?></description></th>
@@ -18,18 +18,18 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[ticket-id]"><?php _e('Ticket Name', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[ticket_id]"><?php _e('Ticket Name', 'wpet'); ?></label></th>
 <?php
 // @TODO
 // Pull list of available tickets
 ?>
 				<td>
-					<?php echo WPET::getInstance()->tickets->selectMenu( 'options[ticket-id]', 1 ); ?>
+					<?php echo WPET::getInstance()->tickets->selectMenu( 'options[ticket_id]', 1 ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[ticket-quantity]"><?php _e('Quantity', 'wpet'); ?></label></th>
-				<td><input name="options[ticket-quantity]" type="text" id="options[ticket-quantity]" value=""></td>
+				<th scope="row"><label for="options[ticket_quantity]"><?php _e('Quantity', 'wpet'); ?></label></th>
+				<td><input name="options[ticket_quantity]" type="text" id="options[ticket_quantity]" value=""></td>
 			</tr>
 		</tbody>
 	</table>
@@ -41,12 +41,12 @@
 // Add date pickers
 ?>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[start-date]"><?php _e('Start Date', 'wpet'); ?></label></th>
-				<td><input name="options[start-date]" type="text" id="options[start-date]" value=""></td>
+				<th scope="row"><label for="options[start_date]"><?php _e('Start Date', 'wpet'); ?></label></th>
+				<td><input name="options[start_date]" type="text" id="options[start_date]" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[end-date]"><?php _e('End Date', 'wpet'); ?></label></th>
-				<td><input name="options[end-date]" type="text" id="options[end-date]" value=""></td>
+				<th scope="row"><label for="options[end_date]"><?php _e('End Date', 'wpet'); ?></label></th>
+				<td><input name="options[end_date]" type="text" id="options[end_date]" value=""></td>
 			</tr>
 		</tbody>
 	</table>

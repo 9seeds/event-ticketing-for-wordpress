@@ -38,13 +38,16 @@ class WPET_Packages extends WPET_Module {
 	public function renderAdminPage() {
 	    
 		if ( ! empty($_POST['wpet_tickets_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_tickets_update_nonce'], 'wpet_tickets_update' ) ) {
+			$options = $_POST['options'];
 		    $data = array(
-				'post_title' => $_POST['options']['package-name'],
-				'post_name' => sanitize_title_with_dashes( $_POST['options']['package-name'] ),
-				'post_content' => stripslashes( $_POST['options']['description'] ),
-				'meta' => $_POST['options']
+				'post_title' => $options['package-name'],
+				'post_name' => sanitize_title_with_dashes( $options['package-name'] ),
+				'post_content' => stripslashes( $options['description'] ),
 		    );
-		    
+			unset( $options['package-name'] );
+			unset( $options['description'] );
+			
+			$post_data['meta'] = $options;
 			
 			if ( ! empty( $_REQUEST['post'] ) )
 				$data['ID'] = $_REQUEST['post'];
@@ -63,7 +66,7 @@ class WPET_Packages extends WPET_Module {
 				$data['edit_url'] = add_query_arg( array( 'post' => $_REQUEST['post'] ), $data['edit_url'] );
 			}
 			$data['nonce'] = wp_nonce_field( 'wpet_tickets_update', 'wpet_tickets_update_nonce', true, false );
-			WPET::getInstance()->display( 'packages-add.php' );
+			WPET::getInstance()->display( 'packages-add.php', $data );
 		} else {			
 			WPET::getInstance()->display( 'packages.php', $data );
 		}
