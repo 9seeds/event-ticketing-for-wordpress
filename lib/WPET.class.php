@@ -175,6 +175,9 @@ class WPET {
 
 		require_once 'Attendees.class.php';
 		$modules['attendees'] = new WPET_Attendees();
+		
+		require_once 'Notifications.class.php';
+		$modules['notifications'] = new WPET_Notifications();
 
 		require_once 'Instructions.class.php';
 		$modules['instructions'] = new WPET_Instructions();
