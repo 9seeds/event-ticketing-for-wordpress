@@ -78,11 +78,11 @@ class WPET_TicketOptions extends WPET_Module {
 		if ( ! empty($_POST['wpet_ticket_options_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_ticket_options_update_nonce'], 'wpet_ticket_options_update' ) ) {
 
 			$post_data = array(
-				'post_title' => $_POST['options']['display-name'],
-				'post_name' => sanitize_title_with_dashes( $_POST['options']['display-name'] ),
+				'post_title' => $_POST['options']['display_name'],
+				'post_name' => sanitize_title_with_dashes( $_POST['options']['display_name'] ),
 				'meta' => array(
-					'type' => sanitize_title( $_POST['options']['option-type'] ),
-					'values' => stripslashes_deep( $_POST['options']['option-value'] )
+					'type' => sanitize_title( $_POST['options']['option_type'] ),
+					'values' => stripslashes_deep( $_POST['options']['option_value'] )
 				)
 			);
 			if ( ! empty( $_REQUEST['post'] ) )
