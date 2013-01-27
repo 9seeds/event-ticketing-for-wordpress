@@ -16,8 +16,6 @@ class WPET_TicketOptions extends WPET_Module {
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
 
-		add_filter( 'wpet_ticket_options_columns', array( $this, 'defaultColumns' ) );
-
 		//do this after post type is set
 		parent::__construct();
 	}

@@ -6,12 +6,12 @@
 			<tbody>
 				<tr class="form-field form-required">
 					<th scope="row"><?php _e('Coupon Code', 'wpet'); ?></th>
-					<td><input name="options[coupon-code]" type="text" id="" value=""></td>
+					<td><input name="options[coupon-code]" type="text" id="package_id" value=""></td>
 				</tr>
 				<tr class="form-field form-required">
 					<th scope="row"><?php _e('Package', 'wpet'); ?></th>
 					<td>
-						<?php echo WPET::getInstance()->packages->selectMenu( 'options[package_id]', 1 ); ?>	
+						<?php echo WPET::getInstance()->packages->selectMenu( 'options[package_id]', 'package_id', 1 ); ?>	
 					    
 					</td>
 				</tr>
@@ -35,6 +35,7 @@
 
 			</tbody>
 		</table>
+		<?php echo $data['nonce'] ?>
 		<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Coupon', 'wpet'); ?>"></p>
 	</form>
 </div>

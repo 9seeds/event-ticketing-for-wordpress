@@ -332,6 +332,8 @@ class WPET {
 		require_once 'Module.class.php';
 		require_once 'Events.class.php';
 
+		//@TODO default TicketOption "Twitter"
+
 		$event = new WPET_Events();
 		$event->registerPostType();
 		//install an event if there are none
