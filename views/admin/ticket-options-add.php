@@ -1,6 +1,9 @@
 <div class="wrap">
-	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Add Ticket Options', 'wpet'); ?></h2>
+	<?php
+	echo $admin_page_icon;
+	$heading = empty( $_REQUEST['post'] ) ? __('Add Ticket Options', 'wpet') : __('Edit Ticket Options', 'wpet');
+	?>
+	<h2><?php echo $heading; ?></h2>
 	<form method="post" action="<?php echo $data['edit_url'] ?>">
 	<table class="form-table">
 		<tbody>
@@ -15,10 +18,10 @@
 					<?php
 					$value = empty( $data['option'] ) ? '' : $data['option']->wpet_type;
 					$options = array(
-						'text' => __('Text Input', 'wpet'),
-						'dropdown' => __('Dropdown', 'wpet'),
+						'text'        => __('Text Input', 'wpet'),
+						'dropdown'    => __('Dropdown', 'wpet'),
 						'multiselect' => __('Multi Select', 'wpet'),
-					  );
+					);
 					foreach ( $options as $index => $label ) {
 						$selected = $index == $value ? ' selected="selected"' : '';
 						echo "<option value='{$index}'{$selected}>{$label}</option>\n";
@@ -30,7 +33,7 @@
 		</tbody>
 		<?php
 		$extra_style = 'style="display: none;" ';
-		if ( ! empty( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'select' ) ) ) {
+		if ( ! empty( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'multiselect' ) ) ) {
 			$extra_style = '';	
 		}
 		?>
@@ -64,7 +67,10 @@
 			</tr>
 		</tbody>
 	</table>
-	<?php echo $data['nonce'] ?>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Ticket Option', 'wpet'); ?>"></p>
+	<?php
+	echo $data['nonce'];
+	$button_label = empty( $_REQUEST['post'] ) ? __( 'Add Ticket Option', 'wpet' ) : __( 'Edit Ticket Option', 'wpet' );
+	?>
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo $button_label; ?>"></p>
 	</form>
 </div>

@@ -58,8 +58,9 @@ class WPET_TicketOptions extends WPET_Module {
 			);
 			if ( ! empty( $_REQUEST['post'] ) )
 				$post_data['ID'] = $_REQUEST['post'];
-				
-		    $this->add( $post_data );
+
+			//kind of a hack
+		    $_REQUEST['post'] = $this->add( $post_data );
 		}
 		
 		$data = array();
@@ -84,7 +85,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @return string
 	 */
 	public function buildAdminOptionsHtmlForm() {
-		$options = $this->findAll();
+		$options = $this->find();
 
 		$s = '';
 		foreach( $options AS $o ) {
@@ -131,7 +132,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @return string
 	 */
 	public function buildAdminOptionsCheckboxForm() {
-		$options = $this->findAll();
+		$options = $this->find();
 
 		$s = '';
 		foreach( $options AS $o ) {
@@ -153,15 +154,8 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @since 2.0
 	 * @return array
 	 */
-	public function findAll() {
-
-	    $args = array(
-		'post_type' => $this->mPostType,
-		'showposts' => '-1',
-		'posts_per_page' => '-1'
-	    );
-
-	    $posts = get_posts( $args );
+	public function find( $args = array() ) {
+	    $posts = parent::find( $args );
 
 	    foreach( $posts as $p ) {
 			//this one needs to be explicitly fetched (WP_Post::__get() only gets a single value)
