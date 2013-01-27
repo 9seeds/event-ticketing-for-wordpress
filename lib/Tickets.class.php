@@ -24,7 +24,7 @@ class WPET_Tickets extends WPET_Module {
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];
 	   // die(1);
-	    print_r( $_POST );
+	    //print_r( $_POST );
 	    echo $this->buildOptionsHtmlFormForPackage( $package_id );
 	    exit();
 	}
@@ -162,8 +162,8 @@ class WPET_Tickets extends WPET_Module {
 
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
 
-			$s .= '<tr>';
-			$s .= '<td>' . $opts->post_title . '</td>';
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row">' . $opts->post_title . '</th>';
 			$s .= '<td>';
 
 			// Figure out the type to build the proper display

@@ -29,7 +29,7 @@
 				<td><input name="options[email]" type="text" id="options[email]" value=""></td>
 			</tr>
 			
-		<div id="ticket_options"></div>
+		
 <?php
 // @TODO
 // add rows for all ticket options
@@ -37,6 +37,7 @@
 
 		</tbody>
 	</table>
+    <table class="form-table"><tbody id="ticket_options" ></tbody></table>
     <?php //echo $data['nonce']; ?>
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Attendee', 'wpet'); ?>"></p>
 </form>

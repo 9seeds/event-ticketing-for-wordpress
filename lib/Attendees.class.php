@@ -26,7 +26,7 @@ class WPET_Attendees extends WPET_Module {
 		add_filter( 'wpet_attendees_columns', array( $this, 'defaultColumns' ) );
 		add_filter( 'wpet_notify_attendees_columns', array( $this, 'defaultNotifyColumns' ) );
 		
-		 add_action( 'wp_enqueue_scripts', array( $this, 'enqueueAdminScripts' ) );
+		 add_action( 'wp_admin_enqueue_scripts', array( $this, 'enqueueAdminScripts' ) );
 		 
 		add_filter( 'the_content', array( $this, 'viewSingleAttendee' ) );
 	}
