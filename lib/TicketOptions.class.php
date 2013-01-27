@@ -144,6 +144,7 @@ class WPET_TicketOptions extends WPET_Module {
 	    }
 	    return $posts;
 	}
+	
 
 	/**
 	 * Add post type for object

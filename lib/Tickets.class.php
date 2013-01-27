@@ -78,31 +78,35 @@ class WPET_Tickets extends WPET_Module {
 	 * @return string
 	 */
 	public function buildOptionsHtmlForm( $ticket_id ) {
-		$options = get_post_meta( $ticket_id, 'wpet_options_selected' );
+		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
 		
-		echo '<pre>'; var_dump( $options) ; echo '</pre>';
+		//echo '<pre>'; var_dump( $options) ; echo '</pre>';
 		
 		$s = '';
+		if( !is_array( $options ) ) return '';
 		foreach( $options AS $o ) {
-			$opts = $o->wpet_values;
+		    
+			$opts = WPET::getInstance()->ticket_options->findByID( $o );
+			
 			$s .= '<tr>';
-			$s .= '<td>' . $o->post_title . '</td>';
+			$s .= '<td>' . $opts->post_title . '</td>';
 			$s .= '<td>';
+			
 			// Figure out the type to build the proper display
-			switch( $o->wpet_type ) {
+			switch( $opts->wpet_type ) {
 
 				case 'multiselect':
-					$s .= '<select multiple>';
-
-					foreach( $opts AS $oi ) {
+					$s .= '<select  name="' . $opts->post_name . '[]" multiple>';
+				        //echo '<pre>'; var_dump( $opts->wpet_values) ; echo '</pre>';
+					foreach( ( $opts->wpet_values ) AS $oi ) {
 						$s .= '<option value="' . $oi . '">' . $oi . '</option>';
 					}
 					$s .= '</select>';
 					break;
 				case 'dropdown':
-					$s .= '<select>';
+					$s .= '<select name="' . $opts->post_name . '" >';
 
-					foreach( $opts AS $oi ) {
+					foreach( $opts->wpet_values AS $oi ) {
 						$s .= '<option value="' . $oi . '">' . $oi . '</option>';
 					}
 					$s .= '</select>';
@@ -110,7 +114,7 @@ class WPET_Tickets extends WPET_Module {
 
 				case 'text':
 				default:
-					$s .= '<input type="text" value="' . $opts[0] . '" />';
+					$s .= '<input  name="' . $opts->post_name . '" type="text" value="' . $opts->wpet_values[0] . '" />';
 
 			}
 			$s .= '</td>';

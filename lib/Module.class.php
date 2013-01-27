@@ -91,7 +91,7 @@ abstract class WPET_Module {
 	    $defaults = array(
 			'post_type' => $this->mPostType,
 			'post_status' => 'publish',
-			'post_title' => uniqid(),
+			//'post_title' => uniqid(),
 	    );
 	    
 	    if( $user_id = get_current_user_id() )
@@ -105,11 +105,31 @@ abstract class WPET_Module {
 	    $post_id = wp_insert_post( $data );
 	    
 	    if( isset( $data['meta'] ) ) {
-			foreach( $data['meta'] as $k => $v ) {
-				update_post_meta( $post_id, "wpet_{$k}", $v );
-			}
+		$this->saveMeta( $post_id, $data['meta'] );
+//			foreach( $data['meta'] as $k => $v ) {
+//			    echo '<pre>'; print_r( $v ); echo '</pre>';
+//			    if( is_array( $v ) ) {
+//				foreach( $v AS $x => $y ) {
+//				    update_post_meta( $post_id, "wpet_{$k}", $y );
+//				}
+//			    } else {
+//				update_post_meta( $post_id, "wpet_{$k}", $v );
+//			    }
+//			}
 	    }
 	    return $post_id;
+	}
+	
+	public function saveMeta( $post_id, $meta ) {
+	    //echo 'saveMeta<br><br><pre>'; print_r( $meta ); echo '</pre>';
+	    foreach( $meta as $k => $v ) {
+		
+		/*if( is_array( $v ) ) {
+		    $this->saveMeta($post_id, $v);
+		} else {*/
+		    update_post_meta( $post_id, "wpet_{$k}", $v );
+		//}
+	    } 
 	}
 	
 	/**

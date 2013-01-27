@@ -20,6 +20,8 @@ class WPET_Attendees extends WPET_Module {
 		add_action( 'init', array( $this, 'registerPostType' ) );
 		
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
+		
+		add_action( 'the_post', array( $this, 'saveAttendeeFront' ) );
 
 		add_filter( 'wpet_attendees_columns', array( $this, 'defaultColumns' ) );
 		add_filter( 'wpet_notify_attendees_columns', array( $this, 'defaultNotifyColumns' ) );
@@ -30,8 +32,21 @@ class WPET_Attendees extends WPET_Module {
 		add_filter( 'the_content', array( $this, 'blah' ) );
 	}
 	
+	public function saveAttendeeFront() {
+	    global $post;
+	    
+	    
+	    
+	    if( is_single() && $this->mPostType == $post->post_type ) {
+		
+		//echo '<pre>'; var_dump( $_POST ); echo '</pre>';
+		$data['meta'] = $_POST;
+		$this->update( $post->ID, $data );
+	    }
+	}
+	
 	/**
-	 * @tod Rename this 
+	 * @todo Rename this 
 	 */
 	public function blah( $content ) {
 	    global $post;
