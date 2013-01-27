@@ -41,7 +41,8 @@ $heading = empty($_REQUEST['post']) ? __('Add Notification', 'wpet') : __('View 
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[email_body]"><?php _e('Email Body', 'wpet'); ?></label></th>
-				<td><?php wp_editor( esc_attr( $data['email_body'] ), 'options[email_body]', array( 'textarea_rows' => 20 ) ); ?>
+				<?php $body = empty( $data['notification'] ) ? '' : esc_attr( $data['notification']->post_content ); ?>
+				<td><?php wp_editor( $body, 'options[email_body]', array( 'textarea_rows' => 20 ) ); ?>
 				</td>
 			</tr>
 
