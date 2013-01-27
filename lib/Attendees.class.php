@@ -104,30 +104,29 @@ class WPET_Attendees extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 		WPET::getInstance()->debug( 'Rendering Attendees page', 'Doing it...' );
-		
-		if( isset( $_GET['add-attendee'] ) ) {
-		    
-		    if( isset( $_POST['submit'] ) ) {
-			$data = array(
-				    'post_title' => $_POST['first_name'] . ' ' . $_POST['last_name'],
-				    'meta' => $_POST,
-				'post_name' => uniqid()
-			);
 
-			$this->add( $data );
-		    }
-		    
-		    WPET::getInstance()->display( 'attendees-add.php' );
-		} else {
-		    $columns = array();
-
-		    $rows = $this->findAllByEvent( 1 );
-
-
-		    $data['columns'] = apply_filters( 'wpet_attendees_columns', $columns );
-		    $data['rows'] = apply_filters( 'wpet_attendees_rows', $rows );
-		    WPET::getInstance()->display( 'attendees.php', $data );
+		if ( isset( $_GET['action'] ) ) {
+			if ( ! empty( $_REQUEST['post'] ) ) {
+				$this->render_data['coupon'] = $this->findByID( $_REQUEST['post'] );
+			}
+		    WPET::getInstance()->display( 'attendees-add.php', $this->render_data );
+		} else {			
+		    WPET::getInstance()->display( 'attendees.php', $this->render_data );
 		}
+	}
+	
+	/**
+	 * Prepare the page submit data for save
+	 *
+	 * @since 2.0
+	 */
+	public function getPostData() {
+		$data = array(
+			'post_title' => $_POST['first_name'] . ' ' . $_POST['last_name'],
+			'meta' => $_POST,
+			'post_name' => uniqid()
+		);
+		return $data;
 	}
 	
 	/**

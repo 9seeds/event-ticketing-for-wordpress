@@ -41,39 +41,35 @@ class WPET_Notifications extends WPET_Module {
 	 * @since 2.0 
 	 */
 	public function renderAdminPage() {
-	    if( isset( $_GET['add-notify'] ) ) {
-		
-		    $post_type = 'wpet_notification';
-		    
-		    if( isset( $_POST['submit'] ) ) {
-			
-			$_POST['options']['sent_date'] = date( 'Y-m-d H:m:s', time() );
-			$data = array(
-				'post_type' => $post_type,
-				    'post_title' => $_POST['options']['subject'],
-				    'meta' => $_POST['options']
-			);
 
-			$this->add( $data );
-			
-			
-			// $this->sendNotification( $to, $_POST['subject'], $_POST['email-body'] )
-			
-		    }
-		    
-		    WPET::getInstance()->display( 'notify-add.php' );
-		} else {
-		    $columns = array();
+		//might have to override maybeSubmit() to do this
+		//$this->sendNotification( $to, $_POST['subject'], $_POST['email-body'] )
 
-		    $rows = $this->findAllNotificationsByEvent( 1 );
-
-
-		    $data['columns'] = apply_filters( 'wpet_notify_attendees_columns', $columns );
-		    $data['rows'] = apply_filters( 'wpet_notify_attendees_rows', $rows );
-		    WPET::getInstance()->display( 'notify.php', $data );
+		if ( isset( $_GET['action'] ) ) {
+			if ( ! empty( $_REQUEST['post'] ) ) {
+				$this->render_data['notification'] = $this->findByID( $_REQUEST['post'] );
+			}
+		    WPET::getInstance()->display( 'notify-add.php', $this->render_data );
+		} else {			
+		    WPET::getInstance()->display( 'notify.php', $this->render_data );
 		}
 	}
-
+	
+	/**
+	 * Prepare the page submit data for save
+	 *
+	 * @since 2.0
+	 */
+	public function getPostData() {
+		$_POST['options']['sent_date'] = date( 'Y-m-d H:m:s', time() );
+		$data = array(
+			'post_type' => $post_type,
+			'post_title' => $_POST['options']['subject'],
+			'meta' => $_POST['options'],		
+		);
+		return $data;
+	}
+	
 	/**
 	 * Retrieves all the notifications from the db
 	 * @return array 
@@ -95,32 +91,32 @@ class WPET_Notifications extends WPET_Module {
 	 */
 	public function registerPostType() {
 	    $labels = array(
-		'name' => 'Attendees',
-		'singular_name' => 'Attendee',
-		'add_new' => 'Create Attendee',
-		'add_new_item' => 'New Attendee',
-		'edit_item' => 'Edit Attendee',
-		'new_item' => 'New Attendee',
-		'view_item' => 'View Attendee',
-		'search_items' => 'Search Attendees',
-		'not_found' => 'No Attendees found',
-		'not_found_in_trash' => 'No Attendees found in trash'
+		'name' => 'Notifications',
+		'singular_name' => 'Notification',
+		'add_new' => 'Create Notification',
+		'add_new_item' => 'New Notification',
+		'edit_item' => 'Edit Notification',
+		'new_item' => 'New Notification',
+		'view_item' => 'View Notification',
+		'search_items' => 'Search Notifications',
+		'not_found' => 'No Notifications found',
+		'not_found_in_trash' => 'No Notifications found in trash'
 	    );
 
 	    $args = array(
-		'public' => true,
+		'public' => false,
 		'supports' => array( 'page-attributes' ),
 		'labels' => $labels,
 		'hierarchical' => false,
 		'has_archive' => true,
-		'query_var' => 'attendee',
-		'rewrite' => array( 'slug' => 'attendee', 'with_front' => false ),
+		'query_var' => 'notification',
+		//'rewrite' => array( 'slug' => 'notification', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
 		'show_ui' => false
 	    );
 
-	    register_post_type( 'wpet_attendees', $args );
+	    register_post_type( 'wpet_notifications', $args );
 	}
 
 }

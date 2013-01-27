@@ -1,9 +1,9 @@
-<div class="wrap">
-	<?php
-	echo $admin_page_icon;
-	$heading = empty( $_REQUEST['post'] ) ? __('Add Notification', 'wpet') : __('View Notification', 'wpet');
-	?>
-	<h2><?php echo $heading; ?> <?php if( isset($_GET['action'] ) && $_GET['action'] == 'edit' ) { echo '<a href="'. $data['edit_url'] .'" class="add-new-h2">'. __( 'Add New', 'wpet' ) .'</a>'; } ?></h2>
+<?php
+$heading = empty($_REQUEST['post']) ? __('Add Notification', 'wpet') : __('View Notification', 'wpet');
+?>
+<h2><?php echo $heading; ?> <?php if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+	echo '<a href="' . $data['edit_url'] . '" class="add-new-h2">' . __('Add New', 'wpet') . '</a>';
+} ?></h2>
 <form method="post" action="">
 	<h2><?php _e( 'To:', 'wpet' ); ?></h2>
 	<table class="form-table">
