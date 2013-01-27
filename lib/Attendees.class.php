@@ -23,6 +23,25 @@ class WPET_Attendees extends WPET_Module {
 
 		add_filter( 'wpet_attendees_columns', array( $this, 'defaultColumns' ) );
 		add_filter( 'wpet_notify_attendees_columns', array( $this, 'defaultNotifyColumns' ) );
+		
+		/**
+		 * @todo Rename this 
+		 */
+		add_filter( 'the_content', array( $this, 'blah' ) );
+	}
+	
+	/**
+	 * @tod Rename this 
+	 */
+	public function blah( $content ) {
+	    global $post;
+	    
+	    // Make sure we are on the attendee page
+	    if( 'wpet_attendees' != $post->post_type || !is_single() ) return $content;
+	    
+	    
+	    
+	    return WPET::getInstance()->getDisplay( 'single_attendee.php' );
 	}
 	
 	
@@ -192,8 +211,8 @@ class WPET_Attendees extends WPET_Module {
 		'labels' => $labels,
 		'hierarchical' => false,
 		'has_archive' => true,
-		'query_var' => 'shiplog',
-		'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
+		'query_var' => 'attendee',
+		'rewrite' => array( 'slug' => 'attendee', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
 		'show_ui' => false

@@ -15,8 +15,37 @@ class WPET_TicketOptions extends WPET_Module {
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
 
+		 add_action( 'load-tickets_page_wpet_ticket_options', array( $this, 'contextHelp' ) );
 		add_filter( 'wpet_ticket_options_columns', array( $this, 'defaultColumns' ) );
 
+	}
+
+	/**
+	 * Displays page specific contextual help through the contextual help API
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp() {
+	    $screen = get_current_screen();
+	    $screen->add_help_tab(
+		    array(
+			'id'	=> 'overview',
+			'title'	=> __( 'Overview' ),
+			'content'	=> '<p>' . __( 'This screen provides access to all of your ticket options.' ) . '</p>',
+		    )
+	    );
+	    $screen->add_help_tab(
+		    array(
+			'id'	=> 'available-actions',
+			'title'	=> __( 'Available Actions' ),
+			'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:' ) . '</p>'.
+				'<ul>'.
+					'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself.' ) .'</li>'.
+					'<li>'. __( '<strong>Trash</strong> removes your ticket option from this list and places it in the trash, from which you can permanently delete it.' ) .'</li>'.
+				'</ul>',
+		    )
+	    );
 	}
 
 	/**
@@ -62,10 +91,10 @@ class WPET_TicketOptions extends WPET_Module {
 			//kind of a hack
 		    $_REQUEST['post'] = $this->add( $post_data );
 		}
-		
+
 		$data = array();
 		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
-		
+
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
 			if ( ! empty( $_REQUEST['post'] ) ) {
 				$data['option'] = $this->findByID( $_REQUEST['post'] );
@@ -73,7 +102,7 @@ class WPET_TicketOptions extends WPET_Module {
 			}
 			$data['nonce'] = wp_nonce_field( 'wpet_ticket_options_update', 'wpet_ticket_options_update_nonce', true, false );
 			WPET::getInstance()->display( 'ticket-options-add.php', $data );
-		} else {			
+		} else {
 			WPET::getInstance()->display( 'ticket-options.php', $data );
 		}
 	}
@@ -144,7 +173,7 @@ class WPET_TicketOptions extends WPET_Module {
 
 		return $checkboxes;
 	}
-		
+
 	/**
 	 * Returns an array of all ticket options
 	 *
