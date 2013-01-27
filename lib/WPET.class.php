@@ -175,6 +175,9 @@ class WPET {
 
 		require_once 'Attendees.class.php';
 		$modules['attendees'] = new WPET_Attendees();
+		
+		require_once 'Notifications.class.php';
+		$modules['notifications'] = new WPET_Notifications();
 
 		require_once 'Instructions.class.php';
 		$modules['instructions'] = new WPET_Instructions();
@@ -230,7 +233,11 @@ class WPET {
 		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>' );
 
 		if ( is_admin() ) {
+			echo '<div class="wrap">';
+			echo $admin_page_icon;
+
 			require_once( WPET_PLUGIN_DIR . "views/admin/{$template}" );
+			echo '</div><!-- end .wrap -->';
 			return;
 		}
 
@@ -331,6 +338,8 @@ class WPET {
 		update_option( 'wpet_install_data', $plugin_data );
 		require_once 'Module.class.php';
 		require_once 'Events.class.php';
+
+		//@TODO default TicketOption "Twitter"
 
 		$event = new WPET_Events();
 		$event->registerPostType();

@@ -79,7 +79,7 @@ abstract class WPET_Table extends WP_List_Table {
 	
 	protected function column_title( $post ) {
 		$edit_url = $this->get_edit_url( $post );
-		$column = "<a href='{$edit_url}'>{$post->post_title}</a>";
+		$column = "<strong><a href='{$edit_url}'>{$post->post_title}</a></strong>";
 
 		$actions = array();
 		$actions = $this->get_row_actions( $actions, $post );

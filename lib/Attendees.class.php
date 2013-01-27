@@ -23,25 +23,21 @@ class WPET_Attendees extends WPET_Module {
 		
 		add_action( 'the_post', array( $this, 'saveAttendeeFront' ) );
 
-		add_filter( 'wpet_attendees_columns', array( $this, 'defaultColumns' ) );
-		add_filter( 'wpet_notify_attendees_columns', array( $this, 'defaultNotifyColumns' ) );
-		
-		 add_action( 'wp_admin_enqueue_scripts', array( $this, 'enqueueAdminScripts' ) );
-		 
 		add_filter( 'the_content', array( $this, 'viewSingleAttendee' ) );
+
+		//do this after post type is set
+		parent::__construct();		
 	}
 	
 	public function saveAttendeeFront() {
 	    global $post;
 	    
-	    
-	    
 	    if( isset( $_POST['submit'] ) && is_single() && $this->mPostType == $post->post_type && !is_admin() ) {
 		
-		//echo '<pre>'; var_dump( $_POST ); echo '</pre>';
-		$data['meta'] = $_POST;
-		$data['page_title'] . $data['first_name'] . ' ' . $data['last_name'];
-		$this->update( $post->ID, $data );
+			//echo '<pre>'; var_dump( $_POST ); echo '</pre>';
+			$data['meta'] = $_POST;
+			$data['page_title'] . $data['first_name'] . ' ' . $data['last_name'];
+			$this->update( $post->ID, $data );
 	    }
 	}
 	
@@ -53,8 +49,6 @@ class WPET_Attendees extends WPET_Module {
 	    
 	    // Make sure we are on the attendee page
 	    if( 'wpet_attendees' != $post->post_type || !is_single() ) return $content;
-	    
-	    
 	    
 	    return WPET::getInstance()->getDisplay( 'single_attendee.php' );
 	}
@@ -95,57 +89,11 @@ class WPET_Attendees extends WPET_Module {
 	 */
 	public function adminMenu( $menu ) {
 		$menu[] = array( 'Attendees', 'Attendees', 'add_users', 'wpet_attendees', array( $this, 'renderAdminPage' ) );
-		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notify_attendees', array( $this, 'renderAttendeeNotifyPage' ) );
 		return $menu;
 	}
 	
-	/**
-	 * Renders the attendee notify page in wp-admin
-	 * 
-	 * @since 2.0 
-	 */
-	public function renderAttendeeNotifyPage() {
-	    if( isset( $_GET['add-notify'] ) ) {
-		
-		    $post_type = 'wpet_notification';
-		    
-		    if( isset( $_POST['submit'] ) ) {
-			
-			$_POST['options']['sent_date'] = date( 'Y-m-d H:m:s', time() );
-			$data = array(
-				'post_type' => $post_type,
-				    'post_title' => $_POST['options']['subject'],
-				    'meta' => $_POST['options']
-			);
-
-			$this->add( $data );
-			
-			
-			// $this->sendNotification( $to, $_POST['subject'], $_POST['email-body'] )
-			
-		    }
-		    
-		    WPET::getInstance()->display( 'notify-add.php' );
-		} else {
-		    $columns = array();
-
-		    $rows = $this->findAllNotificationsByEvent( 1 );
-
-
-		    $data['columns'] = apply_filters( 'wpet_notify_attendees_columns', $columns );
-		    $data['rows'] = apply_filters( 'wpet_notify_attendees_rows', $rows );
-		    WPET::getInstance()->display( 'notify.php', $data );
-		}
-	}
 	
 	public function enqueueAdminScripts() { 
-	    $screen = get_current_screen();
-	    if( 'tickets_page_wpet_attendees' == get_current_screen()->base
-		    && isset( $_GET['add-attendee'] ) ) 
-		
-	    {}
-		
-		
 	    wp_register_script( 'wpet-admin-attendee-add', WPET_PLUGIN_URL . '/js/admin_attendee_add.js', array( 'jquery' ) );
 	    wp_enqueue_script( 'wpet-admin-attendee-add' );
 	}
@@ -197,22 +145,7 @@ class WPET_Attendees extends WPET_Module {
 	    return get_posts( $args );
 	}
 	
-	
-	/**
-	 * Retrieves all the notifications from the db
-	 * @return array 
-	 */
-	public function findAllNotificationsByEvent( ) {
-	    $args = array(
-		'post_type' => 'wpet_notification',
-		'showposts' => '-1',
-		'posts_per_page' => '-1'
-	    );
-	    
-	    return get_posts( $args );
-	}
-	
-	
+		
 	/**
 	 * Add post type for object
 	 * 
@@ -248,34 +181,5 @@ class WPET_Attendees extends WPET_Module {
 	    register_post_type( 'wpet_attendees', $args );
 	}
 	
-	/**
-	 * Adds the default columns to the attendee list in wp-admin
-	 * 
-	 * @since 2.0
-	 * @param type $columns
-	 * @return type 
-	 */
-	public function defaultColumns( $columns ) {
-	    return array(
-		'post_title' => 'Name',
-		'wpet_email' => 'Email',
-		'wpet_purchase_date' => 'Purchase Date'
-	    );
-	}
-	
-	/**
-	 * Adds the default columns to the notify attendee list in wp-admin
-	 * 
-	 * @since 2.0
-	 * @param type $columns
-	 * @return type 
-	 */
-	public function defaultNotifyColumns( $columns ) {
-	    return array(
-		'post_title' => 'Subject',
-		'wpet_to' => 'To',
-		'wpet_sent_date' => 'Sent Date'
-	    );
-	}
 
 } // end class

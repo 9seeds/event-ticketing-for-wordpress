@@ -15,8 +15,8 @@ class WPET_Coupons extends WPET_Module {
 
 	    add_action( 'init', array( $this, 'registerPostType' ) );
 
-	    add_action( 'load-tickets_page_wpet_coupons', array( $this, 'contextHelp' ) );
-		add_filter( 'wpet_coupons_columns', array( $this, 'defaultColumns' ) );
+		//do this after post type is set
+		parent::__construct();		
 	}
 
 	/**
@@ -25,8 +25,7 @@ class WPET_Coupons extends WPET_Module {
 	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 	 * @since 2.0
 	 */
-	public function contextHelp() {
-	    $screen = get_current_screen();
+	public function contextHelp( $screen ) {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'overview',
@@ -72,11 +71,23 @@ class WPET_Coupons extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-	    if( isset( $_GET['add-coupons'] ) ) {
-		
-		if( isset( $_POST['submit'] ) ) {
-		    
-		    $data = array(
+		if ( isset( $_GET['action'] ) ) {
+			if ( ! empty( $_REQUEST['post'] ) ) {
+				$this->render_data['coupon'] = $this->findByID( $_REQUEST['post'] );
+			}
+			WPET::getInstance()->display( 'coupons-add.php', $this->render_data );
+		} else {			
+			WPET::getInstance()->display( 'coupons.php', $this->render_data );
+		}
+	}
+
+	/**
+	 * Prepare the page submit data for save
+	 *
+	 * @since 2.0
+	 */
+	public function getPostData() {
+		$data = array(
 			'post_title' => $_POST['options']['coupon-code'],
 			'post_name' => sanitize_title_with_dashes( $_POST['options']['coupon-code'] ),
 			'meta' => array(
@@ -86,40 +97,8 @@ class WPET_Coupons extends WPET_Module {
 			    'quantity_remaining' => (int)$_POST['options']['quantity'],
 			    'package_id' => $_POST['options']['package_id']
 			)
-		    );
-		    
-		    $this->add( $data );
-		}
-		
-		WPET::getInstance()->display( 'coupons-add.php' );
-	    } else {
-		$columns = array();
-		
-		$rows = $this->findAll( true );
-		
-		$data['columns'] = apply_filters( 'wpet_coupons_columns', $columns );
-		$data['rows'] = apply_filters( 'wpet_coupons_rows', $rows );
-		WPET::getInstance()->display( 'coupons.php', $data );
-	    }
-	}
-	
-	
-	/**
-	 * Adds the default columns to the ticket options list in wp-admin
-	 * 
-	 * @since 2.0
-	 * @param type $columns
-	 * @return type 
-	 */
-	public function defaultColumns( $columns ) {
-	    return array(
-		'post_title' => 'Name',
-		'post_name' => 'Coupon Code',
-		'wpet_package_title' => 'Package',
-		'wpet_pretty_amount' => 'Amount',
-		'wpet_quantity_remaining' => 'Remaining',
-		'wpet_quantity' => 'Total'
-	    );
+		);
+		return $data;
 	}
 	
 	/**
