@@ -66,6 +66,53 @@ class WPET_Tickets extends WPET_Module {
 			WPET::getInstance()->display( 'tickets.php', $data );
 		}
 	}
+	
+	/**
+	 * Creates the ticket options form for the wp-admin area
+	 *
+	 * @since 2.0
+	 * @return string
+	 */
+	public function buildAdminOptionsHtmlForm( $ticket_id ) {
+		//$options = get_post_meta( $ticket_id, );
+
+		$s = '';
+		foreach( $options AS $o ) {
+			$opts = $o->wpet_values;
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row">' . $o->post_title . '</th>';
+			$s .= '<td>';
+			// Figure out the type to build the proper display
+			switch( $o->wpet_type ) {
+
+				case 'multiselect':
+					$s .= '<select multiple>';
+
+					foreach( $opts AS $oi ) {
+						$s .= '<option value="' . $oi . '">' . $oi . '</option>';
+					}
+					$s .= '</select>';
+					break;
+				case 'dropdown':
+					$s .= '<select>';
+
+					foreach( $opts AS $oi ) {
+						$s .= '<option value="' . $oi . '">' . $oi . '</option>';
+					}
+					$s .= '</select>';
+					break;
+
+				case 'text':
+				default:
+					$s .= '<input type="text" value="' . $opts[0] . '" />';
+
+			}
+			$s .= '</td>';
+			$s .= '</tr>';
+		}
+
+		return $s;
+	}
 
 	/**
 	 * Adds the default columns to the ticket options list in wp-admin
