@@ -2,15 +2,15 @@
 <table class="form-table">
 	<tbody>
 		<tr class="form-field form-required">
-			<th scope="row"><label for="options[ticket-options]"><?php _e('Ticket Options', 'wpet'); ?></label></th>
+			<th scope="row"><label for="options[ticket_options]"><?php _e('Ticket Options', 'wpet'); ?></label></th>
 			<td>
-				<label><input type="checkbox" name="options[ticket-options]" id="options[ticket-options]" value="1"></label>
+				<label><input type="checkbox" name="options[ticket_options]" id="options[ticket_options]" value="1"></label>
 			</td>
 		</tr>
 		<tr class="form-field form-required">
-			<th scope="row"><label for="options[ticket-types]"><?php _e('Ticket Types', 'wpet'); ?></label></th>
+			<th scope="row"><label for="options[ticket_types]"><?php _e('Ticket Types', 'wpet'); ?></label></th>
 			<td>
-				<label><input type="checkbox" name="options[ticket-types]" id="options[ticket-types]" value="1"></label>
+				<label><input type="checkbox" name="options[ticket_types]" id="options[ticket_types]" value="1"></label>
 			</td>
 		</tr>
 		<tr class="form-field form-required">
@@ -32,21 +32,21 @@
 			</td>
 		</tr>
 		<tr class="form-field form-required">
-			<th scope="row"><label for="options[event-settings]"><?php _e('Event Settings', 'wpet'); ?></label></th>
+			<th scope="row"><label for="options[event_settings]"><?php _e('Event Settings', 'wpet'); ?></label></th>
 			<td>
-				<label><input type="checkbox" name="options[event-settings]" id="options[event-settings]" value="1"></label>
+				<label><input type="checkbox" name="options[event_settings]" id="options[event_settings]" value="1"></label>
 			</td>
 		</tr>
 		<tr class="form-field form-required">
-			<th scope="row"><label for="options[payment-settings]"><?php _e('Payment Settings', 'wpet'); ?></label></th>
+			<th scope="row"><label for="options[payment_settings]"><?php _e('Payment Settings', 'wpet'); ?></label></th>
 			<td>
-				<label><input type="checkbox" name="options[payment-settings]" id="options[payment-settings]" value="1"></label>
+				<label><input type="checkbox" name="options[payment_settings]" id="options[payment_settings]" value="1"></label>
 			</td>
 		</tr>
 		<tr class="form-field form-required">
-			<th scope="row"><label for="options[email-settings]"><?php _e('Email Settings', 'wpet'); ?></label></th>
+			<th scope="row"><label for="options[email_settings]"><?php _e('Email Settings', 'wpet'); ?></label></th>
 			<td>
-				<label><input type="checkbox" name="options[email-settings]" id="options[email-settings]" value="1"></label>
+				<label><input type="checkbox" name="options[email_settings]" id="options[email_settings]" value="1"></label>
 			</td>
 		</tr>
 	</tbody>
