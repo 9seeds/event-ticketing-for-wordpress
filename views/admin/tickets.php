@@ -1,6 +1,6 @@
 <div class="wrap">
 	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Tickets', 'wpet'); ?> <a href="<?php echo $data['edit_url'] ?>" class="add-new-h2"><?php _e( 'Add New', 'wpet' ); ?></a></h2>
+	<h2><?php _e('Tickets', 'wpet'); ?> <a href="<?php echo $data['edit_url'] ?>" class="add-new-h2"><?php _e( 'Add New', 'wpet' ); ?></a>
 <?php
 
 require_once WPET_PLUGIN_DIR . 'lib/Table/Tickets.class.php';

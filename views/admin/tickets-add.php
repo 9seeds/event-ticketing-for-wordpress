@@ -3,7 +3,7 @@
 	echo $admin_page_icon;
 	$heading = empty( $_REQUEST['post'] ) ? __('Add Ticket', 'wpet') : __('Edit Ticket', 'wpet');
 	?>
-	<h2><?php echo $heading; ?></h2>
+	<h2><?php echo $heading; ?> <?php if( isset($_GET['action'] ) && $_GET['action'] == 'edit' ) { echo '<a href="'. $data['edit_url'] .'" class="add-new-h2">'. __( 'Add New', 'wpet' ) .'</a>'; } ?></h2>
 <form method="post" action="">
 	<table class="form-table">
 		<tbody>
@@ -36,7 +36,7 @@
 			<tr class="form-field">
 				<th scope="row"><?php echo $cb_info['label']; ?></th>
 				<td><?php echo $cb_info['checkbox']; ?></td>
-			</tr>				
+			</tr>
 			<?php
 			endforeach;
 			?>
