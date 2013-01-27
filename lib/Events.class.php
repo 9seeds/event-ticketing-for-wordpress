@@ -55,37 +55,16 @@ class WPET_Events extends WPET_Module {
 			return self::$WORKING_EVENT;
 		
 		$args = array(
-			'numposts' => 1,
+			'orderby' => 'date',
+			'order' => 'ASC',
 			'post_status' => 'publish',
 		);
 
-		$posts = $this->find( $args );
-
-		if ( ! empty( $posts ) )
-			 self::$WORKING_EVENT = current( $posts );
+		self::$WORKING_EVENT = $this->findOne( $args );
 
 		return self::$WORKING_EVENT;
 	}
 
-	/**
-	 * Finds wpet_event objects
-	 *
-	 * @since 2.0
-	 * @param array $args
-	 */
-	public function find( $args ) {		
-	    $defaults = array(
-			'orderby' => 'date',
-			'order' => 'ASC',
-			'post_status' => array( 'publish', 'archive' ),
-	    );
-
-		$data = wp_parse_args( $args, $defaults );
-
-		return parent::find( $data );
-	}
-	
-	
 	/**
 	 * Adds the object data to the database
 	 *
