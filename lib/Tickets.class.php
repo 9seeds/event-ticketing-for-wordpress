@@ -151,7 +151,6 @@ class WPET_Tickets extends WPET_Module {
 	public function buildOptionsHtmlForm( $ticket_id, $data = array() ) {
 		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
 
-		//echo '<pre>'; var_dump( $data ) ; echo '</pre>';
 
 		$s = '';
 		if( !is_array( $options ) ) return '';
@@ -177,7 +176,6 @@ class WPET_Tickets extends WPET_Module {
 						$s .= '>' . $oi . '</option>';
 					}
 					$s .= '</select>';
-					var_dump( in_array($oi, $value) );
 					break;
 				case 'dropdown':
 					$s .= '<select name="' . $opts->post_name . '" >';
