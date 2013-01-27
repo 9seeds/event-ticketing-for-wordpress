@@ -1,6 +1,9 @@
-<div class="wrap">
-	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Add Attendee', 'wpet'); ?></h2>
+<?php
+$heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Attendee', 'wpet');
+?>
+<h2><?php echo $heading; ?> <?php if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+	echo '<a href="' . $data['edit_url'] . '" class="add-new-h2">' . __('Add New', 'wpet') . '</a>';
+} ?></h2>
 <form method="post" action="">
 	<table class="form-table">
 		<tbody>
@@ -32,8 +35,8 @@
 				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
 				<td><input name="email" type="text" id="email" value=""></td>
 			</tr>
-			
-		
+
+
 <?php
 // @TODO
 // add rows for all ticket options

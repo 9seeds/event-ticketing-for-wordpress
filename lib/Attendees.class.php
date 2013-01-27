@@ -38,6 +38,7 @@ class WPET_Attendees extends WPET_Module {
 			$data['meta'] = $_POST;
 			$data['page_title'] . $data['first_name'] . ' ' . $data['last_name'];
 			$this->update( $post->ID, $data );
+			echo 'updated';
 	    }
 	}
 	

@@ -13,7 +13,7 @@
 			<td><input type="text" name="email" id="email" value="<?php echo $post->wpet_email; ?>"></td>
 		</tr>
 		<?php
-		    echo WPET::getInstance()->tickets->buildOptionsHtmlFormForPackage( $post->wpet_package ); 
+		    echo WPET::getInstance()->tickets->buildOptionsHtmlFormForPackage( $post->wpet_package, $post ); 
 		?>
 		<tr>
 			<td>
