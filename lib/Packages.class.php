@@ -154,13 +154,13 @@ class WPET_Packages extends WPET_Module {
 	    );
 
 	    $args = array(
-			'public' => true,
+			'public' => false,
 			'supports' => array( 'page-attributes' ),
 			'labels' => $labels,
 			'hierarchical' => false,
 			'has_archive' => true,
-			'query_var' => 'shiplog',
-			'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
+			//'query_var' => 'packages',
+			//'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
 			//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 			//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
 			'show_ui' => false

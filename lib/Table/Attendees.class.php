@@ -2,7 +2,7 @@
 
 require_once WPET_PLUGIN_DIR . 'lib/Table.class.php';
 
-class WPET_Table_Coupons extends WPET_Table {
+class WPET_Table_Attendees extends WPET_Table {
 
 	public function __construct( $args = array() ) {
 		$defaults = array( 'post_type' => 'wpet_attendees' );
