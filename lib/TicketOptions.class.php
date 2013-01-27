@@ -15,7 +15,7 @@ class WPET_TicketOptions extends WPET_Module {
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
 
-		 add_action( 'load-tickets_page_wpet_ticket_options', array( $this, 'contextHelp' ) );
+		add_action( 'load-tickets_page_wpet_ticket_options', array( $this, 'contextHelp' ) );
 		add_filter( 'wpet_ticket_options_columns', array( $this, 'defaultColumns' ) );
 
 	}
@@ -28,7 +28,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function contextHelp() {
 	    $screen = get_current_screen();
-	    
+
 		if ( isset( $_GET['action'] ) ) {
 			$screen->add_help_tab(
 				array(

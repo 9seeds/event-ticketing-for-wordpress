@@ -14,17 +14,68 @@ class WPET_Tickets extends WPET_Module {
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
 
+		add_action( 'load-tickets_page_wpet_tickets', array( $this, 'contextHelp' ) );
 		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 
 		add_action('wp_ajax_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
-		add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );	
+		add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
 	}
-	
+
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];
 	    die(1);
 	    echo $this->buildOptionsHtmlFormForPackage( $package_id );
 	    exit();
+	}
+
+	/**
+	 * Displays page specific contextual help through the contextual help API
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp() {
+	    $screen = get_current_screen();
+
+		if ( isset( $_GET['action'] ) ) {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen allows you to add a new ticket type for your event.' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'options-explained',
+				'title'	=> __( 'Options Explained' ),
+				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Ticket Name</strong> is the name of the type of ticket your attendees purchase. For example, you may have a ticket named "general admission - meal included" and another named "general admission - no meal".' ) .'</li>'.
+						'<li>'. __( '<strong>Ticket Options</strong> is a list of the available ticket options you\'ve created. Check the box next to the pieces of data you\'d like to collect for each ticket.' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		} else {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket types.' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'available-actions',
+				'title'	=> __( 'Available Actions' ),
+				'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each ticket. You can perform the following actions:' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself.' ) .'</li>'.
+						'<li>'. __( '<strong>Trash</strong> removes your ticket from this list and places it in the trash, from which you can permanently delete it.' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		}
 	}
 
 	/**
@@ -50,13 +101,13 @@ class WPET_Tickets extends WPET_Module {
 
 			$options = $_POST['options'];
 		    $post_data = array(
-				'post_title' => $options['ticket-name'],				
+				'post_title' => $options['ticket-name'],
 		    );
 			unset($options['ticket-name']);
 			$post_data['meta'] = array(
 				'options_selected' => array_keys( $options )
 			);
-			
+
 			if ( ! empty( $_REQUEST['post'] ) )
 				$post_data['ID'] = $_REQUEST['post'];
 
@@ -64,10 +115,10 @@ class WPET_Tickets extends WPET_Module {
 		    $_REQUEST['post'] = $this->add( $post_data );
 		}
 
-		
+
 		$data = array();
 		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
-		
+
 		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
 			if ( ! empty( $_REQUEST['post'] ) ) {
 				$data['ticket'] = $this->findByID( $_REQUEST['post'] );
@@ -75,27 +126,24 @@ class WPET_Tickets extends WPET_Module {
 			}
 			$data['nonce'] = wp_nonce_field( 'wpet_tickets_update', 'wpet_tickets_update_nonce', true, false );
 			WPET::getInstance()->display( 'tickets-add.php', $data );
-		} else {			
+		} else {
 			WPET::getInstance()->display( 'tickets.php', $data );
 		}
 	}
-	
-	
-	
 	/**
 	 * Returns the HTML form with all the ticket options for the ticket
 	 * contained within a package
-	 * 
-	 * @param integer $package_id 
+	 *
+	 * @param integer $package_id
 	 * @return string
 	 */
 	public function buildOptionsHtmlFormForPackage( $package_id ) {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket-id', true );
-	    
+
 	    return $this->buildOptionsHtmlForm( $ticket_id );
 	}
-	
-	
+
+
 	/**
 	 * Creates the ticket options form for the wp-admin area
 	 *
@@ -104,19 +152,19 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function buildOptionsHtmlForm( $ticket_id ) {
 		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
-		
+
 		//echo '<pre>'; var_dump( $options) ; echo '</pre>';
-		
+
 		$s = '';
 		if( !is_array( $options ) ) return '';
 		foreach( $options AS $o ) {
-		    
+
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
-			
+
 			$s .= '<tr>';
 			$s .= '<td>' . $opts->post_title . '</td>';
 			$s .= '<td>';
-			
+
 			// Figure out the type to build the proper display
 			switch( $opts->wpet_type ) {
 
@@ -210,12 +258,12 @@ class WPET_Tickets extends WPET_Module {
 
 	/**
 	 * Builds a select menu of Tickets
-	 * 
+	 *
 	 * @since 2.0
 	 * @param string $name
 	 * @param string $id
 	 * @param string $selected_value
-	 * @return string 
+	 * @return string
 	 */
 	public function selectMenu( $name, $id, $selected_value ) {
 	    $s = "<select name='{$name}' id='{$id}'>";
@@ -230,5 +278,5 @@ class WPET_Tickets extends WPET_Module {
 	    return $s;
 	}
 
-	
+
 }// end class

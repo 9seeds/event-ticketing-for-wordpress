@@ -1,6 +1,6 @@
 <div class="wrap">
 	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Ticket Options', 'wpet'); ?> <a href="<?php echo $data['edit_url'] ?>" class="add-new-h2">Add New</a></h2>
+	<h2><?php _e('Tickets', 'wpet'); ?> <a href="<?php echo $data['edit_url'] ?>" class="add-new-h2"><?php _e( 'Add New', 'wpet' ); ?></a></h2>
 <?php
 
 require_once WPET_PLUGIN_DIR . 'lib/Table/Tickets.class.php';
@@ -62,7 +62,7 @@ $wp_list_table->display();
 		<table class="wp-list-table widefat fixed users-network" cellspacing="0">
 			<thead>
 				<tr>
-					<?php 
+					<?php
 					    foreach( $data['columns'] AS $k => $v ) {
 					?>
 					<th scope="col" class="manage-column column-<?php echo $k; ?> sortable">
@@ -76,7 +76,7 @@ $wp_list_table->display();
 
 			<tfoot>
 				<tr>
-					<?php 
+					<?php
 					    foreach( $data['columns'] AS $k => $v ) {
 					?>
 					<th scope="col" class="manage-column column-<?php echo $k; ?> sortable">
@@ -94,19 +94,19 @@ $wp_list_table->display();
 			    foreach( $data['rows'] AS $row ) {
 				$ci = 1; // Only show action in first column
 				$class = '';
-				if( $i % 2 ) 
+				if( $i % 2 )
 				    $class = 'class="alternate"';
-				
+
 				$i++;
 				?>
-			    
+
 			    <tr <?php echo $class; ?>>
 					<!--<th scope="row" class="check-column">
 						<input type="checkbox" id="blog_1" name="allusers[]" value="1">
 					</th>-->
-					<?php 
+					<?php
 					//echo '<pre>'; var_dump($row); echo '</pre>';
-					
+
 					foreach( $data['columns'] AS $k => $v ) { ?>
 					<td class="username column-username">
 					    <strong><?php echo $row->post_title; ?></strong>
@@ -117,12 +117,12 @@ $wp_list_table->display();
 						</div>
 						<?php $ci = 2; } ?>
 					</td>
-					
+
 					<?php } ?>
 					</td>
 				</tr>
-				
-				
+
+
 			    <?php } ?>
 			</tbody>
 		</table>
