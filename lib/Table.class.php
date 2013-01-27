@@ -71,8 +71,13 @@ abstract class WPET_Table extends WP_List_Table {
 		return $data->{$column_name};
 	}
 
+	protected function get_edit_url( $post ) {
+		return add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] );
+	}
+	
 	protected function column_title( $post ) {
-		$column = $post->post_title;
+		$edit_url = $this->get_edit_url( $post );
+		$column = "<a href='{$edit_url}'>{$post->post_title}</a>";
 
 		$actions = array();
 		$actions = $this->get_row_actions( $actions, $post );
@@ -89,7 +94,7 @@ abstract class WPET_Table extends WP_List_Table {
 
 	protected function get_row_actions( $actions, $post ) {
 		$actions['edit'] = array( 'class' => 'edit',
-								  'href' => add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] ),
+								  'href' => $this->get_edit_url( $post ),
 								  'label' => __( 'Edit' )
 		);
 

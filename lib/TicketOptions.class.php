@@ -131,21 +131,17 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @since 2.0
 	 * @return string
 	 */
-	public function buildAdminOptionsCheckboxForm() {
+	public function getAdminOptionsCheckboxes( $selected = array() ) {
 		$options = $this->find();
-
-		$s = '';
-		foreach( $options AS $o ) {
-			$opts = $o->wpet_values;
-			$s .= '<tr class="form-field form-required">';
-			$s .= '<th scope="row"><label for="' . sanitize_title_with_dashes( $o->post_title ) . '">' . $o->post_title . '</label></th>';
-			$s .= '<td>';
-			$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o->post_title ) . '" name="options[' . $o->ID . ']"/>';
-			$s .= '</td>';
-			$s .= '</tr>';
+		$checkboxes = array();
+		foreach ( $options as $o ) {
+			$checkboxes[] = array(
+				'label' => '<label for="' . sanitize_title_with_dashes( $o->post_title ) . '">' . $o->post_title . '</label>',
+				'checkbox' => '<input type="checkbox" id="' . sanitize_title_with_dashes( $o->post_title ) . '" name="options[' . $o->ID . ']"/>',
+			);
 		}
 
-		return $s;
+		return $checkboxes;
 	}
 		
 	/**
