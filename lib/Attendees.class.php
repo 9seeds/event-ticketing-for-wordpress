@@ -117,7 +117,8 @@ class WPET_Attendees extends WPET_Module {
 		    if( isset( $_POST['submit'] ) ) {
 			$data = array(
 				    'post_title' => $_POST['options']['name'],
-				    'meta' => $_POST['options']
+				    'meta' => $_POST['options'],
+				'post_name' => uniqid()
 			);
 
 			$this->add( $data );
