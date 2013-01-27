@@ -24,7 +24,7 @@
 // Pull list of available tickets
 ?>
 				<td>
-					<?php echo WPET::getInstance()->tickets-selectMenu( 'options[ticket-id]' ); ?>
+					<?php echo WPET::getInstance()->tickets->selectMenu( 'options[ticket-id]', 1 ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">

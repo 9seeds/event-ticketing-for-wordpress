@@ -321,6 +321,13 @@ class WPET {
 		$my_event = $event->getWorkingEvent();
 		if ( ! $my_event )
 			$event->add();
+		
+		if( !get_option( 'wpet_activated_once' ) ) {
+		    update_option( 'wpet_activate_once', true );
+		    
+		    
+		    
+		}
 	}
 
 	/**

@@ -40,18 +40,12 @@ class WPET_Packages extends WPET_Module {
 	    if( isset( $_GET['add-package'] ) ) {
 		
 		if( isset( $_POST['submit'] ) ) {
+		    
 		    $data = array(
 			'post_title' => $_POST['options']['package-name'],
 			'post_name' => sanitize_title_with_dashes( $_POST['options']['package-name'] ),
 			'post_content' => stripslashes( $_POST['options']['description'] ),
-			'meta' => array(
-			    'start-date' => $_POST['options']['start-date'],
-			    'end-date' => $_POST['options']['end-date'],
-			    'cost' => $_POST['options']['package-cost'],
-			    'quantity' => $_POST['options']['quantity'],
-			    'quantity_remaining' => $_POST['options']['quantity']
-			)
-
+			'meta' => $_POST['options']
 		    );
 		    $this->add( $data );
 		}
@@ -155,5 +149,32 @@ class WPET_Packages extends WPET_Module {
 	}
 	
 	
-	
+	/**
+	 * Builds a select menu of packages
+	 * 
+	 * @since 2.0
+	 * @param string $name
+	 * @param string $selected_value
+	 * @return string 
+	 */
+	public function selectMenu( $name, $selected_value ) {
+	    $s = "<select name='$name' id='$name'>";
+
+	    $s .= '<option value="any">Any Package</option>';
+	    
+	    foreach( $this->findAllByEvent() AS $pack ) {
+		$s .= '<option value="' . $pack->ID . '"';
+
+		$s .= selected( $selected_value, $pack->ID, false ) ;
+
+		$s .= '>';
+
+		$s .= $pack->post_title;
+
+		$s .= '</option>';
+	    }
+
+	    $s .= '</select>';
+	    return $s;
+	}
 }// end class

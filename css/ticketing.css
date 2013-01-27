@@ -96,3 +96,31 @@
 #eventTicketing tr.coupon input[name="couponCode"] {
 	width: 10em;
 }
+
+/* Attendee page
+---------------- */
+
+.event-attendee {
+	float: left;
+}
+
+.event-attendee.odd {
+
+}
+
+.event-attendee.even {
+
+}
+
+.attendee-gravatar {
+	float: left;
+}
+
+
+.attendee-name {
+
+}
+
+.attendee-twitter {
+
+}

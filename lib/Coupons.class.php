@@ -83,7 +83,8 @@ class WPET_Coupons extends WPET_Module {
 			    'type' => $_POST['options']['type'],
 			    'amount' => $_POST['options']['amount'],
 			    'quantity' => (int)$_POST['options']['quantity'],
-			    'quantity_remaining' => (int)$_POST['options']['quantity']
+			    'quantity_remaining' => (int)$_POST['options']['quantity'],
+			    'package_id' => $_POST['options']['package_id']
 			)
 		    );
 		    
@@ -114,6 +115,7 @@ class WPET_Coupons extends WPET_Module {
 	    return array(
 		'post_title' => 'Name',
 		'post_name' => 'Coupon Code',
+		'wpet_package_title' => 'Package',
 		'wpet_pretty_amount' => 'Amount',
 		'wpet_quantity_remaining' => 'Remaining',
 		'wpet_quantity' => 'Total'
@@ -143,6 +145,13 @@ class WPET_Coupons extends WPET_Module {
 			case 'flat-rate':
 			    $p->wpet_pretty_amount = WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $p->wpet_amount );
 			    break;
+		    }
+		    
+		    if( is_numeric( $p->wpet_package_id ) ) {
+			$package = get_post( $p->wpet_package_id );
+			$p->wpet_package_title = $package->post_title;
+		    } else {
+			$p->wpet_package_title = ucfirst( $p->wpet_package_id );
 		    }
 		}
 	    }
