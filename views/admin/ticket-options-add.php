@@ -34,7 +34,7 @@
 		<?php
 		$extra_style = 'style="display: none;" ';
 		if ( ! empty( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'multiselect' ) ) ) {
-			$extra_style = '';	
+			$extra_style = '';
 		}
 		?>
 		<tbody <?php echo $extra_style ?>id="option_values">
