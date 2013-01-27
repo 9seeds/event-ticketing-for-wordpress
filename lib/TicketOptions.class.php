@@ -28,24 +28,46 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function contextHelp() {
 	    $screen = get_current_screen();
-	    $screen->add_help_tab(
-		    array(
-			'id'	=> 'overview',
-			'title'	=> __( 'Overview' ),
-			'content'	=> '<p>' . __( 'This screen provides access to all of your ticket options.' ) . '</p>',
-		    )
-	    );
-	    $screen->add_help_tab(
-		    array(
-			'id'	=> 'available-actions',
-			'title'	=> __( 'Available Actions' ),
-			'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:' ) . '</p>'.
-				'<ul>'.
-					'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself.' ) .'</li>'.
-					'<li>'. __( '<strong>Trash</strong> removes your ticket option from this list and places it in the trash, from which you can permanently delete it.' ) .'</li>'.
-				'</ul>',
-		    )
-	    );
+	    
+		if ( isset( $_GET['action'] ) ) {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen allows you to add a new ticket option for your tickets.' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'options-explained',
+				'title'	=> __( 'Options Explained' ),
+				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Display Name</strong> is what will be shown to your visitor when this option is added to a ticket.' ) .'</li>'.
+						'<li>'. __( '<strong>Option Type</strong> lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select.' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		} else {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket options.' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'available-actions',
+				'title'	=> __( 'Available Actions' ),
+				'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself.' ) .'</li>'.
+						'<li>'. __( '<strong>Trash</strong> removes your ticket option from this list and places it in the trash, from which you can permanently delete it.' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		}
 	}
 
 	/**
@@ -113,7 +135,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @since 2.0
 	 * @return string
 	 */
-	public function getAdminOptionsCheckboxes( $checked = array() ) {		
+	public function getAdminOptionsCheckboxes( $checked = array() ) {
 		$options = $this->find();
 		$checkboxes = array();
 		foreach ( $options as $o ) {
