@@ -134,7 +134,7 @@ class WPET_Tickets extends WPET_Module {
 	 * @return string
 	 */
 	public function buildOptionsHtmlFormForPackage( $package_id, $data = null ) {
-	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket-id', true );
+	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket_id', true );
 
 	    return $this->buildOptionsHtmlForm( $ticket_id, $data );
 	}

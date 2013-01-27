@@ -20,7 +20,7 @@ $heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Atte
 // add dropdowns for all ticket packages
 ?>
 					</select>-->
-				    <?php echo WPET::getInstance()->packages->selectMenu( 'package', 'packages', '' ); ?>
+				    <?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', '' ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">

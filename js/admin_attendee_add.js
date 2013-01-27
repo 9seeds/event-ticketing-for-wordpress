@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
    
-    jQuery("#packages").change(function( package_id ) {
+    jQuery("#package").change(function( package_id ) {
 	//console.log( jQuery(this).val() );
 	jQuery.post(
 	    ajaxurl, 
