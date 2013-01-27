@@ -54,8 +54,8 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[package-cost]"><?php _e('Package Cost', 'wpet'); ?></label></th>
-				<td><input name="options[package-cost]" type="text" id="options[package-cost]" value=""></td>
+				<th scope="row"><label for="options[package_cost]"><?php _e('Package Cost', 'wpet'); ?></label></th>
+				<td><input name="options[package_cost]" type="text" id="options[package_cost]" value=""></td>
 			</tr>
 		</tbody>
 	</table>
