@@ -17,16 +17,20 @@
 // add dropdowns for all ticket packages
 ?>
 					</select>-->
-				    <?php echo WPET::getInstance()->packages->selectMenu( 'options[package]', 'packages', '' ); ?>
+				    <?php echo WPET::getInstance()->packages->selectMenu( 'package', 'packages', '' ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[name]"><?php _e('Name', 'wpet'); ?></label></th>
-				<td><input name="options[name]" type="text" id="options[name]" value=""></td>
+				<th scope="row"><label for="first_name"><?php _e('First Name', 'wpet'); ?></label></th>
+				<td><input name="first_name" type="text" id="first_name" value=""></td>
+			</tr>
+			<tr class="form-field form-required">
+				<th scope="row"><label for="last_name"><?php _e('Last Name', 'wpet'); ?></label></th>
+				<td><input name="last_name" type="text" id="last_name" value=""></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
-				<td><input name="options[email]" type="text" id="options[email]" value=""></td>
+				<td><input name="email" type="text" id="email" value=""></td>
 			</tr>
 			
 		
