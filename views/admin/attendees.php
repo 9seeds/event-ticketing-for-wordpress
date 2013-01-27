@@ -96,7 +96,8 @@
 					     <?php if( 1 == $ci ) { ?>
 						<div class="row-actions">
 						    <span class="edit"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Edit</a></span>
-						    | <span class="trash"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Trash</a></span>
+						    | <span class="trash"><a href="http://wcphx2012.dev/wp-admin/network/profile.php">Trash</a> 
+							| <span class="view"><a href="<?php echo get_permalink( $row->ID ); ?>">View</a></span>
 						</div>
 						<?php $ci = 2; } ?>
 					</td>
