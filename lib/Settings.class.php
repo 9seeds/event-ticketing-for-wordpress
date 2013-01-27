@@ -193,6 +193,10 @@ class WPET_Settings extends WPET_Module {
 	    $name = 'wpet_' . $name;
 	    return get_option( $name, '' );
 	}
+	
+	public function __set( $key, $value ) {
+	    return update_option( "wpet_$key", $value );
+	}
 
 	/**
 	 * @since 2.0
