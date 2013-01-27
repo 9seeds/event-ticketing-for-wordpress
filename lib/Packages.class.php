@@ -60,7 +60,6 @@ class WPET_Packages extends WPET_Module {
 			if ( ! empty( $_REQUEST['post'] ) )
 				$data['ID'] = $_REQUEST['post'];
 
-			die(print_r($data, true));
 			//kind of a hack
 		    $_REQUEST['post'] = $this->add( $data );
 		}

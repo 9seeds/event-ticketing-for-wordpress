@@ -27,7 +27,10 @@
 // select saved ticket
 ?>
 				<td>
-					<?php echo WPET::getInstance()->tickets->selectMenu( 'options[ticket_id]', 'ticket_id', 1 ); ?>
+					<?php
+						$ticket_id = empty( $data['package'] ) ? NULL : $data['package']->wpet_ticket_id;
+						echo WPET::getInstance()->tickets->selectMenu( 'options[ticket_id]', 'ticket_id', $ticket_id );
+					?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
