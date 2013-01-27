@@ -68,7 +68,7 @@ class WPET_Tickets extends WPET_Module {
 				array(
 				'id'	=> 'available-actions',
 				'title'	=> __( 'Available Actions' ),
-				'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each ticket. You can perform the following actions:' ) . '</p>'.
+				'content'	=> '<p>' . __( 'Hovering over a row in the ticket list will display action links that allow you to manage each ticket. You can perform the following actions:' ) . '</p>'.
 					'<ul>'.
 						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself.' ) .'</li>'.
 						'<li>'. __( '<strong>Trash</strong> removes your ticket from this list and places it in the trash, from which you can permanently delete it.' ) .'</li>'.

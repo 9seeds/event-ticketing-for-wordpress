@@ -1,24 +1,81 @@
 <?php
 
 /**
- * @since 2.0 
+ * @since 2.0
  */
 class WPET_Packages extends WPET_Module {
 
 	/**
-	 * @since 2.0 
+	 * @since 2.0
 	 */
 	public function __construct() {
 	    $this->mPostType = 'wpet_packages';
-	    
+
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 15 );
-		
+
 		add_action( 'init', array( $this, 'registerPostType' ) );
-		
+
 		add_filter( 'wpet_packages_columns', array( $this, 'defaultColumns' ) );
 
 		//do this after post type is set
 		parent::__construct();
+	}
+
+	/**
+	 * Displays page specific contextual help through the contextual help API
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp( $screen ) {
+
+		if ( isset( $_GET['action'] ) ) {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen allows you to add a new package for your event.', 'wpet' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'options-explained',
+				'title'	=> __( 'Options Explained' ),
+				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Package Name</strong> is the name that will be displayed to your visitors on the purchase page.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Description</strong> will be displayed to your visitors under the package name on the purchase page.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Included Tickets</strong> lets you select which ticket type and how many tickets are included with the purchase of this package.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>Ticket Name</strong> lets you select which ticket type will be included in this ticket package.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>Quantity</strong> lets you set how many of the selected ticket type will be included when somebody purchases this package.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>On Sale Date</strong> lets you control when this package is available for purchase.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>Start Date</strong> is the first day this ticket package will be available for purchase.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>End Date</strong> is the last day this ticket package will be available for purchase.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>Package Cost</strong> is the price for the package, no matter how many tickets are included.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>Quantity</strong> is the total number of this specific package that you have available for sale.', 'wpet' ) .'</li>',
+					'</ul>',
+				)
+			);
+		} else {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket packages.', 'wpet' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'available-actions',
+				'title'	=> __( 'Available Actions' ),
+				'content'	=> '<p>' . __( 'Hovering over a row in the package list will display action links that allow you to manage each package. You can perform the following actions:', 'wpet' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Trash</strong> removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets.', 'wpet' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		}
 	}
 
 	/**
@@ -28,13 +85,13 @@ class WPET_Packages extends WPET_Module {
 		wp_register_script( 'wpet-admin-packages', WPET_PLUGIN_URL . 'js/admin_packages.js', array( 'jquery-ui-datepicker' ) );
 		wp_enqueue_script( 'wpet-admin-packages' );
 	}
-	
+
 	/**
 	 * Add Packages links to the Tickets menu
-	 * 
+	 *
 	 * @since 2.0
 	 * @param type $menu
-	 * @return array 
+	 * @return array
 	 */
 	public function adminMenu( $menu ) {
 		$menu[] = array( 'Packages', 'Packages', 'add_users', 'wpet_packages', array( $this, 'renderAdminPage' ) );
@@ -43,17 +100,17 @@ class WPET_Packages extends WPET_Module {
 
 	/**
 	 * Displays the menu page
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function renderAdminPage() {
-	    		
+
 		if ( isset( $_GET['action'] ) ) {
 			if ( ! empty( $_REQUEST['post'] ) ) {
 				$this->render_data['package'] = $this->findByID( $_REQUEST['post'] );
 			}
 			WPET::getInstance()->display( 'packages-add.php', $this->render_data );
-		} else {			
+		} else {
 			WPET::getInstance()->display( 'packages.php', $this->render_data );
 		}
 	}
@@ -72,15 +129,15 @@ class WPET_Packages extends WPET_Module {
 		);
 		unset( $options['package_name'] );
 		unset( $options['description'] );
-			
+
 		$data['meta'] = $options;
 		return $data;
-	}	
-	
+	}
+
 	/**
 	 * Add post type for object
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function registerPostType() {
 	    $labels = array(
@@ -111,21 +168,21 @@ class WPET_Packages extends WPET_Module {
 
 	    register_post_type( 'wpet_packages', $args );
 	}
-	
-	
+
+
 	/**
 	 * Builds a select menu of packages
-	 * 
+	 *
 	 * @since 2.0
 	 * @param string $name
 	 * @param string $id
 	 * @param string $selected_value
-	 * @return string 
+	 * @return string
 	 */
 	public function selectMenu( $name, $id, $selected_value ) {
 	    $s = "<select name='{$name}' id='{$id}'>";
 	    $s .= '<option value="any">Any Package</option>';
-	    
+
 	    foreach ( $this->find() as $pack ) {
 			$s .= "<option value='{$pack->ID}' ";
 			$s .= selected( $selected_value, $pack->ID, false ) ;
@@ -135,28 +192,28 @@ class WPET_Packages extends WPET_Module {
 	    $s .= '</select>';
 	    return $s;
 	}
-	
+
 	/**
 	 * Returns the max number of packages that can be sold for the specified
 	 * event.
-	 * 
+	 *
 	 * @param int $event_id
 	 * @param int $package_id
 	 * @return int
 	 */
-	public function remaining( $event_id, $package_id ) {	    
+	public function remaining( $event_id, $package_id ) {
 	    $max_attendance = (int)get_post_meta( $event_id, 'wpet_max_attendance', true);
 	    $packages_total_quantity = (int)get_post_meta( $package_id, 'wpet_quantity', true);
 	    $ticket_quantity = (int)get_post_meta( $package_id, 'wpet_ticket_quantity', true );
-	    
+
 	    if( 0 == $max_attendance || 0 == $ticket_quantity ) return 0;
-	    
+
 	    $max_packages = floor( $max_attendance / $ticket_quantity );
-	    
+
 	    if( $max_packages > $packages_total_quantity )
 		return $packages_total_quantity;
-	    
+
 	    return $max_packages;
 	}
-	
+
 }// end class
