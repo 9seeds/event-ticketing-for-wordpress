@@ -141,7 +141,10 @@ class WPET_Attendees extends WPET_Module {
 	    $screen = get_current_screen();
 	    if( 'tickets_page_wpet_attendees' == get_current_screen()->base
 		    && isset( $_GET['add-attendee'] ) ) 
-		echo 'got it';
+		
+	    {}
+		
+		
 	    wp_register_script( 'wpet-admin-attendee-add', WPET_PLUGIN_URL . '/js/admin_attendee_add.js', array( 'jquery' ) );
 	    wp_enqueue_script( 'wpet-admin-attendee-add' );
 	}

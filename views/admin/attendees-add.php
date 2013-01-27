@@ -7,13 +7,17 @@
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[package]"><?php _e('Package', 'wpet'); ?></label></th>
 				<td>
-					<select name="options[package]" id="options[package]">
-						<option value="">List of Ticket Packages</option>
+					<!--<select name="options[package]" id="packages">
+						<option value="1">List of Ticket Packages</option>
+						<option value="2">List of Ticket Packages2</option>
+						<option value="3">List of Ticket Packages3</option>
+						<option value="4">List of Ticket Packages4</option>
 <?php
 // @TODO
 // add dropdowns for all ticket packages
 ?>
-					</select>
+					</select>-->
+				    <?php echo WPET::getInstance()->packages->selectMenu( 'options[package]', 'packages', '' ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
@@ -24,6 +28,8 @@
 				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
 				<td><input name="options[email]" type="text" id="options[email]" value=""></td>
 			</tr>
+			
+		<div id="ticket_options"></div>
 <?php
 // @TODO
 // add rows for all ticket options

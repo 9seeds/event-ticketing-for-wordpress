@@ -18,12 +18,13 @@ class WPET_Tickets extends WPET_Module {
 		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 
 		add_action('wp_ajax_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
-		add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
+		//add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
 	}
 
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];
-	    die(1);
+	   // die(1);
+	    print_r( $_POST );
 	    echo $this->buildOptionsHtmlFormForPackage( $package_id );
 	    exit();
 	}
