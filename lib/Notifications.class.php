@@ -49,9 +49,9 @@ class WPET_Notifications extends WPET_Module {
 			if ( ! empty( $_REQUEST['post'] ) ) {
 				$this->render_data['notification'] = $this->findByID( $_REQUEST['post'] );
 			}
-		    WPET::getInstance()->display( 'notify-add.php', $this->render_data );
+		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
 		} else {			
-		    WPET::getInstance()->display( 'notify.php', $this->render_data );
+		    WPET::getInstance()->display( 'notifications.php', $this->render_data );
 		}
 	}
 	

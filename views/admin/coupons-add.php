@@ -15,7 +15,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 		<tr class="form-field form-required">
 			<th scope="row"><?php _e('Package', 'wpet'); ?></th>
 			<td>
-			<?php echo WPET::getInstance()->packages->selectMenu('options[package_id]', 1); ?>
+				<?php echo WPET::getInstance()->packages->selectMenu('options[package_id]', 'package_id', 1); ?>
 			</td>
 		</tr>
 		<tr class="form-field form-required">
