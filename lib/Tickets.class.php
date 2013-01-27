@@ -14,11 +14,13 @@ class WPET_Tickets extends WPET_Module {
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
 
-		add_action( 'load-tickets_page_wpet_tickets', array( $this, 'contextHelp' ) );
 		add_filter( 'wpet_tickets_columns', array( $this, 'defaultColumns' ) );
 
 		add_action('wp_ajax_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
 		add_action('wp_ajax_nopriv_get_ticket_options_for_package', array( $this, 'ajaxGetTicketOption' ) );
+
+		//do this after post type is set
+		parent::__construct();
 	}
 
 	public function ajaxGetTicketOption() {
@@ -34,9 +36,7 @@ class WPET_Tickets extends WPET_Module {
 	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 	 * @since 2.0
 	 */
-	public function contextHelp() {
-	    $screen = get_current_screen();
-
+	public function contextHelp( $screen ) {
 		if ( isset( $_GET['action'] ) ) {
 			$screen->add_help_tab(
 				array(
@@ -97,39 +97,34 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-		if ( ! empty($_POST['wpet_tickets_update_nonce'] ) && wp_verify_nonce( $_POST['wpet_tickets_update_nonce'], 'wpet_tickets_update' ) ) {
-
-			$options = $_POST['options'];
-		    $post_data = array(
-				'post_title' => $options['ticket-name'],
-		    );
-			unset($options['ticket-name']);
-			$post_data['meta'] = array(
-				'options_selected' => array_keys( $options )
-			);
-
-			if ( ! empty( $_REQUEST['post'] ) )
-				$post_data['ID'] = $_REQUEST['post'];
-
-			//kind of a hack
-		    $_REQUEST['post'] = $this->add( $post_data );
-		}
-
-
-		$data = array();
-		$data['edit_url'] = admin_url( "admin.php?page={$this->mPostType}&action=edit" );
-
-		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+		if ( isset( $_GET['action'] ) ) {
 			if ( ! empty( $_REQUEST['post'] ) ) {
-				$data['ticket'] = $this->findByID( $_REQUEST['post'] );
-				$data['edit_url'] = add_query_arg( array( 'post' => $_REQUEST['post'] ), $data['edit_url'] );
+				$this->render_data['ticket'] = $this->findByID( $_REQUEST['post'] );
 			}
-			$data['nonce'] = wp_nonce_field( 'wpet_tickets_update', 'wpet_tickets_update_nonce', true, false );
-			WPET::getInstance()->display( 'tickets-add.php', $data );
+			WPET::getInstance()->display( 'tickets-add.php', $this->render_data );
 		} else {
-			WPET::getInstance()->display( 'tickets.php', $data );
+			WPET::getInstance()->display( 'tickets.php', $this->render_data );
 		}
 	}
+
+	/**
+	 * Prepare the page submit data for save
+	 *
+	 * @since 2.0
+	 */
+	public function getPostData() {
+		$options = $_POST['options'];
+		$post_data = array(
+			'post_title' => $options['ticket-name'],
+		);
+		unset($options['ticket-name']);
+		$post_data['meta'] = array(
+			'options_selected' => array_keys( $options )
+		);
+
+		return $post_data;
+	}
+	
 	/**
 	 * Returns the HTML form with all the ticket options for the ticket
 	 * contained within a package

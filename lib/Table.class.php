@@ -38,6 +38,8 @@ abstract class WPET_Table extends WP_List_Table {
 		}
 		*/
 
+		//@TODO meta orderby http://wordpress.stackexchange.com/questions/30241/wp-query-order-results-by-meta-value
+
 		if ( isset( $_REQUEST['orderby'] ) )
 			$args['orderby'] = $_REQUEST['orderby'];
 
