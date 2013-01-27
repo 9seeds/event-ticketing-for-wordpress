@@ -6,6 +6,6 @@ require_once WPET_PLUGIN_DIR . 'lib/Table/Notifications.class.php';
 $args = array(
 	'edit_url' => $data['edit_url'],
 );
-$wp_list_table = new WPET_Table_Tickets( $args );
+$wp_list_table = new WPET_Table_Notifications( $args );
 $wp_list_table->prepare_items();
 $wp_list_table->display();
