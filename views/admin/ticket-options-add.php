@@ -13,10 +13,11 @@
 				<td>
 					<select name="options[option-type]" id="options[option-type]">
 					<?php
-					$value = isset( $data['option'] ) ? $data['option']->wpet_type : '';
-					$options = array( 'text' => __('Text Input', 'wpet'),
-					   'dropdown' => __('Dropdown', 'wpet'),
-					   'multiselect' => _e('Multi Select', 'wpet')
+					$value = empty( $data['option'] ) ? '' : $data['option']->wpet_type;
+					$options = array(
+						'text' => __('Text Input', 'wpet'),
+						'dropdown' => __('Dropdown', 'wpet'),
+						'multiselect' => __('Multi Select', 'wpet'),
 					  );
 					foreach ( $options as $index => $label ) {
 						$selected = $index == $value ? ' selected="selected"' : '';
@@ -27,20 +28,28 @@
 				</td>
 			</tr>
 		</tbody>
-<? //@TODO real values ?>
 		<?php
 		$extra_style = 'style="display: none;" ';
-		if ( isset( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'select' ) ) ) {
+		if ( ! empty( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'select' ) ) ) {
 			$extra_style = '';	
 		}
 		?>
 		<tbody <?php echo $extra_style ?>id="option-values">
+			<?php
+			$count = 0;
+			$values = empty( $data['option'] ) ? array() : $data['option']->wpet_values;
+			if ( empty( $values ) )
+				$values[] = '';
+			foreach ( $values  as $value ):
+				$delete = $count ? '<span class="wpet-delete">&nbsp;<a class="option-delete">X</a>' : '';
+			?>
 			<tr class="form-field">
-				<th scope="row"><label for="options[option-value][0]"><?php _e('Option Value', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[option-value][<?php echo $count; ?>]"><?php _e('Option Value', 'wpet'); ?></label></th>
 				<td>
-					<input type="text" name="options[option-value][]" id="options[option-value][0]" class="option-value" />
+					<input type="text" name="options[option-value][]" id="options[option-value][<?php echo $count; ?>]" class="option-value" value="<?php echo $value ?>" /><?php echo $delete ?>
 				</td>
 			</tr>
+			<?php $count++; endforeach; ?>
 			<tr class="form-field" id="add-another">
 	 			<th></th>
 				<td>

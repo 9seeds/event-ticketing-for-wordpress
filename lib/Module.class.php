@@ -65,7 +65,6 @@ abstract class WPET_Module {
 	public function findByID( $post_id ) {
 		return WP_Post::get_instance( $post_id );
 	}
-
 	
 	/**
 	 * Adds the object data to the database
