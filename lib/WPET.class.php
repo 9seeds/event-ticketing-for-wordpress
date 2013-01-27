@@ -321,6 +321,13 @@ class WPET {
 		$events = $event->find( array( 'post_status' => 'publish' ) );
 		if ( empty( $events ) )
 			$event->add();
+		
+		if( !get_option( 'wpet_activated_once' ) ) {
+		    update_option( 'wpet_activate_once', true );
+		    
+		    
+		    
+		}
 	}
 
 	/**
