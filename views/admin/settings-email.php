@@ -20,7 +20,7 @@
 				<div class="postarea">
 				<?php wp_editor( esc_attr( $data['email_body'] ), 'options[email_body]', array( 'textarea_rows' => 20 ) ); ?>
 				</div>
-					<em><?php _e('Note: Include the shortcode [ticketlinks] in the email body to send the buyer the link to edit their ticket information.', 'wpet'); ?></em>
+					<em><?php _e('Note: Include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet'); ?></em>
 				</td>
 			</tr>
 		</tbody>
