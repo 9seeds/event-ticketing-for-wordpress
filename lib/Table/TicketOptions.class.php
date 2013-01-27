@@ -12,7 +12,7 @@ class WPET_Table_TicketOptions extends WPET_Table {
 
 	function get_columns() {
 		$columns = array(
-			'cb'        => '<input type="checkbox" />',
+			//'cb'        => '<input type="checkbox" />',
 			'title'     => __( 'Name' ),
 			'wpet_type' => __( 'Type' ),
 		);
@@ -26,4 +26,3 @@ class WPET_Table_TicketOptions extends WPET_Table {
 		);
 	}
 }
-

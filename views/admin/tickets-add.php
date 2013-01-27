@@ -1,12 +1,15 @@
 <div class="wrap">
-	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Add Ticket', 'wpet'); ?></h2>
+	<?php
+	echo $admin_page_icon;
+	$heading = empty( $_REQUEST['post'] ) ? __('Add Ticket', 'wpet') : __('Edit Ticket', 'wpet');
+	?>
+	<h2><?php echo $heading; ?></h2>
 <form method="post" action="">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[ticket-name]"><?php _e('Ticket Name', 'wpet'); ?></label></th>
-				<td><input name="options[ticket-name]" id="options[ticket-name]" type="text" id="options[ticket-name]" value=""></td>
+				<td><input name="options[ticket-name]" id="options[ticket-name]" type="text" id="options[ticket-name]" value="<?php echo empty( $data['ticket'] ) ? '' : $data['ticket']->post_title ?>"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -37,7 +40,11 @@
 
 		</tbody>
 	</table>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Ticket', 'wpet'); ?>"></p>
+	<?php
+	echo $data['nonce'];
+	$button_label = empty( $_REQUEST['post'] ) ? __('Add Ticket', 'wpet') : __('Edit Ticket', 'wpet');
+	?>
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo $button_label; ?>"></p>
 </form>
 
 </div>
