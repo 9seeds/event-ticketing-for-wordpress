@@ -29,7 +29,7 @@
 				</td>
 			</tr>
 			<?php
-			$selected = empty( $data['ticket'] ) ? array() : $data['ticket']->wpet_options_selected;
+			$selected = empty( $data['ticket']->wpet_options_selected ) ? array() : $data['ticket']->wpet_options_selected;
 			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes( $selected );
 			foreach ( $checkboxes as $cb_info ):
 			?>

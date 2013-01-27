@@ -139,14 +139,12 @@ class WPET_Tickets extends WPET_Module {
 
 	public function findAllByEvent() {
 	    $args = array(
-		'post_type' => 'wpet_tickets',
-		'showposts' => '-1',
-		'posts_per_page' => '-1'
+			'post_type' => 'wpet_tickets',
+			'showposts' => '-1',
+			'posts_per_page' => '-1'
 	    );
 
 	    return get_posts( $args );
-
-
 	}
 
 
@@ -157,29 +155,29 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function registerPostType() {
 	    $labels = array(
-		'name' => 'Tickets',
-		'singular_name' => 'Ticket',
-		'add_new' => 'Create Ticket',
-		'add_new_item' => 'New Ticket',
-		'edit_item' => 'Edit Ticket',
-		'new_item' => 'New Ticket',
-		'view_item' => 'View Ticket',
-		'search_items' => 'Search Tickets',
-		'not_found' => 'No Tickets found',
-		'not_found_in_trash' => 'No Tickets found in trash'
+			'name' => 'Tickets',
+			'singular_name' => 'Ticket',
+			'add_new' => 'Create Ticket',
+			'add_new_item' => 'New Ticket',
+			'edit_item' => 'Edit Ticket',
+			'new_item' => 'New Ticket',
+			'view_item' => 'View Ticket',
+			'search_items' => 'Search Tickets',
+			'not_found' => 'No Tickets found',
+			'not_found_in_trash' => 'No Tickets found in trash'
 	    );
 
 	    $args = array(
-		'public' => true,
-		'supports' => array( 'page-attributes' ),
-		'labels' => $labels,
-		'hierarchical' => false,
-		'has_archive' => true,
-		'query_var' => 'wpet_tickets',
-		'rewrite' => array( 'slug' => 'tickets', 'with_front' => false ),
-		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
-		//'register_meta_box_cb' => array( $this, 'registerMetaBox' ),
-		'show_ui' => false
+			'public' => true,
+			'supports' => array( 'page-attributes' ),
+			'labels' => $labels,
+			'hierarchical' => false,
+			'has_archive' => true,
+			'query_var' => 'wpet_tickets',
+			'rewrite' => array( 'slug' => 'tickets', 'with_front' => false ),
+			//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
+			//'register_meta_box_cb' => array( $this, 'registerMetaBox' ),
+			'show_ui' => false
 	    );
 
 	    register_post_type( 'wpet_tickets', $args );
@@ -190,22 +188,17 @@ class WPET_Tickets extends WPET_Module {
 	 * 
 	 * @since 2.0
 	 * @param string $name
+	 * @param string $id
 	 * @param string $selected_value
 	 * @return string 
 	 */
-	public function selectMenu( $name, $selected_value ) {
-	    $s = "<select name='$name' id='$name'>";
+	public function selectMenu( $name, $id, $selected_value ) {
+	    $s = "<select name='{$name}' id='{$id}'>";
 
-	    foreach( $this->findAllByEvent() AS $tix ) {
-		$s .= '<option value="' . $tix->ID . '"';
-
-		$s .= selected( $selected_value, $tix->ID, false ) ;
-
-		$s .= '>';
-
-		$s .= $tix->post_title;
-
-		$s .= '</option>';
+	    foreach ( $this->findAllByEvent() as $tix ) {
+			$s .= "<option value='{$tix->ID}' ";
+			$s .= selected( $selected_value, $tix->ID, false ) ;
+			$s .= ">{$tix->post_title}</option>\n";
 	    }
 
 	    $s .= '</select>';

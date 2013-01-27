@@ -1,12 +1,12 @@
 jQuery(document).ready(function($) {
-	$('#options\\[option-type\\]').change(wpet_ticket_option_change);
-	$('#options\\[option-type\\]').keyup(wpet_ticket_option_change);
+	$('#option_type').change(wpet_ticket_option_change);
+	$('#option_type').keyup(wpet_ticket_option_change);
 
 	function wpet_ticket_option_change() {
 		if ( $(this).val() == 'text' ) {
-			$('#option-values').hide();
+			$('#option_values').hide();
 		} else {
-			$('#option-values').show();
+			$('#option_values').show();
 		}
 	}
 
@@ -28,7 +28,6 @@ jQuery(document).ready(function($) {
 		copy.find('.option-value-new')
 			.removeClass('option-value-new')
 			.addClass('option-value')
-			.removeAttr('id')
 			.attr('id', id)
 			.removeAttr('disabled');
 

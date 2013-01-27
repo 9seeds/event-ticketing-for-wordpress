@@ -8,13 +8,13 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[display-name]"><?php _e('Display Name', 'wpet'); ?></label></th>
-				<td><input name="options[display-name]" type="text" id="options[display-name]" value="<?php echo isset( $data['option'] ) ? $data['option']->post_title : '' ?>"></td>
+				<th scope="row"><label for="display_name"><?php _e('Display Name', 'wpet'); ?></label></th>
+				<td><input name="options[display_name]" type="text" id="display_name" value="<?php echo isset( $data['option'] ) ? $data['option']->post_title : '' ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[option-type]"><?php _e('Option Type', 'wpet'); ?></label></th>
+				<th scope="row"><label for="option_type"><?php _e('Option Type', 'wpet'); ?></label></th>
 				<td>
-					<select name="options[option-type]" id="options[option-type]">
+					<select name="options[option_type]" id="option_type">
 					<?php
 					$value = empty( $data['option'] ) ? '' : $data['option']->wpet_type;
 					$options = array(
@@ -34,10 +34,10 @@
 		<?php
 		$extra_style = 'style="display: none;" ';
 		if ( ! empty( $data['option'] ) && in_array( $data['option']->wpet_type, array( 'dropdown', 'multiselect' ) ) ) {
-			$extra_style = '';	
+			$extra_style = '';
 		}
 		?>
-		<tbody <?php echo $extra_style ?>id="option-values">
+		<tbody <?php echo $extra_style ?>id="option_values">
 			<?php
 			$count = 0;
 			$values = empty( $data['option'] ) ? array() : $data['option']->wpet_values;
@@ -47,9 +47,9 @@
 				$delete = $count ? '<span class="wpet-delete">&nbsp;<a class="option-delete">X</a>' : '';
 			?>
 			<tr class="form-field">
-				<th scope="row"><label for="options[option-value][<?php echo $count; ?>]"><?php _e('Option Value', 'wpet'); ?></label></th>
+				<th scope="row"><label for="option_value[<?php echo $count; ?>]"><?php _e('Option Value', 'wpet'); ?></label></th>
 				<td>
-					<input type="text" name="options[option-value][]" id="options[option-value][<?php echo $count; ?>]" class="option-value" value="<?php echo $value ?>" /><?php echo $delete ?>
+					<input type="text" name="options[option_value][]" id="option_value[<?php echo $count; ?>]" class="option-value" value="<?php echo $value ?>" /><?php echo $delete ?>
 				</td>
 			</tr>
 			<?php $count++; endforeach; ?>
@@ -62,7 +62,7 @@
 			<tr class="form-field" style="display: none;" id="new-value">
 				<th scope="row"><label><?php _e('Option Value', 'wpet'); ?></label></th>
 				<td>
-					<input type="text" name="options[option-value][]" id="options[option-value]" class="option-value-new" value="" disabled="disabled" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
+					<input type="text" name="options[option_value][]" class="option-value-new" value="" disabled="disabled" /><span class="wpet-delete">&nbsp;<a class="option-delete">X</a>
 				</td>
 			</tr>
 		</tbody>

@@ -5,5 +5,5 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	$("#options\\[event-date\\]").datepicker();
+	$("#event_date").datepicker();
 });
