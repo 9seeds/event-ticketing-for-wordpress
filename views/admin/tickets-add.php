@@ -36,7 +36,18 @@
 //
 ?>
 
-			<?php echo WPET::getInstance()->ticket_options->buildAdminOptionsCheckboxForm(); ?>
+			<?php
+		//die(print_r($data['ticket']->wpet_values, true));
+			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes();
+			foreach ( $checkboxes as $cb_info ):
+			?>
+			<tr class="form-field">
+				<th scope="row"><?php echo $cb_info['label']; ?></th>
+				<td><?php echo $cb_info['checkbox']; ?></td>
+			</tr>				
+			<?php
+			endforeach;
+			?>
 
 		</tbody>
 	</table>
