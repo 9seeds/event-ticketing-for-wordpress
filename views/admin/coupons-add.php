@@ -1,18 +1,20 @@
 <div class="wrap">
-	<?php echo $admin_page_icon; ?>
-	<h2><?php _e('Add Coupon', 'wpet'); ?></h2>
-	<form method="post" action="">
+<?php
+	echo $admin_page_icon;
+	$heading = empty( $_REQUEST['post'] ) ? __('Add Coupon', 'wpet') : __('Edit Coupon', 'wpet');
+	?>
+	<h2><?php echo $heading; ?> <?php if( isset($_GET['action'] ) && $_GET['action'] == 'edit' ) { echo '<a href="'. $data['edit_url'] .'" class="add-new-h2">'. __( 'Add New', 'wpet' ) .'</a>'; } ?></h2>	<form method="post" action="">
 		<table class="form-table">
 			<tbody>
 				<tr class="form-field form-required">
 					<th scope="row"><?php _e('Coupon Code', 'wpet'); ?></th>
-					<td><input name="options[coupon-code]" type="text" id="package_id" value=""></td>
+					<td><input name="options[coupon-code]" type="text" id="" value=""></td>
 				</tr>
 				<tr class="form-field form-required">
 					<th scope="row"><?php _e('Package', 'wpet'); ?></th>
 					<td>
-						<?php echo WPET::getInstance()->packages->selectMenu( 'options[package_id]', 'package_id', 1 ); ?>	
-					    
+						<?php echo WPET::getInstance()->packages->selectMenu( 'options[package_id]', 1 ); ?>
+
 					</td>
 				</tr>
 				<tr class="form-field form-required">
@@ -35,7 +37,6 @@
 
 			</tbody>
 		</table>
-		<?php echo $data['nonce'] ?>
 		<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Coupon', 'wpet'); ?>"></p>
 	</form>
 </div>

@@ -3,7 +3,7 @@
 	echo $admin_page_icon;
 	$heading = empty( $_REQUEST['post'] ) ? __('Add Ticket Options', 'wpet') : __('Edit Ticket Options', 'wpet');
 	?>
-	<h2><?php echo $heading; ?></h2>
+	<h2><?php echo $heading; ?> <?php if( isset($_GET['action'] ) && $_GET['action'] == 'edit' ) { echo '<a href="'. $data['edit_url'] .'" class="add-new-h2">'. __( 'Add New', 'wpet' ) .'</a>'; } ?></h2>
 	<form method="post" action="<?php echo $data['edit_url'] ?>">
 	<table class="form-table">
 		<tbody>
