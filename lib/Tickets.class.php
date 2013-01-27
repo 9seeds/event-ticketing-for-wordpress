@@ -77,14 +77,16 @@ class WPET_Tickets extends WPET_Module {
 	 * @since 2.0
 	 * @return string
 	 */
-	public function buildAdminOptionsHtmlForm( $ticket_id ) {
-		//$options = get_post_meta( $ticket_id, );
-
+	public function buildOptionsHtmlForm( $ticket_id ) {
+		$options = get_post_meta( $ticket_id, 'wpet_options_selected' );
+		
+		echo '<pre>'; var_dump( $options) ; echo '</pre>';
+		
 		$s = '';
 		foreach( $options AS $o ) {
 			$opts = $o->wpet_values;
-			$s .= '<tr class="form-field form-required">';
-			$s .= '<th scope="row">' . $o->post_title . '</th>';
+			$s .= '<tr>';
+			$s .= '<td>' . $o->post_title . '</td>';
 			$s .= '<td>';
 			// Figure out the type to build the proper display
 			switch( $o->wpet_type ) {
