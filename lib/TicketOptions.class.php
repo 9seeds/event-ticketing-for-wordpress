@@ -46,6 +46,14 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
+		if ( $_GET['action'] == 'edit' ) {
+			$data['nonce'] = wp_nonce_field( 'wpet_ticket_options_update', 'wpet_ticket_options_update_nonce', true, false );
+			//$data['form_url'] = admin_url( 
+			WPET::getInstance()->display( 'ticket-options-add.php' );			
+		} else {
+			WPET::getInstance()->display( 'ticket-options.php' );
+		}
+
 	    if( isset( $_GET['add-ticket-options'] ) ) {
 //		echo '<pre>';
 //		var_dump( $_POST);
@@ -64,12 +72,83 @@ class WPET_TicketOptions extends WPET_Module {
 		    );
 
 		}
-			WPET::getInstance()->display( 'ticket-options-add.php' );
 	    } else {
-			WPET::getInstance()->display( 'ticket-options.php' );
 	    }
 	}
 
+		/**
+		 * Creates the ticket options form for the wp-admin area
+		 *
+		 * @since 2.0
+		 * @return string
+		 */
+		public function buildAdminOptionsHtmlForm() {
+			$options = $this->findAll();
+
+			$s = '';
+			foreach( $options AS $o ) {
+				$opts = $o->wpet_values;
+				$s .= '<tr class="form-field form-required">';
+				$s .= '<th scope="row">' . $o->post_title . '</th>';
+				$s .= '<td>';
+				// Figure out the type to build the proper display
+				switch( $o->wpet_type ) {
+
+					case 'multiselect':
+						$s .= '<select multiple>';
+
+						foreach( $opts AS $oi ) {
+							$s .= '<option value="' . $oi . '">' . $oi . '</option>';
+						}
+						$s .= '</select>';
+						break;
+					case 'dropdown':
+						$s .= '<select>';
+
+						foreach( $opts AS $oi ) {
+							$s .= '<option value="' . $oi . '">' . $oi . '</option>';
+						}
+						$s .= '</select>';
+						break;
+
+					case 'text':
+					default:
+						$s .= '<input type="text" value="' . $opts[0] . '" />';
+
+				}
+				$s .= '</td>';
+				$s .= '</tr>';
+			}
+
+			return $s;
+		}
+
+
+	/**
+	 * Creates the ticket options form for the wp-admin area
+	 *
+	 * @since 2.0
+	 * @return string
+	 */
+	public function buildAdminOptionsCheckboxForm() {
+		$options = $this->findAll();
+
+		$s = '';
+		foreach( $options AS $o ) {
+			$opts = $o->wpet_values;
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row"><label for="' . sanitize_title_with_dashes( $o->post_title ) . '">' . $o->post_title . '</label></th>';
+			$s .= '<td>';
+			$s .= '<input type="checkbox" id="' . sanitize_title_with_dashes( $o->post_title ) . '" name="options[' . $o->ID . ']"/>';
+			$s .= '</td>';
+			$s .= '</tr>';
+		}
+
+		return $s;
+	}
+
+
+		
 	/**
 	 * Returns an array of all ticket options
 	 *
@@ -86,17 +165,11 @@ class WPET_TicketOptions extends WPET_Module {
 
 	    $posts = get_posts( $args );
 
-	    $ret = array();
-	    foreach( $posts AS $p ) {
-		$data = array(
-		    'ID' => $p->ID,
-		    'display-name' => $p->post_title,
-		    'option-type' => get_post_meta( $p->ID, 'wpet_type', true ),
-		    'option-value' => get_post_meta( $p->ID, 'wpet_values', true )
-		);
-		$ret[] = $data;
+	    foreach( $posts as $p ) {
+			//this one needs to be explicitly fetched (WP_Post::__get() only gets a single value)
+			$p->wpet_values = get_post_meta( $p->ID, 'wpet_values' );
 	    }
-	    return $ret;
+	    return $posts;
 	}
 
 	/**
