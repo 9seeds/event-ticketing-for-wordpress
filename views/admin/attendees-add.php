@@ -10,16 +10,9 @@ $heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Atte
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[package]"><?php _e('Package', 'wpet'); ?></label></th>
 				<td>
-					<!--<select name="options[package]" id="packages">
-						<option value="1">List of Ticket Packages</option>
-						<option value="2">List of Ticket Packages2</option>
-						<option value="3">List of Ticket Packages3</option>
-						<option value="4">List of Ticket Packages4</option>
 <?php
-// @TODO
-// add dropdowns for all ticket packages
+// @TODO select correct package on edit
 ?>
-					</select>-->
 				    <?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', '' ); ?>
 				</td>
 			</tr>
@@ -45,7 +38,7 @@ $heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Atte
 		</tbody>
 	</table>
     <table class="form-table"><tbody id="ticket_options" ></tbody></table>
-    <?php //echo $data['nonce']; ?>
+    <?php echo $data['nonce']; ?>
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Attendee', 'wpet'); ?>"></p>
 </form>
 

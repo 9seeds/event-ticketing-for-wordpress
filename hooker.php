@@ -63,3 +63,11 @@ function my_meta_test( ) {
 	//die( print_r($post,  true));
 }
 add_action( 'init', 'my_meta_test' );
+
+
+function my_payment_gateway( $class_list ) {
+	require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalStandard.class.php';
+	$class_list['WPET_Gateway_PayPalStandard'] = WPET_Gateway_PayPalStandard::$NAME;
+	return $class_list;
+}
+add_filter( 'wpet_payment_gateway_list', 'my_payment_gateway' );

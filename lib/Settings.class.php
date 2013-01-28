@@ -132,6 +132,9 @@ class WPET_Settings extends WPET_Module {
 			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data, true )
 		);
 
+		$gateways = WPET::getInstance()->getGateways();
+		//die(print_r($gateways, true));
+
 		//@TODO real data
 		$payment_data = array(
 			'payment_gateway' => '',

@@ -278,6 +278,13 @@ class WPET {
 	    return ob_get_clean();
 	}
 
+	public function getGateways() {
+		require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalExpress.class.php';
+		$payment_gateways = array( 'WPET_Gateway_PayPalExpress' => WPET_Gateway_PayPalExpress::$NAME );
+		$payment_gateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );		
+		return $payment_gateways;		
+	}
+	
 	/**
 	 * enqueue stylesheet on front end
 	 *
