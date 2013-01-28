@@ -156,12 +156,12 @@ class WPET_Settings extends WPET_Module {
 		$settings[] = array(
 		    'tab' => 'form_display',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', true )
+			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', array(), true )
 		);
 		$settings[] = array(
 		    'tab' => 'reset',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', true )
+			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', array(), true )
 		);
 
 		return $settings;

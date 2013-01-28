@@ -190,6 +190,9 @@ class WPET {
 
 		require_once 'Currency.class.php';
 		$modules['currency'] = new WPET_Currency();
+		
+		require_once 'Payments.class.php';
+		$modules['payment'] = new WPET_Payments();
 
 		$this->mModules = apply_filters( 'wpet_modules', $modules );
 	}
