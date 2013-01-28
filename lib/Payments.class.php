@@ -35,7 +35,7 @@ class WPET_Payments extends WPET_Module {
 	
 	$data = array(
 	    'post_title' => uniqid(),
-	    'post_status' => 'draft',
+	    'post_status' => 'new',
 	    'meta' => array(
 		'package_data' => $_POST
 	    )  
@@ -43,7 +43,7 @@ class WPET_Payments extends WPET_Module {
 	$payment = WPET::getInstance()->payment->add( $data );
 	
 	
-	header( "Location: " . site_url( '?payment=' . get_post( $payment )->ID ) );
+	header( "Location: " . site_url( '?post_type=' . $this->mPostType .'&p=' . get_post( $payment )->ID ) );
     }
 
     /**
