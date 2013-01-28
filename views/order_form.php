@@ -1,5 +1,5 @@
 <div id="eventTicketing">
-	<form action="" method="post">
+	<form action="<?php echo site_url(); ?>/?wpet-action=new-payment" method="post">
 		<?php
 		/**
 		 * @todo fix nonce
@@ -22,7 +22,7 @@
 				<tr>
 					<th><?php _e( 'Description', 'wpet' ); ?></th>
 					<th><?php _e( 'Price', 'wpet' ); ?></th>
-					
+
 					<?php if( WPET::getInstance()->settings->show_package_count ) {
 					    echo "<th>" . __( 'Remaining', 'wpet' ) . "</th>";
 					    echo "<th>";
@@ -35,21 +35,21 @@
 				<?php
 				    foreach( $data['rows'] AS $row ) { ?>
 				<tr>
-				    
+
 					<td>
 						<div class="packagename"><strong><?php echo $row->post_title ?></strong></div>
 						<div class="packagedescription"><?php echo nl2br( $row->post_content ); ?></div>
 					</td>
 					<td><?php echo WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $row->wpet_package_cost ); ?>
 							</td>
-							
+
 					<?php if( WPET::getInstance()->settings->show_package_count ) {
 					    echo "<td>" . $row->wpet_quantity_remaining . "</td>";
 					    echo "<td>";
 					} else {
 					    echo "<td colspan='2'>";
 					}
-					
+
 					$remaining =  WPET::getInstance()->packages->remaining( WPET::getInstance()->events->getWorkingEvent()->ID, $row->ID );
 					?>
 					<!--<td>-->
