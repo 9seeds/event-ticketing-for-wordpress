@@ -132,9 +132,6 @@ class WPET_Settings extends WPET_Module {
 			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data, true )
 		);
 
-		$gateways = WPET::getInstance()->getGateways();
-		//die(print_r($gateways, true));
-
 		//@TODO real data
 		$payment_data = array(
 			'payment_gateway' => '',
@@ -228,5 +225,28 @@ class WPET_Settings extends WPET_Module {
 
 		do_action( 'wpet_settings_submit', $post );
 	}
+
+	/**
+	 * Builds a select menu of payment gateways
+	 *
+	 * @since 2.0
+	 * @param string $name
+	 * @param string $id
+	 * @param string $selected_value
+	 * @return string
+	 */
+	public function gatewaySelectMenu( $name, $id, $selected_value = NULL ) {
+	    $s = "<select name='{$name}' id='{$id}'>";
+
+	    foreach ( WPET::getInstance()->getGateways() as $id => $gateway ) {
+			$s .= "<option value='{$id}' ";
+			$s .= selected( $selected_value, $id, false ) ;
+			$s .= ">{$gateway->getName()}</option>\n";
+	    }
+
+	    $s .= '</select>';
+	    return $s;
+	}
+	
 
 }// end class

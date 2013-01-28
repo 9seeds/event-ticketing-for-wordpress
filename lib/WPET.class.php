@@ -24,6 +24,16 @@ class WPET {
 	 */
 	private $mModules = array();
 
+
+	/**
+	 * Holds payment gateways
+	 * class_name => class_instance
+	 *
+	 * @since 2.0
+	 * @var Array
+	 */
+	private $mGateways = array();
+ 
 	/**
 	 * Singleton link
 	 *
@@ -282,10 +292,13 @@ class WPET {
 	}
 
 	public function getGateways() {
+		if ( ! empty( $this->mGateways ) )
+			return $this->mGateways;
+		
 		require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalExpress.class.php';
-		$payment_gateways = array( 'WPET_Gateway_PayPalExpress' => WPET_Gateway_PayPalExpress::$NAME );
-		$payment_gateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );		
-		return $payment_gateways;		
+		$payment_gateways = array( 'WPET_Gateway_PayPalExpress' => new WPET_Gateway_PayPalExpress() );
+		$this->mGateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );		
+		return $this->mGateways;	
 	}
 	
 	/**

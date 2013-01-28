@@ -65,9 +65,9 @@ function my_meta_test( ) {
 add_action( 'init', 'my_meta_test' );
 
 
-function my_payment_gateway( $class_list ) {
+function my_payment_gateway( $gateways ) {
 	require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalStandard.class.php';
-	$class_list['WPET_Gateway_PayPalStandard'] = WPET_Gateway_PayPalStandard::$NAME;
-	return $class_list;
+	$gateways['WPET_Gateway_PayPalStandard'] = new WPET_Gateway_PayPalStandard();
+	return $gateways;
 }
 add_filter( 'wpet_payment_gateway_list', 'my_payment_gateway' );
