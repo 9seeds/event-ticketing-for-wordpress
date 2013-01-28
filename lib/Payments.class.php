@@ -17,7 +17,7 @@ class WPET_Payments extends WPET_Module {
 
 	add_action('init', array($this, 'registerPostType'));
 	
-	add_filter( 'template_include', array( $this, 'tplInclude' ) );
+	add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
 
 	//do this after post type is set
 	parent::__construct();
@@ -31,13 +31,19 @@ class WPET_Payments extends WPET_Module {
      * @return boolean 
      */
     public function tplInclude( $tpl ) {
-	if( isset( $_GET['post_type'] ) && $_GET['post_type'] != 'payment' ) return $tpl;
+	if( !( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'payment' ) ) return $tpl;
 	
-	echo '<pre>'; var_dump( $_POST ); echo '</pre>';
-	$payment = WPET::getInstance()->payment;
+	$data = array(
+	    'post_title' => uniqid(),
+	    'post_status' => 'draft',
+	    'meta' => array(
+		'package_data' => $_POST
+	    )  
+	);
+	$payment = WPET::getInstance()->payment->add( $data );
 	
 	
-	var_dump( $payment );
+	header( "Location: " . site_url( '?payment=' . get_post( $payment )->ID ) );
     }
 
     /**
