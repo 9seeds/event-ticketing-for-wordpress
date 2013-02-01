@@ -15,7 +15,7 @@ class WPET_Payments extends WPET_Module {
     public function __construct() {
 	$this->mPostType = 'wpet_payments';
 
-	add_action('init', array($this, 'registerPostType'));
+	add_action( 'init', array( $this, 'registerPostType' ) );
 	
 	add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
 

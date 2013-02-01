@@ -87,6 +87,7 @@ class WPET {
 			add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
 		} else {
 			add_action( 'wp_head', array( $this, 'onSalesPage' ) );
+			add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
 		}
 
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
@@ -309,6 +310,21 @@ class WPET {
 	public function onSalesPage() {
 		wp_register_style( 'wpet-style', WPET_PLUGIN_URL . 'css/ticketing.css' );
 		wp_enqueue_style( 'wpet-style' );
+	}
+
+	/**
+	 * (possibly) process sales page form front end
+	 *
+	 * @since 2.0
+	 */
+	public function maybeSalesSubmit() {
+		if ( ! empty( $_POST['wpet_purchase_nonce'] ) && wp_verify_nonce( $_POST['wpet_purchase_nonce'], 'wpet_purchase_tickets' ) ) {
+			if ( ! empty( $_POST['couponSubmitButton'] ) ) {
+				//@TODO DO COUPON STUFF!!
+			} else if ( ! empty( $_POST['submit'] ) ) {
+				wp_redirect( '' );
+			}
+		}
 	}
 
 	/**
