@@ -11,7 +11,7 @@ abstract class WPET_Module {
 	protected $render_data;
 
 	public function __construct() {
-		add_action( 'init', array( $this, 'setupRenderData' ) );
+		add_action( 'admin_init', array( $this, 'setupRenderData' ) );
 	}
 
 	public function getPostType() {

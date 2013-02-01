@@ -1,4 +1,6 @@
 <?php
+
+echo '<pre>'; var_dump( $data ); echo '</pre>';
 $heading = empty($_REQUEST['post']) ? __('Add Coupon', 'wpet') : __('Edit Coupon', 'wpet');
 ?>
 <h2><?php echo $heading; ?> <?php
