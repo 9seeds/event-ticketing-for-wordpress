@@ -10,7 +10,10 @@ class WPET_Instructions extends WPET_Module {
 	 */
 	public function __construct() {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 100 );
+		
+		
 		add_filter( 'wpet_instructions', array( $this, 'defaultInstructions' ) );
+		add_filter( 'wpet_instructions_tabs', array( $this, 'defaultTabs' ), 1 );
 	}
 
 	/**
@@ -26,15 +29,74 @@ class WPET_Instructions extends WPET_Module {
 	}
 
 	/**
+	 * @since 2.0
+	 */
+	public function enqueueAdminScripts() {
+		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'jquery-ui-datepicker', 'wpet-jquery-cookie' ) );
+		wp_enqueue_script( 'wpet-admin-settings' );
+
+		wp_enqueue_style( 'editor' );
+	}
+	
+	/**
 	 * Renders the page for the wp-admin area
 	 * 
 	 * @since 2.0 
 	 */
 	public function renderAdminPage() {	
 			
-		$inst = apply_filters('wpet_instructions', $inst = array( 'instructions' => array() ) );
+//		$inst = apply_filters('wpet_instructions', $inst = array( 'instructions' => array() ) );
+//		
+//		WPET::getInstance()->display( 'instructions.php', $inst );
 		
-		WPET::getInstance()->display( 'instructions.php', $inst );
+		
+		$tabs = apply_filters( 'wpet_instructions_tabs', array() );
+
+		$settings = apply_filters( 'wpet_instructions', array() );
+
+		$data = array(
+		    'tabs' => $tabs,
+		    'instructions' => $this->sortByTab( $settings ),
+		    //'nonce' => wp_nonce_field( 'wpet_settings_update', 'wpet_settings_nonce', true, false ),
+		);
+
+		WPET::getInstance()->display( 'instructions.php', $data );
+	}
+	
+	/**
+	 * Setup default tabs
+	 * 
+	 * @since 2.0
+	 * @param array $tabs
+	 * @return array 
+	 */
+	public function defaultTabs( $tabs ) { 
+
+	    $tabs['getting_started'] = 'Getting Started';
+	    $tabs['payment_gateways'] = 'Payment Gateways';
+	    $tabs['design'] = 'Design';
+	    $tabs['extras'] = 'Extras';
+
+	    return $tabs;
+	}
+	
+	/**
+	 * Sorts the instructions into tabs
+	 *
+	 * @param array $instructions
+	 * @return array
+	 */
+	private function sortByTab( $instructions ) {
+	    $s = array();
+
+	    foreach( $instructions as $set ) {
+			//echo '<pre>';var_dump($settings); echo '</pre>';
+			$s[$set['tab']][] = array(
+				'title' => $set['title'],
+				'text' => $set['text']
+			);
+	    }
+	    return $s;
 	}
 
 	/**
@@ -44,13 +106,30 @@ class WPET_Instructions extends WPET_Module {
 	 * @param array $inst
 	 * @return string 
 	 */
-	public function defaultInstructions( $inst ) {
-		$inst['instructions'][] = array(
-			'title' => 'Instructions Title',
-			'text' => "Life is pain, Highness. Anyone who says differently is selling something. Westley didn't reach his destination. His ship was attacked by the Dread Pirate Roberts, who never left captives alive. When Buttercup got the news that Westley was murdered... Murdered by pirates is good... Get used to disappointment. Are you the Miracle Max who worked for the king all those years? So it's to be torture? If you're in such a hurry, you could lower a rope or a tree branch or find something useful to do. Yes, yes, some of the time. "
-		);
+	public function defaultInstructions( $instructions ) {
+	    
+	    $instructions[] = array(
+		'tab'	=> 'getting_started',
+		'title' => 'Getting Started',
+		'text'	=> WPET::getInstance()->getDisplay( 'instructions-getting-started.php', array(), true )
+	    );
+	    $instructions[] = array(
+		'tab'	=> 'payment_gateways',
+		'title' => 'Payment Gateways',
+		'text'	=> WPET::getInstance()->getDisplay( 'instructions-payment-gateways.php', array(), true )
+	    );
+	    $instructions[] = array(
+		'tab'	=> 'design',
+		'title' => 'Design',
+		'text'	=> WPET::getInstance()->getDisplay( 'instructions-design.php', array(), true )
+	    );
+	    $instructions[] = array(
+		'tab'	=> 'extras',
+		'title' => 'Extras',
+		'text'	=> WPET::getInstance()->getDisplay( 'instructions-extras.php', array(), true )
+	    );
 
-		return $inst;
+		return $instructions;
 	}
 
 }// end class

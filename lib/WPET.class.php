@@ -91,8 +91,6 @@ class WPET {
 		}
 
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
-
-		// Send HTML emails
 	}
 
 	/**

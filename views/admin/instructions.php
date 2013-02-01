@@ -3,6 +3,7 @@
 <div id="tabs">
 	<ul>
 		<?php
+		
 		foreach ($data['tabs'] as $tab_id => $tab) {
 			echo "<li><a href='#tab-{$tab_id}'>{$tab}</a></li>\n";
 		}

@@ -158,7 +158,7 @@ class WPET_Packages extends WPET_Module {
 			'supports' => array( 'page-attributes' ),
 			'labels' => $labels,
 			'hierarchical' => false,
-			'has_archive' => true,
+			'has_archive' => false,
 			//'query_var' => 'packages',
 			//'rewrite' => array( 'slug' => 'review', 'with_front' => false ),
 			//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
