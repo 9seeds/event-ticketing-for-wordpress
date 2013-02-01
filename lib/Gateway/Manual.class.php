@@ -2,7 +2,7 @@
 
 require_once WPET_PLUGIN_DIR . 'lib/Gateway.class.php';
 
-class WPET_Gateway_PayPalStandard extends WPET_Gateway {
+class WPET_Gateway_Manual extends WPET_Gateway {
 
 	public function getName() {
 		return 'PayPal Standard';
@@ -13,23 +13,23 @@ class WPET_Gateway_PayPalStandard extends WPET_Gateway {
 	}
 
 	public function getCurrencies() {
-		return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
+		return array( 'USD' );
 	}
 
 	public function settingsForm() {
-		?><h3>PayPal Standard Settings</h3><?php
+		?><h3>Manual Payment Settings</h3><?php
 	}
 
 	public function settingsSave() {
 		
 	}
-	
-	public function getPaymentForm() {
 
+	public function getPaymentForm() {
+		return 'Give me all your cash!</h1>';
 	}
 
 	public function processPayment() {
-
+		
 	}
 
 	public function processPaymentReturn() {

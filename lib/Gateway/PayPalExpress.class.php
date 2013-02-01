@@ -24,6 +24,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 
 	}
 
+	public function getPaymentForm() {
+
+	}
+
 	public function processPayment() {
 
 	}

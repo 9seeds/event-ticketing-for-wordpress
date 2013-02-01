@@ -14,6 +14,10 @@ abstract class WPET_Module {
 		add_action( 'init', array( $this, 'setupRenderData' ) );
 	}
 
+	public function getPostType() {
+		return $this->mPostType;
+	}
+
 	public function setupRenderData() {
 		$this->render_data = array();
 		$this->render_data['nonce'] = wp_nonce_field( 'wpet_submit', 'wpet_submit_nonce', true, false );

@@ -1,5 +1,5 @@
 <div id="eventTicketing">
-	<form action="" method="post">
+	<form action="" method="post"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
 		<?php
 		/**
 		 * @todo fix nonce

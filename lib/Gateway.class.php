@@ -17,6 +17,9 @@ abstract class WPET_Gateway {
 	//settings_submit
 	abstract public function settingsSave();
 
+	//payment form to show
+	abstract public function getPaymentForm();
+
 	//processPayment / submit
 	abstract public function processPayment();
 	

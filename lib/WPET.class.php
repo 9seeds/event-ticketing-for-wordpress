@@ -290,14 +290,31 @@ class WPET {
 	    return ob_get_clean();
 	}
 
+	/**
+	 * Gets all of the payment gateway class names and an instance of each
+	 * @uses wpet_payment_gateway_list
+	 * @return array of WPET_Gateway
+	 */
 	public function getGateways() {
 		if ( ! empty( $this->mGateways ) )
 			return $this->mGateways;
 		
+		require_once WPET_PLUGIN_DIR . 'lib/Gateway/Manual.class.php';
 		require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalExpress.class.php';
-		$payment_gateways = array( 'WPET_Gateway_PayPalExpress' => new WPET_Gateway_PayPalExpress() );
+		$payment_gateways = array(
+			'WPET_Gateway_Manual' => new WPET_Gateway_Manual(),
+			'WPET_Gateway_PayPalExpress' => new WPET_Gateway_PayPalExpress(),
+		);
 		$this->mGateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );		
 		return $this->mGateways;	
+	}
+
+	/**
+	 * 
+	 */
+	public function getGateway() {
+		$gateways = $this->getGateways();
+		return $gateways[$this->settings->payment_gateway];
 	}
 	
 	/**
@@ -320,7 +337,19 @@ class WPET {
 			if ( ! empty( $_POST['couponSubmitButton'] ) ) {
 				//@TODO DO COUPON STUFF!!
 			} else if ( ! empty( $_POST['submit'] ) ) {
-				wp_redirect( '' );
+				//@TODO maybe double-check coupon stuff here too?
+				//@TODO some form validation as well before sending to payment CPT (gateway step)
+				//@TODO save ticket info in a transient?
+				$data = array(
+					'post_title' => uniqid(),
+					'post_status' => 'publish',
+					'meta' => array(
+						'package_data' => $_POST
+					)  
+				);
+				$payment = $this->payment->add( $data );
+				wp_redirect( site_url( '?post_type=' . $this->payment->getPostType() .'&p=' . get_post( $payment )->ID ) );
+				exit();
 			}
 		}
 	}
