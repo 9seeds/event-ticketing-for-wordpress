@@ -48,6 +48,9 @@ class WPET {
 	 * @var bool
 	 */
 	static $mProInstalled;
+	
+	
+	private $mLog = array();
 
 	/**
 	 * Private object constructor. This class is a singleton.
@@ -151,6 +154,7 @@ class WPET {
 		if ( ! ( self::$mWpet instanceof self ) ) {
 			self::$mWpet = new self();
 		}
+		self::debug( 'Calling another WPET instance', 'This log entry has not real purpose other than its extremly cool factor' );
 		return self::$mWpet;
 	}
 
@@ -241,6 +245,8 @@ class WPET {
 	 */
 	public function display( $template, $data = array(), $is_sub = false ) {
 		global $post;
+		
+		$this->debug( 'Loading template', $template );
 
 		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>' );
 
@@ -349,8 +355,12 @@ class WPET {
 	* @param String $format Optional - (Default:log) log | warning | error | notice | dump
 	*/
 	function debug( $title, $data, $format='log' ) {
-		do_action( 'wpet_debug', $title, $data, $format );
+	    global $wpet_debug;
+	    
+	    $wpet_debug[] = array( 'title' => $title, 'data' => $data, 'format' => $format );
 	}
+	
+	
 
 	/**
 	 * Method called on plugin activation
