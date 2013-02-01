@@ -3,8 +3,7 @@
 abstract class WPET_Gateway {
 
 	//name
-	//abstract public function getName();
-	//instead set `public static $NAME`
+	abstract public function getName();
 	
 	//image
 	abstract public function getImage();

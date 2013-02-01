@@ -1,5 +1,28 @@
 <h2><?php _e('Instructions', 'wpet'); ?></h2>
-<h3><?php _e('Page Specific Help', 'wpet'); ?></h2>
-<p><?php _e('Just a reminder, while you are working inside WP Event Ticketing you can click the Help button in the top-right corner of the screen to receive page-specific help.', 'wpet'); ?></p>
 
-<p>Hold your horses. More is on the way. Gosh.</p>
+<div id="tabs">
+	<ul>
+		<?php
+		foreach ($data['tabs'] as $tab_id => $tab) {
+			echo "<li><a href='#tab-{$tab_id}'>{$tab}</a></li>\n";
+		}
+		?>
+	</ul>
+
+	<?php
+	foreach ($data['instructions'] as $tab_id => $instructions) {
+
+		if (!in_array($tab_id, array_keys($data['tabs'])))
+			continue;
+
+		echo "<div id='tab-{$tab_id}'>";
+
+		foreach ($instructions AS $set) {
+//		    echo "<h2>{$set['title']}</h2>";
+			echo $set['text'];
+		}
+
+		echo "</div>\n";
+	}
+	?>
+</div><!-- #tabs -->

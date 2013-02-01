@@ -203,19 +203,6 @@ class WPET_Tickets extends WPET_Module {
 		return $s;
 	}
 
-	/**
-	 * Adds the default columns to the ticket options list in wp-admin
-	 *
-	 * @since 2.0
-	 * @param type $columns
-	 * @return type
-	 */
-	public function defaultColumns( $columns ) {
-	    return array(
-		'title' => 'Ticket Name'
-	    );
-	}
-
 	public function findAllByEvent() {
 	    $args = array(
 			'post_type' => 'wpet_tickets',

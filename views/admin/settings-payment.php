@@ -7,12 +7,9 @@
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[payment_gateway]"><?php _e('Payment Gateway', 'wpet'); ?></label></th>
+				<th scope="row"><label for="payment_gateway"><?php _e('Payment Gateway', 'wpet'); ?></label></th>
 				<td>
-				<?php //@TODO payment_gateway ?>
-					<select name="options[payment_gateway]" id="options[payment_gateway]">
-						<option value=""><?php _e('PayPal Express', 'wpet'); ?></option>
-					</select>
+				<?php echo WPET::getInstance()->settings->gatewaySelectMenu( 'options[payment_gateway]', 'payment_gateway' ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
@@ -28,6 +25,7 @@
 
 		</tbody>
 	</table>
+	<?php $gateways = WPET::getInstance()->getGateways(); ?>
 	<h2><?php _e( 'Sandbox Settings', 'wpet' ); ?></h2>
 	<table class="form-table">
 		<tbody>

@@ -4,7 +4,9 @@ require_once WPET_PLUGIN_DIR . 'lib/Gateway.class.php';
 
 class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 
-	public static $NAME = 'PayPal Express';
+	public function getName() {
+		return 'PayPal Express';
+	}
 	
 	public function getImage() {
 		return '<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" name="paymentButton" />';		
