@@ -24,8 +24,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 				<th scope="row"><label for="type"><?php _e('Type', 'wpet'); ?></label></th>
 				<td>
 					<select name="options[type]" id="type">
-						<option value="flat-rate" <?php selected( 'flat-rate', $data['coupon']->wpet_type, false ); ?>><?php _e('Flat Rate', 'wpet'); ?></option>
-						<option value="percentage" <?php selected( 'percentage', $data['coupon']->wpet_type, false ); ?>><?php _e('Percentage', 'wpet'); ?></option>
+						<option value="flat-rate" <?php selected( 'flat-rate', $data['coupon']->wpet_type, true ); ?>><?php _e('Flat Rate', 'wpet'); ?></option>
+						<option value="percentage" <?php selected( 'percentage', $data['coupon']->wpet_type, true ); ?>><?php _e('Percentage', 'wpet'); ?></option>
 					</select>
 				</td>
 			</tr>
