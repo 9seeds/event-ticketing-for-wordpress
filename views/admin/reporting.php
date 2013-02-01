@@ -17,6 +17,13 @@
 			<div><label><?php _e( 'Tickets go on sale', 'wpet' ); ?>:</label> April 1, 2014</div>
 			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
 		</div>
+		<div class="report-clear"></div>
+		<div class="report-left">
+			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
+		</div>
+		<div class="report-right">
+			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
+		</div>
 	</div>
 
 	<div class="seeds-admin-right">
