@@ -1,10 +1,10 @@
 <div id="eventTicketing">
-	<form action="<?php echo site_url(); ?>/?wpet-action=new-payment" method="post">
+	<form action="" method="post"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
 		<?php
 		/**
 		 * @todo fix nonce
 		 */
-		wp_nonce_field( 'form-action', 'wpet-purchase' );
+		wp_nonce_field( 'wpet_purchase_tickets', 'wpet_purchase_nonce' );
 		?>
 		<p><?php _e( 'Please enter a name and email address for your confirmation and tickets', 'wpet' ); ?></p>
 		<ul class="ticketPurchaseInfo">
@@ -32,8 +32,7 @@
 					?>
 					<?php _e( 'Quantity', 'wpet' ); ?></th>
 				</tr>
-				<?php
-				    foreach( $data['rows'] AS $row ) { ?>
+				<?php foreach( $data['rows'] AS $row ): ?>
 				<tr>
 
 					<td>
@@ -62,7 +61,7 @@
 						</select>
 					</td>
 				</tr>
-				<?php } ?>
+				<?php endforeach; ?>
 				<tr class="coupon">
 					<td colspan="2">
 						<label for="couponCode"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>
@@ -72,12 +71,19 @@
 						<input type="submit" name="couponSubmitButton" value="<?php _e( 'Apply Coupon', 'wpet'); ?>">
 					</td>
 				</tr>
+						<tr>
+						<td colspan="4">
+							<input type="submit" name="submit" value="Submit" />
+						</td>
+						</tr>
+						<!--
 				<tr class="paypalbutton">
 					<td colspan="4">
 						<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif">
 						<div class="purchaseInstructions" ><?php _e( 'Choose your tickets and pay for them at PayPal. You will fill in your ticket information after your purchase is completed.', 'wpet'); ?></div>
 					</td>
 				</tr>
+						-->
 			</table>
 		</div>
 	</form>
