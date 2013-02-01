@@ -5,7 +5,7 @@ require_once WPET_PLUGIN_DIR . 'lib/Gateway.class.php';
 class WPET_Gateway_Manual extends WPET_Gateway {
 
 	public function getName() {
-		return 'PayPal Standard';
+		return 'Manual';
 	}
 	
 	public function getImage() {
@@ -17,7 +17,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	}
 
 	public function settingsForm() {
-		?><h3>Manual Payment Settings</h3><?php
+		return WPET::getInstance()->display( 'gateway-manual.php' );
 	}
 
 	public function settingsSave() {
@@ -25,7 +25,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	}
 
 	public function getPaymentForm() {
-		return 'Give me all your cash!</h1>';
+		return WPET::getInstance()->display( 'gateway-manual.php' );
 	}
 
 	public function processPayment() {

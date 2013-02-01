@@ -17,7 +17,7 @@ class WPET_Gateway_PayPalStandard extends WPET_Gateway {
 	}
 
 	public function settingsForm() {
-		?><h3>PayPal Standard Settings</h3><?php
+		return WPET::getInstance()->display( 'gateway-paypal-standard.php' );
 	}
 
 	public function settingsSave() {

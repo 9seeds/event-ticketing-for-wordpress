@@ -60,7 +60,7 @@ class WPET {
 	 * @uses wpet_init
 	 */
 	private function __construct() {
-		require_once( WPET_PLUGIN_DIR . '/lib/WPETDebugBar.class.php' );
+		require_once WPET_PLUGIN_DIR . '/lib/WPETDebugBar.class.php';
 
 		/*
 		 * Determine if WPET Pro is installed. Of itself this flag does
@@ -257,7 +257,7 @@ class WPET {
 			    echo $admin_page_icon;
 			}
 
-			require_once( WPET_PLUGIN_DIR . "views/admin/{$template}" );
+			include WPET_PLUGIN_DIR . "views/admin/{$template}";
 			if( !$is_sub ) echo '</div><!-- end .wrap -->';
 			return;
 		}
@@ -274,8 +274,7 @@ class WPET {
 
 		if ( '' == locate_template( array( $template ) ) ) {
 			// Template could not be found in child or parent theme
-			$file = WPET_PLUGIN_DIR . "views/{$template}";
-			require_once( $file );
+			include WPET_PLUGIN_DIR . "views/{$template}";
 		}
 
 		// Do not continue loading

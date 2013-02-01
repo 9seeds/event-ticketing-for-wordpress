@@ -1,0 +1,1 @@
+<h3>Manual Payment Settings</h3>

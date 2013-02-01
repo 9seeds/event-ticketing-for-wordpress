@@ -52,21 +52,6 @@ class WPET_Payments extends WPET_Module {
 			add_filter( 'the_content', array( $this, 'showGateway' ) );
 		}
 		return $tpl;
-
-		if( !( isset( $_GET['wpet-action'] ) && $_GET['wpet-action'] == 'new-payment' ) ) return $tpl;
-	
-		$data = array(
-			'post_title' => uniqid(),
-			'post_status' => 'publish',
-			'comment_status' => 'closed',
-			'meta' => array(
-				'package_data' => $_POST
-			)  
-		);
-		$payment = WPET::getInstance()->payment->add( $data );
-	
-	
-		header( "Location: " . site_url( '?post_type=' . $this->mPostType .'&p=' . get_post( $payment )->ID ) );
     }
 
 	public function showGateway( $content ) {

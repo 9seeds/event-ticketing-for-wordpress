@@ -6,4 +6,8 @@ jQuery(document).ready(function($) {
 	});
 
 	$("#event_date").datepicker();
+
+	//$('#payment_gateway').change();
+	//$('#payment_gateway').keyup();
+
 });
