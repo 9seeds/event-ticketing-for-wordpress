@@ -171,6 +171,18 @@ class WPET_Packages extends WPET_Module {
 
 
 	/**
+	 * Find all packages attached to an event
+	 *
+	 * @TODO Make it attach to an event - currently just gets all packages
+	 * @since 2.0
+	 * @return Array of WP_Posts
+	 */
+	public function findAllByEvent() {
+		return $this->find();
+	}
+	
+	
+	/**
 	 * Builds a select menu of packages
 	 *
 	 * @since 2.0
