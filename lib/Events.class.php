@@ -36,7 +36,7 @@ class WPET_Events extends WPET_Module {
 			'supports' => array( 'title' ),
 			'labels' => $labels,
 			'hierarchical' => false,
-			'has_archive' => true,
+			'has_archive' => false,
 			'query_var' => 'wpet_event',
 			'show_ui' => false,
 	    );

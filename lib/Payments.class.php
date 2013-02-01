@@ -31,11 +31,11 @@ class WPET_Payments extends WPET_Module {
      * @return boolean 
      */
     public function tplInclude( $tpl ) {
-	if( !( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'payment' ) ) return $tpl;
+	if( !( isset( $_GET['wpet-action'] ) && $_GET['wpet-action'] == 'new-payment' ) ) return $tpl;
 	
 	$data = array(
 	    'post_title' => uniqid(),
-	    'post_status' => 'new',
+	    'post_status' => 'publish',
 	    'meta' => array(
 		'package_data' => $_POST
 	    )  
@@ -70,7 +70,7 @@ class WPET_Payments extends WPET_Module {
 	    'supports' => array('page-attributes'),
 	    'labels' => $labels,
 	    'hierarchical' => false,
-	    'has_archive' => true,
+	    'has_archive' => false,
 	    'query_var' => 'payment',
 	    'rewrite' => array('slug' => 'payment', 'with_front' => false),
 	    //'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
