@@ -23,3 +23,44 @@ register_activation_hook( __FILE__, array( $wpet, 'activate' ) );
 register_deactivation_hook( __FILE__, array( $wpet, 'deactivate' ) );
 
 // register_uninstall_hook( __FILE__, array( $wpet, 'uninstall' ) );
+
+
+/**
+ * @todo Move the following code where you'd like it to live
+ *
+ * Notes: This adds Settings & Instructions links to the plugins page.
+ *
+ */
+
+if( !defined( 'WPET_BASE' ) )
+	DEFINE('WPET_BASE', plugin_basename(__FILE__) );
+
+// add_filter( 'plugin_action_links', 'wpet_plugin_links', 10, 2	);
+ add_filter( 'plugin_row_meta', 'wpet_plugin_links', 10, 2	);
+
+
+/**
+ * show settings link on plugins page
+ *
+ * @since 2.0
+ * @return WPET
+ *
+ */
+
+function wpet_plugin_links( $links, $file ) {
+
+	static $this_plugin;
+
+	if (!$this_plugin) {
+		$this_plugin = WPET_BASE;
+	}
+
+	// check to make sure we are on the correct plugin
+	if ($file == $this_plugin) {
+		$links[] = '<a href="'.menu_page_url( 'wpet_settings', 0 ).'">'.__('Settings', 'wpet').'</a>';
+		$links[] = '<a href="'.menu_page_url( 'wpet_instructions', 0 ).'">'.__('Instructions', 'wpet').'</a>';
+		$links[] = '<a href="http://support.9seeds.com/forums/wp-event-ticketing/">' . __('Support Forum','wpet') . '</a>';
+	}
+
+	return $links;
+}

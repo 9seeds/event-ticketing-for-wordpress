@@ -29,7 +29,7 @@
 	<div class="seeds-admin-right">
 		<div class="seeds-sidebar-box">
 			<h3>Need Support?</h3>
-			<p>If you are having problems with the WP Event Ticketing plugin, please post them in the <a href="http://support.9seeds.com/">support forums</a>.</p>
+			<p>If you are having problems with the WP Event Ticketing plugin, please post them in the <a href="http://support.9seeds.com/forum/wp-event-ticketing/">support forums</a>.</p>
 		</div>
 		<div class="seeds-sidebar-box-2">
 			<h3>Spread the Love</h3>
