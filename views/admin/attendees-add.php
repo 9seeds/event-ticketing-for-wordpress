@@ -1,5 +1,7 @@
 <?php
 $heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Attendee', 'wpet');
+
+$attendee = $data['attendee'];
 ?>
 <h2><?php echo $heading; ?> <?php if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 	echo '<a href="' . $data['edit_url'] . '" class="add-new-h2">' . __('Add New', 'wpet') . '</a>';
@@ -13,20 +15,20 @@ $heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Atte
 <?php
 // @TODO select correct package on edit
 ?>
-				    <?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', '' ); ?>
+				    <?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', @$attendee->wpet_package ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="first_name"><?php _e('First Name', 'wpet'); ?></label></th>
-				<td><input name="first_name" type="text" id="first_name" value=""></td>
+				<td><input name="first_name" type="text" id="first_name" value="<?php echo @$attendee->wpet_first_name; ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="last_name"><?php _e('Last Name', 'wpet'); ?></label></th>
-				<td><input name="last_name" type="text" id="last_name" value=""></td>
+				<td><input name="last_name" type="text" id="last_name" value="<?php echo $attendee->wpet_last_name; ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
-				<td><input name="email" type="text" id="email" value=""></td>
+				<td><input name="email" type="text" id="email" value="<?php echo @$attendee->wpet_email; ?>"></td>
 			</tr>
 
 

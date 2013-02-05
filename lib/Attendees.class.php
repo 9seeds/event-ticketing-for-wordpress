@@ -107,7 +107,7 @@ class WPET_Attendees extends WPET_Module {
 
 		if ( isset( $_GET['action'] ) ) {
 			if ( ! empty( $_REQUEST['post'] ) ) {
-				$this->render_data['coupon'] = $this->findByID( $_REQUEST['post'] );
+				$this->render_data['attendee'] = $this->findByID( $_REQUEST['post'] );
 			}
 		    WPET::getInstance()->display( 'attendees-add.php', $this->render_data );
 		} else {			
