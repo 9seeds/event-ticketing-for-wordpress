@@ -76,6 +76,11 @@ class WPET_Tickets extends WPET_Module {
 				)
 			);
 		}
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
+			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+		);
 	}
 
 	/**
@@ -124,7 +129,7 @@ class WPET_Tickets extends WPET_Module {
 
 		return $post_data;
 	}
-	
+
 	/**
 	 * Returns the HTML form with all the ticket options for the ticket
 	 * contained within a package
@@ -158,9 +163,9 @@ class WPET_Tickets extends WPET_Module {
 
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
 			$field = $opts->post_name;
-			
+
 			$value = '';
-			if( !is_null( $data ) ) 
+			if( !is_null( $data ) )
 			    $value = $data->{"wpet_$field"};
 
 			$s .= '<tr class="form-field form-required">';
@@ -172,7 +177,7 @@ class WPET_Tickets extends WPET_Module {
 
 				case 'multiselect':
 					$s .= '<select  name="' . $opts->post_name . '[]" multiple>';
-				     
+
 					foreach( ( $opts->wpet_values ) AS $oi ) {
 						$s .= '<option value="' . $oi . '"';
 						$s .= ( in_array($oi, (array)$value) )? ' selected': 'false';

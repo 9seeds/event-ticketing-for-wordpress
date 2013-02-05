@@ -39,7 +39,6 @@ class WPET_Attendees extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function contextHelp( $screen ) {
-
 		if ( isset( $_GET['action'] ) ) {
 			$screen->add_help_tab(
 				array(

@@ -9,7 +9,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function __construct() {
-		
+
 		$this->mPostType = 'wpet_ticket_options';
 
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 5 );
@@ -67,6 +67,11 @@ class WPET_TicketOptions extends WPET_Module {
 				)
 			);
 		}
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
+			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+		);
 	}
 
 	/**
@@ -158,7 +163,7 @@ class WPET_TicketOptions extends WPET_Module {
 	    }
 	    return $posts;
 	}
-	
+
 
 	/**
 	 * Add post type for object
