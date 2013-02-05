@@ -6,17 +6,6 @@
 		 */
 		wp_nonce_field( 'wpet_purchase_tickets', 'wpet_purchase_nonce' );
 		?>
-		<p><?php _e( 'Please enter a name and email address for your confirmation and tickets', 'wpet' ); ?></p>
-		<ul class="ticketPurchaseInfo">
-			<li>
-				<label for="packagePurchaseName"><?php _e( 'Name', 'wpet' ); ?>:</label>
-				<input name="packagePurchaseName" size="35" value="">
-			</li>
-			<li>
-				<label for="packagePurchaseEmail"><?php _e( 'Email', 'wpet' ); ?>:</label>
-				<input name="packagePurchaseEmail" size="35" value="">
-			</li>
-		</ul>
 		<div id="packages">
 			<table>
 				<tr>
