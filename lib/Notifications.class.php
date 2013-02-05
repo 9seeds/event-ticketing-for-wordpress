@@ -58,6 +58,20 @@ class WPET_Notifications extends WPET_Module {
 			if ( ! empty( $_REQUEST['post'] ) ) {
 				$this->render_data['notification'] = $this->findByID( $_REQUEST['post'] );
 			}
+			
+			if( isset( $_GET['notify'] ) ) {
+			    echo '<pre>'; var_dump( $_POST ); echo '</pre>';
+			    
+			    $organizer_name = WPET::getInstance()->settings->organizer_name;
+			    $organizer_email = WPET::getInstance()->settings->organizer_email;
+			    			    
+			    $headers[] = "From: $organizer_email <$organizer_email>";
+			    $headers[] = 'Bcc: ben@lobaugh.net';
+
+			    echo "wp_mail( 'ben@lobaugh.net', {$_POST['options']['subject']}, {$_POST['options']['email_body']}, $headers );";
+			   $mail =  wp_mail( 'ben@lobaugh.net', $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
+			    var_dump( $mail );
+			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
 		} else {			
 		    WPET::getInstance()->display( 'notifications.php', $this->render_data );
