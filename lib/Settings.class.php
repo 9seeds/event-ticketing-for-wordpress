@@ -17,6 +17,28 @@ class WPET_Settings extends WPET_Module {
 	}
 
 	/**
+	 * Displays page specific contextual help through the contextual help API
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp( $screen ) {
+	    $screen->add_help_tab(
+		    array(
+			'id'	=> 'overview',
+			'title'	=> __( 'Overview' ),
+			'content'	=> '<p>' . __( 'This screen provides access to all the settings for WP Event Ticketing.' ) . '</p>',
+		    )
+	    );
+
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
+			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+		);
+	}
+
+	/**
 	 * @since 2.0
 	 */
 	public function enqueueAdminScripts() {
@@ -186,7 +208,7 @@ class WPET_Settings extends WPET_Module {
 	public function __get( $name ) {
 	    return get_option( "wpet_{$name}", '' );
 	}
-	
+
 	public function __set( $key, $value ) {
 	    return update_option( "wpet_{$key}", $value );
 	}
@@ -240,6 +262,6 @@ class WPET_Settings extends WPET_Module {
 	    $s .= '</select>';
 	    return $s;
 	}
-	
+
 
 }// end class
