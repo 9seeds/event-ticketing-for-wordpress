@@ -47,6 +47,8 @@ class WPET_Notifications extends WPET_Module {
 	/**
 	 * Renders the attendee notify page in wp-admin
 	 * 
+	 * @todo Ensure email recipients are not duplicated in $attendees
+	 * @todo Pull in proper attendees. Requires payment gateway to be operational
 	 * @since 2.0 
 	 */
 	public function renderAdminPage() {
@@ -60,17 +62,36 @@ class WPET_Notifications extends WPET_Module {
 			}
 			
 			if( isset( $_GET['notify'] ) ) {
-			    echo '<pre>'; var_dump( $_POST ); echo '</pre>';
 			    
 			    $organizer_name = WPET::getInstance()->settings->organizer_name;
 			    $organizer_email = WPET::getInstance()->settings->organizer_email;
 			    			    
 			    $headers[] = "From: $organizer_email <$organizer_email>";
-			    $headers[] = 'Bcc: ben@lobaugh.net';
-
-			    echo "wp_mail( 'ben@lobaugh.net', {$_POST['options']['subject']}, {$_POST['options']['email_body']}, $headers );";
-			   $mail =  wp_mail( 'ben@lobaugh.net', $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
-			    var_dump( $mail );
+			    
+			    /*
+			     * Determine which attendees to send to. Start with the
+			     * largest possible pool and work up
+			     * 
+			     * 
+			     */
+			    $attendees = array();
+			    switch( $_POST['options']['to']) {
+				case 'all-attendees':
+				    $attendees = WPET::getInstance()->attendees->findAllByEvent( WPET::getInstance()->events->getWorkingEvent() );
+				    break;
+				case 'have-info':
+				    $attendees = WPET::getInstance()->attendees->findWithInfoByEvent( WPET::getInstance()->events->getWorkingEvent() );
+				    break;
+				case 'no-info':
+				    $attendees = WPET::getInstance()->attendees->findWithoutInfoByEvent( WPET::getInstance()->events->getWorkingEvent() );
+				    break;
+			    }
+				
+			    foreach( $attendees AS $a ) {
+				$headers[] = 'Bcc: ' . $a->wpet_email;
+			    }
+			   
+			   $mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
 			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
 		} else {			
