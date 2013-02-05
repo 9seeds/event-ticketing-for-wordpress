@@ -2,31 +2,31 @@
 	<?php echo $admin_page_icon; ?>
 	<h2><?php _e( 'Reports', 'wpet' ); ?></h2>
 
-	<div class="seeds-admin-left">
-		<div class="report-left">
+	<div class="report-column-1">
+		<div class="report-fill">
 			<div><label><?php _e( 'Event', 'wpet' ); ?>:</label> My Event Name</div>
 			<div><label><?php _e( 'Date', 'wpet' ); ?>:</label> July 6, 2014</div>
 			<div><label><?php _e( 'Total tickets', 'wpet' ); ?>:</label> 250</div>
 			<div><label><?php _e( 'Tickets go on sale', 'wpet' ); ?>:</label> April 1, 2014</div>
 			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
 		</div>
-		<div class="report-right">
-			<div><label><?php _e( 'Event', 'wpet' ); ?>:</label> My Event Name</div>
-			<div><label><?php _e( 'Date', 'wpet' ); ?>:</label> July 6, 2014</div>
-			<div><label><?php _e( 'Total tickets', 'wpet' ); ?>:</label> 250</div>
-			<div><label><?php _e( 'Tickets go on sale', 'wpet' ); ?>:</label> April 1, 2014</div>
-			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
-		</div>
-		<div class="report-clear"></div>
-		<div class="report-left">
-			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
-		</div>
-		<div class="report-right">
+		<div class="report-nofill">
 			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
 		</div>
 	</div>
-
-	<div class="seeds-admin-right">
+	<div class="report-column-2">
+		<div class="report-fill">
+			<div><label><?php _e( 'Event', 'wpet' ); ?>:</label> My Event Name</div>
+			<div><label><?php _e( 'Date', 'wpet' ); ?>:</label> July 6, 2014</div>
+			<div><label><?php _e( 'Total tickets', 'wpet' ); ?>:</label> 250</div>
+			<div><label><?php _e( 'Tickets go on sale', 'wpet' ); ?>:</label> April 1, 2014</div>
+			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
+		</div>
+		<div class="report-nofill">
+			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
+		</div>
+	</div>
+	<div class="report-column-3">
 		<div class="seeds-sidebar-box">
 			<h3>Need Support?</h3>
 			<p>If you are having problems with the WP Event Ticketing plugin, please post them in the <a href="http://support.9seeds.com/forum/wp-event-ticketing/">support forums</a>.</p>
