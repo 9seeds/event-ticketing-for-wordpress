@@ -1,5 +1,4 @@
 <div class="wrap">
-	<?php echo $admin_page_icon; ?>
 	<h2><?php _e( 'Reports', 'wpet' ); ?></h2>
 
 	<div class="report-column-1">
@@ -23,7 +22,7 @@
 			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
 		</div>
 		<div class="report-nofill">
-			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
+			<img src="//chart.googleapis.com/chart?chxl=0:|1%2F1|1%2F2|1%2F3|1%2F4|1%2F5|1%2F6|1%2F7|1%2F8|1%2F9|1%2F10|1:|0|25|50|75|100&chxs=0,676767,14,0.5,l,676767|1,676767,11.5,-0.333,lt,676767&chxt=x,y&chs=300x200&cht=lc&chco=FF0000&chds=0,120&chd=t:20,120,40,80,60,20,40,100,120,80&chg=20,25&chls=1,6,3&chtt=Revenue+Per+Day" width="300" height="200" alt="Revenue Per Day" />
 		</div>
 	</div>
 	<div class="report-column-3">

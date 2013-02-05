@@ -24,6 +24,7 @@
 
 .report-fill {
 	padding: 10px;
+	margin-bottom: 10px;
 	float: left;
 	border: solid 1px #CCC;
 	background: #EEE;
@@ -98,5 +99,5 @@
 @media only screen and (max-width: 800px) {
 	.report-fill, .report-empty {
 		width: 100%;
-	}	
+	}
 }
