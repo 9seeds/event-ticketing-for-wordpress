@@ -6,15 +6,10 @@ abstract class WPET_Gateway {
 	
 	public function __construct() {
 		$this->settings = WPET::getInstance()->settings;
-		add_filter( 'wpet_currencies', array( $this, 'filterCurrencies' ) );
 	}
 
 	public function filterCurrencies( $default_currencies ) {
 		$my_currencies = $this->getCurrencies();
-		foreach ( $default_currencies as $index => $currency_info ) {
-			if ( ! in_array( $currency_info['code'], $my_currencies ) )
-				unset( $default_currencies[$index] );
-		}
 		return $default_currencies;
 	}
 	
@@ -26,6 +21,9 @@ abstract class WPET_Gateway {
 
 	//supported currencies
 	abstract public function getCurrencies();
+
+	//currently selected currency
+	abstract public function getCurrencyCode();
 	
 	//settings_display
 	abstract public function settingsForm();

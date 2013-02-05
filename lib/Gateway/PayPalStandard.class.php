@@ -16,9 +16,14 @@ class WPET_Gateway_PayPalStandard extends WPET_Gateway {
 		return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
 	}
 
+	public function getCurrencyCode() {
+		return $this->settings->paypal_standard_currency;
+	}
+	
 	public function settingsForm() {
 		$payment_data = array(
-			'currency' => $this->settings->paypal_currency,
+			'currency' => $this->settings->paypal_standard_currency,
+			'currencies' => $this->getCurrencies(),
 			'payment_gateway_status' => $this->settings->paypal_status,
 			'sandbox_api_username' => $this->settings->paypal_sandbox_api_username,
 			'sandbox_api_password' => $this->settings->paypal_sandbox_api_password,
@@ -28,7 +33,7 @@ class WPET_Gateway_PayPalStandard extends WPET_Gateway {
 			'live_api_signature' => $this->settings->paypal_live_api_signature,
 		);
 			
-		return WPET::getInstance()->display( 'gateway-paypal-standard.php', $payment_data );
+		return WPET::getInstance()->display( 'gateway-paypal-standard.php', $payment_data, true );
 	}
 
 	public function settingsSave() {

@@ -16,8 +16,17 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		return array( 'USD' );
 	}
 
+	public function getCurrencyCode() {
+		return $this->settings->manual_currency;
+	}
+	
 	public function settingsForm() {
-		return WPET::getInstance()->display( 'gateway-manual.php' );
+		$payment_data = array(
+			'currency' => $this->settings->paypal_standard_currency,
+			'currencies' => $this->getCurrencies(),
+		);
+		
+		return WPET::getInstance()->display( 'gateway-manual.php', $payment_data, true );
 	}
 
 	public function settingsSave() {

@@ -16,6 +16,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
 	}
 
+	public function getCurrencyCode() {
+		return $this->settings->paypal_express_currency;
+	}
+
 	public function settingsForm() {
 		?><h3>PayPal Express Settings</h3><?php
 	}

@@ -242,19 +242,28 @@ class WPET_Currency extends WPET_Module {
 		return $currencies;
 	}
 
-	public function selectMenu( $name, $selected_value ) {
-	    $s = "<select name='$name' id='$name'>";
+	/**
+	 * @since 2.0
+	 * @param string $name html name
+	 * @param string $id html id
+	 * @param string $selected_value selected currency code
+	 * @param array $allowed allowed currency codes
+	 */
+	public function selectMenu( $name, $id, $selected_value, $allowed = array() ) {
+	    $s = "<select name='{$name}' id='{$id}'>";
 
-	    foreach( $this->getCurrencies() AS $currency ) {
-		$s .= '<option value="' . $currency['code'] . '"';
-
-		$s .= selected( $selected_value, $currency['code'], false ) ;
-
-		$s .= '>';
-
-		$s .= $currency['display'] . ' ( ' . $currency['symbol'] . ' )';
-
-		$s .= '</option>';
+		$currencies = $this->getCurrencies();
+		if ( ! empty( $allowed ) ) {
+			foreach ( $currencies as $index => $currency_info ) {
+				if ( ! in_array( $currency_info['code'], $allowed ) )
+					unset( $currencies[$index] );
+			}
+		}
+		
+	    foreach( $currencies as $currency ) {
+			$s .= "<option value='{$currency['code']}'";
+			$s .= selected( $selected_value, $currency['code'], false ) ;
+			$s .= ">{$currency['display']} ( {$currency['symbol']} )</option>\n";
 	    }
 
 	    $s .= '</select>';
