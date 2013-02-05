@@ -1,37 +1,94 @@
 <?php
 
 /**
- * 
+ *
  * Creates post types:
  * - wpet_attendees
- * 
- * @since 2.0 
+ *
+ * @since 2.0
  */
 class WPET_Attendees extends WPET_Module {
 
 	/**
-	 * @since 2.0 
+	 * @since 2.0
 	 */
 	public function __construct() {
 	    $this->mPostType = 'wpet_attendees';
-	    
+
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 25 );
-		
+
 		add_action( 'init', array( $this, 'registerPostType' ) );
-		
+
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
-		
+
 		add_action( 'the_post', array( $this, 'saveAttendeeFront' ) );
 
 		add_filter( 'the_content', array( $this, 'viewSingleAttendee' ) );
 
 		//do this after post type is set
-		parent::__construct();		
+		parent::__construct();
 	}
-	
+
+	/**
+	 * @todo hawkins to rewrite these instructions
+	 */
+	/**
+	 * Displays page specific contextual help through the contextual help API
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp( $screen ) {
+
+		if ( isset( $_GET['action'] ) ) {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen allows you to add a new attendee for your event.', 'wpet' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'options-explained',
+				'title'	=> __( 'Options Explained' ),
+				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Package</strong> is blah blah blah', 'wpet' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		} else {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen provides access to all of your attendees.', 'wpet' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'available-actions',
+				'title'	=> __( 'Available Actions' ),
+				'content'	=> '<p>' . __( 'Hovering over a row in the attendee list will display action links that allow you to manage each attendee. You can perform the following actions:', 'wpet' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee\'s name itself.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Trash</strong> removes the attendee from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		}
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
+			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+		);
+
+	}
+
 	public function saveAttendeeFront() {
 	    global $post;
-	   
+
 	    if( isset( $_POST['submit'] ) && is_single() && $this->mPostType == $post->post_type && !is_admin() ) {
 			$data['meta'] = $_POST;
 			$data['post_title'] = $_POST['first_name'] . ' ' . $_POST['last_name'];
@@ -39,24 +96,24 @@ class WPET_Attendees extends WPET_Module {
 			$this->add( $data );
 	    }
 	}
-	
+
 	/**
-	 * @todo Rename this 
+	 * @todo Rename this
 	 */
 	public function viewSingleAttendee( $content ) {
 	    global $post;
-	    
+
 	    // Make sure we are on the attendee page
 	    if( 'wpet_attendees' != $post->post_type || !is_single() ) return $content;
-	    
+
 	    return WPET::getInstance()->getDisplay( 'single_attendee.php' );
 	}
-	
-	
+
+
 	/**
 	 * Registers shortcodes for pretty reports on the front end
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function registerShortcodes() {
 	    add_shortcode( 'wpeventticketingattendee',  array( $this, 'renderAttendeesShortcode' ) );
@@ -65,42 +122,42 @@ class WPET_Attendees extends WPET_Module {
 
 	/**
 	 * Displays the [wpet_attendees] shortcode to visitors
-	 * 
+	 *
 	 * Valid attributes:
 	 * - event_id
-	 * 
+	 *
 	 * @since 2.0
-	 * @param array $atts 
+	 * @param array $atts
 	 */
 	public function renderAttendeesShortcode( $atts ) {
 	    $data = $this->findAllByEvent(1);
 	    WPET::getInstance()->display( 'attendees_shortcode.php', $data );
 	}
-	
-	
+
+
 
 	/**
 	 * Add Attendee links to the Tickets menu
-	 * 
+	 *
 	 * @since 2.0
 	 * @param type $menu
-	 * @return array 
+	 * @return array
 	 */
 	public function adminMenu( $menu ) {
 		$menu[] = array( 'Attendees', 'Attendees', 'add_users', 'wpet_attendees', array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
-	
-	
-	public function enqueueAdminScripts() { 
+
+
+	public function enqueueAdminScripts() {
 	    wp_register_script( 'wpet-admin-attendee-add', WPET_PLUGIN_URL . '/js/admin_attendee_add.js', array( 'jquery' ) );
 	    wp_enqueue_script( 'wpet-admin-attendee-add' );
 	}
 
 	/**
 	 * Renders the attendee page in wp-admin
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function renderAdminPage() {
 		WPET::getInstance()->debug( 'Rendering Attendees page', 'Doing it...' );
@@ -110,11 +167,11 @@ class WPET_Attendees extends WPET_Module {
 				$this->render_data['attendee'] = $this->findByID( $_REQUEST['post'] );
 			}
 		    WPET::getInstance()->display( 'attendees-add.php', $this->render_data );
-		} else {			
+		} else {
 		    WPET::getInstance()->display( 'attendees.php', $this->render_data );
 		}
 	}
-	
+
 	/**
 	 * Prepare the page submit data for save
 	 *
@@ -128,10 +185,10 @@ class WPET_Attendees extends WPET_Module {
 		);
 		return $data;
 	}
-	
+
 	/**
 	 * Retrieves all the attendees from the db
-	 * @return array 
+	 * @return array
 	 */
 	public function findAllByEvent( ) {
 	    $args = array(
@@ -139,15 +196,15 @@ class WPET_Attendees extends WPET_Module {
 		'showposts' => '-1',
 		'posts_per_page' => '-1'
 	    );
-	    
+
 	    return get_posts( $args );
 	}
-	
-		
+
+
 	/**
 	 * Add post type for object
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function registerPostType() {
 	    $labels = array(
@@ -178,6 +235,6 @@ class WPET_Attendees extends WPET_Module {
 
 	    register_post_type( 'wpet_attendees', $args );
 	}
-	
+
 
 } // end class

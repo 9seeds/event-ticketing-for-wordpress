@@ -10,13 +10,13 @@ class WPET_Coupons extends WPET_Module {
 	 */
 	public function __construct() {
 	    $this->mPostType = 'wpet_coupons';
-	    
+
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 20 );
 
 	    add_action( 'init', array( $this, 'registerPostType' ) );
 
 		//do this after post type is set
-		parent::__construct();		
+		parent::__construct();
 	}
 
 	/**
@@ -44,12 +44,11 @@ class WPET_Coupons extends WPET_Module {
 		    )
 	    );
 
-//		$screen->set_help_sidebar(
-//			'<p><strong>' . __( 'For more information:' ) . '</strong></p>' .
-//			'<p>' . __( '<a href="http://codex.wordpress.org/Administration_Screens#Comments" target="_blank">Documentation on Comments</a>' ) . '</p>' .
-//			'<p>' . __( '<a href="http://wordpress.org/support/" target="_blank">Support Forums</a>' ) . '</p>'
-//		);
-
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
+			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+		);
 	}
 
 	/**
@@ -66,8 +65,8 @@ class WPET_Coupons extends WPET_Module {
 
 	/**
 	 * Renders the admin page in wp-admin
-	 * 
-	 * @since 2.0 
+	 *
+	 * @since 2.0
 	 */
 	public function renderAdminPage() {
 
@@ -76,7 +75,7 @@ class WPET_Coupons extends WPET_Module {
 				$this->render_data['coupon'] = $this->findByID( $_REQUEST['post'] );
 			}
 			WPET::getInstance()->display( 'coupons-add.php', $this->render_data );
-		} else {			
+		} else {
 			WPET::getInstance()->display( 'coupons.php', $this->render_data );
 		}
 	}
@@ -100,11 +99,11 @@ class WPET_Coupons extends WPET_Module {
 		);
 		return $data;
 	}
-	
+
 	/**
 	 * Retrieves all the coupons from the db
 	 * @param type $prettyAmount
-	 * @return array 
+	 * @return array
 	 */
 	public function findAll( $prettyAmount = false ) {
 	    $args = array(
@@ -112,9 +111,9 @@ class WPET_Coupons extends WPET_Module {
 		'showposts' => '-1',
 		'posts_per_page' => '-1'
 	    );
-	    
+
 	    $posts = get_posts( $args );
-	    
+
 	    if( $prettyAmount ) {
 		foreach( $posts AS $p ) {
 		    switch( $p->wpet_type ) {
@@ -125,7 +124,7 @@ class WPET_Coupons extends WPET_Module {
 			    $p->wpet_pretty_amount = WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $p->wpet_amount );
 			    break;
 		    }
-		    
+
 		    if( is_numeric( $p->wpet_package_id ) ) {
 			$package = get_post( $p->wpet_package_id );
 			$p->wpet_package_title = $package->post_title;
@@ -134,7 +133,7 @@ class WPET_Coupons extends WPET_Module {
 		    }
 		}
 	    }
-	    
+
 	    return $posts;
 	}
 
