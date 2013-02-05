@@ -5,18 +5,12 @@
  */
 class WPET_Currency extends WPET_Module {
 
-    private $mCurrencies = array();
-
 	/**
 	 * @since 2.0
 	 */
-	public function __construct() {
-		add_filter( 'wpet_currencies', array( $this, 'defaultCurrencies' ) );
-		$this->mCurrencies = apply_filters( 'wpet_currencies', array() );
-	}
-
 	public function getCurrencies() {
-	    return $this->mCurrencies;
+		add_filter( 'wpet_currencies', array( $this, 'defaultCurrencies' ), 9 ); //populate default currencies before the normal '10' level priority
+		return apply_filters( 'wpet_currencies', array() );
 	}
 
 	public function format( $code, $number ) {

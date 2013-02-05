@@ -136,15 +136,7 @@ class WPET_Settings extends WPET_Module {
 
 		//@TODO real data
 		$payment_data = array(
-			'payment_gateway' => '',
-			'currency' => get_option( 'wpet-currency'),
-			'payment_gateway_status' => '',
-			'sandbox_api_username' => get_option( 'wpet_sandbox_api_username', '' ),
-			'sandbox_api_password' => get_option( 'wpet_sandbox_api_password', '' ),
-			'sandbox_api_signature' => get_option( 'wpet_sandbox_api_signature', '' ),
-			'live_api_username' => get_option( 'wpet_live_api_username', '' ),
-			'live_api_password' => get_option( 'wpet_live_api_password', '' ),
-			'live_api_signature' => get_option( 'wpet_live_api_signature', '' ),
+			'payment_gateway' => $this->payment_gateway,
 		);
 
 		$settings[] = array(
@@ -192,12 +184,11 @@ class WPET_Settings extends WPET_Module {
 	 * @return mixed
 	 */
 	public function __get( $name ) {
-	    $name = 'wpet_' . $name;
-	    return get_option( $name, '' );
+	    return get_option( "wpet_{$name}", '' );
 	}
 	
 	public function __set( $key, $value ) {
-	    return update_option( "wpet_$key", $value );
+	    return update_option( "wpet_{$key}", $value );
 	}
 
 	/**

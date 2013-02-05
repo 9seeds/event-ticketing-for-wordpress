@@ -1,5 +1,11 @@
 	<table class="form-table">				
 			<tr class="form-field form-required">
+				<th scope="row"><label for="options[paypal_currency]"><?php _e('Currency', 'wpet'); ?></label></th>
+				<td>
+				    <?php echo WPET::getInstance()->currency->selectMenu( 'options[paypal_currency]', $data['currency']); ?>
+				</td>
+			</tr>
+			<tr class="form-field form-required">
 				<th scope="row"><label for="options[payment_gateway_status]"><?php _e('Gateway Status', 'wpet'); ?></label></th>
 				<td>
 				<?php //@TODO payment_gateway_status ?>

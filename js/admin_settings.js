@@ -7,7 +7,13 @@ jQuery(document).ready(function($) {
 
 	$("#event_date").datepicker();
 
-	//$('#payment_gateway').change();
-	//$('#payment_gateway').keyup();
+	$('#payment_gateway').bind('change keyup', wpetGatewaySelected);
+	
+	function wpetGatewaySelected() {
+		$('#gateway_container > div').each(function() {
+			$(this).hide();
+		});
+		$('#' + $(this).val()).show();
+	}
 
 });
