@@ -107,12 +107,12 @@ class WPET_Settings extends WPET_Module {
 
 		$event_data = array(
 			'event_date' => $event->wpet_event_date,
-			'organizer_name' => get_option( 'wpet_organizer_name', '' ),
-			'organizer_email' => get_option( 'wpet_organizer_email', '' ),
+			'organizer_name' => $this->organizer_name,
+			'organizer_email' => $this->organizer_email,
 			'max_attendance' => $event->wpet_max_attendance,
 			'event_status' => $event->wpet_event_status,
-			'closed_message' => get_option( 'wpet_closed_message', '' ),
-			'thank_you' => get_option( 'wpet_thank_you', '' ),
+			'closed_message' => $this->closed_message,
+			'thank_you' => $this->thank_you,
 		);
 
 		$settings[] = array(
@@ -122,10 +122,10 @@ class WPET_Settings extends WPET_Module {
 		);
 
 		$email_data = array(
-			'from_name' => get_option( 'wpet_from_name', '' ),
-			'from_email' => get_option( 'wpet_from_email', '' ),
-			'subject' => get_option( 'wpet_subject', '' ),
-			'email_body' => get_option( 'wpet_email_body', '' ),
+			'from_name' => $this->from_name,
+			'from_email' => $this->from_email,
+			'subject' => $this->subject,
+			'email_body' => $this->email_body,
 		);
 
 		$settings[] = array(
@@ -213,7 +213,7 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		foreach ( $options as $key => $value ) {
-			update_option( "wpet_{$key}", stripslashes( $value ) );
+			$this->{$key} = stripslashes( $value );
 		}
 
 		do_action( 'wpet_settings_submit', $post );

@@ -7,11 +7,6 @@ abstract class WPET_Gateway {
 	public function __construct() {
 		$this->settings = WPET::getInstance()->settings;
 	}
-
-	public function filterCurrencies( $default_currencies ) {
-		$my_currencies = $this->getCurrencies();
-		return $default_currencies;
-	}
 	
 	//name
 	abstract public function getName();

@@ -1,19 +1,15 @@
 	<table class="form-table">
 		 <tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[paypal_currency]"><?php _e('Currency', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[paypal_standard_currency]"><?php _e('Currency', 'wpet'); ?></label></th>
 				<td>
-				<?php echo WPET::getInstance()->currency->selectMenu( 'options[paypal_standard_currency]', 'paypal_standard_currency', $data['currency'], $data['currencies'] ); ?>
+				<?php echo WPET::getInstance()->currency->selectMenu( 'options[paypal_standard_currency]', 'paypal_standard_currency', $data['paypal_standard_currency'], $data['paypal_standard_currencies'] ); ?>
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[payment_gateway_status]"><?php _e('Gateway Status', 'wpet'); ?></label></th>
+				<th scope="row"><label for="options[paypal_standard_status]"><?php _e('Gateway Status', 'wpet'); ?></label></th>
 				<td>
-				<?php //@TODO payment_gateway_status ?>
-					<select name="options[payment_gateway_status]" id="options[payment_gateway_status]">
-						<option value=""><?php _e('Sandbox', 'wpet'); ?></option>
-						<option value=""><?php _e('Live', 'wpet'); ?></option>
-					</select>
+				<?php echo $data['paypal_standard_status_menu'] ?>
 				</td>
 			</tr>
 
@@ -23,16 +19,16 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[sandbox_api_username]"><?php _e('API Username', 'wpet'); ?></label></th>
-				<td><input name="options[sandbox_api_username]" type="text" id="options[sandbox_api_username]" value="<?php echo $data['sandbox_api_username'] ?>"></td>
+				<th scope="row"><label for="options[paypal_sandbox_api_username]"><?php _e('API Username', 'wpet'); ?></label></th>
+				<td><input name="options[paypal_sandbox_api_username]" type="text" id="options[paypal_sandbox_api_username]" value="<?php echo $data['paypal_sandbox_api_username'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[sandbox_api_password]"><?php _e('API Password', 'wpet'); ?></label></th>
-				<td><input name="options[sandbox_api_password]" type="password" id="options[sandbox_api_password]" value="<?php echo $data['sandbox_api_password'] ?>"></td>
+				<th scope="row"><label for="options[paypal_sandbox_api_password]"><?php _e('API Password', 'wpet'); ?></label></th>
+				<td><input name="options[paypal_sandbox_api_password]" type="password" id="options[paypal_sandbox_api_password]" value="<?php echo $data['paypal_sandbox_api_password'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[sandbox_api_signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
-				<td><input name="options[sandbox_api_signature]" type="text" id="options[sandbox_api_signature]" value="<?php echo $data['sandbox_api_signature'] ?>"></td>
+				<th scope="row"><label for="options[paypal_sandbox_api_signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
+				<td><input name="options[paypal_sandbox_api_signature]" type="text" id="options[paypal_sandbox_api_signature]" value="<?php echo $data['paypal_sandbox_api_signature'] ?>"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -40,16 +36,16 @@
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[live_api_username]"><?php _e('API Username', 'wpet'); ?></label></th>
-				<td><input name="options[live_api_username]" type="text" id="options[live_api_username]" value="<?php echo $data['live_api_username'] ?>"></td>
+				<th scope="row"><label for="options[paypal_live_api_username]"><?php _e('API Username', 'wpet'); ?></label></th>
+				<td><input name="options[paypal_live_api_username]" type="text" id="options[paypal_live_api_username]" value="<?php echo $data['paypal_live_api_username'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[live_api_password]"><?php _e('API Password', 'wpet'); ?></label></th>
-				<td><input name="options[live_api_password]" type="password" id="options[live_api_password]" value="<?php echo $data['live_api_password'] ?>"></td>
+				<th scope="row"><label for="options[paypal_live_api_password]"><?php _e('API Password', 'wpet'); ?></label></th>
+				<td><input name="options[paypal_live_api_password]" type="password" id="options[paypal_live_api_password]" value="<?php echo $data['paypal_live_api_password'] ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[live_api_signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
-				<td><input name="options[live_api_signature]" type="text" id="options[live_api_signature]" value="<?php echo $data['live_api_signature'] ?>"></td>
+				<th scope="row"><label for="options[paypal_live_api_signature]"><?php _e('API Signature', 'wpet'); ?></label></th>
+				<td><input name="options[paypal_live_api_signature]" type="text" id="options[paypal_live_api_signature]" value="<?php echo $data['paypal_live_api_signature'] ?>"></td>
 			</tr>
 		</tbody>
 	</table>
