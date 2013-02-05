@@ -31,6 +31,11 @@ class WPET_Instructions extends WPET_Module {
 			'content'	=> '<p>' . __( 'This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages.' ) . '</p>',
 			)
 		);
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
+			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+		);
 	}
 
 	/**

@@ -26,24 +26,48 @@ class WPET_Coupons extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function contextHelp( $screen ) {
-	    $screen->add_help_tab(
-		    array(
-			'id'	=> 'overview',
-			'title'	=> __( 'Overview' ),
-			'content'	=> '<p>' . __( 'This screen provides access to all of your posts.' ) . '</p>',
-		    )
-	    );
-	    $screen->add_help_tab(
-		    array(
-			'id'	=> 'available-actions',
-			'title'	=> __( 'Available Actions' ),
-			'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:' ) . '</p>'.
-				'<ul>'.
-					'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself.' ) .'</li>'.
-				'</ul>',
-		    )
-	    );
-
+		if ( isset( $_GET['action'] ) ) {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen allows you to add a new coupon for your event.', 'wpet' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'options-explained',
+				'title'	=> __( 'Options Explained' ),
+				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Coupon Code</strong> is what a visitor would type in to the registration form to receive a discount. This should be a unique value and contain no spaces or special characters.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Package</strong> allows you to choose which package is eligible for purchase with this coupon. Selecting a specific package from the dropdown will tie this coupon to the selected package.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Type</strong> lets you decide if this coupon will give a flat rate discount (e.g. $5.00 off), or a percentage of the package price.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Amount</strong> is the value of the coupon. If using flat rate, 5.00 would equal $5.00 off. If using percentage, 5 would = 5% off.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Quantity</strong> lets you set how many times this coupon can be used.', 'wpet' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		} else {
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'overview',
+				'title'	=> __( 'Overview' ),
+				'content'	=> '<p>' . __( 'This screen provides access to all of your coupons.', 'wpet' ) . '</p>',
+				)
+			);
+			$screen->add_help_tab(
+				array(
+				'id'	=> 'available-actions',
+				'title'	=> __( 'Available Actions' ),
+				'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:', 'wpet' ) . '</p>'.
+					'<ul>'.
+						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Trash</strong> removes your coupon from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
+					'</ul>',
+				)
+			);
+		}
 		$screen->set_help_sidebar(
 			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
 			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
