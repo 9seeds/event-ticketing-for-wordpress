@@ -134,7 +134,6 @@ class WPET_Settings extends WPET_Module {
 			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data, true )
 		);
 
-		//@TODO real data
 		$payment_data = array(
 			'payment_gateway' => $this->payment_gateway,
 		);
@@ -144,6 +143,8 @@ class WPET_Settings extends WPET_Module {
 			'title' => 'Second email',
 			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
+
+		//@TODO real data
 		$settings[] = array(
 		    'tab' => 'form_display',
 			'title' => 'Second email',

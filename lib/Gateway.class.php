@@ -23,7 +23,7 @@ abstract class WPET_Gateway {
 	//settings_display
 	abstract public function settingsForm();
 	
-	//settings_submit
+	//settings_submit - might not be needed if options[] is used
 	abstract public function settingsSave();
 
 	//payment form to show

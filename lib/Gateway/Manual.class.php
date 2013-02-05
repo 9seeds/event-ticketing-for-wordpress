@@ -38,7 +38,12 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	}
 
 	public function processPayment() {
-		
+		if ( isset( $_POST['submit'] ) ) {
+			if ( ! is_email( $_POST['email'] ) || empty( $_POST['name'] ) ) {
+				wp_die('errors!');
+			}
+			
+		}
 	}
 
 	public function processPaymentReturn() {
