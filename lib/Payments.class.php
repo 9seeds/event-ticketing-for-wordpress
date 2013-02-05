@@ -16,11 +16,14 @@ class WPET_Payments extends WPET_Module {
 		$this->mPostType = 'wpet_payments';
 
 		add_action( 'init', array( $this, 'registerPostType' ) );
-		add_action( 'init', array( $this, 'maybePaymentSubmit' ), 15 );
 		//add_action( 'all', array( $this, 'hookDebug' ) );
 		//add_filter( 'all', array( $this, 'hookDebug' ) );
-		add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
 
+		if ( ! is_admin() ) {
+			add_action( 'init', array( $this, 'maybePaymentSubmit' ), 15 );
+			add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
+		}
+		
 		//do this after post type is set
 		parent::__construct();
     }
