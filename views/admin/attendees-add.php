@@ -31,10 +31,10 @@ $attendee = $data['attendee'];
     <table class="form-table"><tbody id="ticket_options" ></tbody></table>
 	<?php
 	echo $data['nonce'];
-	$button_label = empty( $_REQUEST['post'] ) ? __( 'Save Attendee', 'wpet' ) : __( 'Add Attendee', 'wpet' );	
+	$button_label = empty( $_REQUEST['post'] ) ? __( 'Add Attendee', 'wpet' ) : __( 'Save Attendee', 'wpet' );	
 	?>
 	<input type="hidden" name="attendee_id" id="attendee_id" value="<?php echo empty( $_REQUEST['post'] ) ? '' : $_REQUEST['post']; ?>" />
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Attendee', 'wpet'); ?>"></p>
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo $button_label; ?>"></p>
 </form>
 
 </div>

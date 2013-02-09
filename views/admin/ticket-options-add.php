@@ -6,7 +6,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 	echo '<a href="' . $data['edit_url'] . '" class="add-new-h2">' . __('Add New', 'wpet') . '</a>';
 }
 ?></h2>
-<form method="post" action="<?php echo $data['edit_url'] ?>">
+<form method="post" action="">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
