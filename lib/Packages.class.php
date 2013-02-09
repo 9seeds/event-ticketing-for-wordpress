@@ -196,8 +196,9 @@ class WPET_Packages extends WPET_Module {
 	 * @param string $selected_value
 	 * @return string
 	 */
-	public function selectMenu( $name, $id, $selected_value ) {
-	    $s = "<select name='{$name}' id='{$id}'>";
+	public function selectMenu( $name, $id, $selected_value, $enabled = true ) {
+		$disabled = disabled( $enabled, true, false );
+	    $s = "<select name='{$name}' id='{$id}'{$disabled}>";
 	    $s .= '<option value="any">Any Package</option>';
 
 	    foreach ( $this->find() as $pack ) {

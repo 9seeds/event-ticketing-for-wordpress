@@ -68,6 +68,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 			</tr>
 		</tbody>
 	</table>
-<?php echo $data['nonce'] ?>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Add Package', 'wpet'); ?>"></p>
+	<?php
+	echo $data['nonce'];
+	$button_label = empty( $_REQUEST['post'] ) ? __( 'Add Package', 'wpet' ) : __( 'Save Package', 'wpet' );
+	?>
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo $button_label ?>"></p>
 </form>

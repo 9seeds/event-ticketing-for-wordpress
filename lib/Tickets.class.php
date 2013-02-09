@@ -24,9 +24,13 @@ class WPET_Tickets extends WPET_Module {
 
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];
+		$attendee = NULL;
+		if ( ! empty( $_POST['attendee_id'] ) ) {
+			$attendee = WPET::getInstance()->attendees->findById( $_POST['attendee_id'] );
+		}
 	   // die(1);
 	    //print_r( $_POST );
-	    echo $this->buildOptionsHtmlFormForPackage( $package_id );
+	    echo $this->buildOptionsHtmlFormForPackage( $package_id, $attendee );
 	    exit();
 	}
 
@@ -140,7 +144,6 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function buildOptionsHtmlFormForPackage( $package_id, $data = null ) {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket_id', true );
-
 	    return $this->buildOptionsHtmlForm( $ticket_id, $data );
 	}
 
@@ -155,7 +158,6 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function buildOptionsHtmlForm( $ticket_id, $data = null ) {
 		$options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
-
 
 		$s = '';
 		if( !is_array( $options ) ) return '';
