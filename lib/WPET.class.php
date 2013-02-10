@@ -353,7 +353,8 @@ class WPET {
 					)  
 				);
 				$payment = $this->payment->add( $data );
-				wp_redirect( site_url( '?post_type=' . $this->payment->getPostType() .'&p=' . get_post( $payment )->ID ) );
+				//wp_redirect( site_url( '?post_type=' . $this->payment->getPostType() .'&p=' . get_post( $payment )->ID ) );
+				wp_redirect( get_permalink( $payment ) );
 				exit();
 			}
 		}
