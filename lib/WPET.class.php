@@ -115,6 +115,8 @@ class WPET {
 	 * @param array $atts
 	 */
 	public function renderwpeventticketingShortcode( $atts ) {
+	    wp_enqueue_script( 'wpet-order-form', WPET_PLUGIN_URL . 'js/order_form.js', array( 'jquery') );
+	    wp_localize_script( 'wpet-order-form', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	    $data = array();
 	    
 	    //var_dump( $this->settings->hide_coupons ); die();

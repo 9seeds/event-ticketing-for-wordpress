@@ -15,8 +15,33 @@ class WPET_Coupons extends WPET_Module {
 
 	    add_action( 'init', array( $this, 'registerPostType' ) );
 
+	    add_action('wp_ajax_get_coupon', array( $this, 'ajaxGetCoupon' ) );
+	    add_action('wp_ajax_nopriv_get_coupon', array( $this, 'ajaxGetCoupon' ) );
 		//do this after post type is set
 		parent::__construct();
+	}
+	
+	public function ajaxGetCoupon() {
+	    $coupon = $this->findByCode( $_POST['coupon_code'] );
+	    
+	    
+	    
+	    $c = array( 
+		'amount' => $coupon->wpet_amount,
+		'type'	=> $coupon->wpet_type
+	    );
+	    
+	    echo json_encode( $c );
+	    
+	    die();
+	}
+	
+	public function findByCode( $code ) {
+	    $args = array(
+		'post_name' => $code
+	    );
+	    
+	    return $this->findOne( $args );
 	}
 
 	/**

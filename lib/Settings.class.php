@@ -14,7 +14,7 @@ class WPET_Settings extends WPET_Module {
 		add_filter( 'wpet_settings_tabs', array( $this, 'defaultTabs' ), 1 );
 
 		add_filter( 'wpet_settings_tabs', array( $this, 'resetTab' ), 100 );
-		
+
 		add_action( 'wpet_settings_submit', array( $this, 'submit_form_display' ) );
 	}
 
@@ -29,14 +29,31 @@ class WPET_Settings extends WPET_Module {
 		    array(
 			'id'	=> 'overview',
 			'title'	=> __( 'Overview' ),
-			'content'	=> '<p>' . __( 'This screen provides access to all the settings for WP Event Ticketing.' ) . '</p>',
+			'content'	=> '<p>' . __( 'This screen provides access to all the settings for WP Event Ticketing.', 'wpet' ) . '</p>'
+		    )
+	    );
+
+	    $screen->add_help_tab(
+		    array(
+			'id'	=> 'defaults',
+			'title'	=> __( 'Defaults' ),
+			'content'	=> '<p>' . __( 'When you install WP Event Ticketing, the following settings are set by default:', 'wpet' ) . '</p>' .
+				'<p><strong>' . __( 'Events Tab:', 'wpet' ) .'</strong></p>' .
+				'<li>' . __( 'Event Status: Registration is closed', 'wpet' ) . '</li>' .
+				'<p><strong>' . __( 'Payments Tab:', 'wpet' ) .'</strong></p>' .
+				'<li>' . __( 'Payment Gateway: Manual', 'wpet' ) .'</li>' .
+				'<li>' . __( 'Currency: United States Dollar ($)', 'wpet' ) .'</li>' .
+				'<p><strong>' . __( 'Form Display Tab:', 'wpet' ) .'</strong></p>' .
+				'<li>' . __( 'Show # of remaining packages: Checked', 'wpet' ) .'</li>' ,
+
+
 		    )
 	    );
 
 		$screen->set_help_sidebar(
 			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
 			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
-			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
+			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>', 'wpet' ) . '</p>'
 		);
 	}
 
@@ -167,7 +184,7 @@ class WPET_Settings extends WPET_Module {
 			'title' => 'Second email',
 			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
-		
+
 		$form_display = array(
 		  'show_package_count' => $this->show_package_count,
 		    'hide_coupons' => $this->hide_coupons
@@ -248,23 +265,23 @@ class WPET_Settings extends WPET_Module {
 
 		do_action( 'wpet_settings_submit', $post );
 	}
-	
+
 	/**
-	 * Handles the Form Display checkboxes on Settings save. 
-	 * 
+	 * Handles the Form Display checkboxes on Settings save.
+	 *
 	 * Caution: Uses reverse logic
-	 * 
+	 *
 	 * @since 2.0
-	 * @param array $post 
+	 * @param array $post
 	 */
 	public function submit_form_display( $post ) {
-	    
+
 	    if( !isset( $post['options']['show_package_count'] ) )
 		update_option ( 'wpet_show_package_count', '0' );
-	    
+
 	    if( !isset( $post['options']['hide_coupons'] ) )
 		update_option( 'wpet_hide_coupons', '0' );
-	    
+
 	}
 
 	/**

@@ -24,6 +24,10 @@ class WPET_Table_Coupons extends WPET_Table {
 		return $columns;
 	}
 
+	public function column_wpet_pretty_amount( $item ) {
+	    return WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $item->wpet_amount, true );
+	}
+	
 	public function get_sortable_columns() {
 		return array(
 			'title' => array( 'title', true ),

@@ -56,10 +56,10 @@
 				<tr class="coupon">
 					<td colspan="2">
 						<label for="couponCode"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>
-						<input class="input" name="couponCode">
+						<input class="input" id="couponCode" name="couponCode">
 					</td>
 					<td colspan="2">
-						<input type="submit" name="couponSubmitButton" value="<?php _e( 'Apply Coupon', 'wpet'); ?>">
+						<input type="button" name="couponSubmitButton" id="couponSubmitButton" value="<?php _e( 'Apply Coupon', 'wpet'); ?>">
 					</td>
 				</tr>
 				<?php } ?>
@@ -83,29 +83,3 @@
 		</div>
 	</form>
 </div>
-
-<script>
-    jQuery('.quantity').change( function() {
-	
-	
-	
-	
-	rows = jQuery('#order_form').find('.package_row');
-	console.log( rows );
-	
-	total = 0;
-	
-	rows.each( function() {
-	    price =  Number(jQuery(this).find('.price').text().replace(/[^0-9\.]+/g,""));
-	    
-	    quantity = Number( jQuery(this).find('.quantity').val() );
-	    
-	    row_total = price * quantity;
-	    console.log( row_total );
-	    
-	    total += row_total;
-	});
-	
-	jQuery('#subTotal').text(total);
-    });
-</script>
