@@ -5,7 +5,7 @@ abstract class WPET_Gateway {
 	protected $mSettings;
 	
 	public function __construct() {
-		$this->settings = WPET::getInstance()->settings;
+		$this->mSettings = WPET::getInstance()->settings;
 	}
 	
 	//name
@@ -19,6 +19,9 @@ abstract class WPET_Gateway {
 
 	//currently selected currency
 	abstract public function getCurrencyCode();
+
+	//currency to use if no settings set
+	abstract public function getDefaultCurrency();
 	
 	//settings_display
 	abstract public function settingsForm();

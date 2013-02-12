@@ -16,22 +16,26 @@ class WPET_Gateway_PayPalStandard extends WPET_Gateway {
 		return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
 	}
 
-	public function getCurrencyCode() {
-		return $this->settings->paypal_standard_currency;
+	public function getDefaultCurrency() {
+		return 'USD';
 	}
-	
+
+	public function getCurrencyCode() {
+		return empty( $this->mSettings->paypal_standard_currency ) ? $this->getDefaultCurrency() : $this->mSettings->paypal_standard_currency;
+	}
+
 	public function settingsForm() {
 		$payment_data = array(
-			'paypal_standard_currency' => $this->settings->paypal_standard_currency,
+			'paypal_standard_currency' => $this->getCurrencyCode(),
 			'paypal_standard_currencies' => $this->getCurrencies(),
-			'paypal_standard_status' => $this->settings->paypal_standard_status,
-			'paypal_standard_status_menu' => $this->statusMenu( 'options[paypal_standard_status]', 'paypal_standard_status', $this->settings->paypal_standard_status ),
-			'paypal_sandbox_api_username' => $this->settings->paypal_sandbox_api_username,
-			'paypal_sandbox_api_password' => $this->settings->paypal_sandbox_api_password,
-			'paypal_sandbox_api_signature' => $this->settings->paypal_sandbox_api_signature,
-			'paypal_live_api_username' => $this->settings->paypal_live_api_username,
-			'paypal_live_api_password' => $this->settings->paypal_live_api_password,
-			'paypal_live_api_signature' => $this->settings->paypal_live_api_signature,
+			'paypal_standard_status' => $this->mSettings->paypal_standard_status,
+			'paypal_standard_status_menu' => $this->statusMenu( 'options[paypal_standard_status]', 'paypal_standard_status', $this->mSettings->paypal_standard_status ),
+			'paypal_sandbox_api_username' => $this->mSettings->paypal_sandbox_api_username,
+			'paypal_sandbox_api_password' => $this->mSettings->paypal_sandbox_api_password,
+			'paypal_sandbox_api_signature' => $this->mSettings->paypal_sandbox_api_signature,
+			'paypal_live_api_username' => $this->mSettings->paypal_live_api_username,
+			'paypal_live_api_password' => $this->mSettings->paypal_live_api_password,
+			'paypal_live_api_signature' => $this->mSettings->paypal_live_api_signature,
 		);
 			
 		return WPET::getInstance()->display( 'gateway-paypal-standard.php', $payment_data, true );

@@ -351,7 +351,7 @@ class WPET {
 				//@TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
 				$data = array(
 					'post_title' => uniqid(),
-					'post_status' => 'publish',
+					'post_status' => 'draft',
 					'meta' => array(
 						'package_data' => $_POST
 					)  
