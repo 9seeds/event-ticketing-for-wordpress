@@ -3,7 +3,6 @@
 abstract class WPET_Gateway {
 
 	protected $mSettings;
-	//protected $mPayment;
 	
 	public function __construct() {
 		$this->settings = WPET::getInstance()->settings;
@@ -29,19 +28,10 @@ abstract class WPET_Gateway {
 
 	//payment form to show
 	abstract public function getPaymentForm();
-
-	/**
-	 * @since 2.0
-	 * @param $payment WP_Post payment cpt object
-	public function setPayment( $payment ) {
-		$this->mPayment = $payment;
-	}
-	 */
 	
 	//processPayment / submit
 	abstract public function processPayment();
 	
 	//processPaymentReturn / process_gateway_notification
-	abstract public function processPaymentReturn();
-	
+	abstract public function processPaymentReturn();	
 }

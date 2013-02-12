@@ -22,7 +22,8 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	
 	public function settingsForm() {
 		$payment_data = array(
-			'currency' => $this->mSettings->paypal_standard_currency,
+			//set a default currency for first time use
+			'currency' => empty( $this->mSettings->manual_currency ) ? 'USD' : $this->mSettings->manual_currency,
 			'currencies' => $this->getCurrencies(),
 		);
 		
@@ -44,12 +45,14 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		if ( isset( $_POST['submit'] ) ) {
 			if ( ! is_email( $_POST['email'] ) || empty( $_POST['name'] ) ) {
 				wp_die('errors!');
+			} else {
+				//die(print_r($_POST, true));
+				WPET::getInstance()->payment->draftPayment();
 			}
-			//die(print_r($_POST, true));
 		}
 	}
 
 	public function processPaymentReturn() {
-
+		WPET::getInstance()->payment->savePayment();
 	}
 }	

@@ -344,6 +344,7 @@ class WPET {
 			} else if ( ! empty( $_POST['submit'] ) ) {
 				//@TODO maybe double-check coupon stuff here too?
 				//@TODO some form validation as well before sending to payment CPT (gateway step)
+				//@TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
 				$data = array(
 					'post_title' => uniqid(),
 					'post_status' => 'publish',

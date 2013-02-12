@@ -94,6 +94,25 @@ class WPET_Payments extends WPET_Module {
 		}
 		return $cart;
 	}
+
+	/**
+	 * After payment gateway has validated input save payment as "draft" while processing is done
+	 * 
+	 * @since 2.0
+	 */
+	public function draftPayment() {
+		
+	}
+
+	/**
+	 * Once the payment gateway has received payment confirmation, update payment from draft to published
+	 * 
+	 * @since 2.0
+	 */
+	public function savePayment() {
+		
+	}
+	
 	
 	public function showGateway( $content ) {
 		$gateway = WPET::getInstance()->getGateway();

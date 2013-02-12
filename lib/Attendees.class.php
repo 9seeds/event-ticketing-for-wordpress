@@ -85,6 +85,23 @@ class WPET_Attendees extends WPET_Module {
 
 	}
 
+	/**
+	 * @since 2.0
+	 * @returns array( $attendee_id, $uniqid )
+	 */
+	public function draftAttendee() {
+		$uniqid = uniqid();
+		$data = array(
+			'post_status' => 'draft',
+			'meta' => array( 'uniqid' => $uniqid ),
+		);
+		$attendee_id = $this->add( $data );		
+		return array( $attendee_id, $uniqid );
+	}
+
+	/**
+	 * @TODO maybe rename these ^v
+	 */
 	public function saveAttendeeFront() {
 	    global $post;
 
