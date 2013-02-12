@@ -116,6 +116,8 @@ class WPET {
 	 */
 	public function renderwpeventticketingShortcode( $atts ) {
 	    $data = array();
+	    
+	    //var_dump( $this->settings->hide_coupons ); die();
 
 	    $defaults = array(
 		'event' => $this->events->getWorkingEvent()
@@ -142,6 +144,7 @@ class WPET {
 
 	    $data['columns'] = apply_filters( 'wpet_wpeventticketing_shortcode_columns', $columns );
 	    $data['rows'] = apply_filters( 'wpet_wpeventticketing_shortcode_rows', $rows );
+	    $data['hide_coupons'] = $this->settings->hide_coupons;
 	    $this->display( 'order_form.php', $data );
 	}
 
@@ -440,7 +443,7 @@ class WPET {
 
 			// payments tab
 			$this->settings->currency = 'USD';
-			$this->settings->payment_gateway = 'paypal_express';
+			$this->settings->payment_gateway = 'WPET_Gateway_Manual';
 			$this->settings->payment_gateway_status = 'sandbox';
 
 			// email tab
