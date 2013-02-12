@@ -32,7 +32,9 @@ jQuery(document).ready(function($) {
 		coupon_code: jQuery('#couponCode').val()
 	    },
 	    function(response) {
-		console.log( response );
+		var obj = jQuery.parseJSON( response );
+		coupon_amount = obj.amount;
+		coupon_type = obj.type;
 	    }
 		
 	    );
