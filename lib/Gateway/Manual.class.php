@@ -17,12 +17,12 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	}
 
 	public function getCurrencyCode() {
-		return $this->settings->manual_currency;
+		return $this->mSettings->manual_currency;
 	}
 	
 	public function settingsForm() {
 		$payment_data = array(
-			'currency' => $this->settings->paypal_standard_currency,
+			'currency' => $this->mSettings->paypal_standard_currency,
 			'currencies' => $this->getCurrencies(),
 		);
 		
@@ -33,8 +33,11 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		
 	}
 
-	public function getPaymentForm() {
-		return WPET::getInstance()->display( 'gateway-manual.php' );
+	public function getPaymentForm() {		
+		$render_data = array(
+			'cart' => WPET::getInstance()->payment->getCart(),
+		);
+		return WPET::getInstance()->display( 'gateway-manual.php', $render_data );
 	}
 
 	public function processPayment() {
