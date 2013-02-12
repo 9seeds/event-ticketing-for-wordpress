@@ -11,11 +11,11 @@ abstract class WPET_Table extends WP_List_Table {
 	 * @uses wpet_table_prepare
 	 */
 	public function prepare_items() {
-		
+
 		$this->_column_headers = array( $this->get_columns(), //columns
 										array(), //hidden
 										$this->get_sortable_columns() ); //sortable
-		
+
 		$paged = $this->get_pagenum();
 
 		$args = array(
@@ -28,7 +28,7 @@ abstract class WPET_Table extends WP_List_Table {
 		/*
 		if ( !empty( $_REQUEST['s'] ) ) {
 			$usersearch = $_REQUEST['s'];
-			
+
 			//search by last name
 			$args['meta_query'][] = array(
 				'key' => 'last_name',
@@ -50,7 +50,7 @@ abstract class WPET_Table extends WP_List_Table {
 
 		$args = apply_filters( 'wpet_table_prepare', $args );
 
-		$table_query = new WP_Query( $args );		
+		$table_query = new WP_Query( $args );
 		$this->items = $table_query->get_posts();
 
 		$this->set_pagination_args( array(
@@ -76,9 +76,20 @@ abstract class WPET_Table extends WP_List_Table {
 	protected function get_edit_url( $post ) {
 		return add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] );
 	}
-	
+
+	/**
+	 *
+	 * @todo Justin: fix get_trash_url
+	 * note: when I made this I used trash_url instead of edit_url, but it was giving me
+	 *			an undefined variable issue, even though I set it in Module.class.php
+	 */
+	protected function get_trash_url( $post ) {
+		return add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] );
+	}
+
 	protected function column_title( $post ) {
 		$edit_url = $this->get_edit_url( $post );
+	//	$trash_url = $this->get_trash_url( $post );
 		$column = "<strong><a href='{$edit_url}'>{$post->post_title}</a></strong>";
 
 		$actions = array();
@@ -86,8 +97,14 @@ abstract class WPET_Table extends WP_List_Table {
 		if ( ! empty( $actions ) ) {
 			$column .= "<div class='row-actions'>\n";
 
+			/**
+			 * @todo better handle the adding of the pipe
+			 */
+			$i = 1;
 			foreach( $actions as $action_info ) {
+				if ( $i > 1 ) { $column .= ' | '; }
 				$column .= "<span class='{$action_info['class']}'><a href='{$action_info['href']}'>{$action_info['label']}</a></span>\n";
+				$i++;
 			}
 			$column .= "</div>\n";
 		}
@@ -98,6 +115,11 @@ abstract class WPET_Table extends WP_List_Table {
 		$actions['edit'] = array( 'class' => 'edit',
 								  'href' => $this->get_edit_url( $post ),
 								  'label' => __( 'Edit' )
+		);
+
+		$actions['trash'] = array( 'class' => 'trash',
+								  'href' => $this->get_trash_url( $post ),
+								  'label' => __( 'Trash' )
 		);
 
 		return $actions;

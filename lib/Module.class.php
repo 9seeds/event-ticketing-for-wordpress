@@ -2,11 +2,11 @@
 
 /**
  * override these if you'd like
- * 
+ *
  * @since 2.0
  */
 abstract class WPET_Module {
-    
+
 	protected $mPostType;
 	protected $render_data;
 
@@ -25,10 +25,15 @@ abstract class WPET_Module {
 		if ( isset( $this->mPostType ) ) {
 			$this->render_data['base_url'] = admin_url( "admin.php?page={$this->mPostType}" );
 			$this->render_data['edit_url'] = add_query_arg( array( 'action' => 'edit' ), $this->render_data['base_url'] );
+			/*
+			 * @todo trash_url not correct. Should have this format:
+			 * ?post=263&action=trash&_wpnonce=6fc9c28983
+			 */
+			$this->render_data['trash_url'] = add_query_arg( array( 'action' => 'trash' ), $this->render_data['base_url'] );
 			$this->render_data['new_url'] = add_query_arg( array( 'action' => 'new' ), $this->render_data['base_url'] );
 		}
 	}
-	
+
 	/**
 	 * @since 2.0
 	 */
@@ -73,13 +78,13 @@ abstract class WPET_Module {
 	public function getPostData() {
 		return array();
 	}
-	
+
 	/**
 	 * @since 2.0
 	 */
 	public function contextHelp( $screen ) {
 	}
-	
+
 	/**
 	 * Finds wpet objects
 	 *
@@ -87,7 +92,7 @@ abstract class WPET_Module {
 	 * @param array $args
 	 * @return array of WP_Post objects
 	 */
-	public function find( $args = array() ) {		
+	public function find( $args = array() ) {
 	    $defaults = array(
 			'post_type' => $this->mPostType,
 			'showposts' => -1,
@@ -111,11 +116,11 @@ abstract class WPET_Module {
 	    $defaults = array(
 			'showposts' => 1
 		);
-		
+
 		$data = wp_parse_args( $args, $defaults );
 
 		$posts = $this->find( $data );
-		
+
 		if ( ! empty( $posts ) )
 			return current( $posts );
 
@@ -132,12 +137,12 @@ abstract class WPET_Module {
 	public function findByID( $post_id ) {
 		return WP_Post::get_instance( $post_id );
 	}
-	
+
 	/**
 	 * Adds the object data to the database
-	 * 
+	 *
 	 * @since 2.0
-	 * @param array $data 
+	 * @param array $data
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
 	public function add( $data = array() ) {
@@ -146,17 +151,17 @@ abstract class WPET_Module {
 			'post_status' => 'publish',
 			//'post_title' => uniqid(),
 	    );
-	    
+
 	    if( $user_id = get_current_user_id() )
 		$defaults['post_author'] = $user_id;
-	    
+
 	    $data = wp_parse_args( $data, $defaults );
-	    
+
 	    $data = apply_filters( $data['post_type'] . '_add', $data );
 	    $data = apply_filters( 'wpet_add', $data );
-	    
+
 	    $post_id = wp_insert_post( $data );
-	    
+
 	    if( isset( $data['meta'] ) ) {
 		$this->saveMeta( $post_id, $data['meta'] );
 //			foreach( $data['meta'] as $k => $v ) {
@@ -172,28 +177,28 @@ abstract class WPET_Module {
 	    }
 	    return $post_id;
 	}
-	
+
 	public function saveMeta( $post_id, $meta ) {
 	    //echo 'saveMeta<br><br><pre>'; print_r( $meta ); echo '</pre>';
 	    foreach( $meta as $k => $v ) {
-		
+
 		/*if( is_array( $v ) ) {
 		    $this->saveMeta($post_id, $v);
 		} else {*/
 		    update_post_meta( $post_id, "wpet_{$k}", $v );
 		//}
-	    } 
+	    }
 	}
-	
+
 	/**
 	 * Helper function to update the post record in the database
-	 * 
+	 *
 	 * @param integer $post_id
 	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success. 
+	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
 	public function update( $post_id, $data ) {
-	    
+
 	    $data['ID'] = $post_id;
 	    return $this->add( $data );
 	}
