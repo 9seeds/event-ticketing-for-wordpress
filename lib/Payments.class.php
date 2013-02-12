@@ -22,14 +22,15 @@ class WPET_Payments extends WPET_Module {
 		//add_filter( 'all', array( $this, 'hookDebug' ) );
 
 		if ( ! is_admin() ) {
-			add_action( 'init', array( $this, 'maybePaymentSubmit' ), 15 );
+			add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
 			add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
+			add_action( 'the_post', array( $this, 'setPayment' ) );
 		}
 		
 		//do this after post type is set
 		parent::__construct();
     }
-
+	
 	public function hookDebug( $name ) {
 		echo "<!-- {$name} -->\n";
 	}
@@ -57,7 +58,6 @@ class WPET_Payments extends WPET_Module {
 			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
 
 			//insert our gateway form
-			add_action( 'the_post', array( $this, 'setPost' ) );
 			add_filter( 'the_content', array( $this, 'showGateway' ) );
 		}
 		return $tpl;
@@ -67,13 +67,8 @@ class WPET_Payments extends WPET_Module {
 		return __( 'Checkout', 'wpet' );
 	}
 
-	public function setPost( $post ) {
-		$this->mPayment = $post;
-	}
-
 	public function getCart() {
-		if ( ! $this->mPayment )
-			return NULL;
+		$this->loadPayment();
 
 		$packages = WPET::getInstance()->packages;
 		$cart = array(
@@ -83,7 +78,7 @@ class WPET_Payments extends WPET_Module {
 
 		foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
 			if ( $quantity ) {
-				$package = $packages->findOne( $package_id );
+				$package = $packages->findByID( $package_id );
 				$cart['items'][] = array(
 					'package_name' => $package->post_title,
 					'package_cost' => $package->wpet_package_cost,
@@ -100,10 +95,9 @@ class WPET_Payments extends WPET_Module {
 	 * 
 	 * @since 2.0
 	 */
-	public function draftPayment() {
-		if ( ! $this->mPayment )
-			return NULL;
-
+	public function pendingPayment() {
+		$this->loadPayment();
+		
 		if ( empty( $this->mPayment->wpet_attendees ) ) {
 			$packages = WPET::getInstance()->packages;
 			$attendees = WPET::getInstance()->attendees;
@@ -111,10 +105,10 @@ class WPET_Payments extends WPET_Module {
 			//@TODO this could maybe go somewhere on it's own
 			foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
 				if ( $quantity ) {
-					$package = $packages->findOne( $package_id );
+					$package = $packages->findByID( $package_id );
 					$attendee_ids = array();
 				   	for ( $i = 0; $i < $package->wpet_ticket_quantity; $i++ ) {
-						$attendee_ids[] = $attendee->draftAttendee();
+						$attendee_ids[] = $attendees->draftAttendee();
 					}
 					update_post_meta( $this->mPayment->ID, 'wpet_attendees', $attendee_ids );
 				}
@@ -127,17 +121,25 @@ class WPET_Payments extends WPET_Module {
 	}
 
 	/**
-	 * Once the payment gateway has received payment confirmation, update payment from draft to published
+	 * Once the payment gateway has received payment confirmation, update payment from pending to published
 	 * 
 	 * @since 2.0
 	 */
-	public function savePayment() {
-		if ( ! $this->mPayment )
-			return NULL;
-
-		
+	public function publishPayment() {
+		$this->loadPayment();
 	}
-	
+
+	public function setPayment( $post ) {
+		$this->mPayment = $post;
+	}
+
+	protected function loadPayment() {
+		if ( $this->mPayment )
+			return;
+		
+		if ( isset( $_REQUEST['p'] ) )
+			$this->mPayment = $this->findByID( $_REQUEST['p'] );
+	}
 	
 	public function showGateway( $content ) {
 		if ( ! $this->mPayment )
@@ -146,6 +148,8 @@ class WPET_Payments extends WPET_Module {
 		if ( $this->mPayment->post_status == 'draft' ) {
 			$gateway = WPET::getInstance()->getGateway();
 			return $gateway->getPaymentForm();
+		} else if ( $this->mPayment->post_status == 'pending' ) {
+			die('your payment must complete before you can add attendee names');
 		}
 
 		return $content;

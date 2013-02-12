@@ -3,9 +3,19 @@
 abstract class WPET_Gateway {
 
 	protected $mSettings;
+	protected $mPayment;
 	
 	public function __construct() {
 		$this->mSettings = WPET::getInstance()->settings;
+	}
+	
+	/**
+	 * @since 2.0
+	 * @param $payment WP_Post payment cpt object
+	 */
+	public function setPayment( $payment ) {
+		$this->mPayment = $payment;
+
 	}
 	
 	//name

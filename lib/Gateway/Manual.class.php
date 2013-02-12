@@ -51,7 +51,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 				//@TODO do something productive here
 				wp_die('errors!');
 			} else {
-				WPET::getInstance()->payment->draftPayment();
+				WPET::getInstance()->payment->pendingPayment();
 			}
 		}
 	}
