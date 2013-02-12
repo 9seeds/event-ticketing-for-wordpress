@@ -9,6 +9,8 @@
  */
 class WPET_Payments extends WPET_Module {
 
+	protected $mPayment;
+	
     /**
      * @since 2.0 
      */
@@ -55,6 +57,7 @@ class WPET_Payments extends WPET_Module {
 			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
 
 			//insert our gateway form
+			add_action( 'the_post', array( $this, 'setPost' ) );
 			add_filter( 'the_content', array( $this, 'showGateway' ) );
 		}
 		return $tpl;
@@ -62,6 +65,34 @@ class WPET_Payments extends WPET_Module {
 
 	public function filterTitle( $title ) {
 		return __( 'Checkout', 'wpet' );
+	}
+
+	public function setPost( $post ) {
+		$this->mPayment = $post;
+	}
+
+	public function getCart() {
+		if ( ! $this->mPayment )
+			return NULL;
+
+		$packages = WPET::getInstance()->packages;
+		$cart = array(
+			'items' => array(),
+			'total' => 0
+		);
+
+		foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
+			if ( $quantity ) {
+				$post = $packages->findOne( $package_id );
+				$cart['items'][] = array(
+					'post_title' => $post->post_title,
+					'package_cost' => $post->wpet_package_cost,
+					'quantity' => $quantity,
+				);
+				$cart['total'] += $post->wpet_package_cost * $quantity;
+			}
+		}
+		return $cart;
 	}
 	
 	public function showGateway( $content ) {

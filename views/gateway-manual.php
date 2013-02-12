@@ -12,6 +12,7 @@
 			<input name="email" id="email" size="35" value="">
 		</li>
 	</ul>
+	 <p><?php printf( __( 'Total: %s', 'wpet' ), $data['cart']['total'] ); ?></p>
 	 	<p>
 			<input type="submit" name="submit" value="Submit" />
 	 	</p>
