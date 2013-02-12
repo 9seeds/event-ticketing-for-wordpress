@@ -10,7 +10,7 @@
 ------------------ */
 
 .report-column-1 {
-	width: 70%;
+	width: 55%;
 	float: left;
 	min-width: 300px;
 	padding: 10px;
@@ -19,7 +19,6 @@
 .report-column-2 {
 	float: left;
 	width: 25%;
-	min-width: 300px;
 
 }
 
