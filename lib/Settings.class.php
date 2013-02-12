@@ -14,6 +14,8 @@ class WPET_Settings extends WPET_Module {
 		add_filter( 'wpet_settings_tabs', array( $this, 'defaultTabs' ), 1 );
 
 		add_filter( 'wpet_settings_tabs', array( $this, 'resetTab' ), 100 );
+		
+		add_action( 'wpet_settings_submit', array( $this, 'submit_form_display' ) );
 	}
 
 	/**
@@ -245,6 +247,24 @@ class WPET_Settings extends WPET_Module {
 		}
 
 		do_action( 'wpet_settings_submit', $post );
+	}
+	
+	/**
+	 * Handles the Form Display checkboxes on Settings save. 
+	 * 
+	 * Caution: Uses reverse logic
+	 * 
+	 * @since 2.0
+	 * @param array $post 
+	 */
+	public function submit_form_display( $post ) {
+	    
+	    if( !isset( $post['options']['show_package_count'] ) )
+		update_option ( 'wpet_show_package_count', '0' );
+	    
+	    if( !isset( $post['options']['hide_coupons'] ) )
+		update_option( 'wpet_hide_coupons', '0' );
+	    
 	}
 
 	/**
