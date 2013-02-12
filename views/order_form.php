@@ -1,4 +1,4 @@
-<div id="eventTicketing">
+<div id="eventTicketing"> 
 	<form action="" method="post"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
 		<?php
 		/**
@@ -51,6 +51,8 @@
 					</td>
 				</tr>
 				<?php endforeach; ?>
+				
+				<?php if( !$data['hide_coupons'] ) { ?>
 				<tr class="coupon">
 					<td colspan="2">
 						<label for="couponCode"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>
@@ -60,6 +62,7 @@
 						<input type="submit" name="couponSubmitButton" value="<?php _e( 'Apply Coupon', 'wpet'); ?>">
 					</td>
 				</tr>
+				<?php } ?>
 						<tr>
 						<td colspan="4">
 							<input type="submit" name="submit" value="Submit" />
