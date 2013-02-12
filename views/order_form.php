@@ -1,5 +1,5 @@
 <div id="eventTicketing"> 
-	<form action="" method="post"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
+	<form action="" method="post" id="order_form"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
 		<?php
 		/**
 		 * @todo fix nonce
@@ -22,17 +22,17 @@
 					<?php _e( 'Quantity', 'wpet' ); ?></th>
 				</tr>
 				<?php foreach( $data['rows'] as $row ): ?>
-				<tr>
+				<tr class="package_row">
 
 					<td>
 						<div class="packagename"><strong><?php echo $row->post_title ?></strong></div>
 						<div class="packagedescription"><?php echo nl2br( $row->post_content ); ?></div>
 					</td>
-					<td><?php echo WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $row->wpet_package_cost ); ?>
+					<td class="price"><?php echo WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $row->wpet_package_cost ); ?>
 							</td>
 
 					<?php if( WPET::getInstance()->settings->show_package_count ) {
-					    echo "<td>" . $row->wpet_quantity_remaining . "</td>";
+					    echo "<td class='remaining'>" . WPET::getInstance()->packages->remaining( WPET::getInstance()->events->getWorkingEvent()->ID, $row->ID ) . "</td>";
 					    echo "<td>";
 					} else {
 					    echo "<td colspan='2'>";
@@ -41,7 +41,7 @@
 					$remaining =  WPET::getInstance()->packages->remaining( WPET::getInstance()->events->getWorkingEvent()->ID, $row->ID );
 					?>
 					<!-- <td> -->
-						<select name="packagePurchase[<?php echo $row->ID ?>]" >
+						<select name="packagePurchase[<?php echo $row->ID ?>]" class="quantity">
 							<?php
 							for( $i = 0; $i <= $remaining; $i++ ) {
 							    echo "<option value='$i'>$i</option>";
@@ -64,8 +64,11 @@
 				</tr>
 				<?php } ?>
 						<tr>
-						<td colspan="4">
-							<input type="submit" name="submit" value="Submit" />
+						<td colspan="3">
+							Subtotal: $<span id="subTotal">0.00</span> 
+						</td>
+						<td>
+						    <input type="submit" name="submit" value="Submit" />
 						</td>
 						</tr>
 						<!--
@@ -80,3 +83,29 @@
 		</div>
 	</form>
 </div>
+
+<script>
+    jQuery('.quantity').change( function() {
+	
+	
+	
+	
+	rows = jQuery('#order_form').find('.package_row');
+	console.log( rows );
+	
+	total = 0;
+	
+	rows.each( function() {
+	    price =  Number(jQuery(this).find('.price').text().replace(/[^0-9\.]+/g,""));
+	    
+	    quantity = Number( jQuery(this).find('.quantity').val() );
+	    
+	    row_total = price * quantity;
+	    console.log( row_total );
+	    
+	    total += row_total;
+	});
+	
+	jQuery('#subTotal').text(total);
+    });
+</script>
