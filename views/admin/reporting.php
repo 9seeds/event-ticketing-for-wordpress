@@ -2,30 +2,85 @@
 	<h2><?php _e( 'Reports', 'wpet' ); ?></h2>
 
 	<div class="report-column-1">
-		<div class="report-fill">
-			<div><label><?php _e( 'Event', 'wpet' ); ?>:</label> My Event Name</div>
-			<div><label><?php _e( 'Date', 'wpet' ); ?>:</label> July 6, 2014</div>
-			<div><label><?php _e( 'Total tickets', 'wpet' ); ?>:</label> 250</div>
-			<div><label><?php _e( 'Tickets go on sale', 'wpet' ); ?>:</label> April 1, 2014</div>
-			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
-		</div>
-		<div class="report-nofill">
+		<h2><?php _e( 'Sales by Package', 'wpet' ); ?></h2>
+		<table class='widefat'>
+			<thead>
+				<tr>
+					<th><?php _e( 'Packages', 'wpet' ); ?></th>
+					<th><?php _e( 'Sold', 'wpet' ); ?></th>
+					<th><?php _e( 'Remaining', 'wpet' ); ?></th>
+					<th><?php _e( 'Revenue', 'wpet' ); ?></th>
+					<th><?php _e( 'Coupons', 'wpet' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php
+			/**
+			 * @todo Replace with proper data values
+			 *
+			 */
+			?>
+				<tr>
+					<td>General Admission</td>
+					<td>229</td>
+					<td>31</td>
+					<td>$2,220.00</td>
+					<td>($50.00)</td>
+				</tr>
+				<tr>
+					<td>Earlybirds</td>
+					<td>26</td>
+					<td>24</td>
+					<td>$260.00</td>
+					<td>($0.00)</td>
+				</tr>
+				<tr>
+					<td><strong><?php _e( 'Totals', 'wpet' ); ?></strong></td>
+					<td><strong>255</strong></td>
+					<td><strong>55</strong></td>
+					<td><strong>$2,480.00</strong></td>
+					<td><strong>($50.00)</strong></td>
+				</tr>
+ 			</tbody>
+		</table>
+		<h2><?php _e( 'Sales by Ticket Type', 'wpet' ); ?></h2>
+		<table class='widefat'>
+			<thead>
+				<tr>
+					<th><?php _e( 'Ticket', 'wpet' ); ?></th>
+					<th><?php _e( 'Sold', 'wpet' ); ?></th>
+					<th><?php _e( 'Remaining', 'wpet' ); ?></th>
+				</tr>
+				<?php
+				/**
+				 * @todo replace these with actual data
+				 */
+				?>
+				<tr>
+					<td>General Admission</td>
+					<td>255</td>
+					<td>145</td>
+				</tr>
+				<tr>
+					<td>Special Admission</td>
+					<td>5</td>
+					<td>15</td>
+				</tr>
+				<tr>
+					<td><strong><?php _e( 'Totals', 'wpet' ); ?></strong></td>
+					<td><strong>260</strong></td>
+					<td><strong>160</strong></td>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<div class="gchart">
 			<img src="//chart.googleapis.com/chart?chs=300x225&cht=p&chd=s:Pu&chdl=Sold|Available&chtt=Ticket+Sales" width="300" height="225" alt="Ticket Sales" />
 		</div>
 	</div>
+
 	<div class="report-column-2">
-		<div class="report-fill">
-			<div><label><?php _e( 'Event', 'wpet' ); ?>:</label> My Event Name</div>
-			<div><label><?php _e( 'Date', 'wpet' ); ?>:</label> July 6, 2014</div>
-			<div><label><?php _e( 'Total tickets', 'wpet' ); ?>:</label> 250</div>
-			<div><label><?php _e( 'Tickets go on sale', 'wpet' ); ?>:</label> April 1, 2014</div>
-			<div><label><?php _e( 'Ticket sales end on', 'wpet' ); ?>:</label> July 5, 2014</div>
-		</div>
-		<div class="report-nofill">
-			<img src="//chart.googleapis.com/chart?chxl=0:|1%2F1|1%2F2|1%2F3|1%2F4|1%2F5|1%2F6|1%2F7|1%2F8|1%2F9|1%2F10|1:|0|25|50|75|100&chxs=0,676767,14,0.5,l,676767|1,676767,11.5,-0.333,lt,676767&chxt=x,y&chs=300x200&cht=lc&chco=FF0000&chds=0,120&chd=t:20,120,40,80,60,20,40,100,120,80&chg=20,25&chls=1,6,3&chtt=Revenue+Per+Day" width="300" height="200" alt="Revenue Per Day" />
-		</div>
-	</div>
-	<div class="report-column-3">
 		<div class="seeds-sidebar-box">
 			<h3>Need Support?</h3>
 			<p>If you are having problems with the WP Event Ticketing plugin, please post them in the <a href="http://support.9seeds.com/forum/wp-event-ticketing/">support forums</a>.</p>

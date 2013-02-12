@@ -9,17 +9,22 @@
 /* report settings
 ------------------ */
 
-.report-column-1, .report-column-2 {
-	width: 30%;
+.report-column-1 {
+	width: 70%;
 	float: left;
 	min-width: 300px;
 	padding: 10px;
 }
 
-.report-column-3 {
+.report-column-2 {
 	float: left;
-	width: 250px;
+	width: 25%;
+	min-width: 300px;
 
+}
+
+.gchart {
+	margin: 10px;
 }
 
 .report-fill {
@@ -84,14 +89,19 @@
 	cursor: pointer;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1024px) {
 
 	.report-fill, .report-empty {
 		width: 45%;
 		float: left;
 	}
 
-	.seeds-sidebar-box, .seeds-sidebar-box-2, .report-column-1, .report-column-2, .report-column-3 {
+	.gchart {
+		margin: 0 auto 0;
+		text-align: center;
+	}
+
+	.seeds-sidebar-box, .seeds-sidebar-box-2, .report-column-1, .report-column-2 {
 		width: 100%;
 	}
 }
