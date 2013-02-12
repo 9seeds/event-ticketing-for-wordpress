@@ -16,14 +16,18 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		return array( 'USD' );
 	}
 
+	public function getDefaultCurrency() {
+		return 'USD';
+	}
+
 	public function getCurrencyCode() {
-		return $this->mSettings->manual_currency;
+		//set a default currency for first time use
+		return empty( $this->mSettings->manual_currency ) ? $this->getDefaultCurrency() : $this->mSettings->manual_currency;
 	}
 	
 	public function settingsForm() {
 		$payment_data = array(
-			//set a default currency for first time use
-			'currency' => empty( $this->mSettings->manual_currency ) ? 'USD' : $this->mSettings->manual_currency,
+			'currency' => $this->getCurrencyCode(),
 			'currencies' => $this->getCurrencies(),
 		);
 		
@@ -44,15 +48,15 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	public function processPayment() {
 		if ( isset( $_POST['submit'] ) ) {
 			if ( ! is_email( $_POST['email'] ) || empty( $_POST['name'] ) ) {
+				//@TODO do something productive here
 				wp_die('errors!');
 			} else {
-				//die(print_r($_POST, true));
 				WPET::getInstance()->payment->draftPayment();
 			}
 		}
 	}
 
 	public function processPaymentReturn() {
-		WPET::getInstance()->payment->savePayment();
+		//up to the payment receiver to mark these as complete
 	}
 }	

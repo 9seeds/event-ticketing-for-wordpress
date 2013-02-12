@@ -83,13 +83,13 @@ class WPET_Payments extends WPET_Module {
 
 		foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
 			if ( $quantity ) {
-				$post = $packages->findOne( $package_id );
+				$package = $packages->findOne( $package_id );
 				$cart['items'][] = array(
-					'post_title' => $post->post_title,
-					'package_cost' => $post->wpet_package_cost,
+					'package_name' => $package->post_title,
+					'package_cost' => $package->wpet_package_cost,
 					'quantity' => $quantity,
 				);
-				$cart['total'] += $post->wpet_package_cost * $quantity;
+				$cart['total'] += $package->wpet_package_cost * $quantity;
 			}
 		}
 		return $cart;
@@ -101,7 +101,29 @@ class WPET_Payments extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function draftPayment() {
-		
+		if ( ! $this->mPayment )
+			return NULL;
+
+		if ( empty( $this->mPayment->wpet_attendees ) ) {
+			$packages = WPET::getInstance()->packages;
+			$attendees = WPET::getInstance()->attendees;
+
+			//@TODO this could maybe go somewhere on it's own
+			foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
+				if ( $quantity ) {
+					$package = $packages->findOne( $package_id );
+					$attendee_ids = array();
+				   	for ( $i = 0; $i < $package->wpet_ticket_quantity; $i++ ) {
+						$attendee_ids[] = $attendee->draftAttendee();
+					}
+					update_post_meta( $this->mPayment->ID, 'wpet_attendees', $attendee_ids );
+				}
+			}
+			
+			//update the payment status
+			$this->mPayment->post_status = 'pending';
+			$packages->add( $this->mPayment );
+		}
 	}
 
 	/**
@@ -110,13 +132,23 @@ class WPET_Payments extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function savePayment() {
+		if ( ! $this->mPayment )
+			return NULL;
+
 		
 	}
 	
 	
 	public function showGateway( $content ) {
-		$gateway = WPET::getInstance()->getGateway();
-		return $gateway->getPaymentForm();
+		if ( ! $this->mPayment )
+			return $content;
+
+		if ( $this->mPayment->post_status == 'draft' ) {
+			$gateway = WPET::getInstance()->getGateway();
+			return $gateway->getPaymentForm();
+		}
+
+		return $content;
 	}
 	
     /**

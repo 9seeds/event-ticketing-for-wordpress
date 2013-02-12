@@ -87,16 +87,18 @@ class WPET_Attendees extends WPET_Module {
 
 	/**
 	 * @since 2.0
-	 * @returns array( $attendee_id, $uniqid )
+	 * @returns int $attendee_id
 	 */
-	public function draftAttendee() {
+	public function draftAttendee( $args = array() ) {
+
+		$data = wp_parse_args( $args, $defaults );
+
 		$uniqid = uniqid();
 		$data = array(
 			'post_status' => 'draft',
 			'meta' => array( 'uniqid' => $uniqid ),
 		);
-		$attendee_id = $this->add( $data );		
-		return array( $attendee_id, $uniqid );
+		return $this->add( $data );
 	}
 
 	/**
