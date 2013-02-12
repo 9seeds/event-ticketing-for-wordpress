@@ -344,7 +344,6 @@ class WPET {
 			} else if ( ! empty( $_POST['submit'] ) ) {
 				//@TODO maybe double-check coupon stuff here too?
 				//@TODO some form validation as well before sending to payment CPT (gateway step)
-				//@TODO save ticket info in a transient?
 				$data = array(
 					'post_title' => uniqid(),
 					'post_status' => 'publish',
@@ -352,9 +351,9 @@ class WPET {
 						'package_data' => $_POST
 					)  
 				);
-				$payment = $this->payment->add( $data );
-				//wp_redirect( site_url( '?post_type=' . $this->payment->getPostType() .'&p=' . get_post( $payment )->ID ) );
-				wp_redirect( get_permalink( $payment ) );
+				$payment_id = $this->payment->add( $data );
+
+				wp_redirect( get_permalink( $payment_id ) );
 				exit();
 			}
 		}

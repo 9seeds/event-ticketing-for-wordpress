@@ -21,7 +21,7 @@
 					?>
 					<?php _e( 'Quantity', 'wpet' ); ?></th>
 				</tr>
-				<?php foreach( $data['rows'] AS $row ): ?>
+				<?php foreach( $data['rows'] as $row ): ?>
 				<tr>
 
 					<td>
@@ -40,10 +40,10 @@
 
 					$remaining =  WPET::getInstance()->packages->remaining( WPET::getInstance()->events->getWorkingEvent()->ID, $row->ID );
 					?>
-					<!--<td>-->
-						<select name="packagePurchase[0]" >
+					<!-- <td> -->
+						<select name="packagePurchase[<?php echo $row->ID ?>]" >
 							<?php
-							for( $i = 1; $i <= $remaining; $i++ ) {
+							for( $i = 0; $i <= $remaining; $i++ ) {
 							    echo "<option value='$i'>$i</option>";
 							}
 							?>

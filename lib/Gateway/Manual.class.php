@@ -42,7 +42,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 			if ( ! is_email( $_POST['email'] ) || empty( $_POST['name'] ) ) {
 				wp_die('errors!');
 			}
-			
+			//die(print_r($_POST, true));
 		}
 	}
 
