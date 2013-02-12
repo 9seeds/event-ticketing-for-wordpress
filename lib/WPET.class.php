@@ -442,7 +442,7 @@ class WPET {
 
 			// payments tab
 			$this->settings->currency = 'USD';
-			$this->settings->payment_gateway = 'paypal_express';
+			$this->settings->payment_gateway = 'WPET_Gateway_Manual';
 			$this->settings->payment_gateway_status = 'sandbox';
 
 			// email tab
