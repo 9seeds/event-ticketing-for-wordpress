@@ -165,12 +165,17 @@ class WPET_Settings extends WPET_Module {
 			'title' => 'Second email',
 			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
+		
+		$form_display = array(
+		  'show_package_count' => $this->show_package_count,
+		    'hide_coupons' => $this->hide_coupons
+		);
 
 		//@TODO real data
 		$settings[] = array(
 		    'tab' => 'form_display',
 			'title' => 'Second email',
-			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', array(), true )
+			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', $form_display, true )
 		);
 		$settings[] = array(
 		    'tab' => 'reset',
