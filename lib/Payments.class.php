@@ -75,12 +75,16 @@ class WPET_Payments extends WPET_Module {
 		     */
 		   
 		    if( isset( $_POST['submit'] ) ) {
+			
 			//echo 'processing';
 			//var_dump($_POST);
 			// Payment submitted to gateway
 			WPET::getInstance()->getGateway()->processPayment();
-			$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-			wp_redirect( get_permalink( $this->mPayment->ID ) );
+			//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+			
+			echo "wp_update_post( array( 'ID' => {$this->mPayment->ID}, 'post_status' => 'pending' ) )";
+			wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'pending' ) );
+			wp_redirect(urldecode(get_permalink( $this->mPayment->ID )) );
 		    } else {
 			// Create draft attendees
 			$this->createAttendees();
@@ -91,7 +95,7 @@ class WPET_Payments extends WPET_Module {
 		    
 		    break;
 		case 'pending':
-		    
+		    die('pending');
 		  //  echo 'pending';
 		    // Waiting for payment to be processed
 		    WPET::getInstance()->getGateway()->processPayment();
@@ -101,7 +105,7 @@ class WPET_Payments extends WPET_Module {
 		    break;
 		case 'processing': // IS THIS NEEDED?
 		    echo 'processing';
-		    
+		   die(); 
 		    WPET::getInstance()->getGateway()->processPaymentReturn();
 		    $this->update( $this->mPayment->ID, array( 'post_status' => 'published' ) );
 		    //wp_redirect( get_permalink( $this->mPayment->ID ) );
@@ -136,7 +140,7 @@ class WPET_Payments extends WPET_Module {
 		if ( ! empty( $_POST['wpet_purchase_nonce'] ) && wp_verify_nonce( $_POST['wpet_purchase_nonce'], 'wpet_purchase_tickets' ) ) {
 			if ( ! empty( $_POST['couponSubmitButton'] ) ) {
 				//@TODO DO COUPON STUFF!!
-			} else if ( ! empty( $_POST['submit'] ) ) {
+			} else if ( ! empty( $_POST['order_submit'] ) ) {
 				//@TODO maybe double-check coupon stuff here too?
 				//@TODO some form validation as well before sending to payment CPT (gateway step)
 				//@TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
@@ -268,7 +272,7 @@ class WPET_Payments extends WPET_Module {
 			//$this->mPayment->post_status = 'pending';
 			//unset($this->mPayment->guid);
 			//echo '<pre>'; var_dump($this->mPayment);die();
-			$packages->add( $this->mPayment );
+			//$packages->add( $this->mPayment );
 		}
 	}
 

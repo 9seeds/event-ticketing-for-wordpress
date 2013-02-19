@@ -68,7 +68,7 @@
 							Subtotal: $<span id="subTotal">0.00</span> 
 						</td>
 						<td>
-						    <input type="submit" name="submit" value="Submit" />
+						    <input type="submit" name="order_submit" value="Submit" />
 						</td>
 						</tr>
 						<!--
