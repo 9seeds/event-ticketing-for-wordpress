@@ -129,7 +129,6 @@ class WPET_Payments extends WPET_Module {
 		//wp_redirect( get_permalink( $this->mPayment->ID ) );
 		break;
 	    case 'publish':
-		echo 'published';
 		// Payment has completed successfully, show receipt
 		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 		add_filter('the_content', array($this, 'showPayment'));
