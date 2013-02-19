@@ -5,6 +5,7 @@ require_once WPET_PLUGIN_DIR . 'lib/Table/Coupons.class.php';
 
 $args = array(
 	'edit_url' => $data['edit_url'],
+	'trash_url' => $data['trash_url'],
 );
 $wp_list_table = new WPET_Table_Coupons( $args );
 $wp_list_table->prepare_items();

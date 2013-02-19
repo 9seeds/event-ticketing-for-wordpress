@@ -202,4 +202,23 @@ abstract class WPET_Module {
 	    $data['ID'] = $post_id;
 	    return $this->add( $data );
 	}
+
+	/**
+	 * Helper function to trash the post record in the database
+	 *
+	 * @param integer $post_id
+	 * @param array $data
+	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
+	 */
+	public function trash( $post_id, $data = array() ) {
+	    $defaults = array(
+			'ID' => $post_id,
+			'post_status' => 'trash',
+	    );
+
+	    $data = wp_parse_args( $data, $defaults );
+
+	    return $this->add( $data );
+	}
+	
 }

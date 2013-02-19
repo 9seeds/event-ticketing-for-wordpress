@@ -5,6 +5,7 @@ require_once WPET_PLUGIN_DIR . 'lib/Table/Tickets.class.php';
 
 $args = array(
 	'edit_url' => $data['edit_url'],
+	'trash_url' => $data['trash_url'],
 );
 $wp_list_table = new WPET_Table_Tickets( $args );
 $wp_list_table->prepare_items();
