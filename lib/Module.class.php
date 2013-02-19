@@ -224,7 +224,7 @@ abstract class WPET_Module {
 
 	    $data = wp_parse_args( $data, $defaults );
 
-	    return $this->add( $data );
+		return wp_update_post( $data );
 	}
 	
 }
