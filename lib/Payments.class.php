@@ -16,8 +16,9 @@ class WPET_Payments extends WPET_Module {
      */
     public function __construct() {
 		$this->mPostType = 'wpet_payments';
-
+remove_filter( 'pre_post_guid', 'esc_url_raw' ); 
 		add_action( 'init', array( $this, 'registerPostType' ) );
+		add_action( 'init', array( $this, 'registerPostStatus' ) );
 		//add_action( 'all', array( $this, 'hookDebug' ) );
 		//add_filter( 'all', array( $this, 'hookDebug' ) );
 
@@ -33,6 +34,25 @@ class WPET_Payments extends WPET_Module {
 		
 		//do this after post type is set
 		parent::__construct();
+    }
+    public function registerPostStatus() {
+    register_post_status( 'pending', array(
+		'label'                     => _x( 'Pending', 'post' ),
+		'public'                    => true,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => true,
+		'label_count'               => _n_noop( 'Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>' ),
+	) );
+    
+    register_post_status( 'processing', array(
+		'label'                     => _x( 'Processing', 'post' ),
+		'public'                    => true,
+		'exclude_from_search'       => false,
+		'show_in_admin_all_list'    => true,
+		'show_in_admin_status_list' => true,
+		'label_count'               => _n_noop( 'Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>' ),
+	) );
     }
 	
  
@@ -82,9 +102,9 @@ class WPET_Payments extends WPET_Module {
 			WPET::getInstance()->getGateway()->processPayment();
 			//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 			
-			echo "wp_update_post( array( 'ID' => {$this->mPayment->ID}, 'post_status' => 'pending' ) )";
 			wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'pending' ) );
-			wp_redirect(urldecode(get_permalink( $this->mPayment->ID )) );
+			
+			wp_redirect((get_permalink( $this->mPayment->ID )) );
 		    } else {
 			// Create draft attendees
 			//$this->createAttendees();
@@ -95,21 +115,20 @@ class WPET_Payments extends WPET_Module {
 		    
 		    break;
 		case 'pending':
-		  //  echo 'pending';
 		    // Waiting for payment to be processed
 		    WPET::getInstance()->getGateway()->processPayment();
-		    $this->update( $this->mPayment->ID, array( 'post_status' => 'processing' ) );
-		    wp_redirect( get_permalink( $this->mPayment->ID ) );
+		    //$this->update( $this->mPayment->ID, array( 'post_status' => 'processing' ) );
 		    
+		    wp_redirect( get_permalink( $this->mPayment->ID ) );
+		    wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'processing' ) );
 		    break;
 		case 'processing': // IS THIS NEEDED?
-		    echo 'processing';
-		   die(); 
 		    WPET::getInstance()->getGateway()->processPaymentReturn();
-		    $this->update( $this->mPayment->ID, array( 'post_status' => 'published' ) );
+		    //$this->update( $this->mPayment->ID, array( 'post_status' => 'published' ) );
+		    wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'publish' ) );
 		    //wp_redirect( get_permalink( $this->mPayment->ID ) );
 		    break;
-		case 'published':
+		case 'publish':
 		    echo 'published';
 		    // Payment has completed successfully, show receipt
 		    //$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );

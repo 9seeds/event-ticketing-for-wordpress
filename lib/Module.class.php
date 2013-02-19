@@ -228,13 +228,13 @@ abstract class WPET_Module {
 	    $data = apply_filters( $data['post_type'] . '_update', $data );
 	    $data = apply_filters( 'wpet_update', $data );
 	    
-	    echo '<pre>'; var_dump( $data ); echo '</pre>';
+	//    echo '<pre>'; var_dump( $data ); echo '</pre>';
 	    // Cleanup to prevent breakage
-	    if( is_array( $data ) && isset( $data['guid'] ) )
-		unset( $data['guid'] );
-	    else if( isset( $data->guid ) )
-		unset( $data->guid );
-echo '<pre>'; var_dump( $data ); echo '</pre>';
+//	    if( is_array( $data ) && isset( $data['guid'] ) )
+//		unset( $data['guid'] );
+//	    else if( isset( $data->guid ) )
+//		unset( $data->guid );
+//echo '<pre>'; var_dump( $data ); echo '</pre>';
 	    $post_id = wp_update_post( $data );
 
 	    if( isset( $data['meta'] ) ) {
