@@ -145,7 +145,7 @@ abstract class WPET_Module {
 	 * @param array $data
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
-	public function add( $data = array() ) {
+	public function add( $data = array() ) { 
 	    $defaults = array(
 			'post_type' => $this->mPostType,
 			'post_status' => 'publish',
@@ -154,6 +154,12 @@ abstract class WPET_Module {
 
 	    if( $user_id = get_current_user_id() )
 		$defaults['post_author'] = $user_id;
+	    
+	    // Cleanup to prevent breakage
+	    if( is_array( $data ) && isset( $data['guid'] ) )
+		unset( $data['guid'] );
+	    else if( isset( $data->guid ) )
+		unset( $data->guid );
 
 	    $data = wp_parse_args( $data, $defaults );
 

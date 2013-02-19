@@ -27,14 +27,15 @@ class WPET_Payments extends WPET_Module {
 			//add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
 			//add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
 			add_action( 'template_redirect', array( $this, 'handlePayment' ), 15 );
-			add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
-			add_action( 'the_post', array( $this, 'setPayment' ) );
+			//add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
+			//add_action( 'the_post', array( $this, 'setPayment' ) );
 		}
 		
 		//do this after post type is set
 		parent::__construct();
     }
 	
+ 
 	public function hookDebug( $name ) {
 		echo "<!-- {$name} -->\n";
 	}
@@ -90,7 +91,7 @@ class WPET_Payments extends WPET_Module {
 		    
 		    break;
 		case 'pending':
-		     die();
+		    
 		  //  echo 'pending';
 		    // Waiting for payment to be processed
 		    WPET::getInstance()->getGateway()->processPayment();
@@ -265,6 +266,8 @@ class WPET_Payments extends WPET_Module {
 			
 			//update the payment status
 			//$this->mPayment->post_status = 'pending';
+			//unset($this->mPayment->guid);
+			//echo '<pre>'; var_dump($this->mPayment);die();
 			$packages->add( $this->mPayment );
 		}
 	}
