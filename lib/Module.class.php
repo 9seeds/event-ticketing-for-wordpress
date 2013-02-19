@@ -57,6 +57,24 @@ abstract class WPET_Module {
 	 * @since 2.0
 	 */
 	public function maybeSubmit() {
+		
+		//do some common actions
+		if ( isset( $_GET['action'] ) && $_GET['action'] != 'edit' ) {
+			switch ( $_GET['action'] ) {
+				case 'trash':
+					wp_trash_post( $_GET['post'] );
+					break;
+
+				case 'untrash':
+					wp_untrash_post( $_GET['post'] );
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		
 		if ( ! empty($_POST['wpet_submit_nonce'] ) && wp_verify_nonce( $_POST['wpet_submit_nonce'], 'wpet_submit' ) ) {
 
 			$post_data = $this->getPostData();
@@ -204,8 +222,8 @@ abstract class WPET_Module {
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
 	public function update( $post_id, $data ) {
-
 	    $data['ID'] = $post_id;
+
 	    
 	    $data = apply_filters( $data['post_type'] . '_update', $data );
 	    $data = apply_filters( 'wpet_update', $data );

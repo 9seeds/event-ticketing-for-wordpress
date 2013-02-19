@@ -87,7 +87,7 @@ class WPET_Payments extends WPET_Module {
 			wp_redirect(urldecode(get_permalink( $this->mPayment->ID )) );
 		    } else {
 			// Create draft attendees
-			$this->createAttendees();
+			//$this->createAttendees();
 			add_filter( 'the_content', array( $this, 'showPaymentForm' ) );
 			//echo WPET::getInstance()->getGateway()->getPaymentForm();
 		    }
@@ -95,7 +95,6 @@ class WPET_Payments extends WPET_Module {
 		    
 		    break;
 		case 'pending':
-		    die('pending');
 		  //  echo 'pending';
 		    // Waiting for payment to be processed
 		    WPET::getInstance()->getGateway()->processPayment();
@@ -290,18 +289,16 @@ class WPET_Payments extends WPET_Module {
 	}
 
 	protected function loadPayment() {
-	   global $post;
+		global $post;
 		if ( $this->mPayment )
 			return;
 		 
-		if( isset( $post  ) && $this->mPostType == $post->post_type )
+		if( isset( $post ) && $this->mPostType == $post->post_type )
 		    $this->mPayment = $post;
 		if ( isset( $_REQUEST['p'] ) )
 			$this->mPayment = $this->findByID( $_REQUEST['p'] );
 		
-		//echo '<pre>'; var_dump( $this->mPayment ); echo '</pre>';
-		
-		
+		//echo '<pre>'; var_dump( $this->mPayment ); echo '</pre>';		
 	}
 		
     /**

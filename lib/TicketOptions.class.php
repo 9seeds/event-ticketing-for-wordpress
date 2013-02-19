@@ -28,7 +28,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function contextHelp( $screen ) {
 
-		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+		if ( isset( $_GET['action'] ) && in_array ( $_GET['action'], array( 'edit', 'new' ) ) ) {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
@@ -101,29 +101,15 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-		if ( isset( $_GET['action'] ) ) {
-			switch ( $_GET['action'] ) {
-				case 'edit':
-					if ( ! empty( $_GET['post'] ) ) {
-						$this->render_data['option'] = $this->findByID( $_GET['post'] );
-					}
-					WPET::getInstance()->display( 'ticket-options-add.php', $this->render_data );
-					return; //don't do anything else
-
-				case 'trash':
-					$this->trash( $_GET['post'] );
-					break;
-
-				case 'untrash':
-					wp_untrash_post( $_GET['post'] );
-					break;
-
-				default:
-					break;
+		if ( isset( $_GET['action'] ) && in_array ( $_GET['action'], array( 'edit', 'new' ) ) ) {
+			if ( ! empty( $_GET['post'] ) ) {
+				$this->render_data['option'] = $this->findByID( $_GET['post'] );
 			}
+			WPET::getInstance()->display( 'ticket-options-add.php', $this->render_data );
+			return; //don't do anything else
 		}
 
-		//if all else fails
+		//default view
 		WPET::getInstance()->display( 'ticket-options.php', $this->render_data );
 	}
 

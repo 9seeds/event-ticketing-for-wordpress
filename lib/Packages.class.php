@@ -29,7 +29,7 @@ class WPET_Packages extends WPET_Module {
 	 */
 	public function contextHelp( $screen ) {
 
-		if ( isset( $_GET['action'] ) ) {
+		if ( isset( $_GET['action'] ) && in_array ( $_GET['action'], array( 'edit', 'new' ) ) ) {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
@@ -110,14 +110,16 @@ class WPET_Packages extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-		if ( isset( $_GET['action'] ) ) {
-			if ( ! empty( $_REQUEST['post'] ) ) {
-				$this->render_data['package'] = $this->findByID( $_REQUEST['post'] );
+		if ( isset( $_GET['action'] ) && in_array ( $_GET['action'], array( 'edit', 'new' ) ) ) {
+			if ( ! empty( $_GET['post'] ) ) {
+				$this->render_data['package'] = $this->findByID( $_GET['post'] );
 			}
 			WPET::getInstance()->display( 'packages-add.php', $this->render_data );
-		} else {
-			WPET::getInstance()->display( 'packages.php', $this->render_data );
+		   	return; //don't do anything else
 		}
+
+		//default view
+		WPET::getInstance()->display( 'packages.php', $this->render_data );
 	}
 
 	/**
