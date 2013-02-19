@@ -91,6 +91,8 @@ class WPET_Attendees extends WPET_Module {
 	 */
 	public function draftAttendee( $args = array() ) {
 
+		$defaults = array();
+		
 		$data = wp_parse_args( $args, $defaults );
 
 		$uniqid = uniqid();

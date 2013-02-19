@@ -22,6 +22,7 @@ class WPET_Payments extends WPET_Module {
 		//add_filter( 'all', array( $this, 'hookDebug' ) );
 
 		if ( ! is_admin() ) {
+			add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
 			add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
 			add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
 			add_action( 'the_post', array( $this, 'setPayment' ) );
@@ -33,6 +34,48 @@ class WPET_Payments extends WPET_Module {
 	
 	public function hookDebug( $name ) {
 		echo "<!-- {$name} -->\n";
+	}
+
+	/**
+	 * (possibly) process sales page form front end
+	 *
+	 * @since 2.0
+	 */
+	public function maybeSalesSubmit() {
+		if ( ! empty( $_POST['wpet_purchase_nonce'] ) && wp_verify_nonce( $_POST['wpet_purchase_nonce'], 'wpet_purchase_tickets' ) ) {
+			if ( ! empty( $_POST['couponSubmitButton'] ) ) {
+				//@TODO DO COUPON STUFF!!
+			} else if ( ! empty( $_POST['submit'] ) ) {
+				//@TODO maybe double-check coupon stuff here too?
+				//@TODO some form validation as well before sending to payment CPT (gateway step)
+				//@TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
+				$data = array(
+					'post_title' => uniqid(),
+					'post_status' => 'draft',
+					'meta' => array(
+						'package_data' => $_POST
+					)  
+				);
+				$payment_id = WPET::getInstance()->payment->add( $data );
+
+				wp_redirect( get_permalink( $payment_id ) );
+				exit();
+			}
+		}
+	}
+
+	public function showGateway( $content ) {
+		if ( ! $this->mPayment )
+			return $content;
+
+		if ( $this->mPayment->post_status == 'draft' ) {
+			$gateway = WPET::getInstance()->getGateway();
+			return $gateway->getPaymentForm();
+		} else if ( $this->mPayment->post_status == 'pending' ) {
+			die('your payment must complete before you can add attendee names');
+		}
+
+		return $content;
 	}
 	
 	public function maybePaymentSubmit() {
@@ -140,21 +183,7 @@ class WPET_Payments extends WPET_Module {
 		if ( isset( $_REQUEST['p'] ) )
 			$this->mPayment = $this->findByID( $_REQUEST['p'] );
 	}
-	
-	public function showGateway( $content ) {
-		if ( ! $this->mPayment )
-			return $content;
-
-		if ( $this->mPayment->post_status == 'draft' ) {
-			$gateway = WPET::getInstance()->getGateway();
-			return $gateway->getPaymentForm();
-		} else if ( $this->mPayment->post_status == 'pending' ) {
-			die('your payment must complete before you can add attendee names');
-		}
-
-		return $content;
-	}
-	
+		
     /**
      * Add post type for object
      * 
