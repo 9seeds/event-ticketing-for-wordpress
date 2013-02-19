@@ -4,9 +4,11 @@
 require_once WPET_PLUGIN_DIR . 'lib/Table/Packages.class.php';
 
 $args = array(
+	'base_url' => $data['base_url'],
 	'edit_url' => $data['edit_url'],
 	'trash_url' => $data['trash_url'],
 );
 $wp_list_table = new WPET_Table_Packages( $args );
 $wp_list_table->prepare_items();
+$wp_list_table->views();
 $wp_list_table->display();

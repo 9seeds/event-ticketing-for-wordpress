@@ -95,17 +95,15 @@ abstract class WPET_Table extends WP_List_Table {
 
 	protected function get_row_actions( $actions, $post ) {
 
-	   	if ( empty( $_GET[self::STATUS] ) ) {
-		
+	   	if ( empty( $_GET[self::STATUS] ) ) {		
 			$actions['edit'] = '<a href="' . $this->get_edit_url( $post ) . '">'. __( 'Edit' ) . '</a>';
 
 			//some tables may not show the trash link (notify attendees)
 			if ( isset ( $this->_args['trash_url'] ) ) {			
 				$actions['trash'] = '<a href="' . $this->get_trash_url( $post ) . '">' . __( 'Trash' ) . '</a>';
 			}
-
 		} else if ( $_GET[self::STATUS] == 'trash' ) {
-			$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore this item from the Trash' ) ) . "' href='" . add_query_arg(  array( 'action' => 'untrash', 'post' => $post->ID ), $this->_args['base_url'] ) . "'>" . __( 'Restore' ) . "</a>";
+			$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore this item from the Trash' ) ) . "' href='" . add_query_arg( array( 'action' => 'untrash', 'post' => $post->ID ), $this->_args['base_url'] ) . "'>" . __( 'Restore' ) . "</a>";
 			$actions['delete'] = "<a class='submitdelete' title='" . esc_attr( __( 'Delete this item permanently' ) ) . "' href='" . get_delete_post_link( $post->ID, '', true ) . "'>" . __( 'Delete Permanently' ) . "</a>";
 		}
 

@@ -57,6 +57,22 @@ abstract class WPET_Module {
 	 * @since 2.0
 	 */
 	public function maybeSubmit() {
+		if ( isset( $_GET['action'] ) && $_GET['action'] != 'edit' ) {
+			switch ( $_GET['action'] ) {
+				case 'trash':
+					wp_trash_post( $_GET['post'] );
+					break;
+
+				case 'untrash':
+					wp_untrash_post( $_GET['post'] );
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		
 		if ( ! empty($_POST['wpet_submit_nonce'] ) && wp_verify_nonce( $_POST['wpet_submit_nonce'], 'wpet_submit' ) ) {
 
 			$post_data = $this->getPostData();
@@ -198,27 +214,7 @@ abstract class WPET_Module {
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
 	public function update( $post_id, $data ) {
-
 	    $data['ID'] = $post_id;
 	    return $this->add( $data );
-	}
-
-	/**
-	 * Helper function to trash the post record in the database
-	 *
-	 * @param integer $post_id
-	 * @param array $data
-	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
-	 */
-	public function trash( $post_id, $data = array() ) {
-	    $defaults = array(
-			'ID' => $post_id,
-			'post_status' => 'trash',
-	    );
-
-	    $data = wp_parse_args( $data, $defaults );
-
-		return wp_update_post( $data );
-	}
-	
+	}	
 }

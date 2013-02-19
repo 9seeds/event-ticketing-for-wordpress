@@ -106,14 +106,17 @@ class WPET_Tickets extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-		if ( isset( $_GET['action'] ) ) {
-			if ( ! empty( $_REQUEST['post'] ) ) {
-				$this->render_data['ticket'] = $this->findByID( $_REQUEST['post'] );
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
+			if ( ! empty( $_GET['post'] ) ) {
+				$this->render_data['ticket'] = $this->findByID( $_GET['post'] );
 			}
 			WPET::getInstance()->display( 'tickets-add.php', $this->render_data );
-		} else {
-			WPET::getInstance()->display( 'tickets.php', $this->render_data );
+			return; //don't do anything else
 		}
+
+		
+		//default view
+		WPET::getInstance()->display( 'tickets.php', $this->render_data );
 	}
 
 	/**
