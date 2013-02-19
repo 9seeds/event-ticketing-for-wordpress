@@ -5,7 +5,7 @@
 	<ul class="ticketPurchaseInfo">
 		<li>
 			<label for="name"><?php _e( 'Name', 'wpet' ); ?>:</label>
-			<input name="name" id="email" size="35" value="">
+			<input name="name" id="name" size="35" value="">
 		</li>
 		<li>
 			<label for="email"><?php _e( 'Email', 'wpet' ); ?>:</label>
