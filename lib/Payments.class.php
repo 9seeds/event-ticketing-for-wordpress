@@ -107,7 +107,7 @@ class WPET_Payments extends WPET_Module {
 		    wp_redirect((get_permalink($this->mPayment->ID)));
 		} else {
 		    // Create draft attendees
-		    //$this->createAttendees();
+		    $this->createAttendees();
 		    add_filter('the_content', array($this, 'showPaymentForm'));
 		    //echo WPET::getInstance()->getGateway()->getPaymentForm();
 		}
@@ -126,7 +126,7 @@ class WPET_Payments extends WPET_Module {
 		WPET::getInstance()->getGateway()->processPaymentReturn();
 		//$this->update( $this->mPayment->ID, array( 'post_status' => 'published' ) );
 		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-		//wp_redirect( get_permalink( $this->mPayment->ID ) );
+		wp_redirect( get_permalink( $this->mPayment->ID ) );
 		break;
 	    case 'publish':
 		// Payment has completed successfully, show receipt
