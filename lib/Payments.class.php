@@ -22,8 +22,9 @@ class WPET_Payments extends WPET_Module {
 		//add_filter( 'all', array( $this, 'hookDebug' ) );
 
 		if ( ! is_admin() ) {
-			add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
-			add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
+			//add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
+			//add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
+			add_action( 'template_redirect', array( $this, 'handlePayment' ), 15 );
 			add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
 			add_action( 'the_post', array( $this, 'setPayment' ) );
 		}
@@ -34,6 +35,67 @@ class WPET_Payments extends WPET_Module {
 	
 	public function hookDebug( $name ) {
 		echo "<!-- {$name} -->\n";
+	}
+	
+	/**
+	 * Process
+	 * - Check to see if an order has been submitted. If so create a new payment
+	 * - Get the current payment ( Will be in the URL as a post ID )
+	 */
+	public function handlePayment() {
+	    global $post;
+	   
+	    // Check to see if an order has been submitted. If so create a new payment
+	    $this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
+	   
+	    if( is_null( $post ) || $this->mPostType != $post->post_type ) return;
+	    
+	    // At this point there should be a payment in the system. Grab it
+	    $this->loadPayment();
+	    
+	     //echo '<pre>'; var_dump( $this->mPayment->post_status ); echo '</pre>';
+	    
+	    // Figure out which step we are on via the post_status and take action accordingly
+	    switch( $this->mPayment->post_status ) {
+		case 'draft':
+		    echo 'draft';
+		    /*
+		     * Need to fill out form to send to payment gateway
+		     * - Check to see if the payment form has been submitted
+		     * --- Add details to the database
+		     * --- Change status to pending
+		     * --- Refresh page
+		     * Else
+		     * - Call pendingPayment() to create draft attendees for payment
+		     * - Show payment gateway form
+		     */
+		    if( isset( $_POST['submit'] ) ) {
+			// Payment submitted to gateway
+		    } else {
+			// Create draft attendees
+			$this->createAttendees();
+			echo WPET::getInstance()->getGateway()->getPaymentForm();
+		    }
+		     
+		    
+		    break;
+		case 'pending':
+		    echo 'pending';
+		    // Waiting for payment to be processed
+		    WPET::getInstance()->getGateway()->processPayment();
+		    break;
+		case 'processing': // IS THIS NEEDED?
+		    echo 'processing';
+		    WPET::getInstance()->getGateway()->processPaymentReturn();
+		    
+		    break;
+		case 'published':
+		    echo 'published';
+		    // Payment has completed successfully, show receipt
+		    $this->publishPayment();
+		    break;
+	    }// end switch
+	    //wp_redirect( get_permalink( $this->mPayment->ID ) );
 	}
 
 	/**
@@ -64,19 +126,7 @@ class WPET_Payments extends WPET_Module {
 		}
 	}
 
-	public function showGateway( $content ) {
-		if ( ! $this->mPayment )
-			return $content;
-
-		if ( $this->mPayment->post_status == 'draft' ) {
-			$gateway = WPET::getInstance()->getGateway();
-			return $gateway->getPaymentForm();
-		} else if ( $this->mPayment->post_status == 'pending' ) {
-			die('your payment must complete before you can add attendee names');
-		}
-
-		return $content;
-	}
+	
 	
 	public function maybePaymentSubmit() {
 		$gateway = WPET::getInstance()->getGateway();
@@ -101,7 +151,7 @@ class WPET_Payments extends WPET_Module {
 			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
 
 			//insert our gateway form
-			add_filter( 'the_content', array( $this, 'showGateway' ) );
+			//add_filter( 'the_content', array( $this, 'showGateway' ) );
 		}
 		return $tpl;
     }
@@ -159,6 +209,31 @@ class WPET_Payments extends WPET_Module {
 			
 			//update the payment status
 			$this->mPayment->post_status = 'pending';
+			$packages->add( $this->mPayment );
+		}
+	}
+	
+	private function createAttendees() {
+	    $this->loadPayment();
+		
+		if ( empty( $this->mPayment->wpet_attendees ) ) {
+			$packages = WPET::getInstance()->packages;
+			$attendees = WPET::getInstance()->attendees;
+
+			//@TODO this could maybe go somewhere on it's own
+			foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
+				if ( $quantity ) {
+					$package = $packages->findByID( $package_id );
+					$attendee_ids = array();
+				   	for ( $i = 0; $i < $package->wpet_ticket_quantity; $i++ ) {
+						$attendee_ids[] = $attendees->draftAttendee();
+					}
+					update_post_meta( $this->mPayment->ID, 'wpet_attendees', $attendee_ids );
+				}
+			}
+			
+			//update the payment status
+			//$this->mPayment->post_status = 'pending';
 			$packages->add( $this->mPayment );
 		}
 	}

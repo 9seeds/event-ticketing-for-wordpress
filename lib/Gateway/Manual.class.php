@@ -42,7 +42,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		$render_data = array(
 			'cart' => WPET::getInstance()->payment->getCart(),
 		);
-		return WPET::getInstance()->display( 'gateway-manual.php', $render_data );
+		return WPET::getInstance()->getDisplay( 'gateway-manual.php', $render_data );
 	}
 
 	public function processPayment() {
