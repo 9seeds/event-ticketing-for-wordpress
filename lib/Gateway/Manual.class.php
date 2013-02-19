@@ -46,12 +46,16 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	}
 
 	public function processPayment() {
+	    var_dump($_POST);
 		if ( isset( $_POST['submit'] ) ) {
+		    
 			if ( ! is_email( $_POST['email'] ) || empty( $_POST['name'] ) ) {
+			    // Required fields missing
 				//@TODO do something productive here
 				wp_die('errors!');
 			} else {
-				WPET::getInstance()->payment->pendingPayment();
+			    // Yay! It worked
+				//WPET::getInstance()->payment->pendingPayment();
 			}
 		}
 	}
