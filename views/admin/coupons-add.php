@@ -1,5 +1,4 @@
 <?php
-
 $heading = empty($_REQUEST['post']) ? __('Add Coupon', 'wpet') : __('Edit Coupon', 'wpet');
 ?>
 <h2><?php echo $heading; ?> <?php

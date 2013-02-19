@@ -1,6 +1,6 @@
 <?php
 $heading = empty($_REQUEST['post']) ? __('Add Attendee', 'wpet') : __('Edit Attendee', 'wpet');
-$attendee = $data['attendee'];
+$attendee = isset( $data['attendee'] ) ? $data['attendee'] : NULL;
 ?>
 <h2><?php echo $heading; ?> <?php if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 	echo '<a href="' . $data['edit_url'] . '" class="add-new-h2">' . __('Add New', 'wpet') . '</a>';
@@ -20,7 +20,7 @@ $attendee = $data['attendee'];
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="last_name"><?php _e('Last Name', 'wpet'); ?></label></th>
-				<td><input name="last_name" type="text" id="last_name" value="<?php echo $attendee->wpet_last_name; ?>"></td>
+				<td><input name="last_name" type="text" id="last_name" value="<?php echo @$attendee->wpet_last_name; ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
