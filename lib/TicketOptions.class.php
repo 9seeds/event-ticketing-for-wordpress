@@ -28,7 +28,7 @@ class WPET_TicketOptions extends WPET_Module {
 	 */
 	public function contextHelp( $screen ) {
 
-		if ( isset( $_GET['action'] ) ) {
+		if ( isset( $_GET['action'] ) && $_GET['action'] == 'edit' ) {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
@@ -102,13 +102,19 @@ class WPET_TicketOptions extends WPET_Module {
 	public function renderAdminPage() {
 
 		if ( isset( $_GET['action'] ) ) {
-			if ( ! empty( $_REQUEST['post'] ) ) {
-				$this->render_data['option'] = $this->findByID( $_REQUEST['post'] );
+			if ( $_GET['action'] == 'edit' ) {
+				if ( ! empty( $_REQUEST['post'] ) ) {
+					$this->render_data['option'] = $this->findByID( $_REQUEST['post'] );
+				}
+				WPET::getInstance()->display( 'ticket-options-add.php', $this->render_data );
+				return;
+			} else if ( $_GET['action'] == 'trash' ) {
+				$this->trash( $_GET['post'] );				
 			}
-			WPET::getInstance()->display( 'ticket-options-add.php', $this->render_data );
-		} else {
-			WPET::getInstance()->display( 'ticket-options.php', $this->render_data );
 		}
+
+		//if all else fails
+		WPET::getInstance()->display( 'ticket-options.php', $this->render_data );
 	}
 
 	/**

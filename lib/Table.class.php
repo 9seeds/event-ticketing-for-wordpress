@@ -4,6 +4,7 @@ require_once ABSPATH . 'wp-admin/includes/class-wp-list-table.php';
 
 abstract class WPET_Table extends WP_List_Table {
 
+	const STATUS = 'post_status';
 	protected $per_page = 10;
 
 	/**
@@ -39,7 +40,7 @@ abstract class WPET_Table extends WP_List_Table {
 		*/
 
 		//@TODO meta orderby http://wordpress.stackexchange.com/questions/30241/wp-query-order-results-by-meta-value
-
+		
 		if ( isset( $_REQUEST['orderby'] ) )
 			$args['orderby'] = $_REQUEST['orderby'];
 
@@ -49,6 +50,9 @@ abstract class WPET_Table extends WP_List_Table {
 		$args = $this->get_prepare_args( $args );
 
 		$args = apply_filters( 'wpet_table_prepare', $args );
+
+		if ( isset( $_REQUEST[self::STATUS] ) )
+			$args['post_status'] = $_REQUEST[self::STATUS];
 
 		$table_query = new WP_Query( $args );
 		$this->items = $table_query->get_posts();
@@ -78,18 +82,17 @@ abstract class WPET_Table extends WP_List_Table {
 	}
 
 	/**
-	 *
 	 * @todo Justin: fix get_trash_url
 	 * note: when I made this I used trash_url instead of edit_url, but it was giving me
 	 *			an undefined variable issue, even though I set it in Module.class.php
 	 */
 	protected function get_trash_url( $post ) {
-		return add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] );
+		return add_query_arg( array( 'post' => $post->ID ), $this->_args['trash_url'] );
 	}
 
 	protected function column_title( $post ) {
 		$edit_url = $this->get_edit_url( $post );
-	//	$trash_url = $this->get_trash_url( $post );
+		$trash_url = $this->get_trash_url( $post );
 		$column = "<strong><a href='{$edit_url}'>{$post->post_title}</a></strong>";
 
 		$actions = array();
@@ -97,16 +100,11 @@ abstract class WPET_Table extends WP_List_Table {
 		if ( ! empty( $actions ) ) {
 			$column .= "<div class='row-actions'>\n";
 
-			/**
-			 * @todo better handle the adding of the pipe
-			 */
-			$i = 1;
+			$action_html = array();
 			foreach( $actions as $action_info ) {
-				if ( $i > 1 ) { $column .= ' | '; }
-				$column .= "<span class='{$action_info['class']}'><a href='{$action_info['href']}'>{$action_info['label']}</a></span>\n";
-				$i++;
+				$action_html[] = "<span class='{$action_info['class']}'><a href='{$action_info['href']}'>{$action_info['label']}</a></span>\n";
 			}
-			$column .= "</div>\n";
+			$column .= join( ' | ', $action_html ) . "</div>\n";
 		}
 		return $column;
 	}
@@ -117,10 +115,13 @@ abstract class WPET_Table extends WP_List_Table {
 								  'label' => __( 'Edit' )
 		);
 
-		$actions['trash'] = array( 'class' => 'trash',
-								  'href' => $this->get_trash_url( $post ),
-								  'label' => __( 'Trash' )
-		);
+		//some tables may not show the trash link (notify attendees)
+		if ( isset ( $this->_args['trash_url'] ) ) {
+			$actions['trash'] = array( 'class' => 'trash',
+									  'href' => $this->get_trash_url( $post ),
+									  'label' => __( 'Trash' )
+			);
+		}
 
 		return $actions;
 	}
@@ -128,6 +129,29 @@ abstract class WPET_Table extends WP_List_Table {
 	protected function column_cb( $post ) {
 		// Set up the checkbox ( because the  is editable, otherwise its empty )
 		return "<input type='checkbox' name='posts[]' id='{$post->ID}' value='{$post->ID}' />";
+	}
+
+	public function get_views() {
+		$views = array();
+
+		//some tables may not show the trash view (notify attendees)
+		if ( isset( $this->_args['trash_url'] ) ) {
+			$views['trash'] = __( 'Trash', 'wpet' );
+		}
+
+		$num_posts = wp_count_posts( $this->_args['post_type'], 'readable' );
+		$total_posts = array_sum( (array) $num_posts );
+		
+		$view_filter = empty( $_GET[self::STATUS] ) ? NULL : $_GET[self::STATUS];
+		$url = $this->_args['base_url'];
+		$class = empty( $view_filter ) ? ' class="current"' : '';
+		$links = array();
+		$links['all'] = "<a href='{$url}'{$class}>". sprintf( __( 'All <span class="count">(%s)</span>', 'wpet' ), $total_posts ) .'</a>';
+		foreach ( $views as $index => $label ) {
+			$class = $view_filter == $index ? ' class="current"' : '';				
+			$links[$index] = "<a href='" . esc_url( add_query_arg( self::STATUS, $index, $url ) ) . "'{$class}>" . sprintf( __( '%s <span class="count">(%s)</span>', 'wpet' ), $label, $num_posts->$index ) .'</a>';
+		}
+		return $links;
 	}
 
 }
