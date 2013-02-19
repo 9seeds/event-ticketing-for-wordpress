@@ -74,7 +74,8 @@ class WPET_Payments extends WPET_Module {
 		    } else {
 			// Create draft attendees
 			$this->createAttendees();
-			echo WPET::getInstance()->getGateway()->getPaymentForm();
+			add_filter( 'the_content', array( $this, 'showPaymentForm' ) );
+			//echo WPET::getInstance()->getGateway()->getPaymentForm();
 		    }
 		     
 		    
@@ -96,6 +97,10 @@ class WPET_Payments extends WPET_Module {
 		    break;
 	    }// end switch
 	    //wp_redirect( get_permalink( $this->mPayment->ID ) );
+	}
+	
+	public function showPaymentForm( $content ) {
+	    return WPET::getInstance()->getGateway()->getPaymentForm();
 	}
 
 	/**
