@@ -35,8 +35,8 @@ class WPET_Settings extends WPET_Module {
 
 	    $screen->add_help_tab(
 		    array(
-			'id'	=> 'defaults',
-			'title'	=> __( 'Defaults' ),
+			'id'	=> 'default-values',
+			'title'	=> __( 'Default Values' ),
 			'content'	=> '<p>' . __( 'When you install WP Event Ticketing, the following settings are set by default:', 'wpet' ) . '</p>' .
 				'<p><strong>' . __( 'Events Tab:', 'wpet' ) .'</strong></p>' .
 				'<li>' . __( 'Event Status: Registration is closed', 'wpet' ) . '</li>' .
@@ -45,8 +45,33 @@ class WPET_Settings extends WPET_Module {
 				'<li>' . __( 'Currency: United States Dollar ($)', 'wpet' ) .'</li>' .
 				'<p><strong>' . __( 'Form Display Tab:', 'wpet' ) .'</strong></p>' .
 				'<li>' . __( 'Show # of remaining packages: Checked', 'wpet' ) .'</li>' ,
+		    )
+	    );
 
-
+	    $screen->add_help_tab(
+		    array(
+			'id'	=> 'tabs',
+			'title'	=> __( 'Tabs' ),
+			'content'	=> '<p>' . __( 'Here is a discription of each tab\'s functionality:', 'wpet' ) . '</p>' .
+				'<p><strong>' . __( 'Events:', 'wpet' ) .'</strong></p>' .
+				'<li><strong>Event Date:</strong> The date the event will be held on. If you are running a multi-day event, set this to the first day of the event.</li>' .
+				'<li><strong>Organizer Name:</strong> The name of the organizer. This will be used for outgoing emails from the system.</li>' .
+				'<li><strong>Organizer Email:</strong> The email address for the organizer. This will be used for outgoing emails from the system.</li>' .
+				'<li><strong>Maximum Attendance:</strong> This is the total amount of tickets that can be sold for this event.</li>' .
+				'<li><strong>Event Status:</strong> Allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.</li>' .
+				'<li><strong>Closed Message Text:</strong> This is the text that will be shown in place of the order from when registration is closed.</li>' .
+				'<li><strong>Thank You Page Text:</strong> THis is the text that will be displayed after a ticket is purchased.</li>' .
+				'<p><strong>' . __( 'Payments:', 'wpet' ) .'</strong></p>' .
+				'<li><strong>Payment Gateway:</strong> Select which method you will use to accept payments.</li>' .
+				'<li><strong>Currency:</strong> Select which currency you want funds paid in.</li>' .
+				'<p><strong>' . __( 'Email:', 'wpet' ) .'</strong></p>' .
+				'<li><strong>Subject:</strong> This is the subject of the email that will get sent to the purchaser upon completion of an order.</li>' .
+				'<li><strong>Email Body:</strong> This will be the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information.</li>' .
+				'<p><strong>' . __( 'Form Display:', 'wpet' ) .'</strong></p>' .
+				'<li><strong>Show # of Remaining Packages: </strong> Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.</li>' .
+				'<li><strong>Hide Coupons:</strong> If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.</li>' .
+				'<p><strong>' . __( 'Reset:', 'wpet' ) .'</strong></p>' .
+				'<li><strong>ALL CHECKBOXES</strong> Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.</li>' ,
 		    )
 	    );
 
