@@ -21,7 +21,17 @@ class WPET_Coupons extends WPET_Module {
 		parent::__construct();
 	}
 	
-	public function ajaxGetCoupon() {
+	public function ajaxGetCoupon() { 
+	    if( !isset( $_POST['coupon_code'] ) || '' == $_POST['coupon_code'] ) {
+		$c = array( 
+		    'amount' => '0.00',
+		    'type'	=> 'flat-rate'
+		);
+
+		echo json_encode( $c );
+
+		die();
+	    }
 	    $coupon = $this->findByCode( $_POST['coupon_code'] );
 	    
 	    
