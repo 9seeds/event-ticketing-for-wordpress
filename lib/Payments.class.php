@@ -95,12 +95,8 @@ class WPET_Payments extends WPET_Module {
 		 */
 
 		if (isset($_POST['submit'])) {
-
-		    //echo 'processing';
-		    //var_dump($_POST);
 		    // Payment submitted to gateway
 		    WPET::getInstance()->getGateway()->processPayment();
-		    //$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 
 		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
 
@@ -109,7 +105,6 @@ class WPET_Payments extends WPET_Module {
 		    // Create draft attendees
 		    $this->createAttendees();
 		    add_filter('the_content', array($this, 'showPaymentForm'));
-		    //echo WPET::getInstance()->getGateway()->getPaymentForm();
 		}
 
 
@@ -117,14 +112,11 @@ class WPET_Payments extends WPET_Module {
 	    case 'pending':
 		// Waiting for payment to be processed
 		WPET::getInstance()->getGateway()->processPayment();
-		//$this->update( $this->mPayment->ID, array( 'post_status' => 'processing' ) );
-
 		wp_redirect(get_permalink($this->mPayment->ID));
 		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
 		break;
 	    case 'processing': // IS THIS NEEDED?
 		WPET::getInstance()->getGateway()->processPaymentReturn();
-		//$this->update( $this->mPayment->ID, array( 'post_status' => 'published' ) );
 		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
 		wp_redirect( get_permalink( $this->mPayment->ID ) );
 		break;
@@ -139,11 +131,6 @@ class WPET_Payments extends WPET_Module {
 
     public function showPayment($content) {
 	return 'Payment successful';
-    }
-
-    public function pendingPayment($content) {
-	die('klajdf');
-	return 'alff'; //WPET::getInstance()->getGateway()->processPayment();
     }
 
     public function showPaymentForm($content) {
