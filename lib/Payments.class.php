@@ -22,6 +22,8 @@ class WPET_Payments extends WPET_Module {
 		//add_filter( 'all', array( $this, 'hookDebug' ) );
 
 		if ( ! is_admin() ) {
+		    global $post;
+		    //echo '<pre>'; var_dump( $post ); echo '</pre>';
 			//add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
 			//add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
 			add_action( 'template_redirect', array( $this, 'handlePayment' ), 15 );
@@ -44,11 +46,11 @@ class WPET_Payments extends WPET_Module {
 	 */
 	public function handlePayment() {
 	    global $post;
-	 
+	
 	    // Check to see if an order has been submitted. If so create a new payment
 	    $this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
-	 // var_dump($post);
-	   // var_dump( $_POST );
+	 //var_dump($post);
+	  //  var_dump( $_POST );
 	    if( !isset( $_POST['submit'] ) && ( is_null( $post ) || $this->mPostType != $post->post_type ) )  return;
 	    
 	    // At this point there should be a payment in the system. Grab it
@@ -57,7 +59,7 @@ class WPET_Payments extends WPET_Module {
 	     //echo '<pre>'; var_dump( $this->mPayment->post_status ); echo '</pre>';
 	    
 	    // Figure out which step we are on via the post_status and take action accordingly
-	    echo "Current: " . $this->mPayment->post_status . "<br>";
+	    //echo "Current: " . $this->mPayment->post_status . "<br>";
 	    switch( $this->mPayment->post_status ) {
 		case 'draft':
 		    /*
@@ -69,13 +71,14 @@ class WPET_Payments extends WPET_Module {
 		     * Else
 		     * - Call pendingPayment() to create draft attendees for payment
 		     * - Show payment gateway form
-		     */var_dump($_POST);
+		     */
+		   
 		    if( isset( $_POST['submit'] ) ) {
-			echo 'processing';
-			var_dump($_POST);
+			//echo 'processing';
+			//var_dump($_POST);
 			// Payment submitted to gateway
 			WPET::getInstance()->getGateway()->processPayment();
-			$this->pendingPayment();
+			$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 			wp_redirect( get_permalink( $this->mPayment->ID ) );
 		    } else {
 			// Create draft attendees
@@ -87,23 +90,36 @@ class WPET_Payments extends WPET_Module {
 		    
 		    break;
 		case 'pending':
-		    echo 'pending';
+		     die();
+		  //  echo 'pending';
 		    // Waiting for payment to be processed
 		    WPET::getInstance()->getGateway()->processPayment();
+		    $this->update( $this->mPayment->ID, array( 'post_status' => 'processing' ) );
+		    wp_redirect( get_permalink( $this->mPayment->ID ) );
+		    
 		    break;
 		case 'processing': // IS THIS NEEDED?
 		    echo 'processing';
 		    
 		    WPET::getInstance()->getGateway()->processPaymentReturn();
-		    
+		    $this->update( $this->mPayment->ID, array( 'post_status' => 'published' ) );
+		    //wp_redirect( get_permalink( $this->mPayment->ID ) );
 		    break;
 		case 'published':
 		    echo 'published';
 		    // Payment has completed successfully, show receipt
-		    $this->publishPayment();
+		    //$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+		    add_filter( 'the_content', array( $this, 'showPayment' ) );
 		    break;
 	    }// end switch
 	    //wp_redirect( get_permalink( $this->mPayment->ID ) );
+	}
+	
+	public function showPayment( $content ) {
+	    return 'Payment successful';
+	}
+	public function pendingPayment( $content ) { die('klajdf');
+	    return 'alff';//WPET::getInstance()->getGateway()->processPayment();
 	}
 	
 	public function showPaymentForm( $content ) {
@@ -200,12 +216,12 @@ class WPET_Payments extends WPET_Module {
 	 * 
 	 * @since 2.0
 	 */
-	public function pendingPayment() {
-		$this->loadPayment();
-		$this->mPayment->post_status = 'pending';
-		
-		$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-		
+//	public function pendingPayment() {
+//		$this->loadPayment();
+//		$this->mPayment->post_status = 'pending';
+//		
+//		$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+//		
 //		if ( empty( $this->mPayment->wpet_attendees ) ) {
 //			$packages = WPET::getInstance()->packages;
 //			$attendees = WPET::getInstance()->attendees;
@@ -226,7 +242,7 @@ class WPET_Payments extends WPET_Module {
 //			$this->mPayment->post_status = 'pending';
 //			$packages->add( $this->mPayment );
 //		}
-	}
+//	}
 	
 	private function createAttendees() {
 	    $this->loadPayment();
@@ -267,11 +283,18 @@ class WPET_Payments extends WPET_Module {
 	}
 
 	protected function loadPayment() {
+	   global $post;
 		if ( $this->mPayment )
 			return;
-		
+		 
+		if( isset( $post  ) && $this->mPostType == $post->post_type )
+		    $this->mPayment = $post;
 		if ( isset( $_REQUEST['p'] ) )
 			$this->mPayment = $this->findByID( $_REQUEST['p'] );
+		
+		//echo '<pre>'; var_dump( $this->mPayment ); echo '</pre>';
+		
+		
 	}
 		
     /**
