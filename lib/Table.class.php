@@ -81,46 +81,32 @@ abstract class WPET_Table extends WP_List_Table {
 		return add_query_arg( array( 'post' => $post->ID ), $this->_args['edit_url'] );
 	}
 
-	/**
-	 * @todo Justin: fix get_trash_url
-	 * note: when I made this I used trash_url instead of edit_url, but it was giving me
-	 *			an undefined variable issue, even though I set it in Module.class.php
-	 */
 	protected function get_trash_url( $post ) {
 		return add_query_arg( array( 'post' => $post->ID ), $this->_args['trash_url'] );
 	}
 
 	protected function column_title( $post ) {
 		$edit_url = $this->get_edit_url( $post );
-		$trash_url = $this->get_trash_url( $post );
 		$column = "<strong><a href='{$edit_url}'>{$post->post_title}</a></strong>";
-
-		$actions = array();
-		$actions = $this->get_row_actions( $actions, $post );
-		if ( ! empty( $actions ) ) {
-			$column .= "<div class='row-actions'>\n";
-
-			$action_html = array();
-			foreach( $actions as $action_info ) {
-				$action_html[] = "<span class='{$action_info['class']}'><a href='{$action_info['href']}'>{$action_info['label']}</a></span>\n";
-			}
-			$column .= join( ' | ', $action_html ) . "</div>\n";
-		}
+		$actions = array(); //@TODO add filter?
+		$column .= $this->row_actions( $this->get_row_actions( $actions, $post ) );
 		return $column;
 	}
 
 	protected function get_row_actions( $actions, $post ) {
-		$actions['edit'] = array( 'class' => 'edit',
-								  'href' => $this->get_edit_url( $post ),
-								  'label' => __( 'Edit' )
-		);
 
-		//some tables may not show the trash link (notify attendees)
-		if ( isset ( $this->_args['trash_url'] ) ) {
-			$actions['trash'] = array( 'class' => 'trash',
-									  'href' => $this->get_trash_url( $post ),
-									  'label' => __( 'Trash' )
-			);
+	   	if ( empty( $_GET[self::STATUS] ) ) {
+		
+			$actions['edit'] = '<a href="' . $this->get_edit_url( $post ) . '">'. __( 'Edit' ) . '</a>';
+
+			//some tables may not show the trash link (notify attendees)
+			if ( isset ( $this->_args['trash_url'] ) ) {			
+				$actions['trash'] = '<a href="' . $this->get_trash_url( $post ) . '">' . __( 'Trash' ) . '</a>';
+			}
+
+		} else if ( $_GET[self::STATUS] == 'trash' ) {
+			$actions['untrash'] = "<a title='" . esc_attr( __( 'Restore this item from the Trash' ) ) . "' href='" . add_query_arg(  array( 'action' => 'untrash', 'post' => $post->ID ), $this->_args['base_url'] ) . "'>" . __( 'Restore' ) . "</a>";
+			$actions['delete'] = "<a class='submitdelete' title='" . esc_attr( __( 'Delete this item permanently' ) ) . "' href='" . get_delete_post_link( $post->ID, '', true ) . "'>" . __( 'Delete Permanently' ) . "</a>";
 		}
 
 		return $actions;
@@ -141,6 +127,10 @@ abstract class WPET_Table extends WP_List_Table {
 
 		$num_posts = wp_count_posts( $this->_args['post_type'], 'readable' );
 		$total_posts = array_sum( (array) $num_posts );
+
+		// Subtract post types that are not included in the admin all list (trash)
+		foreach ( get_post_stati( array( 'show_in_admin_all_list' => false ) ) as $state )
+			$total_posts -= $num_posts->$state;
 		
 		$view_filter = empty( $_GET[self::STATUS] ) ? NULL : $_GET[self::STATUS];
 		$url = $this->_args['base_url'];

@@ -102,14 +102,24 @@ class WPET_TicketOptions extends WPET_Module {
 	public function renderAdminPage() {
 
 		if ( isset( $_GET['action'] ) ) {
-			if ( $_GET['action'] == 'edit' ) {
-				if ( ! empty( $_REQUEST['post'] ) ) {
-					$this->render_data['option'] = $this->findByID( $_REQUEST['post'] );
-				}
-				WPET::getInstance()->display( 'ticket-options-add.php', $this->render_data );
-				return;
-			} else if ( $_GET['action'] == 'trash' ) {
-				$this->trash( $_GET['post'] );				
+			switch ( $_GET['action'] ) {
+				case 'edit':
+					if ( ! empty( $_GET['post'] ) ) {
+						$this->render_data['option'] = $this->findByID( $_GET['post'] );
+					}
+					WPET::getInstance()->display( 'ticket-options-add.php', $this->render_data );
+					return; //don't do anything else
+
+				case 'trash':
+					$this->trash( $_GET['post'] );
+					break;
+
+				case 'untrash':
+					wp_untrash_post( $_GET['post'] );
+					break;
+
+				default:
+					break;
 			}
 		}
 
