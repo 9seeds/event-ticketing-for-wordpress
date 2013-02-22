@@ -189,6 +189,8 @@ class WPET_Attendees extends WPET_Module {
 		    WPET::getInstance()->display( 'attendees-add.php', $this->render_data );
 			return; //don't do anything else
 		}
+		
+		$this->render_data['show_add'] = WPET::getInstance()->packages->anyPackagesExist();
 
 		//default view
 	    WPET::getInstance()->display( 'attendees.php', $this->render_data );

@@ -1,4 +1,4 @@
-<h2><?php _e('Attendees', 'wpet'); ?> <a href="<?php echo $data['new_url'] ?>" class="add-new-h2"><?php _e( 'Add New', 'wpet' ); ?></a></h2>
+<h2><?php _e('Attendees', 'wpet'); if( $data['show_add'] ) { ?> <a href="<?php echo $data['new_url'] ?>" class="add-new-h2"><?php _e( 'Add New', 'wpet' ); ?></a><?php } ?></h2>
 <?php
 
 require_once WPET_PLUGIN_DIR . 'lib/Table/Attendees.class.php';

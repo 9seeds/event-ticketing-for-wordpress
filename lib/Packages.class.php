@@ -123,6 +123,19 @@ class WPET_Packages extends WPET_Module {
 		//default view
 		WPET::getInstance()->display( 'packages.php', $this->render_data );
 	}
+	
+	public function anyPackagesExist() {
+	    $args = array(
+		'post_type' => '$this->mPostType'
+	    );
+	    
+	    $posts = get_posts( $args );
+	    
+	    if( count( $posts ) > 0 )
+		return true;
+	    else 
+		return false;
+	}
 
 	/**
 	 * Prepare the page submit data for save
