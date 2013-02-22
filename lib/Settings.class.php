@@ -282,7 +282,7 @@ class WPET_Settings extends WPET_Module {
 		//don't update these in options
 		unset( $options['event_date'] );
 		unset( $options['max_attendance'] );
-		unset( $options['event_status'] );
+		//unset( $options['event_status'] );
 
 		foreach ( $options as $key => $value ) {
 			$this->{$key} = stripslashes( $value );

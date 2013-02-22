@@ -20,8 +20,8 @@
 			<th scope="row"><label for="event_status"><?php _e('Event Status', 'wpet'); ?></label></th>
 			<td>
 				<select name="options[event_status]"  id="event_status">
-					<option value="closed"><?php _e('Registration is closed', 'wpet'); ?></option>
-					<option value="open"><?php _e('Registration is open', 'wpet'); ?></option>
+					<option value="closed" <?php selected( 'closed', $data['event_status'] ); ?>><?php _e('Registration is closed', 'wpet'); ?></option>
+					<option value="open" <?php selected( 'open', $data['event_status'] ); ?>><?php _e('Registration is open', 'wpet'); ?></option>
 				</select>
 			</td>
 		</tr>

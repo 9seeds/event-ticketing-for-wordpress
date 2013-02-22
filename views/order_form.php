@@ -1,4 +1,13 @@
-<div id="eventTicketing"> 
+<div id="eventTicketing">
+    
+    <?php if( 'closed' == WPET::getInstance()->settings->event_status ) { 
+    
+    
+    
+    echo WPET::getInstance()->settings->closed_message;
+    
+    
+    } else { ?>
 	<form action="" method="post" id="order_form"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
 		<?php
 		/**
@@ -82,4 +91,5 @@
 			</table>
 		</div>
 	</form>
+    <?php } ?>
 </div>
