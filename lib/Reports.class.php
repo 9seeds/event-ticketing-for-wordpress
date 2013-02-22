@@ -23,7 +23,6 @@ class WPET_Reports extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function contextHelp( $screen ) {
-
 		$screen->add_help_tab(
 			array(
 			'id'	=> 'overview',

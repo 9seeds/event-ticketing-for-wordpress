@@ -343,7 +343,7 @@ class WPET {
 	 */
 	public function onAdminScreen( $current_screen ) {
 		if ( ( $pos = strpos( $current_screen->base, 'tickets_page_wpet_' ) ) === 0 ||
-			$current_screen->base == 'toplevel_page_wpet_reports' ) {
+			/*hack to show reports page*/$current_screen->base == 'toplevel_page_wpet_reports' ) {
 
 			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
 			wp_enqueue_style( 'wpet-admin-style' );
@@ -354,8 +354,11 @@ class WPET {
 			wp_register_script( 'wpet-jquery-cookie', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/external/cookie.js' );
 
 			//allow individual pages to do pre-header actions
-			if ( $pos === 0 ) {
+			if ( $pos === 0 || /*hack to show reports page*/$current_screen->base == 'toplevel_page_wpet_reports') {
 				$page = substr( $current_screen->base, 18 ); //'tickets_page_wpet_'
+				
+				if( '_reports' == $page ) $page = 'reports'; // Odd hack to ge the reports page working
+				
 				if ( ! empty( $this->mModules[$page] ) ) {
 					$this->mModules[$page]->maybeSubmit();
 					$this->mModules[$page]->enqueueAdminScripts();
