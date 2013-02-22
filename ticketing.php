@@ -14,7 +14,6 @@ define( 'WPET_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 define( 'WPET_JQUERY_VERSION', '1.9.2' );
 
 require_once( 'lib/WPET.class.php' );
-require_once 'hooker.php'; //for testing
 
 $wpet = WPET::getInstance();
 
