@@ -5,6 +5,7 @@
  * Creates post types:
  * - wpet_attendees
  * 
+ * @todo fill in metion PHPdoc
  * @since 2.0 
  */
 class WPET_Payments extends WPET_Module {
@@ -16,19 +17,14 @@ class WPET_Payments extends WPET_Module {
      */
     public function __construct() {
 	$this->mPostType = 'wpet_payments';
-	remove_filter('pre_post_guid', 'esc_url_raw');
+	
 	add_action('init', array($this, 'registerPostType'));
 	add_action('init', array($this, 'registerPostStatus'));
 	//add_action( 'all', array( $this, 'hookDebug' ) );
 	//add_filter( 'all', array( $this, 'hookDebug' ) );
 
 	if (!is_admin()) {
-	    global $post;
-	    //echo '<pre>'; var_dump( $post ); echo '</pre>';
-	    //add_action( 'init', array( $this, 'maybeSalesSubmit' ) );
-	    //add_action( 'template_redirect', array( $this, 'maybePaymentSubmit' ), 15 );
 	    add_action('template_redirect', array($this, 'handlePayment'), 15);
-	    //add_filter( 'template_include', array( $this, 'tplInclude' ), 1 );
 	    //add_action( 'the_post', array( $this, 'setPayment' ) );
 	}
 
@@ -36,6 +32,13 @@ class WPET_Payments extends WPET_Module {
 	parent::__construct();
     }
 
+    /**
+     * Registering the post stati of the steps in the payment process allows it
+     * to load each step on the front and does not bork anything. Will also 
+     * show pretty to the admin in wp-admin
+     * 
+     * @since 2.0 
+     */
     public function registerPostStatus() {
 	register_post_status('pending', array(
 	    'label' => _x('Pending', 'post'),
@@ -54,6 +57,15 @@ class WPET_Payments extends WPET_Module {
 	    'show_in_admin_status_list' => true,
 	    'label_count' => _n_noop('Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>'),
 	));
+	
+	register_post_status('draft', array(
+	    'label' => _x('Draft', 'post'),
+	    'public' => true,
+	    'exclude_from_search' => false,
+	    'show_in_admin_all_list' => true,
+	    'show_in_admin_status_list' => true,
+	    'label_count' => _n_noop('Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>'),
+	));
     }
 
     public function hookDebug($name) {
@@ -61,26 +73,27 @@ class WPET_Payments extends WPET_Module {
     }
 
     /**
-     * Process
-     * - Check to see if an order has been submitted. If so create a new payment
-     * - Get the current payment ( Will be in the URL as a post ID )
+     * Manages the payment process. Will load the selected gateway and call
+     * the function for whatever step the user is on. Uses post_status to track
+     * step in payment
+     * 
+     * @see self::registerPostStatus()
+     * @since 2.0
      */
     public function handlePayment() {
 	global $post;
 
 	// Check to see if an order has been submitted. If so create a new payment
 	$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
-	//var_dump($post);
-	//  var_dump( $_POST );
-	if (!isset($_POST['submit']) && ( is_null($post) || $this->mPostType != $post->post_type ))
-	    return;
+	
+	
+	/*
+	 * At this point we should have access to a payment via $post or $_GET
+	 * Lets retrieve it. If we cannot then exit
+	 */
+	if( !$this->loadPayment() ) return false;
 
-	// At this point there should be a payment in the system. Grab it
-	$this->loadPayment();
-
-	//echo '<pre>'; var_dump( $this->mPayment->post_status ); echo '</pre>';
 	// Figure out which step we are on via the post_status and take action accordingly
-	//echo "Current: " . $this->mPayment->post_status . "<br>";
 	switch ($this->mPayment->post_status) {
 	    case 'draft':
 		/*
@@ -129,11 +142,27 @@ class WPET_Payments extends WPET_Module {
 	//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
 
+    /**
+     * Content to show on successful payment
+     * 
+     * @since 2.0
+     * @uses the_content
+     * @param string $content
+     * @return string 
+     */
     public function showPayment($content) {
 	return 'Payment successful';
     }
 
-    public function showPaymentForm($content) {
+    /**
+     * Displays the payment gateway form
+     * 
+     * @uses the_content
+     * @since 2.0
+     * @param string $content
+     * @return string 
+     */
+    public function showPaymentForm($content) { 
 	return WPET::getInstance()->getGateway()->getPaymentForm();
     }
 
@@ -165,34 +194,6 @@ class WPET_Payments extends WPET_Module {
 	}
     }
 
-    public function maybePaymentSubmit() {
-	$gateway = WPET::getInstance()->getGateway();
-	$gateway->processPayment();
-    }
-
-    /**
-     * Hijacks the loading of the payment archive page to create a new payment
-     * 
-     * @global WP $post
-     * @param type $tpl
-     * @return boolean 
-     */
-    public function tplInclude($tpl) {
-	//die(print_r($tpl, true));
-	if (is_singular($this->mPostType)) {
-	    //don't show adjacent payments
-	    remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
-	    add_filter('previous_post_link', '__return_null');
-	    add_filter('next_post_link', '__return_null');
-	    add_filter('the_title', '__return_null');
-	    add_filter('single_post_title', array($this, 'filterTitle'));
-
-	    //insert our gateway form
-	    //add_filter( 'the_content', array( $this, 'showGateway' ) );
-	}
-	return $tpl;
-    }
-
     public function filterTitle($title) {
 	return __('Checkout', 'wpet');
     }
@@ -221,38 +222,10 @@ class WPET_Payments extends WPET_Module {
     }
 
     /**
-     * After payment gateway has validated input save payment as "draft" while processing is done
+     * Creates a set of draft attendees for the current payment order
      * 
-     * @since 2.0
+     * @since 2.0 
      */
-//	public function pendingPayment() {
-//		$this->loadPayment();
-//		$this->mPayment->post_status = 'pending';
-//		
-//		$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-//		
-//		if ( empty( $this->mPayment->wpet_attendees ) ) {
-//			$packages = WPET::getInstance()->packages;
-//			$attendees = WPET::getInstance()->attendees;
-//
-//			//@TODO this could maybe go somewhere on it's own
-//			foreach ( $this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity ) {
-//				if ( $quantity ) {
-//					$package = $packages->findByID( $package_id );
-//					$attendee_ids = array();
-//				   	for ( $i = 0; $i < $package->wpet_ticket_quantity; $i++ ) {
-//						$attendee_ids[] = $attendees->draftAttendee();
-//					}
-//					update_post_meta( $this->mPayment->ID, 'wpet_attendees', $attendee_ids );
-//				}
-//			}
-//			
-//			//update the payment status
-//			$this->mPayment->post_status = 'pending';
-//			$packages->add( $this->mPayment );
-//		}
-//	}
-
     private function createAttendees() {
 	$this->loadPayment();
 
@@ -293,17 +266,28 @@ class WPET_Payments extends WPET_Module {
 	$this->mPayment = $post;
     }
 
+    /**
+     * Loads the payment info for the current payment. 
+     * Note: Must be on a payment page
+     * 
+     * @since 2.0
+     * @global WP_Post $post
+     */
     protected function loadPayment() {
 	global $post;
-	if ($this->mPayment)
-	    return;
-
-	if (isset($post) && $this->mPostType == $post->post_type)
-	    $this->mPayment = $post;
-	if (isset($_REQUEST['p']))
-	    $this->mPayment = $this->findByID($_REQUEST['p']);
-
-	//echo '<pre>'; var_dump( $this->mPayment ); echo '</pre>';		
+	$ret = false;
+	
+	if ($this->mPayment) {
+	    // Payment already loaded, send it back
+	    $ret = $this->mPayment;
+	} else if (isset($post) && $this->mPostType == $post->post_type) {
+	    // Load the payment from the existing $post object
+	    $ret = $this->mPayment = $post;
+	} else if ( isset($_REQUEST['post_type']) && $this->mPostType == $_REQUEST['post_type'] && isset($_REQUEST['p'])) {
+	    $ret = $this->mPayment = $this->findByID($_REQUEST['p']);
+	} 
+	
+	return $ret;	
     }
 
     /**
