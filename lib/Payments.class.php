@@ -5,6 +5,7 @@
  * Creates post types:
  * - wpet_attendees
  * 
+ * @todo clean up register post status
  * @todo fill in metion PHPdoc
  * @since 2.0 
  */
@@ -46,7 +47,7 @@ class WPET_Payments extends WPET_Module {
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
 	    'show_in_admin_status_list' => true,
-	    'label_count' => _n_noop('Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>'),
+	    'label_count' => _n_noop('Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>'),
 	));
 
 	register_post_status('processing', array(
@@ -55,7 +56,7 @@ class WPET_Payments extends WPET_Module {
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
 	    'show_in_admin_status_list' => true,
-	    'label_count' => _n_noop('Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>'),
+	    'label_count' => _n_noop('Processing <span class="count">(%s)</span>', 'Processing <span class="count">(%s)</span>'),
 	));
 	
 	register_post_status('draft', array(
@@ -64,7 +65,7 @@ class WPET_Payments extends WPET_Module {
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
 	    'show_in_admin_status_list' => true,
-	    'label_count' => _n_noop('Unread <span class="count">(%s)</span>', 'Unread <span class="count">(%s)</span>'),
+	    'label_count' => _n_noop('Draft <span class="count">(%s)</span>', 'Draft <span class="count">(%s)</span>'),
 	));
     }
 
