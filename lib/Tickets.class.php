@@ -22,6 +22,19 @@ class WPET_Tickets extends WPET_Module {
 		parent::__construct();
 	}
 
+	public function anyTicketsExist() {
+	    $args = array(
+		'post_type' => $this->mPostType
+	    );
+	    
+	    $posts = get_posts( $args );
+	    
+	    if( count( $posts ) > 0 )
+		return true;
+	    else 
+		return false;
+	}
+	
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];
 		$attendee = NULL;

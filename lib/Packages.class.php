@@ -117,7 +117,9 @@ class WPET_Packages extends WPET_Module {
 			WPET::getInstance()->display( 'packages-add.php', $this->render_data );
 		   	return; //don't do anything else
 		}
-
+		
+		$this->render_data['show_add'] = WPET::getInstance()->tickets->anyTicketsExist();
+		
 		//default view
 		WPET::getInstance()->display( 'packages.php', $this->render_data );
 	}
