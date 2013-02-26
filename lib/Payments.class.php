@@ -82,65 +82,69 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0
      */
     public function handlePayment() {
-	global $post;
+		global $post;
 
-	// Check to see if an order has been submitted. If so create a new payment
-	$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
-	
-	
-	/*
-	 * At this point we should have access to a payment via $post or $_GET
-	 * Lets retrieve it. If we cannot then exit
-	 */
-	if( !$this->loadPayment() ) return false;
+		// Check to see if an order has been submitted. If so create a new payment
+		$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
+		if ( $this->shouldCollectAttendeeData() ) {
 
-	// Figure out which step we are on via the post_status and take action accordingly
-	switch ($this->mPayment->post_status) {
-	    case 'draft':
-		/*
-		 * Need to fill out form to send to payment gateway
-		 * - Check to see if the payment form has been submitted
-		 * --- Add details to the database
-		 * --- Change status to pending
-		 * --- Refresh page
-		 * Else
-		 * - Call pendingPayment() to create draft attendees for payment
-		 * - Show payment gateway form
-		 */
-
-		if (isset($_POST['submit'])) {
-		    // Payment submitted to gateway
-		    WPET::getInstance()->getGateway()->processPayment();
-
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
-
-		    wp_redirect((get_permalink($this->mPayment->ID)));
-		} else {
-		    // Create draft attendees
-		    $this->createAttendees();
-		    add_filter('the_content', array($this, 'showPaymentForm'));
+			
 		}
+	
+		/*
+		 * At this point we should have access to a payment via $post or $_GET
+		 * Lets retrieve it. If we cannot then exit
+		 */
+		if( !$this->loadPayment() ) return false;
+
+		// Figure out which step we are on via the post_status and take action accordingly
+		switch ( $this->mPayment->post_status ) {
+			case 'draft':
+				/*
+				 * Need to fill out form to send to payment gateway
+				 * - Check to see if the payment form has been submitted
+				 * --- Add details to the database
+				 * --- Change status to pending
+				 * --- Refresh page
+				 * Else
+				 * - Call pendingPayment() to create draft attendees for payment
+				 * - Show payment gateway form
+				 */
+
+				if (isset($_POST['submit'])) {
+					// Payment submitted to gateway
+					WPET::getInstance()->getGateway()->processPayment();
+
+					wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
+
+					wp_redirect((get_permalink($this->mPayment->ID)));
+				} else {
+					// Create draft attendees
+					$this->createAttendees();
+					add_filter('the_content', array($this, 'showPaymentForm'));
+				}
 
 
-		break;
-	    case 'pending':
-		// Waiting for payment to be processed
-		WPET::getInstance()->getGateway()->processPayment();
-		wp_redirect(get_permalink($this->mPayment->ID));
-		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
-		break;
-	    case 'processing': // IS THIS NEEDED?
-		WPET::getInstance()->getGateway()->processPaymentReturn();
-		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-		wp_redirect( get_permalink( $this->mPayment->ID ) );
-		break;
-	    case 'publish':
-		// Payment has completed successfully, show receipt
-		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-		add_filter('the_content', array($this, 'showPayment'));
-		break;
-	}// end switch
-	//wp_redirect( get_permalink( $this->mPayment->ID ) );
+				break;
+			case 'pending':
+				// Waiting for payment to be processed
+				WPET::getInstance()->getGateway()->processPayment();
+				wp_redirect(get_permalink($this->mPayment->ID));
+				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
+				break;
+			case 'processing': // IS THIS NEEDED?
+				WPET::getInstance()->getGateway()->processPaymentReturn();
+				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
+				wp_redirect( get_permalink( $this->mPayment->ID ) );
+				break;
+			case 'publish':
+				// Payment has completed successfully, show receipt
+				$this->reserveTickets();
+				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+				add_filter( 'the_content', array( $this, 'showPayment' ) );
+				break;
+		}// end switch
+		//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
 
     /**
@@ -152,7 +156,7 @@ class WPET_Payments extends WPET_Module {
      * @return string 
      */
     public function showPayment($content) {
-	return 'Payment successful';
+		return 'Payment successful';
     }
 
     /**
@@ -291,6 +295,10 @@ class WPET_Payments extends WPET_Module {
 	return $ret;	
     }
 
+	private function reserveTickets() {
+
+	}
+	
     /**
      * Add post type for object
      * 
