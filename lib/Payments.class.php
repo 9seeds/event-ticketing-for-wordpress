@@ -106,7 +106,9 @@ class WPET_Payments extends WPET_Module {
 				 * - Call pendingPayment() to create draft attendees for payment
 				 * - Show payment gateway form
 				 */
-				$this->maybeCollectAttendeeData();
+				if( $this->maybeCollectAttendeeData()) {
+					wp_redirect((get_permalink($this->mPayment->ID)));
+				}
 
 				if (isset($_POST['submit'])) {
 					// Payment submitted to gateway
@@ -135,7 +137,9 @@ class WPET_Payments extends WPET_Module {
 				wp_redirect( get_permalink( $this->mPayment->ID ) );
 				break;
 			case 'publish':
-				if( $this->maybeCollectAttendeeData() ) return; // collect the data
+				if( $this->maybeCollectAttendeeData()) {
+					wp_redirect((get_permalink($this->mPayment->ID)));
+				}
 				// Payment has completed successfully, show receipt
 				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 				add_filter('the_content', array($this, 'showPayment'));
@@ -145,25 +149,28 @@ class WPET_Payments extends WPET_Module {
     }
     
     function maybeCollectAttendeeData() {
-		$when = 'pre'; // pre or post
+		$when = 'post'; // pre or post
 	
 		$this->loadPayment();
+	
+		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
 	
 		$status = $this->mPayment->post_status;
 	
 		switch( $when ) {
 			case 'pre':
 				if( 'draft' == $status ) {
-		    
+					//    echo 'in draft';
 				}
 		
 				break;
 			case 'post':
-				if( 'published' == $status ) {
+				if( 'publish' == $status ) {
 					/*
 					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
 					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
 					 */
+					echo 'has been published';
 				}
 		
 				break;
