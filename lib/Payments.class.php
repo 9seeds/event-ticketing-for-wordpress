@@ -86,11 +86,7 @@ class WPET_Payments extends WPET_Module {
 
 		// Check to see if an order has been submitted. If so create a new payment
 		$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
-		if ( $this->shouldCollectAttendeeData() ) {
-
-			
-		}
-	
+		
 		/*
 		 * At this point we should have access to a payment via $post or $_GET
 		 * Lets retrieve it. If we cannot then exit
@@ -98,7 +94,7 @@ class WPET_Payments extends WPET_Module {
 		if( !$this->loadPayment() ) return false;
 
 		// Figure out which step we are on via the post_status and take action accordingly
-		switch ( $this->mPayment->post_status ) {
+		switch ($this->mPayment->post_status) {
 			case 'draft':
 				/*
 				 * Need to fill out form to send to payment gateway
@@ -110,6 +106,7 @@ class WPET_Payments extends WPET_Module {
 				 * - Call pendingPayment() to create draft attendees for payment
 				 * - Show payment gateway form
 				 */
+				$this->maybeCollectAttendeeData();
 
 				if (isset($_POST['submit'])) {
 					// Payment submitted to gateway
@@ -138,13 +135,39 @@ class WPET_Payments extends WPET_Module {
 				wp_redirect( get_permalink( $this->mPayment->ID ) );
 				break;
 			case 'publish':
+				if( $this->maybeCollectAttendeeData() ) return; // collect the data
 				// Payment has completed successfully, show receipt
-				$this->reserveTickets();
 				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-				add_filter( 'the_content', array( $this, 'showPayment' ) );
+				add_filter('the_content', array($this, 'showPayment'));
 				break;
 		}// end switch
 		//wp_redirect( get_permalink( $this->mPayment->ID ) );
+    }
+    
+    function maybeCollectAttendeeData() {
+		$when = 'pre'; // pre or post
+	
+		$this->loadPayment();
+	
+		$status = $this->mPayment->post_status;
+	
+		switch( $when ) {
+			case 'pre':
+				if( 'draft' == $status ) {
+		    
+				}
+		
+				break;
+			case 'post':
+				if( 'published' == $status ) {
+					/*
+					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
+					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
+					 */
+				}
+		
+				break;
+		}
     }
 
     /**
