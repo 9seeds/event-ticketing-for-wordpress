@@ -137,9 +137,10 @@ class WPET_Payments extends WPET_Module {
 				wp_redirect( get_permalink( $this->mPayment->ID ) );
 				break;
 			case 'publish':
+				$this->reserveTickets();
 				if( $this->maybeCollectAttendeeData()) {
 					wp_redirect((get_permalink($this->mPayment->ID)));
-				}
+				}				
 				// Payment has completed successfully, show receipt
 				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 				add_filter('the_content', array($this, 'showPayment'));
@@ -326,7 +327,13 @@ class WPET_Payments extends WPET_Module {
     }
 
 	private function reserveTickets() {
+		//@TODO this is based on OLD style package data ('package_data' => $_POST)
+		$package = get_post_meta( $this->mPayment->ID, 'wpet_package_data', true );
 
+		foreach ( $package['packagePurchase'] as $package_id => $package_qty ) {
+			if ( $package_qty )
+				WPET::getInstance()->packages->reserve( $package_id, $package_qty );
+		}		
 	}
 	
     /**

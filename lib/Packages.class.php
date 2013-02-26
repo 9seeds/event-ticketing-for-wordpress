@@ -246,9 +246,18 @@ class WPET_Packages extends WPET_Module {
 	    $max_packages = floor( $max_attendance / $ticket_quantity );
 
 	    if( $max_packages > $packages_total_quantity )
-		return $packages_total_quantity;
+			return $packages_total_quantity;
 
 	    return $max_packages;
+	}
+
+	public function reserve( $package_id, $qty ) {
+		$wpet_qty = (int)get_post_meta( $package_id, 'wpet_quantity', true);
+		$wpet_qty -= $qty;
+		//don't let this go below zero (even though the possiblity of over-selling an event exists)
+		if ( $wpet_qty < 0 )
+			$wpet_qty = 0;
+		update_post_meta( $package_id, 'wpet_quantity', $wpet_qty );
 	}
 
 }// end class
