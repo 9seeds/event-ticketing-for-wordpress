@@ -84,6 +84,16 @@ class WPET_Payments extends WPET_Module {
     public function handlePayment() {
 		global $post;
 
+		//standard payment page stuffs
+		if ( is_singular( $this->mPostType ) ) {
+			//don't show adjacent payments
+			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
+			add_filter( 'previous_post_link', '__return_null' );
+			add_filter( 'next_post_link', '__return_null' );
+			add_filter( 'the_title', '__return_null' );
+			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
+		}
+		
 		// Check to see if an order has been submitted. If so create a new payment
 		$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
 		
@@ -250,7 +260,7 @@ class WPET_Payments extends WPET_Module {
     }
 
     public function filterTitle($title) {
-	return __('Checkout', 'wpet');
+		return __('Checkout', 'wpet');
     }
 
     public function getCart() {
