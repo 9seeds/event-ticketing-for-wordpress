@@ -90,7 +90,7 @@ class WPET_Payments extends WPET_Module {
 			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 			add_filter( 'previous_post_link', '__return_null' );
 			add_filter( 'next_post_link', '__return_null' );
-			add_filter( 'the_title', '__return_null' );
+			//add_filter( 'the_title', '__return_null' );
 			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
 		}
 		
