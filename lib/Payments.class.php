@@ -318,24 +318,6 @@ class WPET_Payments extends WPET_Module {
 	    for( $i = 0; $i < $total_attendees; $i++ ) {
 		$attendee_ids[] = $attendees->draftAttendee();
 	    }
-
-	    //@TODO this could maybe go somewhere on it's own
-//	    foreach ($this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity) {
-//		if ($quantity) {
-//		    $package = $packages->findByID($package_id);
-//		    $attendee_ids = array();
-//		    for ($i = 0; $i < $package->wpet_ticket_quantity; $i++) {
-//			$attendee_ids[] = $attendees->draftAttendee();
-//		    }
-//		    echo "update_post_meta($this->mPayment->ID, 'wpet_attendees', $attendee_ids);";
-//		}
-//	    }
-
-	    //update the payment status
-	    //$this->mPayment->post_status = 'pending';
-	    //unset($this->mPayment->guid);
-	    //echo '<pre>'; var_dump($this->mPayment);die();
-	    //$packages->add( $this->mPayment );
 	}
     }
 
