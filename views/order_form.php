@@ -50,7 +50,7 @@
 					$remaining =  WPET::getInstance()->packages->remaining( WPET::getInstance()->events->getWorkingEvent()->ID, $row->ID );
 					?>
 					<!-- <td> -->
-						<select name="packagePurchase[<?php echo $row->ID ?>]" class="quantity">
+						<select name="package_purchase[<?php echo $row->ID ?>]" class="quantity">
 							<?php
 							for( $i = 0; $i <= $remaining; $i++ ) {
 							    echo "<option value='$i'>$i</option>";
@@ -64,7 +64,7 @@
 				<?php if( !$data['hide_coupons'] ) { ?>
 				<tr class="coupon">
 					<td colspan="2">
-						<label for="couponCode"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>
+						<label for="coupon_code"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>
 						<input class="input" id="couponCode" name="couponCode">
 					</td>
 					<td colspan="2">
