@@ -117,10 +117,6 @@ class WPET_Payments extends WPET_Module {
 				 * - Call pendingPayment() to create draft attendees for payment
 				 * - Show payment gateway form
 				 */
-				if( $this->maybeCollectAttendeeData()) {
-					wp_redirect((get_permalink($this->mPayment->ID)));
-				}
-
 				if (isset($_POST['submit'])) {
 					// Payment submitted to gateway
 					WPET::getInstance()->getGateway()->processPayment();
@@ -131,6 +127,10 @@ class WPET_Payments extends WPET_Module {
 				} else {
 					// Create draft attendees
 					$this->createAttendees();
+					
+					if( $this->maybeCollectAttendeeData()) {
+						wp_redirect((get_permalink($this->mPayment->ID)));
+					}
 					add_filter('the_content', array($this, 'showPaymentForm'));
 				}
 
@@ -172,17 +172,16 @@ class WPET_Payments extends WPET_Module {
      *  
      */
     function maybeCollectAttendeeData() {
-		$when = 'post'; // pre or post
+	$when = 'pre'; // pre or post
 	
-		$this->loadPayment();
+	$this->loadPayment();
 	
-	$meta = get_post_meta( $this->mPayment->ID );
 	
-	//echo '<pre>';var_dump( $meta ); die();
 	
 	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+	if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
 	
-		$status = $this->mPayment->post_status;
+	$status = $this->mPayment->post_status;
 	
 	$package = WPET::getInstance()->packages->findByID( );
 	
@@ -204,7 +203,9 @@ class WPET_Payments extends WPET_Module {
 		}
 		
 				break;
-		}
+	}
+	$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
+	return true;
     }
 
     /**
@@ -318,6 +319,10 @@ class WPET_Payments extends WPET_Module {
 	    for( $i = 0; $i < $total_attendees; $i++ ) {
 		$attendee_ids[] = $attendees->draftAttendee();
 	    }
+	    
+	    $data = array( 'meta' => array( 'wpet_attendees' => $attendee_ids));
+	    echo '<pre>'; var_dump( $data ); echo '</pre>';
+	    $this->update( $this->mPayment->ID, $data);
 	}
     }
 
