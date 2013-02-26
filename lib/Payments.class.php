@@ -272,7 +272,7 @@ class WPET_Payments extends WPET_Module {
 	    'total' => 0
 	);
 
-	foreach ($this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity) {
+	foreach ($this->mPayment->wpet_package_purchase as $package_id => $quantity) {
 	    if ($quantity) {
 		$package = $packages->findByID($package_id);
 		$cart['items'][] = array(
