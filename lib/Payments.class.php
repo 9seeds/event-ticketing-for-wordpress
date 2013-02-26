@@ -101,6 +101,7 @@ class WPET_Payments extends WPET_Module {
 		 * At this point we should have access to a payment via $post or $_GET
 		 * Lets retrieve it. If we cannot then exit
 		 */
+
 		if( !$this->loadPayment() ) return false;
 
 		// Figure out which step we are on via the post_status and take action accordingly
@@ -159,30 +160,48 @@ class WPET_Payments extends WPET_Module {
 		//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
     
+    
+    /**
+     * Collects ticket data from attendees
+     * 
+     * 
+     * Process
+     * - Get ticket id for package
+     * - Loop through attendees
+     * 
+     *  
+     */
     function maybeCollectAttendeeData() {
 		$when = 'post'; // pre or post
 	
 		$this->loadPayment();
 	
-		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+	$meta = get_post_meta( $this->mPayment->ID );
+	
+	//echo '<pre>';var_dump( $meta ); die();
+	
+	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
 	
 		$status = $this->mPayment->post_status;
 	
-		switch( $when ) {
-			case 'pre':
-				if( 'draft' == $status ) {
-					//    echo 'in draft';
-				}
+	$package = WPET::getInstance()->packages->findByID( );
+	
+	switch( $when ) {
+	    case 'pre':
+		if( 'draft' == $status ) {
+		//    echo 'in draft';
+		}
 		
-				break;
-			case 'post':
-				if( 'publish' == $status ) {
-					/*
-					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
-					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
-					 */
-					echo 'has been published';
-				}
+		break;
+	    case 'post':
+		if( 'publish' == $status ) {
+		    /*
+		     * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
+		     * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
+		     */
+		    
+		    echo WPET::getInstance()->tickets->buildOptionsHtmlForm();
+		}
 		
 				break;
 		}
@@ -228,9 +247,9 @@ class WPET_Payments extends WPET_Module {
 		$data = array(
 		    'post_title' => uniqid(),
 		    'post_status' => 'draft',
-		    'meta' => array(
+		    'meta' => $_POST/*array(
 			'package_data' => $_POST
-		    )
+		    )*/
 		);
 		$payment_id = WPET::getInstance()->payment->add($data);
 
@@ -253,7 +272,7 @@ class WPET_Payments extends WPET_Module {
 	    'total' => 0
 	);
 
-	foreach ($this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity) {
+	foreach ($this->mPayment->wpet_package_purchase as $package_id => $quantity) {
 	    if ($quantity) {
 		$package = $packages->findByID($package_id);
 		$cart['items'][] = array(
@@ -270,6 +289,7 @@ class WPET_Payments extends WPET_Module {
     /**
      * Creates a set of draft attendees for the current payment order
      * 
+     * @todo make this mor efficient by multiplying packages sold by num tickets per package. I.E. 2 packages with 10 tickets is 20 attendees, or 2x10=20. No need for loops
      * @since 2.0 
      */
     private function createAttendees() {
@@ -278,24 +298,26 @@ class WPET_Payments extends WPET_Module {
 	if (empty($this->mPayment->wpet_attendees)) {
 	    $packages = WPET::getInstance()->packages;
 	    $attendees = WPET::getInstance()->attendees;
-
-	    //@TODO this could maybe go somewhere on it's own
-	    foreach ($this->mPayment->wpet_package_data['packagePurchase'] as $package_id => $quantity) {
-		if ($quantity) {
-		    $package = $packages->findByID($package_id);
-		    $attendee_ids = array();
-		    for ($i = 0; $i < $package->wpet_ticket_quantity; $i++) {
-			$attendee_ids[] = $attendees->draftAttendee();
-		    }
-		    update_post_meta($this->mPayment->ID, 'wpet_attendees', $attendee_ids);
-		}
+	    
+	    /*
+	     * Find all unique packages and number of them sold
+	     * Look into the package to find the number of tickets in each package
+	     * 
+	     * num attendees = num packages x num tickets per package
+	     */
+	    $packages = $this->mPayment->wpet_package_purchase;
+	    $total_attendees = 0;
+	    $attendee_ids = array();
+	    foreach( $packages AS $package => $qty ) {
+		// Get the package
+		$p = WPET::getInstance()->packages->findByID( $package );
+		// Multiply tickets in package by number of packages
+		$total_attendees += $qty * $p->wpet_ticket_quantity;
 	    }
-
-	    //update the payment status
-	    //$this->mPayment->post_status = 'pending';
-	    //unset($this->mPayment->guid);
-	    //echo '<pre>'; var_dump($this->mPayment);die();
-	    //$packages->add( $this->mPayment );
+	    
+	    for( $i = 0; $i < $total_attendees; $i++ ) {
+		$attendee_ids[] = $attendees->draftAttendee();
+	    }
 	}
     }
 
