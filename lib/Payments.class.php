@@ -117,10 +117,6 @@ class WPET_Payments extends WPET_Module {
 				 * - Call pendingPayment() to create draft attendees for payment
 				 * - Show payment gateway form
 				 */
-				if( $this->maybeCollectAttendeeData()) {
-					wp_redirect((get_permalink($this->mPayment->ID)));
-				}
-
 				if (isset($_POST['submit'])) {
 					// Payment submitted to gateway
 					WPET::getInstance()->getGateway()->processPayment();
@@ -131,6 +127,10 @@ class WPET_Payments extends WPET_Module {
 				} else {
 					// Create draft attendees
 					$this->createAttendees();
+					
+					if( $this->maybeCollectAttendeeData()) {
+						wp_redirect((get_permalink($this->mPayment->ID)));
+					}
 					add_filter('the_content', array($this, 'showPaymentForm'));
 				}
 
@@ -174,42 +174,41 @@ class WPET_Payments extends WPET_Module {
     function maybeCollectAttendeeData() {
 		$when = 'post'; // pre or post
 
-		$this->loadPayment();
+		$this->loadPayment();	
 	
-	$meta = get_post_meta( $this->mPayment->ID );
+		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+		if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
 	
-	//echo '<pre>';var_dump( $meta ); die();
-	
-	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
-	
-	$status = $this->mPayment->post_status;
+		$status = $this->mPayment->post_status;
 
-	foreach ( $meta['wpet_package_purchase'] as $package_id => $qty ) {
-		//@TODO determine total number of tickets sold and display attendee info for each
+		foreach ( $meta['wpet_package_purchase'] as $package_id => $qty ) {
+			//@TODO determine total number of tickets sold and display attendee info for each
 		
-		//$package = WPET::getInstance()->packages->findByID( $package_id );
-	}
-	
-	
-	switch( $when ) {
-	    case 'pre':
-		if( 'draft' == $status ) {
-		//    echo 'in draft';
+			//$package = WPET::getInstance()->packages->findByID( $package_id );
 		}
+	
+	
+		switch( $when ) {
+			case 'pre':
+				if( 'draft' == $status ) {
+					//    echo 'in draft';
+				}
 		
-		break;
-	    case 'post':
-		if( 'publish' == $status ) {
-		    /*
-		     * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
-		     * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
-		     */
+				break;
+			case 'post':
+				if( 'publish' == $status ) {
+					/*
+					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
+					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
+					 */
 		    
-		    echo WPET::getInstance()->tickets->buildOptionsHtmlForm();
-		}
+					echo WPET::getInstance()->tickets->buildOptionsHtmlForm();
+				}
 		
 				break;
 		}
+		$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
+		return true;
     }
 
     /**
@@ -323,6 +322,10 @@ class WPET_Payments extends WPET_Module {
 	    for( $i = 0; $i < $total_attendees; $i++ ) {
 		$attendee_ids[] = $attendees->draftAttendee();
 	    }
+	    
+	    $data = array( 'meta' => array( 'wpet_attendees' => $attendee_ids));
+	    echo '<pre>'; var_dump( $data ); echo '</pre>';
+	    $this->update( $this->mPayment->ID, $data);
 	}
     }
 
