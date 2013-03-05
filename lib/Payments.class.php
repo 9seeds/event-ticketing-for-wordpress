@@ -172,15 +172,9 @@ class WPET_Payments extends WPET_Module {
      *  
      */
     function maybeCollectAttendeeData() {
-<<<<<<< HEAD
-	$when = 'pre'; // pre or post
-	
-	$this->loadPayment();
-=======
 		$when = 'post'; // pre or post
 
 		$this->loadPayment();
->>>>>>> f0ffb67d57b8946a9c547a7884f76be1198a84ab
 	
 	
 	
