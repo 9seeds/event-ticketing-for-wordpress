@@ -126,15 +126,15 @@ class WPET_Packages extends WPET_Module {
 	
 	public function anyPackagesExist() {
 	    $args = array(
-		'post_type' => '$this->mPostType'
+			'post_type' => $this->mPostType
 	    );
 	    
 	    $posts = get_posts( $args );
 	    
 	    if( count( $posts ) > 0 )
-		return true;
+			return true;
 	    else 
-		return false;
+			return false;
 	}
 
 	/**
