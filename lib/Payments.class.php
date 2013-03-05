@@ -150,7 +150,7 @@ class WPET_Payments extends WPET_Module {
 			case 'publish':
 				$this->reserveTickets();
 				if( $this->maybeCollectAttendeeData()) {
-					wp_redirect((get_permalink($this->mPayment->ID)));
+					//wp_redirect((get_permalink($this->mPayment->ID)));
 				}				
 				// Payment has completed successfully, show receipt
 				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
@@ -171,7 +171,7 @@ class WPET_Payments extends WPET_Module {
      * 
      *  
      */
-    function maybeCollectAttendeeData() {
+    function maybeCollectAttendeeData() { 
 		$when = 'post'; // pre or post
 
 		$this->loadPayment();	
@@ -206,6 +206,7 @@ class WPET_Payments extends WPET_Module {
 				}
 		
 				break;
+
 		}
 		$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
 		return true;
@@ -310,21 +311,30 @@ class WPET_Payments extends WPET_Module {
 	     * num attendees = num packages x num tickets per package
 	     */
 	    $packages = $this->mPayment->wpet_package_purchase;
+	    echo '<pre>'; var_dump($packages); echo '</pre>';
 	    $total_attendees = 0;
 	    $attendee_ids = array();
 	    foreach( $packages AS $package => $qty ) {
 		// Get the package
 		$p = WPET::getInstance()->packages->findByID( $package );
 		// Multiply tickets in package by number of packages
-		$total_attendees += $qty * $p->wpet_ticket_quantity;
+		$ticket = $p->wpet_ticket_id;
+		
+		for( $i = 0; $i < $p->wpet_ticket_quantity; $i++ ) {
+		    $args = array(
+			'meta' => array(
+			    'ticket_id' => $ticket,
+			    'package_id' => $p->ID
+			)
+		    );
+		    $attendee_ids[] = $attendees->draftAttendee( $args );
+		}
 	    }
 	    
-	    for( $i = 0; $i < $total_attendees; $i++ ) {
-		$attendee_ids[] = $attendees->draftAttendee();
-	    }
+	   
 	    
 	    $data = array( 'meta' => array( 'wpet_attendees' => $attendee_ids));
-	    echo '<pre>'; var_dump( $data ); echo '</pre>';
+	echo '<pre>'; var_dump($attendee_ids); echo '</pre>';
 	    $this->update( $this->mPayment->ID, $data);
 	}
     }

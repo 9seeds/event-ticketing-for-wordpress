@@ -91,14 +91,13 @@ class WPET_Attendees extends WPET_Module {
 	 */
 	public function draftAttendee( $args = array() ) {
 
-		$defaults = array();
+		$defaults = array('uniqid' => uniqid() );
 		
 		$data = wp_parse_args( $args, $defaults );
 
-		$uniqid = uniqid();
 		$data = array(
 			'post_status' => 'draft',
-			'meta' => array( 'uniqid' => $uniqid ),
+			'meta' => $data,
 		);
 		return $this->add( $data );
 	}
