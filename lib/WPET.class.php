@@ -430,6 +430,9 @@ class WPET {
 
 			// form display tab
 			$this->settings->show_package_count = 1;
+			
+			// when should attendee data be collected?
+			$this->settings->collect_attendee_data = 'post';
 		}
 	}
 
