@@ -284,6 +284,9 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['max_attendance'] );
 		//unset( $options['event_status'] );
 
+		//@TODO do the resets here
+		unset( $options['reset'] );
+
 		foreach ( $options as $key => $value ) {
 			$this->{$key} = stripslashes( $value );
 		}
