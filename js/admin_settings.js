@@ -21,13 +21,14 @@ jQuery(document).ready(function($) {
 
 		if ( reset_settings.length ) {
 			
-			//@TODO i18n/l10n these
-			var message = "Are you sure you want to reset these?:\n";	
+			var reset_list = '';
 			reset_settings.each(function() {
-				message += $('label[for="'+ $(this).attr('id') +'"]').html() + "\n";
+				reset_list += $('label[for="'+ $(this).attr('id') +'"]').html() + "\n";
 			});
 
-			if ( confirm(message) ) {
+			var message = resetL10n.message.replace('{reset_list}', reset_list);
+
+			if ( confirm( message ) ) {
 				return true;
 			}
 			return false;

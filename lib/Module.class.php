@@ -31,6 +31,12 @@ abstract class WPET_Module {
 			 */
 			$this->render_data['trash_url'] = add_query_arg( array( 'action' => 'trash' ), $this->render_data['base_url'] );
 			$this->render_data['new_url'] = add_query_arg( array( 'action' => 'new' ), $this->render_data['base_url'] );
+
+			$pto = get_post_type_object( $this->mPostType );
+			$this->render_data['message'] = array(
+				1 => sprintf( __( '%s updated.', 'wpet' ), $pto->labels->singular_name ),
+				2 => sprintf( __( '%s saved.', 'wpet' ), $pto->labels->singular_name ),
+			);
 		}
 	}
 
@@ -79,12 +85,19 @@ abstract class WPET_Module {
 
 			$post_data = $this->getPostData();
 
-			if ( ! empty( $_REQUEST['post'] ) )
+			$message = 2;
+			if ( ! empty( $_REQUEST['post'] ) ) {
 				$post_data['ID'] = $_REQUEST['post'];
+				$message = 1;
+			}
 
 			$post_id = $this->add( $post_data );
-
-			wp_redirect( add_query_arg( array( 'post' => $post_id ), $this->render_data['edit_url'] ) );
+			
+			wp_redirect(
+				add_query_arg(
+					array( 'post' => $post_id,
+						   'message' => $message ),
+					$this->render_data['edit_url'] ) );
 		}
 	}
 
