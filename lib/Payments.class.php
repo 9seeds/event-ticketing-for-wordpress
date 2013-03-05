@@ -90,7 +90,7 @@ class WPET_Payments extends WPET_Module {
 			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
 			add_filter( 'previous_post_link', '__return_null' );
 			add_filter( 'next_post_link', '__return_null' );
-			add_filter( 'the_title', '__return_null' );
+			//add_filter( 'the_title', '__return_null' );
 			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
 		}
 		
@@ -172,9 +172,15 @@ class WPET_Payments extends WPET_Module {
      *  
      */
     function maybeCollectAttendeeData() {
+<<<<<<< HEAD
 	$when = 'pre'; // pre or post
 	
 	$this->loadPayment();
+=======
+		$when = 'post'; // pre or post
+
+		$this->loadPayment();
+>>>>>>> f0ffb67d57b8946a9c547a7884f76be1198a84ab
 	
 	
 	
@@ -364,13 +370,12 @@ class WPET_Payments extends WPET_Module {
     }
 
 	private function reserveTickets() {
-		//@TODO this is based on OLD style package data ('package_data' => $_POST)
-		$package = get_post_meta( $this->mPayment->ID, 'wpet_package_data', true );
-
-		foreach ( $package['packagePurchase'] as $package_id => $package_qty ) {
+		$packages = get_post_meta( $this->mPayment->ID, 'wpet_package_purchase', true );
+		
+		foreach ( $packages as $package_id => $package_qty ) {
 			if ( $package_qty )
 				WPET::getInstance()->packages->reserve( $package_id, $package_qty );
-		}		
+		}
 	}
 	
     /**
