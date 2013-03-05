@@ -174,39 +174,42 @@ class WPET_Payments extends WPET_Module {
     function maybeCollectAttendeeData() { 
 		$when = 'post'; // pre or post
 
-		$this->loadPayment();
+		$this->loadPayment();	
 	
+		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+		if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
 	
-	
-	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
-	if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
-	
-	$status = $this->mPayment->post_status;
-	
-	$package = WPET::getInstance()->packages->findByID( );
-	
-	switch( $when ) {
-	    case 'pre':
-		if( 'draft' == $status ) {
-		//    echo 'in draft';
-		}
+		$status = $this->mPayment->post_status;
+
+		foreach ( $meta['wpet_package_purchase'] as $package_id => $qty ) {
+			//@TODO determine total number of tickets sold and display attendee info for each
 		
-		break;
-	    case 'post':
-		if( 'publish' == $status ) {
-		    /*
-		     * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
-		     * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
-		     */
-		    
-		    echo WPET::getInstance()->tickets->buildOptionsHtmlForm();
+			//$package = WPET::getInstance()->packages->findByID( $package_id );
 		}
+	
+	
+		switch( $when ) {
+			case 'pre':
+				if( 'draft' == $status ) {
+					//    echo 'in draft';
+				}
 		
 				break;
-	}
-	echo 'collect data';
-	$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
-	return true;
+			case 'post':
+				if( 'publish' == $status ) {
+					/*
+					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
+					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
+					 */
+		    
+					echo WPET::getInstance()->tickets->buildOptionsHtmlForm();
+				}
+		
+				break;
+
+		}
+		$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
+		return true;
     }
 
     /**

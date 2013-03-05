@@ -1,6 +1,6 @@
 <h2><?php _e('Event Settings', 'wpet'); ?></h2>
 
-<form action="" method="post">
+<form action="" method="post" id="settings_form">
 	<div id="tabs">
 		<ul>
 			<?php
