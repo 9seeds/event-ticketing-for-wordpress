@@ -13,9 +13,9 @@ class WPET_Table_Attendees extends WPET_Table {
 	public function get_columns() {
 		$columns = array(
 			//'cb'        => '<input type="checkbox" />',
-			'title' => 'Name',
-			'wpet_email' => 'Email',
-			'wpet_purchase_date' => 'Purchase Date'
+			'title' => __( 'Name', 'wpet' ),
+			'wpet_email' => __( 'Email', 'wpet' ),
+			'wpet_purchase_date' => __( 'Purchase Date', 'wpet' )
 		);
 
 		return $columns;
@@ -25,5 +25,39 @@ class WPET_Table_Attendees extends WPET_Table {
 		return array(
 			'title' => array( 'title', true ),
 		);
+	}
+
+	//don't limit posts for download
+	public function filterPrepare( $args ) {
+		unset( $args['posts_per_page'] );
+		unset( $args['offset'] );
+		return $args;
+	}
+	
+	public function download() {
+		add_filter( 'wpet_table_prepare', array( $this, 'filterPrepare' ) );
+		$this->prepare_items();
+		$columns = $this->get_columns();		
+
+		//@TODO use post object and/or filters/search
+		$filename = "attendees.csv";
+
+		header( 'Content-Description: File Transfer' );
+		header( 'Content-Disposition: attachment; filename=' . $filename );
+		header( 'Content-Type: text/csv; charset=' . get_option( 'blog_charset' ), true );
+		
+		$outstream = fopen( 'php://output', 'w' ); 
+		fputcsv( $outstream,  $columns );
+		foreach ( $this->items as $post ) {
+			$data = array();
+			foreach ( $columns as $index => $unused ) {
+				$data[] = isset( $post->{'post_' . $index} ) ?
+					$post->{'post_' . $index} :
+					$post->{$index};
+			}
+			fputcsv( $outstream, $data );
+		}		
+		fclose( $outstream );
+		exit();
 	}
 }

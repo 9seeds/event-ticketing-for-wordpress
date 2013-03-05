@@ -30,6 +30,20 @@ class WPET_Attendees extends WPET_Module {
 	}
 
 	/**
+	 * Overridden from parent to do download action if needed
+	 */
+	public function maybeSubmit() {
+		if ( isset( $_POST['download'] ) ) {
+			require_once WPET_PLUGIN_DIR . 'lib/Table/Attendees.class.php';
+
+			$wp_list_table = new WPET_Table_Attendees();
+			$wp_list_table->download();
+		}
+		parent::maybeSubmit();
+	}
+
+	
+	/**
 	 * @todo hawkins to rewrite these instructions
 	 */
 	/**

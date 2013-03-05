@@ -85,10 +85,10 @@ abstract class WPET_Module {
 
 			$post_data = $this->getPostData();
 
-			$message = 2;
+			$message = 2; //save message
 			if ( ! empty( $_REQUEST['post'] ) ) {
 				$post_data['ID'] = $_REQUEST['post'];
-				$message = 1;
+				$message = 1; //update message
 			}
 
 			$post_id = $this->add( $post_data );

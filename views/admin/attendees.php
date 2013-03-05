@@ -14,3 +14,10 @@ $wp_list_table = new WPET_Table_Attendees( $args );
 $wp_list_table->prepare_items();
 $wp_list_table->views();
 $wp_list_table->display();
+
+?>
+<form action="" method="post">
+<p>
+	<input class="button" type="submit" name="download" value="<?php _e( 'Download CSV', 'wpet' ) ?>" />
+</p>
+</form>
