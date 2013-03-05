@@ -182,9 +182,14 @@ class WPET_Payments extends WPET_Module {
 	
 	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
 	
-		$status = $this->mPayment->post_status;
+	$status = $this->mPayment->post_status;
+
+	foreach ( $meta['wpet_package_purchase'] as $package_id => $qty ) {
+		//@TODO determine total number of tickets sold and display attendee info for each
+		
+		//$package = WPET::getInstance()->packages->findByID( $package_id );
+	}
 	
-	$package = WPET::getInstance()->packages->findByID( );
 	
 	switch( $when ) {
 	    case 'pre':
