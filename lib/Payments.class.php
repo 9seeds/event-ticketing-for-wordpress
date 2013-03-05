@@ -160,6 +160,15 @@ class WPET_Payments extends WPET_Module {
 		//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
     
+    function maybeCollectAttendeeData() {
+	$this->loadPayment();	
+	
+		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+		if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
+		add_filter('the_content', array($this, 'collectAttendeeData'));
+		return true;
+    }
+    
     
     /**
      * Collects ticket data from attendees
@@ -171,8 +180,8 @@ class WPET_Payments extends WPET_Module {
      * 
      *  
      */
-    function maybeCollectAttendeeData() { 
-		$when = 'pre'; // pre or post
+    function collectAttendeeData() { 
+		$when = WPET::getInstance()->settings->collect_attendee_data; // pre or post
 
 		$this->loadPayment();	
 	
@@ -187,18 +196,17 @@ class WPET_Payments extends WPET_Module {
 //			//$package = WPET::getInstance()->packages->findByID( $package_id );
 //		}
 	
-	
+		$ret = false; 
 		switch( $when ) {
 			case 'pre':
-			    echo 'pre';
 				if( 'draft' == $status ) {
 					 $attendees = $this->mPayment->wpet_wpet_attendees;
-					 echo '<table>';
+					 $ret = '<table>';
 					foreach( $attendees AS $a ) {
 					    $a = WPET::getInstance()->attendees->findByID( $a );
-					 echo WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
+					 $ret .= WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
 					}
-					 echo '</table>';
+					 $ret .= '</table>';
 				}
 				$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
 				break;
@@ -209,19 +217,19 @@ class WPET_Payments extends WPET_Module {
 					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
 					 */
 				    $attendees = $this->mPayment->wpet_wpet_attendees;
-					 echo '<table>';
+					 $ret = '<table>';
 					foreach( $attendees AS $a ) {
 					    $a = WPET::getInstance()->attendees->findByID( $a );
-					 echo WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
+					 $ret .= WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
 					}
-					 echo '</table>';
+					 $ret .= '</table>';
 				}
 				$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
 				break;
 
 		}
 		
-		return true;
+		return $ret;
     }
 
     /**
