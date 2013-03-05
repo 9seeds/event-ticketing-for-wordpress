@@ -129,7 +129,7 @@ class WPET_Payments extends WPET_Module {
 					$this->createAttendees();
 					
 					if( $this->maybeCollectAttendeeData()) {
-						wp_redirect((get_permalink($this->mPayment->ID)));
+						//wp_redirect((get_permalink($this->mPayment->ID)));
 					}
 					add_filter('the_content', array($this, 'showPaymentForm'));
 				}
@@ -172,7 +172,7 @@ class WPET_Payments extends WPET_Module {
      *  
      */
     function maybeCollectAttendeeData() { 
-		$when = 'post'; // pre or post
+		$when = 'pre'; // pre or post
 
 		$this->loadPayment();	
 	
@@ -181,19 +181,26 @@ class WPET_Payments extends WPET_Module {
 	
 		$status = $this->mPayment->post_status;
 
-		foreach ( $meta['wpet_package_purchase'] as $package_id => $qty ) {
-			//@TODO determine total number of tickets sold and display attendee info for each
-		
-			//$package = WPET::getInstance()->packages->findByID( $package_id );
-		}
+//		foreach ( $this->mPayment->wpet_package_purchase as $package_id => $qty ) {
+//			//@TODO determine total number of tickets sold and display attendee info for each
+//		
+//			//$package = WPET::getInstance()->packages->findByID( $package_id );
+//		}
 	
 	
 		switch( $when ) {
 			case 'pre':
+			    echo 'pre';
 				if( 'draft' == $status ) {
-					//    echo 'in draft';
+					 $attendees = $this->mPayment->wpet_wpet_attendees;
+					 echo '<table>';
+					foreach( $attendees AS $a ) {
+					    $a = WPET::getInstance()->attendees->findByID( $a );
+					 echo WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
+					}
+					 echo '</table>';
 				}
-		
+				$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
 				break;
 			case 'post':
 				if( 'publish' == $status ) {
@@ -201,14 +208,19 @@ class WPET_Payments extends WPET_Module {
 					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
 					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
 					 */
-		    
-					echo WPET::getInstance()->tickets->buildOptionsHtmlForm();
+				    $attendees = $this->mPayment->wpet_wpet_attendees;
+					 echo '<table>';
+					foreach( $attendees AS $a ) {
+					    $a = WPET::getInstance()->attendees->findByID( $a );
+					 echo WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
+					}
+					 echo '</table>';
 				}
-		
+				$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
 				break;
 
 		}
-		$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
+		
 		return true;
     }
 
@@ -311,7 +323,7 @@ class WPET_Payments extends WPET_Module {
 	     * num attendees = num packages x num tickets per package
 	     */
 	    $packages = $this->mPayment->wpet_package_purchase;
-	    echo '<pre>'; var_dump($packages); echo '</pre>';
+	    
 	    $total_attendees = 0;
 	    $attendee_ids = array();
 	    foreach( $packages AS $package => $qty ) {
@@ -334,7 +346,7 @@ class WPET_Payments extends WPET_Module {
 	   
 	    
 	    $data = array( 'meta' => array( 'wpet_attendees' => $attendee_ids));
-	echo '<pre>'; var_dump($attendee_ids); echo '</pre>';
+	
 	    $this->update( $this->mPayment->ID, $data);
 	}
     }
