@@ -18,7 +18,7 @@ class WPET_Payments extends WPET_Module {
      */
     public function __construct() {
 	$this->mPostType = 'wpet_payments';
-	
+
 	add_action('init', array($this, 'registerPostType'));
 	add_action('init', array($this, 'registerPostStatus'));
 	//add_action( 'all', array( $this, 'hookDebug' ) );
@@ -58,7 +58,7 @@ class WPET_Payments extends WPET_Module {
 	    'show_in_admin_status_list' => true,
 	    'label_count' => _n_noop('Processing <span class="count">(%s)</span>', 'Processing <span class="count">(%s)</span>'),
 	));
-	
+
 	register_post_status('draft', array(
 	    'label' => _x('Draft', 'post'),
 	    'public' => true,
@@ -82,94 +82,129 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0
      */
     public function handlePayment() {
-		global $post;
+	global $post;
 
-		//standard payment page stuffs
-		if ( is_singular( $this->mPostType ) ) {
-			//don't show adjacent payments
-			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
-			add_filter( 'previous_post_link', '__return_null' );
-			add_filter( 'next_post_link', '__return_null' );
-			//add_filter( 'the_title', '__return_null' );
-			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
-		}
-		
-		// Check to see if an order has been submitted. If so create a new payment
-		$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
-		
+	//standard payment page stuffs
+	if (is_singular($this->mPostType)) {
+	    //don't show adjacent payments
+	    remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
+	    add_filter('previous_post_link', '__return_null');
+	    add_filter('next_post_link', '__return_null');
+	    //add_filter( 'the_title', '__return_null' );
+	    add_filter('single_post_title', array($this, 'filterTitle'));
+	}
+
+	// Check to see if an order has been submitted. If so create a new payment
+	$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
+
+	/*
+	 * At this point we should have access to a payment via $post or $_GET
+	 * Lets retrieve it. If we cannot then exit
+	 */
+
+	if (!$this->loadPayment())
+	    return false;
+
+	// Figure out which step we are on via the post_status and take action accordingly
+	switch ($this->mPayment->post_status) {
+	    case 'draft':
 		/*
-		 * At this point we should have access to a payment via $post or $_GET
-		 * Lets retrieve it. If we cannot then exit
+		 * Need to fill out form to send to payment gateway
+		 * - Check to see if the payment form has been submitted
+		 * --- Add details to the database
+		 * --- Change status to pending
+		 * --- Refresh page
+		 * Else
+		 * - Call pendingPayment() to create draft attendees for payment
+		 * - Show payment gateway form
 		 */
+		if (isset($_POST['submit'])) {
+		    // Payment submitted to gateway
+		    WPET::getInstance()->getGateway()->processPayment();
 
-		if( !$this->loadPayment() ) return false;
+		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
 
-		// Figure out which step we are on via the post_status and take action accordingly
-		switch ($this->mPayment->post_status) {
-			case 'draft':
-				/*
-				 * Need to fill out form to send to payment gateway
-				 * - Check to see if the payment form has been submitted
-				 * --- Add details to the database
-				 * --- Change status to pending
-				 * --- Refresh page
-				 * Else
-				 * - Call pendingPayment() to create draft attendees for payment
-				 * - Show payment gateway form
-				 */
-				if (isset($_POST['submit'])) {
-					// Payment submitted to gateway
-					WPET::getInstance()->getGateway()->processPayment();
+		    wp_redirect((get_permalink($this->mPayment->ID)));
+		} else {
+		    // Create draft attendees
+		    $this->createAttendees();
 
-					wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
-
-					wp_redirect((get_permalink($this->mPayment->ID)));
-				} else {
-					// Create draft attendees
-					$this->createAttendees();
-					
-					if( $this->maybeCollectAttendeeData()) {
-						//wp_redirect((get_permalink($this->mPayment->ID)));
-					}
-					add_filter('the_content', array($this, 'showPaymentForm'));
-				}
+		    if ($this->maybeCollectAttendeeData()) {
+			break;
+			//wp_redirect((get_permalink($this->mPayment->ID)));
+		    }
+		    add_filter('the_content', array($this, 'showPaymentForm'));
+		}
 
 
-				break;
-			case 'pending':
-				// Waiting for payment to be processed
-				WPET::getInstance()->getGateway()->processPayment();
-				wp_redirect(get_permalink($this->mPayment->ID));
-				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
-				break;
-			case 'processing': // IS THIS NEEDED?
-				WPET::getInstance()->getGateway()->processPaymentReturn();
-				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-				wp_redirect( get_permalink( $this->mPayment->ID ) );
-				break;
-			case 'publish':
-				$this->reserveTickets();
-				if( $this->maybeCollectAttendeeData()) {
-					//wp_redirect((get_permalink($this->mPayment->ID)));
-				}				
-				// Payment has completed successfully, show receipt
-				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-				add_filter('the_content', array($this, 'showPayment'));
-				break;
-		}// end switch
-		//wp_redirect( get_permalink( $this->mPayment->ID ) );
+		break;
+	    case 'pending':
+		// Waiting for payment to be processed
+		WPET::getInstance()->getGateway()->processPayment();
+		wp_redirect(get_permalink($this->mPayment->ID));
+		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
+		break;
+	    case 'processing': // IS THIS NEEDED?
+		WPET::getInstance()->getGateway()->processPaymentReturn();
+		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
+		wp_redirect(get_permalink($this->mPayment->ID));
+		break;
+	    case 'publish':
+		$this->reserveTickets();
+		if ($this->maybeCollectAttendeeData()) {
+		    break;
+		    //wp_redirect((get_permalink($this->mPayment->ID)));
+		}
+		// Payment has completed successfully, show receipt
+		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+		add_filter('the_content', array($this, 'showPayment'));
+		break;
+	}// end switch
+	//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
-    
+
     function maybeCollectAttendeeData() {
-	$this->loadPayment();	
+	$when = WPET::getInstance()->settings->collect_attendee_data; // pre or post
+	$this->loadPayment();
+
+	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+	if ($this->mPayment->wpet_attendees_collected)
+	    return false; // attendees were previously collected
+
+	$status = $this->mPayment->post_status;
+
+	$ret = false;
 	
-		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
-		if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
-		add_filter('the_content', array($this, 'collectAttendeeData'));
-		return true;
+	if( isset( $_POST['save_attendees'] ) ) {
+	    $this->saveAttendeeData();
+	    return false; // Stop showing the attendee data collection
+	}
+	
+	
+ 	switch ($when) {
+	    case 'pre':
+		if ('draft' == $status) {
+
+
+		    add_filter('the_content', array($this, 'collectAttendeeData'));
+		}
+
+		break;
+	    case 'post':
+		if ('publish' == $status) {
+		    /*
+		     * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
+		     * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
+		     */
+
+		    add_filter('the_content', array($this, 'collectAttendeeData'));
+		}
+
+		break;
+	}
+	return true;
     }
-    
-    
+
     /**
      * Collects ticket data from attendees
      * 
@@ -180,56 +215,36 @@ class WPET_Payments extends WPET_Module {
      * 
      *  
      */
-    function collectAttendeeData() { 
-		$when = WPET::getInstance()->settings->collect_attendee_data; // pre or post
+    function collectAttendeeData($content) {
 
-		$this->loadPayment();	
-	
-		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
-		if( $this->mPayment->wpet_attendees_collected ) return false; // attendees were previously collected
-	
-		$status = $this->mPayment->post_status;
 
-//		foreach ( $this->mPayment->wpet_package_purchase as $package_id => $qty ) {
-//			//@TODO determine total number of tickets sold and display attendee info for each
-//		
-//			//$package = WPET::getInstance()->packages->findByID( $package_id );
-//		}
-	
-		$ret = false; 
-		switch( $when ) {
-			case 'pre':
-				if( 'draft' == $status ) {
-					 $attendees = $this->mPayment->wpet_wpet_attendees;
-					 $ret = '<table>';
-					foreach( $attendees AS $a ) {
-					    $a = WPET::getInstance()->attendees->findByID( $a );
-					 $ret .= WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
-					}
-					 $ret .= '</table>';
-				}
-				$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
-				break;
-			case 'post':
-				if( 'publish' == $status ) {
-					/*
-					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
-					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
-					 */
-				    $attendees = $this->mPayment->wpet_wpet_attendees;
-					 $ret = '<table>';
-					foreach( $attendees AS $a ) {
-					    $a = WPET::getInstance()->attendees->findByID( $a );
-					 $ret .= WPET::getInstance()->tickets->buildOptionsHtmlForm( $a->wpet_ticket_id );
-					}
-					 $ret .= '</table>';
-				}
-				$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
-				break;
+	$this->loadPayment();
 
-		}
-		
-		return $ret;
+	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+	if ($this->mPayment->wpet_attendees_collected)
+	    return false; // attendees were previously collected
+
+
+	$attendees = $this->mPayment->wpet_wpet_attendees;
+	$content = '<form action="" method="post">';
+	$content .= '<table>';
+	foreach ($attendees AS $a) {
+	    $a = WPET::getInstance()->attendees->findByID($a);
+	    $content .= '<tr><td colspan="2">' . $a->post_title . '</td></tr>';
+	    $content .= WPET::getInstance()->tickets->buildOptionsHtmlForm($a->wpet_ticket_id);
+	}
+	$content .= '<tr><td colspan="2"><input type="submit" name="save_attendees" value="Save Attendee Info"></td></tr>';
+	$content .= '</table>';
+	$content .= '</form>';
+
+
+
+
+	return $content;
+    }
+
+    public function saveAttendeeData() {
+	//$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
     }
 
     /**
@@ -241,7 +256,7 @@ class WPET_Payments extends WPET_Module {
      * @return string 
      */
     public function showPayment($content) {
-		return 'Payment successful';
+	return 'Payment successful';
     }
 
     /**
@@ -252,7 +267,7 @@ class WPET_Payments extends WPET_Module {
      * @param string $content
      * @return string 
      */
-    public function showPaymentForm($content) { 
+    public function showPaymentForm($content) {
 	return WPET::getInstance()->getGateway()->getPaymentForm();
     }
 
@@ -272,9 +287,9 @@ class WPET_Payments extends WPET_Module {
 		$data = array(
 		    'post_title' => uniqid(),
 		    'post_status' => 'draft',
-		    'meta' => $_POST/*array(
-			'package_data' => $_POST
-		    )*/
+		    'meta' => $_POST/* array(
+			  'package_data' => $_POST
+			  ) */
 		);
 		$payment_id = WPET::getInstance()->payment->add($data);
 
@@ -285,7 +300,7 @@ class WPET_Payments extends WPET_Module {
     }
 
     public function filterTitle($title) {
-		return __('Checkout', 'wpet');
+	return __('Checkout', 'wpet');
     }
 
     public function getCart() {
@@ -323,7 +338,7 @@ class WPET_Payments extends WPET_Module {
 	if (empty($this->mPayment->wpet_attendees)) {
 	    $packages = WPET::getInstance()->packages;
 	    $attendees = WPET::getInstance()->attendees;
-	    
+
 	    /*
 	     * Find all unique packages and number of them sold
 	     * Look into the package to find the number of tickets in each package
@@ -331,31 +346,31 @@ class WPET_Payments extends WPET_Module {
 	     * num attendees = num packages x num tickets per package
 	     */
 	    $packages = $this->mPayment->wpet_package_purchase;
-	    
+
 	    $total_attendees = 0;
 	    $attendee_ids = array();
-	    foreach( $packages AS $package => $qty ) {
+	    foreach ($packages AS $package => $qty) {
 		// Get the package
-		$p = WPET::getInstance()->packages->findByID( $package );
+		$p = WPET::getInstance()->packages->findByID($package);
 		// Multiply tickets in package by number of packages
 		$ticket = $p->wpet_ticket_id;
-		
-		for( $i = 0; $i < $p->wpet_ticket_quantity; $i++ ) {
+
+		for ($i = 0; $i < $p->wpet_ticket_quantity; $i++) {
 		    $args = array(
 			'meta' => array(
 			    'ticket_id' => $ticket,
 			    'package_id' => $p->ID
 			)
 		    );
-		    $attendee_ids[] = $attendees->draftAttendee( $args );
+		    $attendee_ids[] = $attendees->draftAttendee($args);
 		}
 	    }
-	    
-	   
-	    
-	    $data = array( 'meta' => array( 'wpet_attendees' => $attendee_ids));
-	
-	    $this->update( $this->mPayment->ID, $data);
+
+
+
+	    $data = array('meta' => array('wpet_attendees' => $attendee_ids));
+
+	    $this->update($this->mPayment->ID, $data);
 	}
     }
 
@@ -382,29 +397,29 @@ class WPET_Payments extends WPET_Module {
     protected function loadPayment() {
 	global $post;
 	$ret = false;
-	
+
 	if ($this->mPayment) {
 	    // Payment already loaded, send it back
 	    $ret = $this->mPayment;
 	} else if (isset($post) && $this->mPostType == $post->post_type) {
 	    // Load the payment from the existing $post object
 	    $ret = $this->mPayment = $post;
-	} else if ( isset($_REQUEST['post_type']) && $this->mPostType == $_REQUEST['post_type'] && isset($_REQUEST['p'])) {
+	} else if (isset($_REQUEST['post_type']) && $this->mPostType == $_REQUEST['post_type'] && isset($_REQUEST['p'])) {
 	    $ret = $this->mPayment = $this->findByID($_REQUEST['p']);
-	} 
-	
-	return $ret;	
+	}
+
+	return $ret;
     }
 
-	private function reserveTickets() {
-		$packages = get_post_meta( $this->mPayment->ID, 'wpet_package_purchase', true );
-		
-		foreach ( $packages as $package_id => $package_qty ) {
-			if ( $package_qty )
-				WPET::getInstance()->packages->reserve( $package_id, $package_qty );
-		}
+    private function reserveTickets() {
+	$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);
+
+	foreach ($packages as $package_id => $package_qty) {
+	    if ($package_qty)
+		WPET::getInstance()->packages->reserve($package_id, $package_qty);
 	}
-	
+    }
+
     /**
      * Add post type for object
      * 
