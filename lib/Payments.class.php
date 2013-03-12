@@ -229,10 +229,23 @@ class WPET_Payments extends WPET_Module {
 	
 	$content = '<form action="" method="post">';
 	$content .= '<table>';
-	foreach ($attendees AS $a) {
+	
+	foreach ($attendees AS $a) { 
+	    $attendee = get_post( $a );
+	    $package = get_post( $attendee->wpet_package_id );
+	    $content .= '<tr><td colspan="2">Package: ' . $package->post_title . '</td></tr>';
+	    $content .= '<tr>';
 	    $a = WPET::getInstance()->attendees->findByID($a);
-	    $content .= '<tr><td colspan="2">' . $a->post_title . '</td></tr>';
-	    $content .= WPET::getInstance()->tickets->buildFrontOptionsHtmlFormForAttendee($a->ID);
+	    $ticket_id = $a->wpet_ticket_id;
+	    $ticket_options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
+	    
+	    foreach( $ticket_options AS $o ) {
+		$opt = WPET::getInstance()->ticket_options->findByID( $o );
+		$content .= '<th>' . $opt->post_title . '</th>';
+		$content .= '<td>' . WPET::getInstance()->ticket_options->buildHtml($o, 'name' ) . '</td>';   
+	    }
+	    
+	    $content .= '</tr>';
 	}
 	$content .= '<tr><td colspan="2"><input type="submit" name="save_attendees" value="Save Attendee Info"></td></tr>';
 	$content .= '</table>';

@@ -74,8 +74,9 @@ class WPET_TicketOptions extends WPET_Module {
 	);
     }
 
-    public function buildHtml($option_id, $name, $value) {
+    public function buildHtml($option_id, $name, $value = '' ) {
 	$s = '';
+	$opts = get_post($option_id);
 	// Figure out the type to build the proper display
 	switch ($opts->wpet_type) {
 

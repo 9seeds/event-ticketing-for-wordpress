@@ -207,35 +207,7 @@ class WPET_Tickets extends WPET_Module {
 			$s .= '<th scope="row">' . $opts->post_title .  '</th>';
 			$s .= '<td>';
 
-			// Figure out the type to build the proper display
-			switch( $opts->wpet_type ) {
-
-				case 'multiselect':
-					$s .= '<select  name="' . $opts->post_name . '[]" multiple>';
-
-					foreach( ( $opts->wpet_values ) AS $oi ) {
-						$s .= '<option value="' . $oi . '"';
-						$s .= ( in_array($oi, (array)$value) )? ' selected': 'false';
-						$s .= '>' . $oi . '</option>';
-					}
-					$s .= '</select>';
-					break;
-				case 'dropdown':
-					$s .= '<select name="' . $opts->post_name . '" >';
-
-					foreach( $opts->wpet_values AS $oi ) {
-						$s .= '<option value="' . $oi . '"';
-						$s .= selected( $value, $oi, false );
-						$s .= '>' . $oi . '</option>';
-					}
-					$s .= '</select>';
-					break;
-
-				case 'text':
-				default:
-					$s .= '<input  name="' . $opts->post_name . '" type="text" value="' . $value . '" />';
-
-			}
+			// The form html here
 			$s .= '</td>';
 			$s .= '</tr>';
 		}
