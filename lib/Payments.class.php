@@ -226,12 +226,13 @@ class WPET_Payments extends WPET_Module {
 
 
 	$attendees = $this->mPayment->wpet_wpet_attendees;
+	
 	$content = '<form action="" method="post">';
 	$content .= '<table>';
 	foreach ($attendees AS $a) {
 	    $a = WPET::getInstance()->attendees->findByID($a);
 	    $content .= '<tr><td colspan="2">' . $a->post_title . '</td></tr>';
-	    $content .= WPET::getInstance()->tickets->buildOptionsHtmlForm($a->wpet_ticket_id);
+	    $content .= WPET::getInstance()->tickets->buildFrontOptionsHtmlFormForAttendee($a->ID);
 	}
 	$content .= '<tr><td colspan="2"><input type="submit" name="save_attendees" value="Save Attendee Info"></td></tr>';
 	$content .= '</table>';
@@ -350,6 +351,7 @@ class WPET_Payments extends WPET_Module {
 	    $total_attendees = 0;
 	    $attendee_ids = array();
 	    foreach ($packages AS $package => $qty) {
+		if( 0 == $qty ) continue;
 		// Get the package
 		$p = WPET::getInstance()->packages->findByID($package);
 		// Multiply tickets in package by number of packages
