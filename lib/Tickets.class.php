@@ -187,7 +187,7 @@ class WPET_Tickets extends WPET_Module {
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">First name:</th>';
 			$s .= '<td>';
-			$s .= '<input type="text" name='
+			//$s .= '<input type="text" name='
 			$s .= '</td></tr>';
 			
 			$s .= '<tr class="form-field form-required">';
