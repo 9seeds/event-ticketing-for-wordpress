@@ -264,9 +264,9 @@ class WPET_Payments extends WPET_Module {
     public function saveAttendeeData() {
 	
 	foreach( $_POST['option'] AS $attendee_id => $data ) {
-	    echo "<p>Attendee: $attendee_id</p>";
+	  //  echo "<p>Attendee: $attendee_id</p>";
 	    foreach( $data AS $opt_id => $value ) {
-		echo "<p>Option $opt_id: $value</p>";
+	//	echo "<p>Option $opt_id: $value</p>";
 		$args = array(
 		    'meta' => array(
 			$opt_id => $value
