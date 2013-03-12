@@ -240,9 +240,11 @@ class WPET_Payments extends WPET_Module {
 	    $ticket_options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
 	    
 	    foreach( $ticket_options AS $o ) {
+		$content .= '<tr>';
 		$opt = WPET::getInstance()->ticket_options->findByID( $o );
 		$content .= '<th>' . $opt->post_title . '</th>';
 		$content .= '<td>' . WPET::getInstance()->ticket_options->buildHtml($o, 'name' ) . '</td>';   
+		$content .= '</tr>';
 	    }
 	    
 	    $content .= '</tr>';
