@@ -309,10 +309,10 @@ class WPET {
 			return $this->mGateways;
 		
 		require_once WPET_PLUGIN_DIR . 'lib/Gateway/Manual.class.php';
-		require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalExpress.class.php';
+		require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalStandard.class.php';
 		$payment_gateways = array(
 			'WPET_Gateway_Manual' => new WPET_Gateway_Manual(),
-			'WPET_Gateway_PayPalExpress' => new WPET_Gateway_PayPalExpress(),
+			'WPET_Gateway_PayPalStandard' => new WPET_Gateway_PayPalStandard(),
 		);
 		$this->mGateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );		
 		return $this->mGateways;	
