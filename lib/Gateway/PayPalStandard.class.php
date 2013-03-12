@@ -46,7 +46,10 @@ class WPET_Gateway_PayPalStandard extends WPET_Gateway {
 	}
 	
 	public function getPaymentForm() {
-
+		$render_data = array(
+			'cart' => WPET::getInstance()->payment->getCart(),
+		);
+		return WPET::getInstance()->getDisplay( 'gateway-paypal-standard.php', $render_data );
 	}
 
 	public function processPayment() {
