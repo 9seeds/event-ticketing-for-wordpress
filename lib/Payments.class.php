@@ -70,7 +70,7 @@ class WPET_Payments extends WPET_Module {
     }
 
     public function hookDebug($name) {
-	echo "<!-- {$name} -->\n";
+		echo "<!-- {$name} -->\n";
     }
 
     /**
@@ -82,127 +82,129 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0
      */
     public function handlePayment() {
-	global $post;
+		global $post;
 
-	//standard payment page stuffs
-	if (is_singular($this->mPostType)) {
-	    //don't show adjacent payments
-	    remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
-	    add_filter('previous_post_link', '__return_null');
-	    add_filter('next_post_link', '__return_null');
-	    //add_filter( 'the_title', '__return_null' );
-	    add_filter('single_post_title', array($this, 'filterTitle'));
-	}
+		//standard payment page stuffs
+		if ( is_singular( $this->mPostType ) ) {
+			//don't show adjacent payments
+			remove_action( 'wp_head', 'adjacent_posts_rel_link_wp_head' );
+			add_filter( 'previous_post_link', '__return_null' );
+			add_filter( 'next_post_link', '__return_null' );
 
-	// Check to see if an order has been submitted. If so create a new payment
-	$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
+			//don't show this payment's uniqid
+			add_filter( 'the_title', array( $this, 'filterMyTitle' ) );
+			add_filter( 'single_post_title', array( $this, 'filterTitle' ) );
+		}
 
-	/*
-	 * At this point we should have access to a payment via $post or $_GET
-	 * Lets retrieve it. If we cannot then exit
-	 */
+		// Check to see if an order has been submitted. If so create a new payment
+		$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
 
-	if (!$this->loadPayment())
-	    return false;
-
-	// Figure out which step we are on via the post_status and take action accordingly
-	switch ($this->mPayment->post_status) {
-	    case 'draft':
 		/*
-		 * Need to fill out form to send to payment gateway
-		 * - Check to see if the payment form has been submitted
-		 * --- Add details to the database
-		 * --- Change status to pending
-		 * --- Refresh page
-		 * Else
-		 * - Call pendingPayment() to create draft attendees for payment
-		 * - Show payment gateway form
+		 * At this point we should have access to a payment via $post or $_GET
+		 * Lets retrieve it. If we cannot then exit
 		 */
-		if (isset($_POST['submit'])) {
-		    // Payment submitted to gateway
-		    WPET::getInstance()->getGateway()->processPayment( get_permalink( $this->mPayment->ID) );
 
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
+		if (!$this->loadPayment())
+			return false;
 
-		    wp_redirect((get_permalink($this->mPayment->ID))); //does this need an exit() or die()?
-		} else {
-		    // Create draft attendees
-		    $this->createAttendees();
+		// Figure out which step we are on via the post_status and take action accordingly
+		switch ($this->mPayment->post_status) {
+			case 'draft':
+				/*
+				 * Need to fill out form to send to payment gateway
+				 * - Check to see if the payment form has been submitted
+				 * --- Add details to the database
+				 * --- Change status to pending
+				 * --- Refresh page
+				 * Else
+				 * - Call pendingPayment() to create draft attendees for payment
+				 * - Show payment gateway form
+				 */
+				if (isset($_POST['submit'])) {
+					// Payment submitted to gateway
+					WPET::getInstance()->getGateway()->processPayment( get_permalink( $this->mPayment->ID) );
 
-		    if ($this->maybeCollectAttendeeData()) {
-			break;
-			//wp_redirect((get_permalink($this->mPayment->ID)));
-		    }
-		    add_filter('the_content', array($this, 'showPaymentForm'));
-		}
+					wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
+
+					wp_redirect((get_permalink($this->mPayment->ID))); //does this need an exit() or die()?
+				} else {
+					// Create draft attendees
+					$this->createAttendees();
+
+					if ($this->maybeCollectAttendeeData()) {
+						break;
+						//wp_redirect((get_permalink($this->mPayment->ID)));
+					}
+					add_filter('the_content', array($this, 'showPaymentForm'));
+				}
 
 
-		break;
-	    case 'pending':
-		// Waiting for payment to be processed
-		WPET::getInstance()->getGateway()->processPayment( get_permalink( $this->mPayment->ID) );
-		wp_redirect(get_permalink($this->mPayment->ID)); //does this need an exit() or die()?
-		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
-		break;
-	    case 'processing': // IS THIS NEEDED?
-		WPET::getInstance()->getGateway()->processPaymentReturn();
-		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-		wp_redirect(get_permalink($this->mPayment->ID));
-		break;
-	    case 'publish':
-		$this->reserveTickets();
-		if ($this->maybeCollectAttendeeData()) {
-		    break;
-		    //wp_redirect((get_permalink($this->mPayment->ID)));
-		}
-		// Payment has completed successfully, show receipt
-		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-		add_filter('the_content', array($this, 'showPayment'));
-		break;
-	}// end switch
-	//wp_redirect( get_permalink( $this->mPayment->ID ) );
+				break;
+			case 'pending':
+				// Waiting for payment to be processed
+				WPET::getInstance()->getGateway()->processPayment( get_permalink( $this->mPayment->ID) );
+				wp_redirect(get_permalink($this->mPayment->ID)); //does this need an exit() or die()?
+				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
+				break;
+			case 'processing': // IS THIS NEEDED?
+				WPET::getInstance()->getGateway()->processPaymentReturn();
+				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
+				wp_redirect(get_permalink($this->mPayment->ID));
+				break;
+			case 'publish':
+				$this->reserveTickets();
+				if ($this->maybeCollectAttendeeData()) {
+					break;
+					//wp_redirect((get_permalink($this->mPayment->ID)));
+				}
+				// Payment has completed successfully, show receipt
+				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+				add_filter('the_content', array($this, 'showPayment'));
+				break;
+		}// end switch
+		//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
 
     function maybeCollectAttendeeData() {
-	$when = WPET::getInstance()->settings->collect_attendee_data; // pre or post
-	$this->loadPayment();
+		$when = WPET::getInstance()->settings->collect_attendee_data; // pre or post
+		$this->loadPayment();
 
-	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
-	if ($this->mPayment->wpet_attendees_collected)
-	    return false; // attendees were previously collected
+		// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
+		if ($this->mPayment->wpet_attendees_collected)
+			return false; // attendees were previously collected
 
-	$status = $this->mPayment->post_status;
+		$status = $this->mPayment->post_status;
 
-	$ret = false;
+		$ret = false;
 	
-	if( isset( $_POST['save_attendees'] ) ) {
-	    $this->saveAttendeeData();
-	    return false; // Stop showing the attendee data collection
-	}
-	
-	
- 	switch ($when) {
-	    case 'pre':
-		if ('draft' == $status) {
-
-
-		    add_filter('the_content', array($this, 'collectAttendeeData'));
+		if( isset( $_POST['save_attendees'] ) ) {
+			$this->saveAttendeeData();
+			return false; // Stop showing the attendee data collection
 		}
+	
+	
+		switch ($when) {
+			case 'pre':
+				if ('draft' == $status) {
 
-		break;
-	    case 'post':
-		if ('publish' == $status) {
-		    /*
-		     * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
-		     * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
-		     */
 
-		    add_filter('the_content', array($this, 'collectAttendeeData'));
+					add_filter('the_content', array($this, 'collectAttendeeData'));
+				}
+
+				break;
+			case 'post':
+				if ('publish' == $status) {
+					/*
+					 * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
+					 * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
+					 */
+
+					add_filter('the_content', array($this, 'collectAttendeeData'));
+				}
+
+				break;
 		}
-
-		break;
-	}
-	return true;
+		return true;
     }
 
     /**
@@ -269,6 +271,7 @@ class WPET_Payments extends WPET_Module {
      * @return string 
      */
     public function showPaymentForm($content) {
+		die('wtf');
 		return WPET::getInstance()->getGateway()->getPaymentForm();
     }
 
@@ -299,7 +302,14 @@ class WPET_Payments extends WPET_Module {
 	    }
 	}
     }
+	
+	public function filterMyTitle( $title ) {
+		if ( $title == $this->mPayment->post_title )
+			return NULL;
+		return $title;
+	}
 
+	
     public function filterTitle($title) {
 	return __('Checkout', 'wpet');
     }
