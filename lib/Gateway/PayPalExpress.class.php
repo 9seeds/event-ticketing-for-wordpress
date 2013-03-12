@@ -112,7 +112,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 				
 		$resp = wp_remote_post( $nvpurl, $other_args );
 		die(print_r($resp));
-		$resp = PPHttpPost($method, $nvpStr, $cred, $env);
+		//$resp = PPHttpPost($method, $nvpStr, $cred, $env);
 
 
 				
