@@ -132,7 +132,7 @@ class WPET_Payments extends WPET_Module {
 					$this->createAttendees();
 
 					if ($this->maybeCollectAttendeeData()) {
-						break;
+						//break; //commented out for testing gateways
 						//wp_redirect((get_permalink($this->mPayment->ID)));
 					}
 					add_filter('the_content', array($this, 'showPaymentForm'));
@@ -286,7 +286,6 @@ class WPET_Payments extends WPET_Module {
      * @return string 
      */
     public function showPaymentForm($content) {
-		die('wtf');
 		return WPET::getInstance()->getGateway()->getPaymentForm();
     }
 

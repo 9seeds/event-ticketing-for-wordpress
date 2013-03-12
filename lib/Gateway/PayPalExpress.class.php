@@ -104,31 +104,34 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 
 		$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
-		$nvpurl = add_query_arg( $nvp, $nvpurl );
-				
 		$other_args = array(
+			'body' => http_build_query($nvp, NULL, '&'),
 			'sslverify' => false,
 		);
 				
-		$resp = wp_remote_post( $nvpurl, $other_args );
-		die(print_r($resp));
-		//$resp = PPHttpPost($method, $nvpStr, $cred, $env);
+		$response = wp_remote_post( $nvpurl, $other_args );
+		
+		if ( empty( $response['response']['code'] ) || $response['response']['code'] != 200 ) {
+			//@TODO i18n
+			echo '<div class="ticketingerror">'. sprintf( __( 'Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet' ), var_export( $response, true ) ) . '</div>';
+			return;
+		}
 
-
-				
-		if( isset( $resp['ACK'] )  && 'Success' == $resp['ACK'] ) {
+		parse_str( $response['body'], $resp );
+		
+		if( isset( $resp['ACK'] ) && 'Success' == $resp['ACK'] ) {
 			$paypalurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_PPX_URL : self::SANDBOX_PPX_URL;
 			$paypalurl = add_query_arg( array( 'token' => $resp['TOKEN'] ), $paypalurl );
 			wp_redirect( $paypalurl );
 			exit();
 		} else {
+			//@TODO i18n
 			echo '<div class="ticketingerror">There was an error from PayPal<br />Error: <strong>' . urldecode($resp["L_LONGMESSAGE0"]) . '</strong></div>';
 		}
-		// echo '<pre>'; var_dump( $resp ); echo '</pre>';
-
 	}
 
 	public function processPaymentReturn() {
+		//@TODO fix once paypal sandbox is working
 		/*
 		// Make sure the proper items are set
 		if(isset($_GET["token"]) && isset($_GET["PayerID"]) ) {
