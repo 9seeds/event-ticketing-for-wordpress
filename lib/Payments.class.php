@@ -232,7 +232,7 @@ class WPET_Payments extends WPET_Module {
 	foreach ($attendees AS $a) {
 	    $a = WPET::getInstance()->attendees->findByID($a);
 	    $content .= '<tr><td colspan="2">' . $a->post_title . '</td></tr>';
-	    $content .= WPET::getInstance()->tickets->buildOptionsHtmlFormForPackage($a->wpet_package_id);
+	    $content .= WPET::getInstance()->tickets->buildFrontOptionsHtmlFormForAttendee($a->ID);
 	}
 	$content .= '<tr><td colspan="2"><input type="submit" name="save_attendees" value="Save Attendee Info"></td></tr>';
 	$content .= '</table>';

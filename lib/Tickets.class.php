@@ -162,6 +162,86 @@ class WPET_Tickets extends WPET_Module {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket_id', true );
 	    return $this->buildOptionsHtmlForm( $ticket_id, $data );
 	}
+	
+	public function buildAttendee( $attendee_id, $data = null ) {
+	    $package = get_post( $package_id );
+	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket_id', true );
+	    $options = get_post_meta( $ticket_id, 'wpet_options_selected',  true );
+
+		$s = '';
+		if( !is_array( $options ) ) return '';
+		foreach( $options AS $o ) {
+
+			$opts = WPET::getInstance()->ticket_options->findByID( $o );
+			$field = $opts->post_name;
+
+			$value = '';
+			if( !is_null( $data ) )
+			    $value = $data->{"wpet_$field"};
+
+			$s .= '<tr>';
+			$s .= '<td colspan="2">Package: ' . $package->post_title . '</td>';
+			$s .= '</tr>';
+			
+			
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row">First name:</th>';
+			$s .= '<td>';
+			$s .= '<input type="text" name='
+			$s .= '</td></tr>';
+			
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row">Last name:</th>';
+			$s .= '<td>';
+			$s .= 
+			$s .= '</td></tr>';
+			
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row">Email:</th>';
+			$s .= '<td>';
+			$s .= 
+			$s .= '</td></tr>';
+			
+			
+			$s .= '<tr class="form-field form-required">';
+			$s .= '<th scope="row">' . $opts->post_title .  '</th>';
+			$s .= '<td>';
+
+			// Figure out the type to build the proper display
+			switch( $opts->wpet_type ) {
+
+				case 'multiselect':
+					$s .= '<select  name="' . $opts->post_name . '[]" multiple>';
+
+					foreach( ( $opts->wpet_values ) AS $oi ) {
+						$s .= '<option value="' . $oi . '"';
+						$s .= ( in_array($oi, (array)$value) )? ' selected': 'false';
+						$s .= '>' . $oi . '</option>';
+					}
+					$s .= '</select>';
+					break;
+				case 'dropdown':
+					$s .= '<select name="' . $opts->post_name . '" >';
+
+					foreach( $opts->wpet_values AS $oi ) {
+						$s .= '<option value="' . $oi . '"';
+						$s .= selected( $value, $oi, false );
+						$s .= '>' . $oi . '</option>';
+					}
+					$s .= '</select>';
+					break;
+
+				case 'text':
+				default:
+					$s .= '<input  name="' . $opts->post_name . '" type="text" value="' . $value . '" />';
+
+			}
+			$s .= '</td>';
+			$s .= '</tr>';
+		}
+
+		return $s;
+	}
 
 
 	/**
