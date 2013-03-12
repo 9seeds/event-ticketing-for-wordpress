@@ -81,7 +81,7 @@ class WPET_TicketOptions extends WPET_Module {
 	switch ($opts->wpet_type) {
 
 	    case 'multiselect':
-		$s .= '<select  name="' . $opts->post_name . '[]" multiple>';
+		$s .= '<select  name="' . $name . '" multiple>';
 
 		foreach (( $opts->wpet_values) AS $oi) {
 		    $s .= '<option value="' . $oi . '"';
@@ -91,7 +91,7 @@ class WPET_TicketOptions extends WPET_Module {
 		$s .= '</select>';
 		break;
 	    case 'dropdown':
-		$s .= '<select name="' . $opts->post_name . '" >';
+		$s .= '<select name="' . $name . '" >';
 
 		foreach ($opts->wpet_values AS $oi) {
 		    $s .= '<option value="' . $oi . '"';
@@ -103,7 +103,7 @@ class WPET_TicketOptions extends WPET_Module {
 
 	    case 'text':
 	    default:
-		$s .= '<input  name="' . $opts->post_name . '" type="text" value="' . $value . '" />';
+		$s .= '<input  name="' . $name . '" type="text" value="' . $value . '" />';
 	}
 
 	return $s;

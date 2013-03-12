@@ -237,7 +237,10 @@ abstract class WPET_Module {
 	public function update( $post_id, $data ) {
 	    $data['ID'] = $post_id;
 
-	    
+	    if( !isset( $data['post_type'] ) ) {
+		$post = get_post( $post_id );
+		$data['post_type'] = $post->post_type;
+	    }
 	    $data = apply_filters( $data['post_type'] . '_update', $data );
 	    $data = apply_filters( 'wpet_update', $data );
 	    
