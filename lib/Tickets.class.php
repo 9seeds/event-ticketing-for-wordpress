@@ -187,7 +187,7 @@ class WPET_Tickets extends WPET_Module {
 			    $value = $data->{"wpet_$field"};
 
 			$s .= '<tr class="form-field form-required">';
-			$s .= '<th scope="row">' . $opts->post_title . '</th>';
+			$s .= '<th scope="row">' . $opts->post_title .  '</th>';
 			$s .= '<td>';
 
 			// Figure out the type to build the proper display
