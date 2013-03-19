@@ -19,11 +19,8 @@ require_once( 'lib/WPET.class.php' );
 $wpet = WPET::getInstance();
 
 register_activation_hook( __FILE__, array( $wpet, 'activate' ) );
-
 register_deactivation_hook( __FILE__, array( $wpet, 'deactivate' ) );
-
 // register_uninstall_hook( __FILE__, array( $wpet, 'uninstall' ) );
-
 
 /**
  * @todo Move the following code where you'd like it to live
@@ -46,7 +43,6 @@ if( !defined( 'WPET_BASE' ) )
  * @return WPET
  *
  */
-
 function wpet_plugin_links( $links, $file ) {
 
 	static $this_plugin;
@@ -63,4 +59,8 @@ function wpet_plugin_links( $links, $file ) {
 	}
 
 	return $links;
+}
+
+if ( defined('WP_CLI') && WP_CLI ) {
+	require_once WPET_PLUGIN_DIR . 'lib/Convert.class.php';
 }
