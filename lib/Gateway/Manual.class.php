@@ -45,7 +45,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		return WPET::getInstance()->getDisplay( 'gateway-manual.php', $render_data );
 	}
 
-	public function processPayment( $return_url ) {
+	public function processPayment() {
 	    //var_dump($_POST);
 		if ( isset( $_POST['submit'] ) ) {
 		    

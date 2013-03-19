@@ -85,10 +85,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		return WPET::getInstance()->getDisplay( 'gateway-paypal-express.php', $render_data );
 	}
 
-	public function processPayment( $return_url ) {
+	public function processPayment() {
 		//@TODO maybe just pass the total in?
 		$cart = WPET::getInstance()->payment->getCart();
-		
+		$payment_url = get_permalink( $this->mPayment->ID );
 		$nvp = array(
 			'METHOD' => 'SetExpressCheckout',
 			'VERSION' => self::NVP_VERSION,
@@ -98,14 +98,14 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			'AMT' => $cart['total'],
 			'PAYMENTACTION' => 'Sale',
 			'CURRENCYCODE' => $this->getCurrencyCode(),
-			'RETURNURL' => $return_url,
-			'CANCELURL' => add_query_arg( array( 'cancel' => '1' ), $return_url ),
+			'RETURNURL' => $payment_url,
+			'CANCELURL' => add_query_arg( array( 'cancel' => '1' ), $payment_url ),
 		);
 
 		$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
 		$other_args = array(
-			'body' => http_build_query($nvp, NULL, '&'),
+			'body' => http_build_query( $nvp, NULL, '&' ),
 			'sslverify' => false,
 		);
 				
@@ -120,6 +120,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		parse_str( $response['body'], $resp );
 		
 		if( isset( $resp['ACK'] ) && 'Success' == $resp['ACK'] ) {
+			wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'processing' ) );
 			$paypalurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_PPX_URL : self::SANDBOX_PPX_URL;
 			$paypalurl = add_query_arg( array( 'token' => $resp['TOKEN'] ), $paypalurl );
 			wp_redirect( $paypalurl );
@@ -131,47 +132,60 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	}
 
 	public function processPaymentReturn() {
-		//@TODO fix once paypal sandbox is working
-		/*
 		// Make sure the proper items are set
-		if(isset($_GET["token"]) && isset($_GET["PayerID"]) ) {
-			//we will be using these two variables to execute the "DoExpressCheckoutPayment"
+		if ( isset( $_GET['token'] ) && isset( $_GET['PayerID'] ) ) {
+			//we will be using these two variables to execute the 'DoExpressCheckoutPayment'
 			//Note: we haven't received any payment yet.
 
-			$token = $_GET["token"];
-			$payer_id = $_GET["PayerID"];
-                    
-			$purchase = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
-                    
+			$payment_url = get_permalink( $this->mPayment->ID );
+
+			/*
 			// Update the ticket with the PayPal details for posterity
-			$post_content = unserialize( $purchase->post_content );
-                    
+			$purchase = get_page_by_title( $ticket_id, OBJECT, 'wpevt_purchase' );
+			$post_content = unserialize( $purchase->post_content );                    
 			$post_content['token'] = $_GET['token'];
 			$post_content['PayerID'] = $_GET['PayerID'];
-                    
-			$purchase->post_content = serialize( $post_content );
-                    
+			$purchase->post_content = serialize( $post_content );                    
 			wp_update_post( $purchase );
-                    
-			$p = $o["paypalInfo"];
-			$p = WPEVT::instance()->gateway()->getSettings();
-			$cred = array("apiuser" => $p["paypalAPIUser"], "apipwd" => $p["paypalAPIPwd"], "apisig" => $p["paypalAPISig"]);
-			$method = "DoExpressCheckoutPayment";
-			$env = $p["paypalEnv"];
+			*/
+		
+			$cart = WPET::getInstance()->payment->getCart();
 			$nvp = array(
+				'METHOD' => 'DoExpressCheckoutPayment',
+				'VERSION' => self::NVP_VERSION,
+				'PWD' => $this->mSettings->paypal_sandbox_api_password,
+				'USER' => $this->mSettings->paypal_sandbox_api_username,
+				'SIGNATURE' => $this->mSettings->paypal_sandbox_api_signature,
 				'TOKEN' => $_GET['token'],
 				'PAYERID' => $_GET['PayerID'],
-				'AMT' => number_format( $post_content['total'], 2 ),
-				"PAYMENTACTION" => 'Sale',
-				"CURRENCYCODE" => $p["paypalCurrency"],
-				'RETURNURL' => $post_content['ticket_url'] . '&paymentSuccessful=' . $post_content['purchase_id'],
-				'CANCELURL' => $post_content['ticket_url']
-						 );
-			$nvpStr = nvp($nvp);
-			$resp = PPHttpPost($method, $nvpStr, $cred, $env);
-                    
-			echo '<pre>'; var_dump( $resp ); echo '</pre>';
-			if( "SUCCESS" == strtoupper($resp["ACK"]) || "SUCCESSWITHWARNING" == strtoupper($resp["ACK"]) ) {
+				'AMT' => $cart['total'],
+				'PAYMENTACTION' => 'Sale',
+				'CURRENCYCODE' => $this->getCurrencyCode(),
+				'RETURNURL' => $payment_url,
+				'CANCELURL' => add_query_arg( array( 'cancel' => '1' ), $payment_url ),
+			);
+
+			$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
+
+			$other_args = array(
+				'body' => http_build_query( $nvp, NULL, '&' ),
+				'sslverify' => false,
+			);
+
+			$response = wp_remote_post( $nvpurl, $other_args );
+		
+			if ( empty( $response['response']['code'] ) || $response['response']['code'] != 200 ) {
+				//@TODO i18n
+				echo '<div class="ticketingerror">'. sprintf( __( 'Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet' ), var_export( $response, true ) ) . '</div>';
+				return;
+			}
+
+			parse_str( $response['body'], $resp );
+
+			if ( WPET_DEBUG )
+				echo '<pre>'; var_dump( $resp ); echo '</pre>';
+
+			if( 'SUCCESS' == strtoupper( $resp['ACK'] ) || 'SUCCESSWITHWARNING' == strtoupper( $resp['ACK'] ) ) {
 				// Update post with payment info
 				$post_content['TIMESTAMP'] = $resp['TIMESTAMP'];
 				$post_content['CORRELATIONID'] = $resp['CORRELATIONID'];
@@ -186,11 +200,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 				$purchase->post_content = serialize( $post_content );
 
 				wp_update_post( $purchase );
-				header('Location: '. $post_content['ticket_url'] . '&paymentSuccessful=1');
-			}
-    
+				wp_redirect( $payment_url );
+				exit();
+			}    
 		}
-		*/
 	}
 }
 

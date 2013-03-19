@@ -12,6 +12,7 @@ Text Domain: wpet
 define( 'WPET_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );
 define( 'WPET_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 define( 'WPET_JQUERY_VERSION', '1.9.2' );
+define( 'WPET_DEBUG', false );
 
 require_once( 'lib/WPET.class.php' );
 

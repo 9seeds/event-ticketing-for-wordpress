@@ -43,7 +43,7 @@ abstract class WPET_Gateway {
 	abstract public function getPaymentForm();
 	
 	//processPayment / submit
-	abstract public function processPayment( $return_url );
+	abstract public function processPayment();
 	
 	//processPaymentReturn / process_gateway_notification
 	abstract public function processPaymentReturn();	

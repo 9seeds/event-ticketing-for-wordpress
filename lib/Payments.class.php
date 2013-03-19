@@ -122,11 +122,10 @@ class WPET_Payments extends WPET_Module {
 				 */
 				if (isset($_POST['submit'])) {
 					// Payment submitted to gateway
-					WPET::getInstance()->getGateway()->processPayment( get_permalink( $this->mPayment->ID) );
-
+					WPET::getInstance()->getGateway()->processPayment();
 					wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
-
-					wp_redirect((get_permalink($this->mPayment->ID))); //does this need an exit() or die()?
+					wp_redirect( get_permalink( $this->mPayment->ID ) );
+					exit();
 				} else {
 					// Create draft attendees
 					$this->createAttendees();
@@ -137,29 +136,27 @@ class WPET_Payments extends WPET_Module {
 					}
 					add_filter('the_content', array($this, 'showPaymentForm'));
 				}
-
-
 				break;
 			case 'pending':
 				// Waiting for payment to be processed
-				WPET::getInstance()->getGateway()->processPayment( get_permalink( $this->mPayment->ID) );
-				wp_redirect(get_permalink($this->mPayment->ID)); //does this need an exit() or die()?
-				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
-				break;
+				WPET::getInstance()->getGateway()->processPayment();
+				wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'processing' ) );
+				wp_redirect( get_permalink( $this->mPayment->ID ) );
+				exit();
 			case 'processing': // IS THIS NEEDED?
 				WPET::getInstance()->getGateway()->processPaymentReturn();
-				wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-				wp_redirect(get_permalink($this->mPayment->ID));
-				break;
+				wp_update_post( array( 'ID' => $this->mPayment->ID, 'post_status' => 'publish' ) );
+				wp_redirect( get_permalink( $this->mPayment->ID ) );
+				exit();
 			case 'publish':
 				$this->reserveTickets();
-				if ($this->maybeCollectAttendeeData()) {
+				if ( $this->maybeCollectAttendeeData() ) {
 					break;
 					//wp_redirect((get_permalink($this->mPayment->ID)));
 				}
 				// Payment has completed successfully, show receipt
 				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-				add_filter('the_content', array($this, 'showPayment'));
+				add_filter( 'the_content', array( $this, 'showPayment' ) );
 				break;
 		}// end switch
 		//wp_redirect( get_permalink( $this->mPayment->ID ) );
