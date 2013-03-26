@@ -218,7 +218,7 @@ class WPET_Payments extends WPET_Module {
 		// Check to see if the site admin wants to collect attendee data last
 		if( 'post' == WPET::getInstance()->settings->collect_attendee_data ) {
 		    // Site admin wants to collect attendee data before payment
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
+		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data_post'));
 		    wp_redirect(get_permalink($this->mPayment->ID));
 		}
 		
