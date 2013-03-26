@@ -93,8 +93,17 @@ class WPET {
 		}
 
 		add_action( 'init', array( $this, 'registerShortcodes' ) );
+
+		//conversion
+		add_filter( 'update_plugin_complete_actions', array( $this, 'updatePluginComplete' ), 10, 2 );
 	}
 
+	public function updatePluginComplete( $update_actions, $plugin ) {
+		require_once( 'lib/Convert.class.php' );
+		file_put_contents('/tmp/update.txt', print_r( $update_actions, true ) . print_r( $plugin, true ) );
+		return $update_actions;
+	}
+	
 	/**
 	 * Registers the shortcodes required by the WPET base plugin
 	 *

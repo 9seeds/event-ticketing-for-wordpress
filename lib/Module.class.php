@@ -130,7 +130,7 @@ abstract class WPET_Module {
 			'posts_per_page' => -1,
 			'post_status' => array( 'publish', 'draft' ),
 	    );
-
+		
 		$data = wp_parse_args( $args, $defaults );
 
 	    return get_posts( $data );
@@ -153,7 +153,7 @@ abstract class WPET_Module {
 		$posts = $this->find( $data );
 
 		if ( ! empty( $posts ) )
-			return current( $posts );
+			return reset( $posts );
 
 		return NULL;
 	}
@@ -167,6 +167,17 @@ abstract class WPET_Module {
 	 */
 	public function findByID( $post_id ) {
 		return WP_Post::get_instance( $post_id );
+	}
+
+	/**
+	 * Finds one wpet object by title
+	 *
+	 * @since 2.0
+	 * @param string $title
+	 * @return WP_Post
+	 */
+	public function findByTitle( $title ) {
+		return get_page_by_title( $title, OBJECT, $this->mPostType );
 	}
 
 	/**
@@ -184,13 +195,13 @@ abstract class WPET_Module {
 	    );
 
 	    if( $user_id = get_current_user_id() )
-		$defaults['post_author'] = $user_id;
+			$defaults['post_author'] = $user_id;
 	    
 	    // Cleanup to prevent breakage
 	    if( is_array( $data ) && isset( $data['guid'] ) )
-		unset( $data['guid'] );
+			unset( $data['guid'] );
 	    else if( isset( $data->guid ) )
-		unset( $data->guid );
+			unset( $data->guid );
 
 	    $data = wp_parse_args( $data, $defaults );
 
@@ -200,17 +211,7 @@ abstract class WPET_Module {
 	    $post_id = wp_insert_post( $data );
 
 	    if( isset( $data['meta'] ) ) {
-		$this->saveMeta( $post_id, $data['meta'] );
-//			foreach( $data['meta'] as $k => $v ) {
-//			    echo '<pre>'; print_r( $v ); echo '</pre>';
-//			    if( is_array( $v ) ) {
-//				foreach( $v AS $x => $y ) {
-//				    update_post_meta( $post_id, "wpet_{$k}", $y );
-//				}
-//			    } else {
-//				update_post_meta( $post_id, "wpet_{$k}", $v );
-//			    }
-//			}
+			$this->saveMeta( $post_id, $data['meta'] );
 	    }
 	    return $post_id;
 	}
