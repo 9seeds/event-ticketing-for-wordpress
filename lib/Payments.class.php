@@ -58,7 +58,7 @@ class WPET_Payments extends WPET_Module {
 	    'show_in_admin_status_list' => true,
 	    'label_count' => _n_noop('Collect Attendee Data <span class="count">(%s)</span>', 'Collect Attendee Data <span class="count">(%s)</span>'),
 	));
-	
+
 	register_post_status('coll_att_data_post', array(
 	    'label' => _x('Collect Attendee Data Post', 'post'),
 	    'public' => true,
@@ -138,27 +138,28 @@ class WPET_Payments extends WPET_Module {
 		 * - Show the gateway payment collection form
 		 * - Redirect to the next step
 		 */
-		
+
 		// If attendees need to be reserved for this payment do it now
 		$this->maybeCreateAttendees();
-		
+
 		// Check to see if the site admin wants to collect attendee data first
-		if( 'pre' == WPET::getInstance()->settings->collect_attendee_data ) {
+		if ('pre' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
 		    // Site admin wants to collect attendee data before payment
 		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data_pre'));
+		    //wp_redirect(get_permalink($this->mPayment->ID));
+		    break;
+		} 
+
+		    // Update payment status to move to next step
+		    //wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
+		    // Gateway should do this
+		    // Show gateway payment collection form
+		    WPET::getInstance()->getGateway()->getPaymentForm();
+
+		    // Redirect to the next step
 		    wp_redirect(get_permalink($this->mPayment->ID));
-		}
 		
-		// Update payment status to move to next step
-		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
-		// Gateway should do this
-		
-		// Show gateway payment collection form
-		WPET::getInstance()->getGateway()->getPaymentForm();
-		
-		// Redirect to the next step
-		wp_redirect(get_permalink($this->mPayment->ID));
-		
+
 		break;
 
 	    case 'coll_att_data_pre':
@@ -169,11 +170,11 @@ class WPET_Payments extends WPET_Module {
 		 */
 		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
 		$this->maybeCollectAttendeeData();
-		
+
 		// Redirect to the next step
 		wp_redirect(get_permalink($this->mPayment->ID));
 		break;
-	    
+
 	    case 'coll_att_data_post':
 		/*
 		 * Collects the attendee data after the payment is collected then
@@ -181,48 +182,46 @@ class WPET_Payments extends WPET_Module {
 		 */
 		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
 		$this->maybeCollectAttendeeData();
-		
+
 		// Redirect to the next step
 		wp_redirect(get_permalink($this->mPayment->ID));
 		break;
-	    
+
 	    case 'pending':
 		/*
 		 * Data has been collected for the payment and will be sent off
 		 * to the payment gateway here
 		 */
 		WPET::getInstance()->getGateway()->processPayment();
-		
+
 		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing')); 
 		// Gateway should do this
-		
 		// Redirect to the next step
 		wp_redirect(get_permalink($this->mPayment->ID));
-		
+
 		exit();
-		
-	    case 'processing': 
+
+	    case 'processing':
 		/*
 		 * Waiting for the payment gateway to process the payment
 		 */
 		WPET::getInstance()->getGateway()->processPaymentReturn();
 		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
 		// Gateway should do this
-		
 		// Redirect to the next step
 		wp_redirect(get_permalink($this->mPayment->ID));
 		exit();
-		
+
 	    case 'publish':
-		
+
 		// Check to see if the site admin wants to collect attendee data last
-		if( 'post' == WPET::getInstance()->settings->collect_attendee_data ) {
+		if ('post' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
 		    // Site admin wants to collect attendee data before payment
 		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data_post'));
-		    wp_redirect(get_permalink($this->mPayment->ID));
+		    // wp_redirect(get_permalink($this->mPayment->ID));
 		}
-		
-		
+
+
 		$this->reserveTickets();
 		// Payment has completed successfully, show receipt
 		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
@@ -233,7 +232,6 @@ class WPET_Payments extends WPET_Module {
     }
 
     function maybeCollectAttendeeData() {
-	$when = WPET::getInstance()->settings->collect_attendee_data; // pre or post
 	$this->loadPayment();
 
 	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
@@ -250,27 +248,12 @@ class WPET_Payments extends WPET_Module {
 	}
 
 
-	switch ($when) {
-	    case 'pre':
-		if ('draft' == $status) {
-
-
-		    add_filter('the_content', array($this, 'collectAttendeeData'));
-		}
-
-		break;
-	    case 'post':
-		if ('publish' == $status) {
-		    /*
-		     * A POSSIBLE ISSUE TO WATCH FOR IS THIS RUNNING OVER AND 
-		     * OVER, COLLECTING ATTENDEE DATA IN AN INFINITE LOOP
-		     */
-
-		    add_filter('the_content', array($this, 'collectAttendeeData'));
-		}
-
-		break;
+	// Ensure we are in a valid status
+	if ('coll_att_data_pre' == $status || 'coll_att_data_post' == $status) {
+	    add_filter('the_content', array($this, 'collectAttendeeData'));
 	}
+
+
 	return true;
     }
 
@@ -286,7 +269,7 @@ class WPET_Payments extends WPET_Module {
      */
     function collectAttendeeData($content) {
 
-
+	echo 'collecting/';
 	$this->loadPayment();
 
 	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
