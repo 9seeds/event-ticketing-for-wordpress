@@ -168,7 +168,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
 			$other_args = array(
-				'body' => http_build_query( $nvp, NULL, '&' ),
+				'body' => http_build_query( $nvp ),
 				'sslverify' => false,
 			);
 
