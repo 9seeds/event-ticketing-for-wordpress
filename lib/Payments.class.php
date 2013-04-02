@@ -149,16 +149,16 @@ class WPET_Payments extends WPET_Module {
 		// Check to see if the site admin wants to collect attendee data first
 		if ('pre' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
 		    // Site admin wants to collect attendee data before payment
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data_pre'));
+		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data'));
 		    //wp_redirect(get_permalink($this->mPayment->ID));
 		    break;
 		} 
-
 		    // Update payment status to move to next step
 		    //wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
 		    // Gateway should do this
 		    // Show gateway payment collection form
-		    add_filter( 'the_content', WPET::getInstance()->getGateway()->getPaymentForm() );
+		    remove_filter ('the_content','wpautop');
+		    $post->post_content = WPET::getInstance()->getGateway()->getPaymentForm();
 
 		    // Redirect to the next step
 		    //wp_redirect(get_permalink($this->mPayment->ID));
@@ -166,29 +166,17 @@ class WPET_Payments extends WPET_Module {
 
 		break;
 
-	    case 'coll_att_data_pre':
+	    case 'coll_att_data':
 		/*
 		 * Collects the attendee data before the payment is collected then
 		 * send the payment back to draft status to display the payment 
 		 * gateway collection form
 		 */
-		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
+		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
 		$this->maybeCollectAttendeeData();
 
 		// Redirect to the next step
-		wp_redirect(get_permalink($this->mPayment->ID));
-		break;
-
-	    case 'coll_att_data_post':
-		/*
-		 * Collects the attendee data after the payment is collected then
-		 * send the payment to its final published status
-		 */
-		wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-		$this->maybeCollectAttendeeData();
-
-		// Redirect to the next step
-		wp_redirect(get_permalink($this->mPayment->ID));
+		//wp_redirect(get_permalink($this->mPayment->ID));
 		break;
 
 	    case 'pending':
@@ -201,7 +189,7 @@ class WPET_Payments extends WPET_Module {
 		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing')); 
 		// Gateway should do this
 		// Redirect to the next step
-		wp_redirect(get_permalink($this->mPayment->ID));
+		//wp_redirect(get_permalink($this->mPayment->ID));
 
 		exit();
 
@@ -213,16 +201,16 @@ class WPET_Payments extends WPET_Module {
 		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
 		// Gateway should do this
 		// Redirect to the next step
-		wp_redirect(get_permalink($this->mPayment->ID));
+		//wp_redirect(get_permalink($this->mPayment->ID));
 		exit();
 
 	    case 'publish':
 
 		// Check to see if the site admin wants to collect attendee data last
-		if ('post' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
+		if ('post' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) { 
 		    // Site admin wants to collect attendee data before payment
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data_post'));
-		    // wp_redirect(get_permalink($this->mPayment->ID));
+		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data'));
+		     wp_redirect(get_permalink($this->mPayment->ID));
 		}
 
 
@@ -236,7 +224,7 @@ class WPET_Payments extends WPET_Module {
     }
 
     function maybeCollectAttendeeData() {
-	$this->loadPayment();
+	$this->loadPayment(); 
 
 	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
 	if ($this->mPayment->wpet_attendees_collected)
@@ -248,12 +236,23 @@ class WPET_Payments extends WPET_Module {
 
 	if (isset($_POST['save_attendees'])) {
 	    $this->saveAttendeeData();
+	    wp_redirect(get_permalink($this->mPayment->ID));
+	    
+	    
+	    switch( $status ) {
+		case 'pre':
+		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
+		    break;
+		case 'post':
+		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
+		    break;
+	    }
 	    return false; // Stop showing the attendee data collection
 	}
 
 
 	// Ensure we are in a valid status
-	if ('coll_att_data_pre' == $status || 'coll_att_data_post' == $status) {
+	if ('coll_att_data' == $status ) {
 	    add_filter('the_content', array($this, 'collectAttendeeData'));
 	}
 
@@ -329,7 +328,7 @@ class WPET_Payments extends WPET_Module {
 		$this->update($attendee_id, $args);
 	    }
 	}
-	//$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
+	$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
     }
 
     /**
@@ -516,7 +515,7 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0
      * @global WP_Post $post
      */
-    protected function loadPayment() {
+    public function loadPayment() {
 	global $post;
 	$ret = false;
 
