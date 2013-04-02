@@ -88,6 +88,7 @@ class WPET {
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( $this, 'setupMenu' ) );
 			add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
+			add_filter( 'plugin_row_meta', array( $this, 'addPluginLinks' ), 10, 2	);
 		} else {
 			add_action( 'wp_head', array( $this, 'onSalesPage' ) );
 		}
@@ -246,6 +247,28 @@ class WPET {
 		$this->debug( 'Variable dump', $menu_items, 'dump' );
 	}
 
+	/**
+	 * show settings link on plugins page
+	 *
+	 * @since 2.0
+	 * @param array $links
+	 * @param array $file
+	 * @return array links
+	 */
+	public function addPluginLinks( $links, $file ) {
+		static $this_plugin = WPET_BASE;
+
+		// check to make sure we are on the correct plugin
+		if ( $file == $this_plugin ) {
+			$links[] = '<a href="'.menu_page_url( 'wpet_settings', 0 ).'">'.__('Settings', 'wpet').'</a>';
+			$links[] = '<a href="'.menu_page_url( 'wpet_instructions', 0 ).'">'.__('Instructions', 'wpet').'</a>';
+			$links[] = '<a href="http://support.9seeds.com/forums/wp-event-ticketing/">' . __('Support Forum','wpet') . '</a>';
+		}
+
+		return $links;
+	}
+
+	
 	/**
 	 * Handles the display of templates to the user. Pass it in associative
 	 * array of data that can be used by the template

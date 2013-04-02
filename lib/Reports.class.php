@@ -1,6 +1,35 @@
 <?php
 
 /**
+ * @since  2.0
+ * @todo Move this to it's proper place
+ */
+function add_peity_script() {
+	wp_enqueue_script( 'jquery-peity', WPET_PLUGIN_URL . '3rd-party/jquery.peity.js' );
+}
+add_action( 'admin_enqueue_scripts', 'add_peity_script' );
+
+/**
+ * @since  2.0
+ * @todo Rename and move this to it's proper place
+ */
+function hawkins_hacky_js() {
+	?>
+<script>
+jQuery(document).ready(function($){
+    $("span.pie").peity("pie")
+	$(".line").peity("line")
+	$(".bar").peity("bar")
+});
+</script>
+<?php
+}
+
+add_action( 'admin_head', 'hawkins_hacky_js' );
+
+
+
+/**
  * @since 2.0
  */
 class WPET_Reports extends WPET_Module {
