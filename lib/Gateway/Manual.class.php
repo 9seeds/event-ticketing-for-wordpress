@@ -38,7 +38,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 		
 	}
 
-	public function getPaymentForm() {		
+	public function getPaymentForm() { 	
 		$render_data = array(
 			'cart' => WPET::getInstance()->payment->getCart(),
 		);
