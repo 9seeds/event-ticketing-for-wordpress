@@ -46,6 +46,30 @@ class WPET_Coupons extends WPET_Module {
 	    die();
 	}
 	
+	public function calcDiscount( $amount, $package_id, $code ) {
+	    
+	    $coupon = $this->findByCode( $code );
+	    
+	    $discount = 0.00;
+	    
+	    if( is_a( $coupon, 'WP_Post' ) 
+			    && /* odd hack */ $_POST['couponCode'] == $coupon->post_title
+			    && ( /* applies to any */ '' == $coupon->wpet_package_id 
+				 || $package_id == $coupon->wpet_package_id ) 
+		    ) {
+		
+		switch( $coupon->wpet_type ) {
+		    case 'flat-rate':
+			$discount = $coupon->wpet_amount;
+			break;
+		    case 'percentage':
+			$discount = $amount * ( $coupon->wpet_amount / 100 );
+			break;
+		}
+	    }
+	    return $discount;
+	}
+	
 	public function findByCode( $code ) {
 	    $args = array(
 		'post_name' => $code

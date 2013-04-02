@@ -5,6 +5,7 @@
  * Creates post types:
  * - wpet_attendees
  * 
+ * @link https://github.com/9seeds/wp-event-ticketing/wiki/Payment-Flow
  * @todo clean up register post status
  * @todo fill in metion PHPdoc
  * @since 2.0 
@@ -97,6 +98,7 @@ class WPET_Payments extends WPET_Module {
      * step in payment
      * 
      * @see self::registerPostStatus()
+     * @link https://github.com/9seeds/wp-event-ticketing/wiki/Payment-Flow
      * @since 2.0
      */
     public function handlePayment() {
@@ -117,11 +119,11 @@ class WPET_Payments extends WPET_Module {
 	// Check to see if an order has been submitted. If so create a new payment
 	$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
 
+	
 	/*
 	 * At this point we should have access to a payment via $post or $_GET
 	 * Lets retrieve it. If we cannot then exit
 	 */
-
 	if (!$this->loadPayment())
 	    return false;
 
@@ -132,6 +134,7 @@ class WPET_Payments extends WPET_Module {
 		 * Draft mode flow
 		 * 
 		 * - Create draft attendees for this payment if none are created yet
+		 * - Apply coupons if needed
 		 * - If the site admin has selected to collect attendee data before
 		 *    payment collect it now
 		 * - Update the payment status to move to the next stage
@@ -141,6 +144,7 @@ class WPET_Payments extends WPET_Module {
 
 		// If attendees need to be reserved for this payment do it now
 		$this->maybeCreateAttendees();
+		
 
 		// Check to see if the site admin wants to collect attendee data first
 		if ('pre' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
@@ -154,10 +158,10 @@ class WPET_Payments extends WPET_Module {
 		    //wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
 		    // Gateway should do this
 		    // Show gateway payment collection form
-		    WPET::getInstance()->getGateway()->getPaymentForm();
+		    add_filter( 'the_content', WPET::getInstance()->getGateway()->getPaymentForm() );
 
 		    // Redirect to the next step
-		    wp_redirect(get_permalink($this->mPayment->ID));
+		    //wp_redirect(get_permalink($this->mPayment->ID));
 		
 
 		break;
@@ -355,16 +359,44 @@ class WPET_Payments extends WPET_Module {
     /**
      * (possibly) process sales page form front end
      *
+     * @TODO maybe double-check coupon stuff here too?
+     * @TODO some form validation as well before sending to payment CPT (gateway step)
+     * @TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
      * @since 2.0
      */
     public function maybeSalesSubmit() {
 	if (!empty($_POST['wpet_purchase_nonce']) && wp_verify_nonce($_POST['wpet_purchase_nonce'], 'wpet_purchase_tickets')) {
-	    if (!empty($_POST['couponSubmitButton'])) {
-		//@TODO DO COUPON STUFF!!
-	    } else if (!empty($_POST['order_submit'])) {
-		//@TODO maybe double-check coupon stuff here too?
-		//@TODO some form validation as well before sending to payment CPT (gateway step)
-		//@TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
+	    if (!empty($_POST['order_submit'])) {
+		
+		/*
+		 * Set total cost for this order. This is a derived field, meaning
+		 * that it is calculated and stored seperate from the actual
+		 * price & quantity. If that changes this field will need to
+		 * be updated again.
+		 */
+		$total = 0.00;
+		foreach( $_POST['package_purchase'] AS $package => $qty ) {
+		    if( $qty < 1 ) continue; // No need to do extra processing!
+		    
+		    $p = WPET::getInstance()->packages->findByID( $package );
+		    
+		    $total += $p->wpet_package_cost * $qty;
+		}
+		
+		if( isset( $_POST['couponCode'] ) && '' != trim( $_POST['couponCode'] ) ) { 		    
+		   $coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['couponCode'] );
+		    
+		   $total -= $coupon_amount;
+		    
+		   if( 0 > $total ) {
+		       // Oops, total went past zero dollars. Reset it to zero
+		       $total = 0.00;
+		   }
+			
+		}
+		
+		$_POST['total'] = $total; // Add total to payment details
+		
 		$data = array(
 		    'post_title' => uniqid(),
 		    'post_status' => 'draft',
@@ -373,12 +405,13 @@ class WPET_Payments extends WPET_Module {
 			  ) */
 		);
 		$payment_id = WPET::getInstance()->payment->add($data);
-
+		
 		wp_redirect(get_permalink($payment_id));
 		exit();
 	    }
 	}
     }
+    
 
     public function filterMyTitle($title) {
 	if ($title == $this->mPayment->post_title)
