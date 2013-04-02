@@ -12,6 +12,7 @@ Text Domain: wpet
 define( 'WPET_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );
 define( 'WPET_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 define( 'WPET_BASE', plugin_basename( __FILE__ ) );
+define( 'WPET_PLUGIN_FILE', __FILE__ );
 define( 'WPET_JQUERY_VERSION', '1.9.2' );
 define( 'WPET_DEBUG', false );
 
@@ -24,5 +25,5 @@ register_deactivation_hook( __FILE__, array( $wpet, 'deactivate' ) );
 // register_uninstall_hook( __FILE__, array( $wpet, 'uninstall' ) );
 
 if ( defined('WP_CLI') && WP_CLI ) {
-	require_once WPET_PLUGIN_DIR . 'lib/Convert.class.php';
+	require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
 }
