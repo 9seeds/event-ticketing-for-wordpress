@@ -236,10 +236,9 @@ class WPET_Payments extends WPET_Module {
 
 	if (isset($_POST['save_attendees'])) {
 	    $this->saveAttendeeData();
-	    wp_redirect(get_permalink($this->mPayment->ID));
 	    
-	    
-	    switch( $status ) {
+	    	    
+	    switch( WPET::getInstance()->settings->collect_attendee_data ) {
 		case 'pre':
 		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
 		    break;
@@ -247,6 +246,8 @@ class WPET_Payments extends WPET_Module {
 		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
 		    break;
 	    }
+	  //  die($status);
+	    wp_redirect(get_permalink($this->mPayment->ID));
 	    return false; // Stop showing the attendee data collection
 	}
 
