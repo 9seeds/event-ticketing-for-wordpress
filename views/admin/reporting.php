@@ -130,6 +130,10 @@ $available_count = 35;
 			</tbody>
 		</table>
 		<div id="chart"></div>
+
+		<span class="pie" data-diameter="200">1/5</span>
+		<span class="line" data-width="300" data-height="100">5,3,9,6,50,9,7,3,5,2</span>
+
 	</div>
 
 	<div class="report-column-2">
