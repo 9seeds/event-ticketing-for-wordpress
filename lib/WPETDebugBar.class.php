@@ -16,7 +16,6 @@ add_filter('debug_bar_panels', 'wpet_dbb');
 
 
 $wpet_debug = array();
-;
 
 /**
  * Adds the WP Event Ticketing custom debug bar to the panels
@@ -33,8 +32,11 @@ function wpet_dbb($panels) {
     return $panels;
 }
 
-if (!class_exists('Debug_Bar_Panel')) {
-    require_once( WP_PLUGIN_DIR . '/debug-bar/panels/class-debug-bar-panel.php' );
+if ( ! class_exists( 'Debug_Bar_Panel' ) ) {
+	if ( file_exists( WP_PLUGIN_DIR . '/debug-bar/panels/class-debug-bar-panel.php' ) )
+	    require_once( WP_PLUGIN_DIR . '/debug-bar/panels/class-debug-bar-panel.php' );
+	else
+		return; //don't load anything here if debug-bar isn't installed
 }
 
 /**

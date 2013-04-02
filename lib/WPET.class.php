@@ -424,48 +424,9 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function activate() {
-		$plugin_data = get_plugin_data( WPET_PLUGIN_DIR . '/ticketing.php' );
-		update_option( 'wpet_install_data', $plugin_data );
-		require_once 'Module.class.php';
-		require_once 'Events.class.php';
-
-		//@TODO default TicketOption "Twitter"
-
-		$event = new WPET_Events();
-		$event->registerPostType();
-		//install an event if there are none
-		$my_event = $event->getWorkingEvent();
-		if ( ! $my_event )
-			$event->add();
-
-		if( !get_option( 'wpet_activated_once' ) ) {
-		    update_option( 'wpet_activate_once', true );
-
-			// events tab
-			$this->settings->event_status = 'closed';
-			$this->settings->closed_message = 'Tickets for this event will go on sale shortly.';
-			$this->settings->thank_you = 'Thanks for purchasing a ticket to our event!' . "\n".
-				'Your ticket link(s) are below' . "\n".
-				'[ticketlinks]' . "\n\n".
-				'If you have any questions please let us know!';
-
-			// payments tab
-			$this->settings->currency = 'USD';
-			$this->settings->payment_gateway = 'WPET_Gateway_Manual';
-			$this->settings->payment_gateway_status = 'sandbox';
-
-			// email tab
-			$this->settings->email_body = 'Thanks for purchasing a ticket to our event!' . "\n".
-				'Your ticket link(s) are below' . "\n".
-				'[ticketlinks]' . "\n\n".
-				'If you have any questions please let us know!';
-
-			// form display tab
-			$this->settings->show_package_count = 1;
-			
-			// when should attendee data be collected?
-			$this->settings->collect_attendee_data = 'post';
-		}
+		require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
+		$installer = new WPET_Installer();
+		//$installer->install();
 	}
 
 	/**
