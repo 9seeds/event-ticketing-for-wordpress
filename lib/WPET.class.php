@@ -424,7 +424,7 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function activate() {
-		require_once WPET_PLUGIN_DIR . 'lib/Install.class.php';
+		require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
 		$installer = new WPET_Installer();
 		$installer->install();
 	}
