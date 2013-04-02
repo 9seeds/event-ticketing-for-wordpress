@@ -42,21 +42,22 @@ class WPET_Installer {
 		update_option( 'wpet_install_data', $plugin_data );
 
 		//decide if we're going to convert, install, or do nothing
-		$installed_before = get_option( 'wpet_activated_once' );
+		$installed_before = get_option( 'wpet_activate_once' );
 		
 		if( $installed_before ) {
 			$this->out( 'WPET 2.x+ already installed' . PHP_EOL );
 			return;
 		}
-		
 		$old_ticketing_data = $this->getOldData();
 
-	   	if ( $old_ticketing_data && ! $this->my_event ) {
-			$this->runConversion();
-		} else {			
-			$this->installOnce();
+		if ( ! $this->my_event ) {
+			if ( $old_ticketing_data )
+				$this->runConversion();
+	  		else
+				$this->installOnce();
+		} else {
+			$this->out( 'WPET 2.x+ event present, no install will be performed' . PHP_EOL );
 		}
-
 	}
 
 	private function installOnce() {
@@ -130,8 +131,8 @@ class WPET_Installer {
 	public function getOldData() {
 		if ( ! $this->old_data ) {
 			//for initial testing
-			$this->old_data = unserialize( file_get_contents( WPET_PLUGIN_DIR . 'defaults.ser' ) );
-			//$this->old_data = get_option( 'eventTicketingSystem' );
+			//$this->old_data = unserialize( file_get_contents( WPET_PLUGIN_DIR . 'defaults.ser' ) );
+			$this->old_data = get_option( 'eventTicketingSystem' );
 		}
 		return $this->old_data;
 	}
