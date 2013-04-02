@@ -51,8 +51,8 @@ class WPET_Payments extends WPET_Module {
 	    'label_count' => _n_noop('Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>'),
 	));
 
-	register_post_status('coll_att_data_pre', array(
-	    'label' => _x('Collect Attendee Data Pre', 'post'),
+	register_post_status('coll_att_data', array(
+	    'label' => _x('Collect Attendee Data', 'post'),
 	    'public' => true,
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
