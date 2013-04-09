@@ -26,7 +26,13 @@
 	margin: 10px;
 }
 
-#line_chart_rev, #line_chart_sales, #pie_chart_div {
+#pie_chart_div {
+	width: 200px;
+	height: 200px;
+	margin: 20px auto 0;
+}
+
+#line_chart_rev, #line_chart_sales {
 	width: 100%;
 	height: auto;
 	margin: 0 auto 0;
