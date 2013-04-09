@@ -15,21 +15,23 @@ add_action( 'admin_enqueue_scripts', 'add_reporting_script' );
  */
 function hawkins_hacky_js() {
 	?>
-	<script type="text/javascript">
-		google.load("visualization", "1", {packages:["corechart"]});
+	<script type='text/javascript'>
+		google.load('visualization', '1', {packages:['gauge']});
 		google.setOnLoadCallback(drawChart);
 		function drawChart() {
 			var data = google.visualization.arrayToDataTable([
-				['Status', 'Quantity'],
-				['Sold',     110],
-				['Available',      240]
+				['Label', 'Value'],
+				['% Sold', 80]
 			]);
 
 			var options = {
-				title: 'Ticket Availability'
+				width: 200, height: 200,
+				redFrom: 90, redTo: 100,
+				yellowFrom:75, yellowTo: 90,
+				minorTicks: 5
 			};
 
-			var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+			var chart = new google.visualization.Gauge(document.getElementById('pie_chart_div'));
 			chart.draw(data, options);
 		}
 	</script>
@@ -120,13 +122,15 @@ function hawkins_hacky_js() {
 			]);
 
 			var options = {
-				title: 'Daily Sales'
+				title: 'Daily Ticket Sales'
 			};
 
 			var chart = new google.visualization.LineChart(document.getElementById('line_chart_sales'));
 			chart.draw(data, options);
 		}
 	</script>
+
+
 
 <?php
 }
