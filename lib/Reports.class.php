@@ -120,7 +120,7 @@ function hawkins_hacky_js() {
 			]);
 
 			var options = {
-				title: 'Daily Sales'
+				title: 'Daily Ticket Sales'
 			};
 
 			var chart = new google.visualization.LineChart(document.getElementById('line_chart_sales'));
