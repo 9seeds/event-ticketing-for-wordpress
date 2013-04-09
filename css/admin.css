@@ -26,6 +26,13 @@
 	margin: 10px;
 }
 
+#line_chart_div, #pie_chart_div {
+	width: 100%;
+	height: auto;
+	margin: 0 auto 0;
+	overflow: hidden;
+}
+
 .report-fill {
 	padding: 10px;
 	margin-bottom: 10px;

@@ -4,10 +4,10 @@
  * @since  2.0
  * @todo Move this to it's proper place
  */
-function add_peity_script() {
-	wp_enqueue_script( 'jquery-peity', WPET_PLUGIN_URL . '3rd-party/jquery.peity.js' );
+function add_reporting_script() {
+	wp_enqueue_script( 'google-jsapi', 'https://www.google.com/jsapi' );
 }
-add_action( 'admin_enqueue_scripts', 'add_peity_script' );
+add_action( 'admin_enqueue_scripts', 'add_reporting_script' );
 
 /**
  * @since  2.0
@@ -15,13 +15,119 @@ add_action( 'admin_enqueue_scripts', 'add_peity_script' );
  */
 function hawkins_hacky_js() {
 	?>
-<script>
-jQuery(document).ready(function($){
-    $("span.pie").peity("pie")
-	$(".line").peity("line")
-	$(".bar").peity("bar")
-});
-</script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+				['Status', 'Quantity'],
+				['Sold',     110],
+				['Available',      240]
+			]);
+
+			var options = {
+				title: 'Ticket Availability'
+			};
+
+			var chart = new google.visualization.PieChart(document.getElementById('pie_chart_div'));
+			chart.draw(data, options);
+		}
+	</script>
+
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+				['Day', 'Revenue'],
+				['3/1',  80],
+				['3/2',  50],
+				['3/3',  20],
+				['3/4',  35],
+				['3/5',  34],
+				['3/6',  0],
+				['3/7',  0],
+				['3/8',  40],
+				['3/9',  20],
+				['3/10',  12],
+				['3/11',  83],
+				['3/12',  111],
+				['3/13',  90],
+				['3/14',  37],
+				['3/15',  54],
+				['3/16',  38],
+				['3/17',  14],
+				['3/18',  62],
+				['3/19',  85],
+				['3/20',  37],
+				['3/21',  87],
+				['3/22',  24],
+				['3/23',  33],
+				['3/24',  60],
+				['3/25',  105],
+				['3/26',  90],
+				['3/27',  40],
+				['3/28',  60],
+				['3/29',  20],
+				['3/30',  50],
+			]);
+
+			var options = {
+				title: 'Daily Revenue'
+			};
+
+			var chart = new google.visualization.LineChart(document.getElementById('line_chart_rev'));
+			chart.draw(data, options);
+		}
+	</script>
+
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data = google.visualization.arrayToDataTable([
+				['Day', 'Sales'],
+				['3/1',  4],
+				['3/2',  3],
+				['3/3',  1],
+				['3/4',  2],
+				['3/5',  2],
+				['3/6',  0],
+				['3/7',  0],
+				['3/8',  2],
+				['3/9',  2],
+				['3/10',  3],
+				['3/11',  7],
+				['3/12',  12],
+				['3/13',  9],
+				['3/14',  7],
+				['3/15',  4],
+				['3/16',  8],
+				['3/17',  4],
+				['3/18',  2],
+				['3/19',  5],
+				['3/20',  7],
+				['3/21',  7],
+				['3/22',  4],
+				['3/23',  3],
+				['3/24',  1],
+				['3/25',  15],
+				['3/26',  9],
+				['3/27',  4],
+				['3/28',  6],
+				['3/29',  2],
+				['3/30',  5],
+			]);
+
+			var options = {
+				title: 'Daily Sales'
+			};
+
+			var chart = new google.visualization.LineChart(document.getElementById('line_chart_sales'));
+			chart.draw(data, options);
+		}
+	</script>
+
 <?php
 }
 
