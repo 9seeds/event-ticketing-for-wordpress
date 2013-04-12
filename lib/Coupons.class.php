@@ -77,6 +77,27 @@ class WPET_Coupons extends WPET_Module {
 	    
 	    return $this->findOne( $args );
 	}
+	
+	/**
+	 *
+	 * @todo Add warning to log if subtracting tickets went below 0 remaining
+	 * @todo Add error checking in case wpet_quantity_remaining cannot be found to make function gracefully fail and log
+	 * @todo Verify quantity changed and send a return value based on that
+	 * @param type $code
+	 * @param type $num 
+	 */
+	public function subtractFromPool( $code, $num = 1 ) {
+	    $coupon = $this->findByCode( $code );
+	    
+	    $qty = (int)get_post_meta( $coupon->ID, 'wpet_quantity_remaining', true) - 1;
+	    
+	    if( 0 > $qty ) {
+		$qty = 0;
+	    }
+	    update_post_meta( $coupon->ID, 'wpet_quantity_remaining', $qty );
+	    
+	    
+	}
 
 	/**
 	 * Displays page specific contextual help through the contextual help API

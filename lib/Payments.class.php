@@ -97,6 +97,7 @@ class WPET_Payments extends WPET_Module {
      * the function for whatever step the user is on. Uses post_status to track
      * step in payment
      * 
+     * @todo under the publish case check for wpet_published = 1 before attempting to publish
      * @see self::registerPostStatus()
      * @link https://github.com/9seeds/wp-event-ticketing/wiki/Payment-Flow
      * @since 2.0
@@ -213,8 +214,8 @@ class WPET_Payments extends WPET_Module {
 		     wp_redirect(get_permalink($this->mPayment->ID));
 		}
 
-
-		$this->reserveTickets();
+		
+		$this->publishPayment();
 		// Payment has completed successfully, show receipt
 		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
 		add_filter('the_content', array($this, 'showPayment'));
@@ -501,8 +502,41 @@ class WPET_Payments extends WPET_Module {
      * 
      * @since 2.0
      */
-    public function publishPayment() {
+    private function publishPayment() {
 	$this->loadPayment();
+	
+	//echo '<pre>'; var_dump($this->mPayment); echo '</pre>';
+	//echo '<pre>'; var_dump( $this->mPayment->wpet_wpet_attendees); echo '</pre>';
+	
+	/*
+	 * Subtract number of tickets in this package from the available
+	 * pool of tickets available
+	 */
+	$this->reserveTickets();
+	
+	/*
+	 * Subtract number of available coupons from the pool
+	 */
+	WPET::getInstance()->coupons->subtractFromPool( $this->mPayment->wpet_couponCode );
+	
+	
+	/*
+	 * Publish all the attendees
+	 * If the attendee email has been set send the attendee an email to their
+	 * attendee page where they can edit their info and see info on their ticket
+	 */
+	foreach( $this->mPayment->wpet_wpet_attendees AS $a_id ) {
+	    echo "<p>Working on attendee {$a_id}</p>";
+	    WPET::getInstance()->attendees->publishAttendee( $a_id );
+	   
+	}
+	
+	/*
+	 * Email payment receipt and link to payee
+	 * @todo Figure out which email needs to be sent
+	 */
+	
+	
     }
 
     public function setPayment($post) {
@@ -534,6 +568,7 @@ class WPET_Payments extends WPET_Module {
     }
 
     private function reserveTickets() {
+	$this->loadPayment();
 	$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);
 
 	foreach ($packages as $package_id => $package_qty) {

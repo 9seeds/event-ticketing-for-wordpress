@@ -98,6 +98,27 @@ class WPET_Attendees extends WPET_Module {
 		);
 
 	}
+	
+	/**
+	 * Will set the attendee status to published, showing their ticket has
+	 * been paid for as well as perform other tasks related to an attendee 
+	 * being official including:
+	 * - If email is available sending them an email to their attendee page
+	 * 
+	 * @todo Figure out which email needs to be sent
+	 * @since 2.0
+	 * @param type $id 
+	 */
+	public function publishAttendee( $id ) {
+	    
+	    if( is_email(get_post_meta( $id, 'wpet_email', true))) {
+		$email = get_post_meta( $id, 'wpet_email', true );
+		echo "<p>We have an email of $email</p>";
+	    }
+	    
+	    // Update to publish status last
+	    wp_update_post(array('ID' => $id, 'post_status' => 'publish'));
+	}
 
 	/**
 	 * @since 2.0
