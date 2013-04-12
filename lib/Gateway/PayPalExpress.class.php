@@ -134,7 +134,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	);
 
 	$response = wp_remote_post($nvpurl, $other_args);
-
+	if( is_a( $response, 'WP_Error') ) {
+	    echo '<pre>'; var_dump($response); echo '</pre>';
+	}
+	
 	if (empty($response['response']['code']) || $response['response']['code'] != 200) {
 	    //@TODO i18n
 	    echo '<div class="ticketingerror">' . sprintf(__('Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet'), var_export($response, true)) . '</div>';
@@ -156,6 +159,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
     }
 
     public function processPaymentReturn() {
+	$payment = WPET::getInstance()->payment->loadPayment();
 	// Make sure the proper items are set
 	if (isset($_GET['token']) && isset($_GET['PayerID'])) {
 	    //we will be using these two variables to execute the 'DoExpressCheckoutPayment'
@@ -199,14 +203,12 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	    $response = wp_remote_post($nvpurl, $other_args);
 
 	    if (empty($response['response']['code']) || $response['response']['code'] != 200) {
-		//@TODO i18n
 		echo '<div class="ticketingerror">' . sprintf(__('Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet'), var_export($response, true)) . '</div>';
 		return;
 	    }
 
 	    parse_str($response['body'], $resp);
 
-	  //  echo '<pre>'; var_dump( $resp ); echo '</pre>';
 
 	    if ('SUCCESS' == strtoupper($resp['ACK']) || 'SUCCESSWITHWARNING' == strtoupper($resp['ACK'])) {
 		// Update post with payment info
@@ -220,8 +222,12 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		$post_content['TAXAMT'] = $resp['TAXAMT'];
 		$post_content['PAYMENTSTATUS'] = $resp['PAYMENTSTATUS'];
 
-		$purchase->post_content = serialize($post_content);
-
+		$purchase = array(
+		    'ID' => $payment->ID,
+		    'post_content' => serialize($post_content),
+		    'post_status' => 'publish'
+		);
+		
 		wp_update_post($purchase);
 		wp_redirect($payment_url);
 		exit();
