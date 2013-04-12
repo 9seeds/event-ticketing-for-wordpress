@@ -420,6 +420,15 @@ class WPET_Payments extends WPET_Module {
 	return $title;
     }
 
+    public function getPermalink( $id = null ) {
+	$this->loadPayment();
+	
+	if( is_null( $id ) ) {
+	    $id = $this->mPayment->ID;
+	}
+	return get_permalink( $id );
+    }
+    
     public function filterTitle($title) {
 	return __('Checkout', 'wpet');
     }
