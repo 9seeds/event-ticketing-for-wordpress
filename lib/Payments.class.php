@@ -535,6 +535,7 @@ class WPET_Payments extends WPET_Module {
 	 * Email payment receipt and link to payee
 	 * @todo Figure out which email needs to be sent
 	 */
+	echo "<p>Emailing purchaser {$this->mPayment->wpet_name} ({$this->mPayment->wpet_email})</p>"; 
 	
 	
     }
