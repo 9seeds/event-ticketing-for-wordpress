@@ -2,15 +2,6 @@
 
 /**
  * @since  2.0
- * @todo Move this to it's proper place
- */
-function add_reporting_script() {
-	wp_enqueue_script( 'google-jsapi', 'https://www.google.com/jsapi' );
-}
-add_action( 'admin_enqueue_scripts', 'add_reporting_script' );
-
-/**
- * @since  2.0
  * @todo Rename and move this to it's proper place
  */
 function hawkins_hacky_js() {
@@ -135,8 +126,6 @@ function hawkins_hacky_js() {
 <?php
 }
 
-add_action( 'admin_head', 'hawkins_hacky_js' );
-
 
 
 /**
@@ -149,6 +138,15 @@ class WPET_Reports extends WPET_Module {
 	 */
 	public function __construct() {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 1 );
+	}
+
+	/**
+	 * @since  2.0
+	 * Enqueue Google Charts
+	 */
+	public function enqueueAdminScripts() {
+		wp_enqueue_script( 'google-jsapi', 'https://www.google.com/jsapi' );
+		add_action( 'admin_head', 'hawkins_hacky_js' );
 	}
 
 	/**
