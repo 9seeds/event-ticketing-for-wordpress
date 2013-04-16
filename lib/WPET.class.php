@@ -424,9 +424,12 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function activate() {
+		if ( defined( 'WPET_SKIP_INSTALL' ) && WPET_SKIP_INSTALL ) //for CLI testing
+			return;
+		
 		require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
 		$installer = new WPET_Installer();
-		//$installer->install();
+		$installer->install();
 	}
 
 	/**
