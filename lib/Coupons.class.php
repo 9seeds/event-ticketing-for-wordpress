@@ -88,13 +88,15 @@ class WPET_Coupons extends WPET_Module {
 	 */
 	public function subtractFromPool( $code, $num = 1 ) {
 	    $coupon = $this->findByCode( $code );
+
+		if ( $coupon ) {
+			$qty = (int)get_post_meta( $coupon->ID, 'wpet_quantity_remaining', true) - 1;
 	    
-	    $qty = (int)get_post_meta( $coupon->ID, 'wpet_quantity_remaining', true) - 1;
-	    
-	    if( 0 > $qty ) {
-		$qty = 0;
-	    }
-	    update_post_meta( $coupon->ID, 'wpet_quantity_remaining', $qty );
+			if( 0 > $qty ) {
+				$qty = 0;
+			}
+			update_post_meta( $coupon->ID, 'wpet_quantity_remaining', $qty );
+		}
 	    
 	    
 	}

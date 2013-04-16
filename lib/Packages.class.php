@@ -236,11 +236,12 @@ class WPET_Packages extends WPET_Module {
 	 * @param int $package_id
 	 * @return int
 	 */
-	public function remaining( $event_id, $package_id ) {
+	public function remaining( $event_id, $package_id ) {		
 	    $max_attendance = (int)get_post_meta( $event_id, 'wpet_max_attendance', true);
 	    $packages_total_quantity = (int)get_post_meta( $package_id, 'wpet_quantity', true);
 	    $ticket_quantity = (int)get_post_meta( $package_id, 'wpet_ticket_quantity', true );
 
+		//@TODO if max_attendance is 0, should that be the same as unlimited?
 	    if( 0 == $max_attendance || 0 == $ticket_quantity ) return 0;
 
 	    $max_packages = floor( $max_attendance / $ticket_quantity );
