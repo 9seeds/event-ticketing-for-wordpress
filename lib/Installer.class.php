@@ -119,10 +119,10 @@ class WPET_Installer {
 			$this->out( 'Conversion already run' . PHP_EOL );
 			return; //conversion already run
 		}
-		/*
+
 		$data = $this->getOldData();
-		print_r($data);
-		exit();
+		//print_r($data);
+		//exit();
 		
 		if ( ! empty( $data['ticketOptions'] ) )			
 			$this->convertTicketOptions( $data['ticketOptions'] );
@@ -139,11 +139,10 @@ class WPET_Installer {
 		$this->convertEvent( $data );
 		
 		$this->convertSettings( $data );
-		*/
 		
 		$attendees = $this->getOldAttendees();
-		print_r($attendees);
-		exit();
+		//print_r($attendees);
+		//exit();
 
 		if ( ! empty( $attendees ) )
 			$this->convertAttendees( $attendees );
@@ -181,6 +180,7 @@ class WPET_Installer {
 		foreach ( $ticket_options as $ticket_option ) {
 			$data = array(
 				'post_title' => $ticket_option->displayName,
+				'post_name' => sanitize_title_with_dashes( $ticket_option->displayName ),
 				'meta' => array(
 					'type' => $ticket_option->displayType,
 					'values' => $ticket_option->options,
@@ -330,13 +330,45 @@ class WPET_Installer {
 		$this->out( '.' . PHP_EOL );
 	}
 
-	private function convertAttendees( $attendees ) {
+	private function convertAttendees( $packages ) {
 		$this->out( 'Attendees' );
-		foreach ( $attendees as $package ) {
+
+		foreach ( $packages as $package ) {
+
+
+			//hope this works
+			$package_post = $this->new_packages->findByTitle( $package->packageName );
+			$meta = array( 'package' => $package_post->ID );
+
+			$first_name = '';
+			$last_name = '';
 			
+			foreach ( $package->tickets as $ticket ) {
+				foreach ( $ticket->ticketOptions as $ticket_option ) {
+					if ( ! empty( $ticket_option->value ) ) {
+
+						//find the ticket option
+						$new_option_id = $this->ticket_option_map[$ticket_option->optionId];
+						$ticket_option_post = $this->new_ticket_options->findByID( $new_option_id );
+						//save meta as 'wpet_<post-name>"
+						$meta[$ticket_option_post->post_name] = $ticket_option->value;
+					}
+
+					if ( strtolower( $ticket_option->displayName ) == 'first name' )
+						$first_name = $ticket_option->value;
+
+					if ( strtolower( $ticket_option->displayName ) == 'last name' )
+						$last_name = $ticket_option->value;
+				}
+			}
+
 			$data = array(
-				'post_title' => $package['orderDetails']['name'],
+				'post_title' => "{$first_name} {$last_name}",
+				'meta' => $meta,
 			);
+
+			//@TODO there should be a Payment CPT saved here as well
+			
 			$this->new_attendees->add( $data );
 			$this->out( '.' );
 		}
