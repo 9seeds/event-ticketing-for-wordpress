@@ -274,7 +274,6 @@ class WPET_Payments extends WPET_Module {
      */
     function collectAttendeeData($content) {
 
-	echo 'collecting/';
 	$this->loadPayment();
 
 	// IF THE ATTENDEES HAVE BEEN COLLECTED STOP THIS FUNCTION NOW
