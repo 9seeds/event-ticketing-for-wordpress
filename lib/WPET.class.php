@@ -131,27 +131,28 @@ class WPET {
 	    //var_dump( $this->settings->hide_coupons ); die();
 
 	    $defaults = array(
-		'event' => $this->events->getWorkingEvent()
-	    );
+			'event' => $this->events->getWorkingEvent()
+		);
 
 	    $atts = wp_parse_args( $atts, $defaults );
 	    /*
 	     * Find the event to display here
 	     */
 	    $columns = array(
-		'post_content' => __( 'Description', 'wpet' ),
-		'wpet_cost' => __( 'Price', 'wpet' )
-	    );
+			'post_content' => __( 'Description', 'wpet' ),
+			'wpet_cost' => __( 'Price', 'wpet' )
+		);
 
 
 	    // show_package_count
 	    if( $this->settings->show_package_count ) {
-		$columns['wpet_quantity_remaining'] = __( 'Remaining', 'wpet' );
+			$columns['wpet_quantity_remaining'] = __( 'Remaining', 'wpet' );
 	    }
 
 	    $columns['wpet_quantity'] = __( 'Quantity', 'wpet' );
 
 	    $rows = $this->packages->findAllByEvent( $atts['event'] );
+		$data['event'] = $atts['event'];
 
 	    $data['columns'] = apply_filters( 'wpet_wpeventticketing_shortcode_columns', $columns );
 	    $data['rows'] = apply_filters( 'wpet_wpeventticketing_shortcode_rows', $rows );

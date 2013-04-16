@@ -77,8 +77,12 @@ class WPET_Installer {
 
 		//install an event if there are none	
 		if ( ! $this->my_event ) {
-			$this->out( 'Adding default 2.x+ event' . PHP_EOL );				
-			$this->new_events->add();
+			$this->out( 'Adding default 2.x+ event' . PHP_EOL );
+			//defaults to closed
+			$data = array(
+				'meta' => array(
+					'event_status' => 'closed' ) );
+			$this->new_events->add( $data );
 		}
 		
 		$settings = WPET::getInstance()->settings;
@@ -88,7 +92,6 @@ class WPET_Installer {
 		//@TODO default TicketOption "Twitter"
 
 		// events tab
-		$settings->event_status = 'closed';
 		$settings->closed_message = 'Tickets for this event will go on sale shortly.';
 		$settings->thank_you = 'Thanks for purchasing a ticket to our event!' . "\n".
 			'Your ticket link(s) are below' . "\n".
