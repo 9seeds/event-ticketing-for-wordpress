@@ -25,7 +25,10 @@ class WPET_Table_Coupons extends WPET_Table {
 	}
 
 	public function column_wpet_pretty_amount( $item ) {
-	    return WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $item->wpet_amount, true );
+		if ( $item->wpet_type == 'percentage' )
+			return $item->wpet_amount . '%';
+		else
+		    return WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $item->wpet_amount, true );
 	}
 	
 	public function get_sortable_columns() {
