@@ -15,7 +15,7 @@ class WPET_Table_Coupons extends WPET_Table {
 			//'cb'        => '<input type="checkbox" />',
 			'title' => 'Coupon Code',
 			'wpet_package_title' => 'Package',
-			'wpet_pretty_amount' => 'Amount',
+			'wpet_pretty_amount' => 'Coupon Value',
 			'wpet_quantity_remaining' => 'Remaining',
 			'wpet_quantity' => 'Total'
 		);
