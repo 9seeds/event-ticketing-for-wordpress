@@ -37,7 +37,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 				<td><input name="options[amount]" id="amount" type="text" value="<?php echo @$data['coupon']->wpet_amount; ?>"></td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="quantity"><?php _e('Quantity', 'wpet'); ?></label></th>
+				<th scope="row"><label for="quantity"><?php _e('Uses', 'wpet'); ?></label></th>
 				<td><input name="options[quantity]" id="quantity" type="text" value="<?php echo @$data['coupon']->wpet_quantity; ?>"></td>
 			</tr>
 
