@@ -56,6 +56,13 @@ $available_count = 35;
 	<h2><?php _e('Reports', 'wpet'); ?></h2>
 
 	<div class="report-column-1">
+		<?php
+			// if registration is closed, include link to settings page			
+			if( get_post_meta( WPET::getInstance()->events->getWorkingEvent()->ID ) && ( get_post_meta( WPET::getInstance()->events->getWorkingEvent()->ID, 'wpet_event_status', TRUE ) == 'closed' ) ) {
+				echo '<div id="message" class="updated"><p>Registration is currently closed. <a href="/admin.php?page=wpet_settings">Open registration</a></p></div>';
+			}
+		?>
+
 		<h2><?php _e('Sales by Package', 'wpet'); ?></h2>
 		<table class='widefat'>
 			<thead>
