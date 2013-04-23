@@ -20,6 +20,14 @@ class WPET_Coupons extends WPET_Module {
 		//do this after post type is set
 		parent::__construct();
 	}
+
+	public function enqueueAdminScripts() {
+		wp_register_script( 'wpet-admin-coupons', WPET_PLUGIN_URL . 'js/admin_coupons.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpet-admin-coupons');
+		wp_localize_script( 'wpet-admin-coupons', 'wpet_coupons_add', array(
+								'percent_too_high' => __( 'Amount must be less than 100 percent', 'wpet' ),
+		) );
+	}
 	
 	public function ajaxGetCoupon() { 
 	    if( !isset( $_POST['coupon_code'] ) || '' == $_POST['coupon_code'] ) {
