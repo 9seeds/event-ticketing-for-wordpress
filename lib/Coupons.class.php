@@ -26,6 +26,7 @@ class WPET_Coupons extends WPET_Module {
 		wp_enqueue_script( 'wpet-admin-coupons');
 		wp_localize_script( 'wpet-admin-coupons', 'wpet_coupons_add', array(
 								'percent_too_high' => __( 'Amount must be less than 100 percent', 'wpet' ),
+								'amount_not_numeric' => __( 'Amount must be a number', 'wpet' ),
 		) );
 	}
 	
