@@ -7,9 +7,13 @@ jQuery(document).ready(function($) {
 				return false;
 		}
 
-
 		if ( ! jQuery.isNumeric( $( '#amount' ).val() ) ) {
 				alert( wpet_coupons_add.amount_not_numeric );
+				return false;
+		}
+
+		if ( ! jQuery.isNumeric( $( '#quantity' ).val() ) ) {
+				alert( wpet_coupons_add.uses_not_numeric );
 				return false;
 		}
 

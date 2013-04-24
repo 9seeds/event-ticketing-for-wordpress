@@ -28,6 +28,7 @@ class WPET_Coupons extends WPET_Module {
 								'name_required' => __( 'Coupon Code is required', 'wpet' ),
 								'percent_too_high' => __( 'Amount must be less than 100 percent', 'wpet' ),
 								'amount_not_numeric' => __( 'Amount must be a number', 'wpet' ),
+								'uses_not_numeric' => __( 'Uses must be a number', 'wpet' ),
 		) );
 	}
 	
