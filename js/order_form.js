@@ -53,6 +53,9 @@ jQuery(document).ready(function($) {
 		total = total - coupon_amount;
 	}
 	
+	if( 0 > total) {
+	    total = 0;
+	}
 	
 	jQuery( '#subTotal' ).text( total );
     }
