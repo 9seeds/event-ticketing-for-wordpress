@@ -1,6 +1,6 @@
 <div id="eventTicketing">
 
-    <?php if( 'closed' == $data['event']->event_status ) { 
+    <?php if( 'closed' == $data['event']->wpet_event_status ) { 
     
     
     
