@@ -8,7 +8,7 @@ $message = empty( $_REQUEST['message'] ) ? false : $data['message'][$_REQUEST['m
 <?php if ( $message ) : ?>
 <div id="message" class="updated"><p><?php echo $message; ?></p></div>
 <?php endif; ?>
-<form method="post" action="">
+<form method="post" action="" id="wpet_admin_ticket_add">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">

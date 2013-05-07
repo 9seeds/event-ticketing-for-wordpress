@@ -22,6 +22,14 @@ class WPET_Tickets extends WPET_Module {
 		parent::__construct();
 	}
 
+	public function enqueueAdminScripts() {
+		wp_register_script( 'wpet-admin-tickets', WPET_PLUGIN_URL . 'js/admin_tickets.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpet-admin-tickets');
+		wp_localize_script( 'wpet-admin-tickets', 'wpet_tickets_add', array(
+								'name_required' => __( 'Ticket Name is required', 'wpet' ),
+		) );
+	}
+
 	public function anyTicketsExist() {
 	    $args = array(
 		'post_type' => $this->mPostType
