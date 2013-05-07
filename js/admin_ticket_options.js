@@ -35,4 +35,14 @@ jQuery(document).ready(function($) {
 
 	});
 
+	$('#wpet_admin_ticket_option_add').submit(function() {
+		//do validation
+		if ( jQuery.trim( $( '#display_name' ).val() ) == '' ) {
+				alert( wpet_ticket_options_add.name_required );
+				return false;
+		}
+
+		return true;
+	});
+
 });

@@ -115,6 +115,9 @@ class WPET_TicketOptions extends WPET_Module {
     public function enqueueAdminScripts() {
 	wp_register_script('wpet-admin-ticket-options', WPET_PLUGIN_URL . 'js/admin_ticket_options.js', array('jquery'));
 	wp_enqueue_script('wpet-admin-ticket-options');
+	wp_localize_script( 'wpet-admin-ticket-options', 'wpet_ticket_options_add', array(
+								'name_required' => __( 'Display Name is required', 'wpet' ),
+		) );
     }
 
     /**

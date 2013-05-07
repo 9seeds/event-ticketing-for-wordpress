@@ -10,7 +10,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 <?php if ( $message ) : ?>
 <div id="message" class="updated"><p><?php echo $message; ?></p></div>
 <?php endif; ?>
-<form method="post" action="">
+<form method="post" action="" id="wpet_admin_package_add">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">

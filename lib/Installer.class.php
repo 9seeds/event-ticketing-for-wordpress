@@ -105,6 +105,7 @@ class WPET_Installer {
 		$settings->payment_gateway_status = 'sandbox';
 
 		// email tab
+		$settings->subject = 'Thank you for registering for our event';
 		$settings->email_body = 'Thanks for purchasing a ticket to our event!' . "\n".
 			'Your ticket link(s) are below' . "\n".
 			'[ticketlinks]' . "\n\n".
