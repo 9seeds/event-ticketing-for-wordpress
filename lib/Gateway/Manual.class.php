@@ -13,8 +13,8 @@ class WPET_Gateway_Manual extends WPET_Gateway {
     }
 
     public function getCurrencies() {
-	return array('USD');
-    }
+	return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
+   }
 
     public function getDefaultCurrency() {
 	return 'USD';
