@@ -19,6 +19,9 @@ jQuery(document).ready(function($) {
 	    },
 	    function(response) {
 		var obj = jQuery.parseJSON( response );
+		console.log(jQuery('#couponCode').val());
+		console.log(obj);
+		
 		coupon_amount = obj.amount;
 		coupon_type = obj.type;
 		update_subtotal();
@@ -33,7 +36,7 @@ jQuery(document).ready(function($) {
 
  function update_subtotal() {
 	rows = jQuery( '#order_form' ).find( '.package_row' );
-	
+	console.log(rows);
 	total = 0;
 	
 	rows.each( function() {
@@ -49,6 +52,7 @@ jQuery(document).ready(function($) {
 	switch( coupon_type ) {
 	    case 'percentage':
 		total = total - ( total * ( coupon_amount / 100 ) );
+		break;
 	    case 'flat-rate':
 		total = total - coupon_amount;
 	}

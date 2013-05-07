@@ -145,7 +145,8 @@ abstract class WPET_Module {
 	 */
 	public function findOne( $args = array() ) {
 	    $defaults = array(
-			'showposts' => 1
+			'showposts' => 1,
+			'posts_per_page' => 1,
 		);
 
 		$data = wp_parse_args( $args, $defaults );

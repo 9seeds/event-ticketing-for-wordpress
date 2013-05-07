@@ -45,8 +45,6 @@ class WPET_Coupons extends WPET_Module {
 	    }
 	    $coupon = $this->findByCode( $_POST['coupon_code'] );
 	    
-	    
-	    
 	    $c = array( 
 		'amount' => $coupon->wpet_amount,
 		'type'	=> $coupon->wpet_type
@@ -83,10 +81,16 @@ class WPET_Coupons extends WPET_Module {
 	
 	public function findByCode( $code ) {
 	    $args = array(
-		'post_name' => $code
+		'name' => $code,
+		'post_type' => $this->mPostType,
 	    );
 	    
-	    return $this->findOne( $args );
+	    $posts = new WP_Query( $args );
+	    
+	    $posts = ($posts->get_posts());
+	    return $posts[0];
+	    
+	    //return $this->findOne( $args );
 	}
 	
 	/**
