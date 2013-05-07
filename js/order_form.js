@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
 	});
 	
 	switch( coupon_type ) {
-	    case 'percent':
+	    case 'percentage':
 		total = total - ( total * ( coupon_amount / 100 ) );
 	    case 'flat-rate':
 		total = total - coupon_amount;
