@@ -6,7 +6,7 @@ require_once WPET_PLUGIN_DIR . 'lib/Table/TicketOptions.class.php';
 $table_args = array(
 	'base_url' => $data['base_url'],
 	'edit_url' => $data['edit_url'],
-	'trash_url' => $data['trash_url'],
+	//'trash_url' => $data['trash_url'], //disabled until further notice
 );
 $wp_list_table = new WPET_Table_TicketOptions( $table_args );
 $wp_list_table->prepare_items();
