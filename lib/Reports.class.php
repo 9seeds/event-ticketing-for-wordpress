@@ -66,18 +66,18 @@ class WPET_Reports extends WPET_Module {
 		$screen->add_help_tab(
 			array(
 			'id'	=> 'overview',
-			'title'	=> __( 'Overview' ),
-			'content'	=> '<p>' . __( 'This screen provides a quick overview of your event.' ) . '</p>',
+			'title'	=> __( 'Overview', 'wpet' ),
+			'content'	=> '<p>' . __( 'This screen provides a quick overview of your event.', 'wpet' ) . '</p>',
 			)
 		);
 		$screen->add_help_tab(
 			array(
 			'id'	=> 'report-tab',
-			'title'	=> __( 'Reports' ),
-			'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:' ) . '</p>'.
+			'title'	=> __( 'Reports', 'wpet' ),
+			'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 				'<ul>'.
-					'<li>'. __( '<strong>Display Name</strong> is what will be shown to your visitor when this option is added to a ticket.' ) .'</li>'.
-					'<li>'. __( '<strong>Option Type</strong> lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select.' ) .'</li>'.
+			'<li>'. __( '<strong>Display Name</strong> is what will be shown to your visitor when this option is added to a ticket.', 'wpet' ) .'</li>'.
+					'<li>'. __( '<strong>Option Type</strong> lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select.', 'wpet' ) .'</li>'.
 				'</ul>',
 			)
 		);
@@ -91,7 +91,11 @@ class WPET_Reports extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Reports', 'Reports', 'add_users', 'wpet_reports', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( __( 'Reports', 'wpet' ),
+						 __( 'Reports', 'wpet' ),
+						 'add_users',
+						 'wpet_reports',
+						 array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 

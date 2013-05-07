@@ -13,11 +13,11 @@ class WPET_Table_Coupons extends WPET_Table {
 	public function get_columns() {
 		$columns = array(
 			//'cb'        => '<input type="checkbox" />',
-			'title' => 'Coupon Code',
-			'wpet_package_title' => 'Package',
-			'wpet_pretty_amount' => 'Coupon Value',
-			'wpet_quantity_remaining' => 'Remaining',
-			'wpet_quantity' => 'Total'
+			'title' => __( 'Coupon Code', 'wpet' ),
+			'wpet_package_title' => __( 'Package', 'wpet' ),
+			'wpet_pretty_amount' => __( 'Coupon Value', 'wpet' ),
+			'wpet_quantity_remaining' => __( 'Remaining', 'wpet' ),
+			'wpet_quantity' => __( 'Total', 'wpet' )
 		);
 
 		return $columns;

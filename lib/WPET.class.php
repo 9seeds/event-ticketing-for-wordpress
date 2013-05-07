@@ -232,7 +232,13 @@ class WPET {
 	 * @uses wpet_admin_menu
 	 */
 	public function setupMenu() {
-		add_object_page( 'Tickets', 'Tickets', 'add_users', 'wpet_reports', array( $this->mModules['reports'], 'renderAdminPage' ), WPET_PLUGIN_URL . '/images/menu_icon.png' );
+		add_object_page( __( 'Tickets', 'wpet' ),
+						 __( 'Tickets', 'wpet' ),
+						 'add_users',
+						 'wpet_reports',
+						 array( $this->mModules['reports'], 'renderAdminPage' ),
+						 WPET_PLUGIN_URL . '/images/menu_icon.png' );
+		
 		$menu_items = array();
 
 		$menu_items = apply_filters( 'wpet_admin_menu', $menu_items );

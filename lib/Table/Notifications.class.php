@@ -13,9 +13,9 @@ class WPET_Table_Notifications extends WPET_Table {
 	public function get_columns() {
 		$columns = array(
 			//'cb'        => '<input type="checkbox" />',
-			'title' => 'Subject',
-			'wpet_to' => 'To',
-			'wpet_sent_date' => 'Sent Date'
+			'title' => __( 'Subject', 'wpet' ),
+			'wpet_to' => __( 'To', 'wpet' ),
+			'wpet_sent_date' => __( 'Sent Date', 'wpet' )
 		);
 
 		return $columns;

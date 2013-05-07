@@ -84,12 +84,13 @@ class WPET_Installer {
 					'event_status' => 'closed' ) );
 			$this->new_events->add( $data );
 		}
+
+		if ( empty( $this->new_ticket_options->find() ) ) { //@TODO narrow this search
+			//@TODO default TicketOption "Twitter"
+				
+		}
 		
 		$settings = WPET::getInstance()->settings;
-
-		update_option( 'wpet_activate_once', true );
-
-		//@TODO default TicketOption "Twitter"
 
 		// events tab
 		$settings->closed_message = 'Tickets for this event will go on sale shortly.';
@@ -114,6 +115,8 @@ class WPET_Installer {
 			
 		// when should attendee data be collected?
 		$settings->collect_attendee_data = 'post';
+
+		update_option( 'wpet_activate_once', true );
 	}
 	
 	public function runConversion() {
