@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+jQuery(document).ready(function($){
    
 	function wpet_show_options() {
 		//console.log( $('#package').val() );
