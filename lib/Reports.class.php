@@ -1,37 +1,6 @@
 <?php
 
 /**
- * @since  2.0
- * @todo Rename and move this to it's proper place
- */
-function hawkins_hacky_js() {
-	?>
-	<script type='text/javascript'>
-		google.load('visualization', '1', {packages:['gauge']});
-		google.setOnLoadCallback(drawChart);
-		function drawChart() {
-			var data = google.visualization.arrayToDataTable([
-				['Label', 'Value'],
-				['% Sold', 80]
-			]);
-
-			var options = {
-				width: 200, height: 200,
-				redFrom: 90, redTo: 100,
-				yellowFrom:75, yellowTo: 90,
-				minorTicks: 5
-			};
-
-			var chart = new google.visualization.Gauge(document.getElementById('pie_chart_div'));
-			chart.draw(data, options);
-		}
-	</script>
-<?php
-}
-
-
-
-/**
  * @since 2.0
  */
 class WPET_Reports extends WPET_Module {
@@ -48,8 +17,18 @@ class WPET_Reports extends WPET_Module {
 	 * Enqueue Google Charts
 	 */
 	public function enqueueAdminScripts() {
-		wp_enqueue_script( 'google-jsapi', 'https://www.google.com/jsapi' );
-		add_action( 'admin_head', 'hawkins_hacky_js' );
+		wp_register_script( 'google-jsapi', 'https://www.google.com/jsapi' );
+		wp_register_script( 'wpet-admin-reports', WPET_PLUGIN_URL . 'js/admin_reports.js', array( 'google-jsapi' ) );
+		wp_enqueue_script( 'wpet-admin-reports' );
+		wp_localize_script(
+			'wpet-admin-reports',
+			'reportsL10n',
+			array(
+				'data' => array(
+					array( 'Label', 'Value' ),
+					array( __( '% Sold' ), 80 ), //@TODO add percent sold of Working Event
+				),
+		) );
 	}
 
 	/**
