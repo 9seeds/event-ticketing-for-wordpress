@@ -15,7 +15,7 @@ foreach ($data AS $d) {
 		<div class="attendee-gravatar">
 			<?php echo get_avatar($d->wpet_email, '96'); ?>
 		</div>
-		<div class="attendee-name"><?php echo $d->wpet_name; ?></div>
+		<div class="attendee-name"><?php echo $d->wpet_first_name . ' ' . $d->wpet_last_name; ?></div>
 		<?php
 		if( $d->twitter ) {
 		?>
