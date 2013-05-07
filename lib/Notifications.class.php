@@ -77,6 +77,14 @@ class WPET_Notifications extends WPET_Module {
 	public function enqueueAdminScripts() {
 		if ( isset( $_GET['action'] ) ) {
 			wp_enqueue_style( 'editor' );
+			wp_register_script( 'wpet-admin-notifications', WPET_PLUGIN_URL . 'js/admin_notifications.js', array( 'jquery' ) );
+			wp_enqueue_script( 'wpet-admin-notifications');
+			wp_localize_script( 'wpet-admin-notifications', 'wpet_notifications_add', array(
+						'send_to_required' => __( 'You must select at least one group to send to', 'wpet' ),
+						'subject_required' => __( 'Subject is required', 'wpet' ),
+						'body_required' => __( 'Email Body is required', 'wpet' ),
+		) );
+
 		}
 	}
 
