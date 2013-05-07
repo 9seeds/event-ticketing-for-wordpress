@@ -67,11 +67,6 @@ class WPET_TicketOptions extends WPET_Module {
 		    )
 	    );
 	}
-	$screen->set_help_sidebar(
-		'<p><strong>' . __('Need help:') . '</strong></p>' .
-		'<p>' . __('<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>') . '</p>' .
-		'<p>' . __('<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>') . '</p>'
-	);
     }
 
     public function buildHtml($option_id, $name, $value = '' ) {

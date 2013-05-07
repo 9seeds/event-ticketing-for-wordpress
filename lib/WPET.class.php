@@ -402,12 +402,25 @@ class WPET {
 					$this->mModules[$page]->maybeSubmit();
 					$this->mModules[$page]->enqueueAdminScripts();
 					$this->mModules[$page]->contextHelp( $current_screen );
+					$this->contextHelp( $current_screen );
 				}
 			}
 		}
 	}
 
-
+	/**
+	 * Adds forum & documentation links to all WPET help screens
+	 *
+	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
+	 * @since 2.0
+	 */
+	public function contextHelp( $screen ) {
+		$screen->set_help_sidebar(
+			'<p><strong>' . __( 'Need help:', 'wpet' ) . '</strong></p>' .
+			'<p>' . sprintf( __( '<a href="%s" target="_blank">Support Forums</a>', 'wpet' ), 'http://support.9seeds.com/' ) . '</p>' .
+			'<p>' . sprintf( __( '<a href="%s" target="_blank">Developer Docs</a>', 'wpet' ), 'https://github.com/9seeds/wp-event-ticketing/wiki/_pages' ) . '</p>'
+		);
+	}
 
 	/**
 	* Sends debugging data to a custom debug bar extension

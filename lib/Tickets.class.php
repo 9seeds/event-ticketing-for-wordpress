@@ -66,18 +66,18 @@ class WPET_Tickets extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
-				'content'	=> '<p>' . __( 'This screen allows you to add a new ticket type for your event.' ) . '</p>',
+				'title'	=> __( 'Overview', 'wpet' ),
+				'content'	=> '<p>' . __( 'This screen allows you to add a new ticket type for your event.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
-				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:' ) . '</p>'.
+				'title'	=> __( 'Options Explained', 'wpet' ),
+				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Ticket Name</strong> is the name of the type of ticket your attendees purchase. For example, you may have a ticket named "general admission - meal included" and another named "general admission - no meal".' ) .'</li>'.
-						'<li>'. __( '<strong>Ticket Options</strong> is a list of the available ticket options you\'ve created. Check the box next to the pieces of data you\'d like to collect for each ticket.' ) .'</li>'.
+						'<li>'. __( '<strong>Ticket Name</strong> is the name of the type of ticket your attendees purchase. For example, you may have a ticket named "general admission - meal included" and another named "general admission - no meal".', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Ticket Options</strong> is a list of the available ticket options you\'ve created. Check the box next to the pieces of data you\'d like to collect for each ticket.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -85,27 +85,22 @@ class WPET_Tickets extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
-				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket types.' ) . '</p>',
+				'title'	=> __( 'Overview', 'wpet' ),
+				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket types.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
-				'content'	=> '<p>' . __( 'Hovering over a row in the ticket list will display action links that allow you to manage each ticket. You can perform the following actions:' ) . '</p>'.
+				'title'	=> __( 'Available Actions', 'wpet' ),
+				'content'	=> '<p>' . __( 'Hovering over a row in the ticket list will display action links that allow you to manage each ticket. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself.' ) .'</li>'.
-						'<li>'. __( '<strong>Trash</strong> removes your ticket from this list and places it in the trash, from which you can permanently delete it.' ) .'</li>'.
+						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Trash</strong> removes your ticket from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
 		}
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
-			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
-			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
-		);
 	}
 
 	/**
@@ -116,7 +111,12 @@ class WPET_Tickets extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu($menu) {
-		$menu[] = array( 'Tickets', 'Tickets', 'add_users', 'wpet_tickets', array( $this, 'renderAdminPage' ) );
+		$menu[] = array(
+			__( 'Tickets', 'wpet' ),
+			__( 'Tickets', 'wpet' ),
+			'add_users',
+			'wpet_tickets',
+			array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
@@ -303,23 +303,25 @@ class WPET_Tickets extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function registerPostType() {
+		/*
 	    $labels = array(
-			'name' => 'Tickets',
-			'singular_name' => 'Ticket',
-			'add_new' => 'Create Ticket',
-			'add_new_item' => 'New Ticket',
-			'edit_item' => 'Edit Ticket',
-			'new_item' => 'New Ticket',
-			'view_item' => 'View Ticket',
-			'search_items' => 'Search Tickets',
-			'not_found' => 'No Tickets found',
-			'not_found_in_trash' => 'No Tickets found in trash'
+			'name' => __( 'Tickets', 'wpet' ),
+			'singular_name' => __( 'Ticket', 'wpet' ),
+			'add_new' => __( 'Create Ticket', 'wpet' ),
+			'add_new_item' => __( 'New Ticket', 'wpet' ),
+			'edit_item' => __( 'Edit Ticket', 'wpet' ),
+			'new_item' => __( 'New Ticket', 'wpet' ),
+			'view_item' => __( 'View Ticket', 'wpet' ),
+			'search_items' => __( 'Search Tickets', 'wpet' ),
+			'not_found' => __( 'No Tickets found', 'wpet' ),
+			'not_found_in_trash' => __( 'No Tickets found in trash', 'wpet' ),
 	    );
+	    */
 
 	    $args = array(
 			'public' => true,
 			'supports' => array( 'page-attributes' ),
-			'labels' => $labels,
+			//'labels' => array(),
 			'hierarchical' => false,
 			'has_archive' => false,
 			'query_var' => 'wpet_tickets',

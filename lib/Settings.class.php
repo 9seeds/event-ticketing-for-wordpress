@@ -75,11 +75,6 @@ class WPET_Settings extends WPET_Module {
 		    )
 	    );
 
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
-			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
-			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>', 'wpet' ) . '</p>'
-		);
 	}
 
 	/**
@@ -106,7 +101,11 @@ class WPET_Settings extends WPET_Module {
 	 * @uses wpet_settings_tabs, wpet_settings
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Settings', 'Settings', 'add_users', 'wpet_settings', array( $this, 'renderAdminPage' ) );
+		$menu[] = array( __( 'Settings', 'wpet' ),
+						 __( 'Settings', 'wpet' ),
+						 'add_users',
+						 'wpet_settings',
+						 array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
@@ -142,10 +141,10 @@ class WPET_Settings extends WPET_Module {
 	 */
 	public function defaultTabs( $tabs ) {
 
-	    $tabs['event'] = 'Events';
-	    $tabs['payment'] = 'Payments';
-	    $tabs['email'] = 'Email';
-	    $tabs['form_display'] = 'Form Display';
+	    $tabs['event'] = __( 'Events', 'wpet' );
+	    $tabs['payment'] = __( 'Payments', 'wpet' );
+	    $tabs['email'] = __( 'Email', 'wpet' );
+	    $tabs['form_display'] = __( 'Form Display', 'wpet' );
 
 	    return $tabs;
 	}
@@ -158,7 +157,7 @@ class WPET_Settings extends WPET_Module {
 	 * @return array
 	 */
 	public function resetTab( $tabs ) {
-	    $tabs['reset'] = 'Reset';
+	    $tabs['reset'] = __( 'Reset', 'wpet' );
 
 	    return $tabs;
 	}
