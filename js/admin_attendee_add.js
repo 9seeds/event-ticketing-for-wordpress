@@ -21,4 +21,26 @@ jQuery(document).ready(function(){
 
 	//pull in the options on page load
 	wpet_show_options();
+
+	$('#wpet_admin_attendee_add').submit(function() {
+		//do validation
+		if ( jQuery.trim( $( '#first_name' ).val() ) == '' ) {
+				alert( wpet_attendee_add.first_name_required );
+				return false;
+		}
+
+		if ( jQuery.trim( $( '#last_name' ).val() ) == '' ) {
+				alert( wpet_attendee_add.last_name_required );
+				return false;
+		}
+
+		if ( jQuery.trim( $( '#email' ).val() ) == '' ) {
+				alert( wpet_attendee_add.email_required );
+				return false;
+		}
+
+
+		return true;
+	});
+
 });

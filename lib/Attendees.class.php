@@ -211,6 +211,11 @@ class WPET_Attendees extends WPET_Module {
 	public function enqueueAdminScripts() {
 	    wp_register_script( 'wpet-admin-attendee-add', WPET_PLUGIN_URL . '/js/admin_attendee_add.js', array( 'jquery' ) );
 	    wp_enqueue_script( 'wpet-admin-attendee-add' );
+	    		wp_localize_script( 'wpet-admin-attendee-add', 'wpet_attendee_add', array(
+								'first_name_required' => __( 'First Name is required', 'wpet' ),
+								'last_name_required' => __( 'Last Name is required', 'wpet' ),
+								'email_required' => __( 'Email is required', 'wpet' ),
+		) );
 	}
 
 	/**

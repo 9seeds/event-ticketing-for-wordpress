@@ -9,7 +9,7 @@ $attendee = isset( $data['attendee'] ) ? $data['attendee'] : NULL;
 <?php if ( $message ) : ?>
 <div id="message" class="updated"><p><?php echo $message; ?></p></div>
 <?php endif; ?>
-<form method="post" action="">
+<form method="post" action="" id="wpet_admin_attendee_add">
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
