@@ -89,6 +89,20 @@ class WPET_Packages extends WPET_Module {
 	public function enqueueAdminScripts() {
 		wp_register_script( 'wpet-admin-packages', WPET_PLUGIN_URL . 'js/admin_packages.js', array( 'jquery-ui-datepicker' ) );
 		wp_enqueue_script( 'wpet-admin-packages' );
+				wp_localize_script( 'wpet-admin-packages', 'wpet_package_add', array(
+								'name_required' => __( 'Package Name is required', 'wpet' ),
+								'description_required' => __( 'Description is required', 'wpet' ),
+								'ticket_required' => __( 'Ticket Name is required', 'wpet' ),
+								'ticket_quantity_required' => __( 'Quantity is required', 'wpet' ),
+								'ticket_quantity_not_numeric' => __( 'Quantity must be numeric', 'wpet' ),
+								'start_required' => __( 'Start Date is required', 'wpet' ),
+								'end_required' => __( 'End Date is required', 'wpet' ),
+								'end_after_start' => __( 'End Date must be after Start Date', 'wpet' ),
+								'cost_required' => __( 'Package Cost is required', 'wpet' ),
+								'cost_not_numeric' => __( 'Package Cost must be numeric', 'wpet' ),
+								'quantity_required' => __( 'Packages Available is required', 'wpet' ),
+								'ticket_package_quantity_not_numeric' => __( 'Packages Available must be numeric', 'wpet' ),
+		) );
 	}
 
 	/**
