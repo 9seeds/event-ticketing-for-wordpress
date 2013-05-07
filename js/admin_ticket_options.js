@@ -37,9 +37,25 @@ jQuery(document).ready(function($) {
 
 	$('#wpet_admin_ticket_option_add').submit(function() {
 		//do validation
-		if ( jQuery.trim( $( '#display_name' ).val() ) == '' ) {
+	/*	if ( jQuery.trim( $( '#option_values' ).val() ) == '' ) {
 				alert( wpet_ticket_options_add.name_required );
 				return false;
+		}
+		*/
+		
+		// Dynamic ticket options
+		rows = jQuery( '#option_values' ).find( '.option-value' );
+		console.log( rows );
+		var good_options = true;
+		rows.each( function() {
+		    /*
+		     * Do the validation in here.
+		     * If something is invalide set good_options to false;
+		     */
+		});
+		
+		if( !good_options ) {
+		    return false;
 		}
 
 		return true;
