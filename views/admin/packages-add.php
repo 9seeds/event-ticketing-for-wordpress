@@ -67,7 +67,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="quantity"><?php _e('Quantity', 'wpet'); ?></label></th>
+				<th scope="row"><label for="quantity"><?php _e('Packages Available', 'wpet'); ?></label></th>
 				<td><input name="options[quantity]" type="text" id="quantity" value="<?php echo empty($data['package']) ? '' : $data['package']->wpet_quantity ?>"></td>
 			</tr>
 		</tbody>
