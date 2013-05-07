@@ -31,11 +31,6 @@ class WPET_Instructions extends WPET_Module {
 			'content'	=> '<p>' . __( 'This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages.' ) . '</p>',
 			)
 		);
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
-			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
-			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
-		);
 	}
 
 	/**
@@ -46,7 +41,12 @@ class WPET_Instructions extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Instructions', 'Instructions', 'add_users', 'wpet_instructions', array( $this, 'renderAdminPage' ) );
+		$menu[] = array(
+			__( 'Instructions', 'wpet' ),
+			__( 'Instructions', 'wpet' ),
+			'add_users',
+			'wpet_instructions',
+			array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
@@ -94,10 +94,10 @@ class WPET_Instructions extends WPET_Module {
 	 */
 	public function defaultTabs( $tabs ) {
 
-	    $tabs['getting_started'] = 'Getting Started';
-	    $tabs['payment_gateways'] = 'Payment Gateways';
-	    $tabs['design'] = 'Design';
-	    $tabs['extras'] = 'Extras';
+	    $tabs['getting_started'] = __( 'Getting Started', 'wpet' );
+	    $tabs['payment_gateways'] = __( 'Payment Gateways', 'wpet' );
+	    $tabs['design'] = __( 'Design', 'wpet' );
+	    $tabs['extras'] = __( 'Extras', 'wpet' );
 
 	    return $tabs;
 	}

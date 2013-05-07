@@ -108,7 +108,12 @@ class WPET_Packages extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Packages', 'Packages', 'add_users', 'wpet_packages', array( $this, 'renderAdminPage' ) );
+		$menu[] = array(
+			__( 'Packages', 'wpet' ),
+			__( 'Packages', 'wpet' ),
+			'add_users',
+			'wpet_packages',
+			array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 

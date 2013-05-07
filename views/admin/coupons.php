@@ -1,4 +1,4 @@
-<h2><?php _e('Coupons', 'wpet'); ?> <a href="<?php echo $data['new_url'] ?>" class="add-new-h2">Add New</a></h2>
+<h2><?php _e('Coupons', 'wpet'); ?> <a href="<?php echo $data['new_url'] ?>" class="add-new-h2"><?php _e( 'Add New', 'wpet' ); ?></a></h2>
 <?php
 
 require_once WPET_PLUGIN_DIR . 'lib/Table/Coupons.class.php';

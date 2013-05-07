@@ -88,7 +88,12 @@ class WPET_Notifications extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Notify Attendees', 'Notify Attendees', 'add_users', 'wpet_notifications', array( $this, 'renderAdminPage' ) );
+		$menu[] = array(
+			__( 'Notify Attendees', 'wpet' ),
+			__( 'Notify Attendees', 'wpet' ),
+			'add_users',
+			'wpet_notifications',
+			array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 

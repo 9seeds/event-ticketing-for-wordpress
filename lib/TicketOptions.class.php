@@ -123,7 +123,12 @@ class WPET_TicketOptions extends WPET_Module {
      * @return array
      */
     public function adminMenu($menu) {
-	$menu[] = array('Ticket Options', 'Ticket Options', 'add_users', $this->mPostType, array($this, 'renderAdminPage'));
+	$menu[] = array(
+		__( 'Ticket Options', 'wpet' ),
+		__( 'Ticket Options', 'wpet' ),
+		'add_users',
+		$this->mPostType,
+		array($this, 'renderAdminPage'));
 	return $menu;
     }
 

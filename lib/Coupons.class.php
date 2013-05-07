@@ -175,7 +175,12 @@ class WPET_Coupons extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu($menu) {
-		$menu[] = array( 'Coupons', 'Coupons', 'add_users', 'wpet_coupons', array( $this, 'renderAdminPage' ) );
+		$menu[] = array(
+			__( 'Coupons', 'wpet' ),
+			__( 'Coupons', 'wpet' ),
+			'add_users',
+			'wpet_coupons',
+			array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 

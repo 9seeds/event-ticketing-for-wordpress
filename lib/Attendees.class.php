@@ -198,7 +198,12 @@ class WPET_Attendees extends WPET_Module {
 	 * @return array
 	 */
 	public function adminMenu( $menu ) {
-		$menu[] = array( 'Attendees', 'Attendees', 'add_users', 'wpet_attendees', array( $this, 'renderAdminPage' ) );
+		$menu[] = array(
+			__( 'Attendees', 'wpet' ),
+			__( 'Attendees', 'wpet' ),
+			'add_users',
+			'wpet_attendees',
+			array( $this, 'renderAdminPage' ) );
 		return $menu;
 	}
 
