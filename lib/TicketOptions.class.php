@@ -112,6 +112,7 @@ class WPET_TicketOptions extends WPET_Module {
 	wp_enqueue_script('wpet-admin-ticket-options');
 	wp_localize_script( 'wpet-admin-ticket-options', 'wpet_ticket_options_add', array(
 								'name_required' => __( 'Display Name is required', 'wpet' ),
+								'option_required' => __( 'All Option fields are required', 'wpet' ),
 		) );
     }
 
