@@ -61,5 +61,5 @@ jQuery(document).ready(function($) {
 	    total = 0;
 	}
 	
-	jQuery( '#subTotal' ).text( total );
+	jQuery( '#subTotal' ).text( total.toFixed(2) );
     }
