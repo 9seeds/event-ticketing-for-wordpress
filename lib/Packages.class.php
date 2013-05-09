@@ -221,6 +221,8 @@ class WPET_Packages extends WPET_Module {
 	/**
 	 * Builds a select menu of packages
 	 *
+	 * @TODO There's an issue with the $enabled value. It's not setting it to true by default. See line 23 of coupons-add.php. I had to set it to false to enable it, which seems backwards.
+	 *
 	 * @since 2.0
 	 * @param string $name
 	 * @param string $id

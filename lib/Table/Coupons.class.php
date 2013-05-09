@@ -14,7 +14,7 @@ class WPET_Table_Coupons extends WPET_Table {
 		$columns = array(
 			//'cb'        => '<input type="checkbox" />',
 			'title' => __( 'Coupon Code', 'wpet' ),
-			'wpet_package_title' => __( 'Package', 'wpet' ),
+			'wpet_package_id' => __( 'Package', 'wpet' ),
 			'wpet_pretty_amount' => __( 'Coupon Value', 'wpet' ),
 			'wpet_quantity_remaining' => __( 'Remaining', 'wpet' ),
 			'wpet_quantity' => __( 'Total', 'wpet' )
