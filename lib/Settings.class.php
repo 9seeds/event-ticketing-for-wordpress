@@ -87,6 +87,16 @@ class WPET_Settings extends WPET_Module {
 							array( 'message' => __( "Are you sure you want to reset these?:\n{reset_list}", 'wpet' ) )
 		);
 
+		wp_localize_script( 'wpet-admin-settings', 'settings_check',
+							array( 'max_attendees_not_numeric' => __( 'Max attendance must be numeric', 'wpet' ),
+							'event_date_required' => __( 'Event Date is required', 'wpet' ),
+							'organizer_name_required' => __( 'Organizer Name is required', 'wpet' ),
+							'organizer_email_required' => __( 'Organizer Email is required', 'wpet' ),
+							'options_subject_required' => __( 'Email Subject is required', 'wpet' ),
+							'options_email_body_required' => __( 'Email Body is required', 'wpet' ),
+
+		) );
+
 		wp_enqueue_style( 'editor' );
 		WPET::getInstance()->debug( 'lkajdf', 'askdlfj');
 		//do_action( 'wpet_log', 'settings', 'settings', 'log' );

@@ -37,4 +37,42 @@ jQuery(document).ready(function($) {
 		return true;
 	});
 
+	$('#settings_form').submit(function() {
+		//do validation
+
+		if ( jQuery.trim( $( '#event_date' ).val() ) == '' ) {
+				alert( settings_check.event_date_required );
+				return false;
+		}
+
+		if ( jQuery.trim( $( '#organizer_name' ).val() ) == '' ) {
+				alert( settings_check.organizer_name_required );
+				return false;
+		}
+
+		if ( jQuery.trim( $( '#organizer_email' ).val() ) == '' ) {
+				alert( settings_check.organizer_email_required );
+				return false;
+		}
+
+		if ( ! jQuery.isNumeric( $( '#max_attendance' ).val() ) ) {
+				alert( settings_check.max_attendees_not_numeric );
+				return false;
+		}
+
+		if ( jQuery.trim( $( '#options\\[subject\\]' ).val() ) == '' ) {
+				alert( settings_check.options_subject_required );
+				return false;
+		}
+
+		if ( jQuery.trim( $( '#options\\[email_body\\]' ).val() ) == '' ) {
+				alert( settings_check.options_email_body_required );
+				return false;
+		}
+
+		return true;
+	});
+
+
+
 });
