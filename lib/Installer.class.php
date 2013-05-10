@@ -268,8 +268,8 @@ class WPET_Installer {
 		$this->out( 'Coupons' );
 		foreach ( $coupons as $coupon ) {
 			$data = array(
-				'post_title' => $coupon['couponCode'],
-				'post_name' => sanitize_title_with_dashes( $coupon['couponCode'] ),
+				'post_title' => $coupon['coupon_code'],
+				'post_name' => sanitize_title_with_dashes( $coupon['coupon_code'] ),
 				'meta' => array(
 					'type' => $coupon['type'] == 'flat' ? 'flat-rate' : 'percentage',
 					'amount' => $coupon['amt'],

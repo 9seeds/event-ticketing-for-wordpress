@@ -281,7 +281,7 @@ class WPET_Payments extends WPET_Module {
 	    return false; // attendees were previously collected
 
 
-	$attendees = $this->mPayment->wpet_wpet_attendees;
+	$attendees = $this->mPayment->wpet_attendees;
 
 	$content = '<form action="" method="post">';
 	$content .= '<table>';
@@ -383,8 +383,8 @@ class WPET_Payments extends WPET_Module {
 		    $total += $p->wpet_package_cost * $qty;
 		}
 		
-		if( isset( $_POST['couponCode'] ) && '' != trim( $_POST['couponCode'] ) ) { 		    
-		   $coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['couponCode'] );
+		if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) { 		    
+		   $coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
 		    
 		   $total -= $coupon_amount;
 		    
@@ -514,7 +514,7 @@ class WPET_Payments extends WPET_Module {
 	$this->loadPayment();
 	
 	//echo '<pre>'; var_dump($this->mPayment); echo '</pre>';
-	//echo '<pre>'; var_dump( $this->mPayment->wpet_wpet_attendees); echo '</pre>';
+	//echo '<pre>'; var_dump( $this->mPayment->wpet_attendees); echo '</pre>';
 	
 	/*
 	 * Subtract number of tickets in this package from the available
@@ -525,7 +525,7 @@ class WPET_Payments extends WPET_Module {
 	/*
 	 * Subtract number of available coupons from the pool
 	 */
-	WPET::getInstance()->coupons->subtractFromPool( $this->mPayment->wpet_couponCode );
+	WPET::getInstance()->coupons->subtractFromPool( $this->mPayment->wpet_coupon_code );
 	
 	
 	/*
@@ -533,7 +533,7 @@ class WPET_Payments extends WPET_Module {
 	 * If the attendee email has been set send the attendee an email to their
 	 * attendee page where they can edit their info and see info on their ticket
 	 */
-	foreach( $this->mPayment->wpet_wpet_attendees AS $a_id ) {
+	foreach( $this->mPayment->wpet_attendees AS $a_id ) {
 	    echo "<p>Working on attendee {$a_id}</p>";
 	    WPET::getInstance()->attendees->publishAttendee( $a_id );
 	   

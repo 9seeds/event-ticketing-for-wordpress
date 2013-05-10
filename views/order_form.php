@@ -65,7 +65,7 @@
 				<tr class="coupon">
 					<td colspan="2">
 						<label for="coupon_code"><?php _e( 'Coupon Code', 'wpet'); ?>:</label>
-						<input class="input" id="couponCode" name="couponCode">
+						<input class="input" id="coupon_code" name="coupon_code">
 					</td>
 					<td colspan="2">
 						<input type="button" name="couponSubmitButton" id="couponSubmitButton" value="<?php _e( 'Apply Coupon', 'wpet'); ?>">

@@ -62,7 +62,7 @@ class WPET_Coupons extends WPET_Module {
 	    $discount = 0.00;
 	    
 	    if( is_a( $coupon, 'WP_Post' ) 
-			    && /* odd hack */ $_POST['couponCode'] == $coupon->post_title
+			    && /* odd hack */ $_POST['coupon_code'] == $coupon->post_title
 			    && ( /* applies to any */ '' == $coupon->wpet_package_id 
 				 || $package_id == $coupon->wpet_package_id ) 
 		    ) {

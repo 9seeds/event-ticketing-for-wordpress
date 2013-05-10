@@ -93,7 +93,7 @@
 #eventTicketing tr.coupon {
 	background: rgba(0,0,0,0.07);
 }
-#eventTicketing tr.coupon input[name="couponCode"] {
+#eventTicketing tr.coupon input[name="coupon_code"] {
 	width: 10em;
 }
 
