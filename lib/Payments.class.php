@@ -449,9 +449,11 @@ class WPET_Payments extends WPET_Module {
 		    'package_cost' => $package->wpet_package_cost,
 		    'quantity' => $quantity,
 		);
-		$cart['total'] += $package->wpet_package_cost * $quantity;
+		//$cart['total'] += $package->wpet_package_cost * $quantity;
 	    }
 	}
+	
+	$cart['total'] = $this->mPayment->wpet_total;
 	return $cart;
     }
 
