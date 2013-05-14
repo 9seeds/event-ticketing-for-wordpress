@@ -224,8 +224,6 @@ class WPET_Attendees extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function renderAdminPage() {
-		WPET::getInstance()->debug( 'Rendering Attendees page', 'Doing it...' );
-
 		if ( isset( $_GET['action'] ) && in_array ( $_GET['action'], array( 'edit', 'new' ) ) ) {
 			if ( ! empty( $_GET['post'] ) ) {
 				$this->render_data['attendee'] = $this->findByID( $_GET['post'] );

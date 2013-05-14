@@ -14,7 +14,6 @@ define( 'WPET_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
 define( 'WPET_BASE', plugin_basename( __FILE__ ) );
 define( 'WPET_PLUGIN_FILE', __FILE__ );
 define( 'WPET_JQUERY_VERSION', '1.9.2' );
-define( 'WPET_DEBUG', false );
 
 require_once( 'lib/WPET.class.php' );
 

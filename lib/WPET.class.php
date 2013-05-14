@@ -60,7 +60,6 @@ class WPET {
 	 * @uses wpet_init
 	 */
 	private function __construct() {
-		require_once WPET_PLUGIN_DIR . '/lib/WPETDebugBar.class.php';
 
 		/*
 		 * Determine if WPET Pro is installed. Of itself this flag does
@@ -184,7 +183,6 @@ class WPET {
 		if ( ! ( self::$mWpet instanceof self ) ) {
 			self::$mWpet = new self();
 		}
-		self::debug( 'Calling another WPET instance', 'This log entry has not real purpose other than its extremly cool factor' );
 		return self::$mWpet;
 	}
 
@@ -260,12 +258,6 @@ class WPET {
 		foreach ( $menu_items as $i ) {
 			add_submenu_page( 'wpet_reports', $i[0], $i[1], $i[2], $i[3], $i[4] );
 		}
-		//die();
-
-		$this->debug( 'Some title', 'This is a normal log message' );
-		$this->debug( 'Some title', 'This is a warning message', 'warning' );
-		$this->debug( 'Some title', 'This is an error message', 'error' );
-		$this->debug( 'Variable dump', $menu_items, 'dump' );
 	}
 
 	/**
@@ -303,8 +295,6 @@ class WPET {
 	 */
 	public function display( $template, $data = array(), $is_sub = false ) {
 		global $post;
-		
-		$this->debug( 'Loading template', $template );
 
 		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>' );
 
@@ -434,22 +424,7 @@ class WPET {
 			'<p>' . sprintf( __( '<a href="%s" target="_blank">Support Forums</a>', 'wpet' ), 'http://support.9seeds.com/' ) . '</p>' .
 			'<p>' . sprintf( __( '<a href="%s" target="_blank">Developer Docs</a>', 'wpet' ), 'https://github.com/9seeds/wp-event-ticketing/wiki/_pages' ) . '</p>'
 		);
-	}
-
-	/**
-	* Sends debugging data to a custom debug bar extension
-	*
-	* @since 2.0
-	* @param String $title
-	* @param Mixed $data
-	* @param String $format Optional - (Default:log) log | warning | error | notice | dump
-	*/
-	function debug( $title, $data, $format='log' ) {
-	    global $wpet_debug;
-	    
-	    $wpet_debug[] = array( 'title' => $title, 'data' => $data, 'format' => $format );
-	}
-	
+	}	
 	
 
 	/**
