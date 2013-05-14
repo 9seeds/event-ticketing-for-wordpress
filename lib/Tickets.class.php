@@ -29,19 +29,6 @@ class WPET_Tickets extends WPET_Module {
 								'name_required' => __( 'Ticket Name is required', 'wpet' ),
 		) );
 	}
-
-	public function anyTicketsExist() {
-	    $args = array(
-		'post_type' => $this->mPostType
-	    );
-	    
-	    $posts = get_posts( $args );
-	    
-	    if( count( $posts ) > 0 )
-		return true;
-	    else 
-		return false;
-	}
 	
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];

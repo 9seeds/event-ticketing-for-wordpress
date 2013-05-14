@@ -132,25 +132,12 @@ class WPET_Packages extends WPET_Module {
 		   	return; //don't do anything else
 		}
 		
-		$this->render_data['show_add'] = WPET::getInstance()->tickets->anyTicketsExist();
+		$this->render_data['show_add'] = WPET::getInstance()->tickets->anyExist();
 		
 		//default view
 		WPET::getInstance()->display( 'packages.php', $this->render_data );
 	}
 	
-	public function anyPackagesExist() {
-	    $args = array(
-			'post_type' => $this->mPostType
-	    );
-	    
-	    $posts = get_posts( $args );
-	    
-	    if( count( $posts ) > 0 )
-			return true;
-	    else 
-			return false;
-	}
-
 	/**
 	 * Prepare the page submit data for save
 	 *

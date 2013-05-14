@@ -232,7 +232,7 @@ class WPET_Attendees extends WPET_Module {
 			return; //don't do anything else
 		}
 		
-		$this->render_data['show_add'] = WPET::getInstance()->packages->anyPackagesExist();
+		$this->render_data['show_add'] = WPET::getInstance()->packages->anyExist();
 
 		//default view
 	    WPET::getInstance()->display( 'attendees.php', $this->render_data );
