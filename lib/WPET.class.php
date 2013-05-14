@@ -124,7 +124,7 @@ class WPET {
 	 * @param type $atts 
 	 */
 	public function renderlegacyWpeventticketingShortcode( $atts ) {
-	    _deprecated_function('[wpeteventticketing]', '2.0', 'Please use the [wpet] shortcode.');
+	    _deprecated_function('[wpeventticketing]', '2.0', 'Please use the [wpet] shortcode.');
 	    return $this->renderwpeventticketingShortcode($atts);
 	}
 
