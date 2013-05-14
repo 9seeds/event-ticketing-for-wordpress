@@ -111,7 +111,21 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function registerShortcodes() {
-	    add_shortcode( 'wpeventticketing',  array( $this, 'renderwpeventticketingShortcode' ) );
+	    add_shortcode( 'wpet',  array( $this, 'renderwpeventticketingShortcode' ) );
+	    /* for backwards compat */
+	    add_shortcode( 'wpeventticketing',  array( $this, 'renderlegacyWpeventticketingShortcode' ) );
+	    
+	    
+	}
+	
+	/**
+	 * Original shortcode - deprecated
+	 * @since 1.0
+	 * @param type $atts 
+	 */
+	public function renderlegacyWpeventticketingShortcode( $atts ) {
+	    _deprecated_function('[wpeteventticketing]', '2.0', 'Please use the [wpet] shortcode.');
+	    return $this->renderwpeventticketingShortcode($atts);
 	}
 
 	/**
