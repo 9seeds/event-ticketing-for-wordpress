@@ -501,7 +501,7 @@ class WPET_Payments extends WPET_Module {
 
 
 
-	    $data = array('meta' => array('wpet_attendees' => $attendee_ids));
+	    $data = array('meta' => array('attendees' => $attendee_ids));
 
 	    $this->update($this->mPayment->ID, $data);
 	}
