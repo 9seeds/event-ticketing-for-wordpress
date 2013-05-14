@@ -467,7 +467,6 @@ class WPET_Payments extends WPET_Module {
 	$this->loadPayment();
 
 	if (empty($this->mPayment->wpet_attendees)) {
-	    $packages = WPET::getInstance()->packages;
 	    $attendees = WPET::getInstance()->attendees;
 
 	    /*
@@ -487,15 +486,16 @@ class WPET_Payments extends WPET_Module {
 		$p = WPET::getInstance()->packages->findByID($package);
 		// Multiply tickets in package by number of packages
 		$ticket = $p->wpet_ticket_id;
-
-		for ($i = 0; $i < $p->wpet_ticket_quantity; $i++) {
-		    $args = array(
-			'meta' => array(
-			    'ticket_id' => $ticket,
-			    'package_id' => $p->ID
-			)
-		    );
-		    $attendee_ids[] = $attendees->draftAttendee($args);
+		for( $x = 0; $x < $qty; $x++ ) {
+		    for ($i = 0; $i < $p->wpet_ticket_quantity; $i++) {
+			$args = array(
+			    'meta' => array(
+				'ticket_id' => $ticket,
+				'package_id' => $p->ID
+			    )
+			);
+			$attendee_ids[] = $attendees->draftAttendee($args);
+		    }
 		}
 	    }
 
