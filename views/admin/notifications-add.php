@@ -12,21 +12,21 @@ $submit_url =(add_query_arg(array('notify' => 'doit')));
 	<table class="form-table">
 		<tbody>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[all-attendees]"><?php _e('All attendees', 'wpet'); ?></label></th>
+				<th scope="row"><label for="all-attendees"><?php _e('All attendees', 'wpet'); ?></label></th>
 				<td>
-					<input type="checkbox" name="options[all-attendees]" id="all-attendees" value="1">
+					<input type="checkbox" name="options[to][all-attendees]" id="all-attendees" class="options-to" value="1" />
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[have-info]"><?php _e('Have filled out info', 'wpet'); ?></label></th>
+				<th scope="row"><label for="attendees-have-info"><?php _e('Have filled out info', 'wpet'); ?></label></th>
 				<td>
-					<input type="checkbox" name="options[have-info]" id="options[have-info]" value="1">
+					<input type="checkbox" name="options[to][have-info]" id="attendees-have-info" class="options-to" value="1" />
 				</td>
 			</tr>
 			<tr class="form-field form-required">
-				<th scope="row"><label for="options[no-info]"><?php _e('Have not filled out info', 'wpet'); ?></label></th>
+				<th scope="row"><label for="attendees-no-info"><?php _e('Have not filled out info', 'wpet'); ?></label></th>
 				<td>
-					<input type="checkbox" name="options[no-info]" id="options[no-info]" value="1">
+					<input type="checkbox" name="options[to][no-info]" id="attendees-no-info" class="options-to" value="1" />
 				</td>
 			</tr>
 <?php
