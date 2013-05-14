@@ -26,7 +26,7 @@ class WPET_Table_Coupons extends WPET_Table {
 	public function column_wpet_package_id( $item ) {
 	    $package_id = $item->wpet_package_id;
 	    
-	    if( empty( $package_id ) ) {
+	    if( empty( $package_id ) || 'any' == $package_id ) {
 		// If there is not a package id then the coupon works on anything
 		return __( 'Any', 'wpet' );
 	    } 
