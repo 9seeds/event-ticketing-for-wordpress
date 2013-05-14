@@ -22,6 +22,20 @@ class WPET_Table_Coupons extends WPET_Table {
 
 		return $columns;
 	}
+	
+	public function column_wpet_package_id( $item ) {
+	    $package_id = $item->wpet_package_id;
+	    
+	    if( empty( $package_id ) || 'any' == $package_id ) {
+		// If there is not a package id then the coupon works on anything
+		return __( 'Any', 'wpet' );
+	    } 
+	    
+	    
+	    $package = WPET::getInstance()->packages->findByID( $package_id );
+	    return $package->post_title;
+	  
+	}
 
 	public function column_wpet_pretty_amount( $item ) {
 		if ( $item->wpet_type == 'percentage' )

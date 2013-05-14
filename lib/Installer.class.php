@@ -55,21 +55,23 @@ class WPET_Installer {
 
 		//decide if we're going to convert, install, or do nothing
 		$installed_before = get_option( 'wpet_activate_once' );
-		
-		if( $installed_before ) {
-			$this->out( 'WPET 2.x+ already installed' . PHP_EOL );
-			return;
-		}
-		$old_ticketing_data = $this->getOldData();
 
-		if ( ! $this->my_event ) {
-			if ( $old_ticketing_data )
-				$this->runConversion();
-	  		else
-				$this->installOnce();
-		} else {
-			$this->out( 'WPET 2.x+ event present, no install will be performed' . PHP_EOL );
+		if( $installed_before ) {
+			$this->out( 'WPET 2.x+ already installed' . PHP_EOL );			
+		} else {		
+			$old_ticketing_data = $this->getOldData();
+
+			if ( ! $this->my_event ) {
+				if ( $old_ticketing_data ) {
+					$this->runConversion();
+				} else {
+					$this->installOnce();
+				}
+			} else {
+				$this->out( 'WPET 2.x+ event present, no install will be performed' . PHP_EOL );
+			}
 		}
+		$this->maybeCreateDefaults();
 	}
 
 	private function installOnce() {
@@ -84,13 +86,7 @@ class WPET_Installer {
 					'event_status' => 'closed' ) );
 			$this->new_events->add( $data );
 		}
-
-		$ticket_options = $this->new_ticket_options->find();
-		if ( empty( $ticket_options ) ) { //@TODO narrow this search
-			//@TODO default TicketOption "Twitter"
-				
-		}
-		
+			
 		$settings = WPET::getInstance()->settings;
 
 		// events tab
@@ -156,7 +152,7 @@ class WPET_Installer {
 			$this->convertAttendees( $attendees );
 		
 		
-		update_option( 'wpet_convert_1to2', true );		
+		update_option( 'wpet_convert_1to2', true );
 	}
 
 	private function getOldData() {
@@ -382,6 +378,66 @@ class WPET_Installer {
 		}
 		$this->out( PHP_EOL );
 		
+	}
+
+	private function maybeCreateDefaults() {
+		$default_options = array();
+		
+		if ( ! $this->new_ticket_options->anyExist() ) {
+			$default_options[] = $this->createTicketOption( __( 'First Name', 'wpet' ) );
+			$default_options[] = $this->createTicketOption( __( 'Last Name', 'wpet' ) );
+			$default_options[] = $this->createTicketOption( __( 'Email', 'wpet' ) );
+			$default_options[] = $this->createTicketOption( __( 'Twitter', 'wpet' ), false, false );
+		}
+
+		$title = __( 'General Admission', 'wpet' );
+
+		if ( ! $this->new_tickets->anyExist() ) {
+			$ticket = array(
+				'post_title' => $title,
+				'post_name' => sanitize_title_with_dashes( $title ),
+			);
+			if ( ! empty( $default_options ) )
+				$ticket['meta'] = array( 'options_selected' => $default_options );
+			
+			$ticket_id = $this->new_tickets->add( $ticket );
+		}
+
+
+		if ( ! $this->new_packages->anyExist() ) {
+			$package = array(
+				'post_title' => $title,
+				'post_name' => sanitize_title_with_dashes( $title ),
+				'meta' => array(
+					'package_cost' => '20',
+					'quantity' => '100',
+					'ticket_quantity' => '1',
+				),		
+			);
+
+			if ( ! empty( $ticket_id ) )
+				$package['meta']['ticket_id'] = $ticket_id;
+				
+			$this->new_packages->add( $package );
+		}		
+	}
+
+	private function createTicketOption( $name, $indeletable = true, $required = true ) {
+		$data = array(
+			'post_title' => $name,
+			'post_name' => sanitize_title_with_dashes( $name ),
+			'meta' => array(
+				'type' => 'text',
+			)
+		);
+
+		if ( $indeletable )
+			$data['meta']['indeleteable'] = true;
+
+		if ( $required )
+			$data['meta']['required'] = true;
+
+		return $this->new_ticket_options->add( $data );
 	}
 	
 	private function out( $message ) {

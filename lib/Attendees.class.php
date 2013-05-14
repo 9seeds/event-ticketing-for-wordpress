@@ -224,8 +224,6 @@ class WPET_Attendees extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function renderAdminPage() {
-		WPET::getInstance()->debug( 'Rendering Attendees page', 'Doing it...' );
-
 		if ( isset( $_GET['action'] ) && in_array ( $_GET['action'], array( 'edit', 'new' ) ) ) {
 			if ( ! empty( $_GET['post'] ) ) {
 				$this->render_data['attendee'] = $this->findByID( $_GET['post'] );
@@ -234,7 +232,7 @@ class WPET_Attendees extends WPET_Module {
 			return; //don't do anything else
 		}
 		
-		$this->render_data['show_add'] = WPET::getInstance()->packages->anyPackagesExist();
+		$this->render_data['show_add'] = WPET::getInstance()->packages->anyExist();
 
 		//default view
 	    WPET::getInstance()->display( 'attendees.php', $this->render_data );

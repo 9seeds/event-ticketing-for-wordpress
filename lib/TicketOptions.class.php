@@ -180,9 +180,10 @@ class WPET_TicketOptions extends WPET_Module {
 	$checkboxes = array();
 	foreach ($options as $o) {
 	    $checked_attr = in_array($o->ID, $checked) ? 'checked="checked" ' : '';
+		$disabled_attr = $o->wpet_required ? 'disabled="disabled"' : '';
 	    $checkboxes[] = array(
 		'label' => "<label for='" . sanitize_title_with_dashes($o->post_title) . "'>{$o->post_title}</label>",
-		'checkbox' => "<input type='checkbox' id='" . sanitize_title_with_dashes($o->post_title) . "' name='options[{$o->ID}]' {$checked_attr}/>",
+		'checkbox' => "<input type='checkbox' id='" . sanitize_title_with_dashes($o->post_title) . "' name='options[{$o->ID}]' {$checked_attr} {$disabled_attr}/>",
 	    );
 	}
 

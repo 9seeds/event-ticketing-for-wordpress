@@ -182,6 +182,26 @@ abstract class WPET_Module {
 	}
 
 	/**
+	 * Determines if any wpet objects of this type exist
+	 *
+	 * @since 2.0
+	 * @return bool
+	 */
+	public function anyExist() {
+	    $args = array(
+			'post_type' => $this->mPostType
+	    );
+	    
+	    $posts = get_posts( $args );
+	    
+	    if( count( $posts ) > 0 )
+			return true;
+	    else 
+			return false;
+	}
+
+	
+	/**
 	 * Adds the object data to the database
 	 *
 	 * @since 2.0

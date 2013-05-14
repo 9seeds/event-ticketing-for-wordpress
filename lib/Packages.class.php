@@ -132,25 +132,12 @@ class WPET_Packages extends WPET_Module {
 		   	return; //don't do anything else
 		}
 		
-		$this->render_data['show_add'] = WPET::getInstance()->tickets->anyTicketsExist();
+		$this->render_data['show_add'] = WPET::getInstance()->tickets->anyExist();
 		
 		//default view
 		WPET::getInstance()->display( 'packages.php', $this->render_data );
 	}
 	
-	public function anyPackagesExist() {
-	    $args = array(
-			'post_type' => $this->mPostType
-	    );
-	    
-	    $posts = get_posts( $args );
-	    
-	    if( count( $posts ) > 0 )
-			return true;
-	    else 
-			return false;
-	}
-
 	/**
 	 * Prepare the page submit data for save
 	 *
@@ -230,7 +217,9 @@ class WPET_Packages extends WPET_Module {
 	 * @return string
 	 */
 	public function selectMenu( $name, $id, $selected_value, $enabled = true ) {
-		$disabled = disabled( $enabled, true, false );
+	    
+	    $disable = !$enabled;
+		$disabled = disabled( $disable, true, false );
 	    $s = "<select name='{$name}' id='{$id}'{$disabled}>";
 	    $s .= '<option value="any">' . __( 'Any Package', 'wpet' ) . '</option>';
 
