@@ -15,11 +15,11 @@ jQuery(document).ready(function($) {
 	    ajax_object.ajaxurl, 
 	    {
 		action: 'get_coupon',
-		coupon_code: jQuery('#couponCode').val()
+		coupon_code: jQuery('#coupon_code').val()
 	    },
 	    function(response) {
 		var obj = jQuery.parseJSON( response );
-		console.log(jQuery('#couponCode').val());
+		console.log(jQuery('#coupon_code').val());
 		console.log(obj);
 		
 		coupon_amount = obj.amount;
@@ -61,5 +61,5 @@ jQuery(document).ready(function($) {
 	    total = 0;
 	}
 	
-	jQuery( '#subTotal' ).text( total );
+	jQuery( '#subTotal' ).text( total.toFixed(2) );
     }
