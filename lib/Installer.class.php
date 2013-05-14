@@ -85,7 +85,8 @@ class WPET_Installer {
 			$this->new_events->add( $data );
 		}
 
-		if ( empty( $this->new_ticket_options->find() ) ) { //@TODO narrow this search
+		$ticket_options = $this->new_ticket_options->find();
+		if ( empty( $ticket_options ) ) { //@TODO narrow this search
 			//@TODO default TicketOption "Twitter"
 				
 		}
