@@ -385,9 +385,9 @@ class WPET_Payments extends WPET_Module {
 		
 		if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) { 		    
 		   $coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
-		    
+		  
 		   $total -= $coupon_amount;
-		    
+		   
 		   if( 0 > $total ) {
 		       // Oops, total went past zero dollars. Reset it to zero
 		       $total = 0.00;
