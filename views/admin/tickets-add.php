@@ -20,18 +20,6 @@ $message = empty( $_REQUEST['message'] ) ? false : $data['message'][$_REQUEST['m
 	<h2><?php _e( 'Ticket Options', 'wpet' ); ?></h2>
 	<table class="form-table">
 		<tbody>
-			<tr class="form-field form-required">
-				<th scope="row"><?php _e( 'Name', 'wpet' ); ?></th>
-				<td>
-					<input type="checkbox" name="options[name]" value="1" checked="checked" disabled="disabled">
-				</td>
-			</tr>
-			<tr class="form-field form-required">
-				<th scope="row"><?php _e( 'Email', 'wpet' ); ?></th>
-				<td>
-					<input type="checkbox" name="options[email]" value="1" checked="checked" disabled="disabled">
-				</td>
-			</tr>
 			<?php
 			$selected = empty( $data['ticket']->wpet_options_selected ) ? array() : $data['ticket']->wpet_options_selected;
 			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes( $selected );
