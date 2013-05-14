@@ -54,24 +54,24 @@ class WPET_Settings extends WPET_Module {
 			'title'	=> __( 'Tabs' ),
 			'content'	=> '<p>' . __( 'Here is a discription of each tab\'s functionality:', 'wpet' ) . '</p>' .
 				'<p><strong>' . __( 'Events:', 'wpet' ) .'</strong></p>' .
-				'<li><strong>Event Date:</strong> The date the event will be held on. If you are running a multi-day event, set this to the first day of the event.</li>' .
-				'<li><strong>Organizer Name:</strong> The name of the organizer. This will be used for outgoing emails from the system.</li>' .
-				'<li><strong>Organizer Email:</strong> The email address for the organizer. This will be used for outgoing emails from the system.</li>' .
-				'<li><strong>Maximum Attendance:</strong> This is the total amount of tickets that can be sold for this event.</li>' .
-				'<li><strong>Event Status:</strong> Allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.</li>' .
-				'<li><strong>Closed Message Text:</strong> This is the text that will be shown in place of the order from when registration is closed.</li>' .
-				'<li><strong>Thank You Page Text:</strong> THis is the text that will be displayed after a ticket is purchased.</li>' .
+				'<li>' . __( '<strong>Event Date:</strong> The date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Organizer Name:</strong> The name of the organizer. This will be used for outgoing emails from the system.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Organizer Email:</strong> The email address for the organizer. This will be used for outgoing emails from the system.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Maximum Attendance:</strong> This is the total amount of tickets that can be sold for this event.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Event Status:</strong> Allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Closed Message Text:</strong> This is the text that will be shown in place of the order from when registration is closed.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Thank You Page Text:</strong> THis is the text that will be displayed after a ticket is purchased.', 'wpet' ) . '</li>' .
 				'<p><strong>' . __( 'Payments:', 'wpet' ) .'</strong></p>' .
-				'<li><strong>Payment Gateway:</strong> Select which method you will use to accept payments.</li>' .
-				'<li><strong>Currency:</strong> Select which currency you want funds paid in.</li>' .
+				'<li>' . __( '<strong>Payment Gateway:</strong> Select which method you will use to accept payments.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Currency:</strong> Select which currency you want funds paid in.', 'wpet' ) . '</li>' .
 				'<p><strong>' . __( 'Email:', 'wpet' ) .'</strong></p>' .
-				'<li><strong>Subject:</strong> This is the subject of the email that will get sent to the purchaser upon completion of an order.</li>' .
-				'<li><strong>Email Body:</strong> This will be the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information.</li>' .
+				'<li>' . __( '<strong>Subject:</strong> This is the subject of the email that will get sent to the purchaser upon completion of an order.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Email Body:</strong> This will be the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet' ) . '</li>' .
 				'<p><strong>' . __( 'Form Display:', 'wpet' ) .'</strong></p>' .
-				'<li><strong>Show # of Remaining Packages: </strong> Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.</li>' .
-				'<li><strong>Hide Coupons:</strong> If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.</li>' .
+				'<li>' . __( '<strong>Show # of Remaining Packages: </strong> Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.', 'wpet' ) . '</li>' .
+				'<li>' . __( '<strong>Hide Coupons:</strong> If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.', 'wpet' ) . '</li>' .
 				'<p><strong>' . __( 'Reset:', 'wpet' ) .'</strong></p>' .
-				'<li><strong>ALL CHECKBOXES</strong> Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.</li>' ,
+				'<li>' . __( '<strong>ALL CHECKBOXES</strong> Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.', 'wpet' ) . '</li>' ,
 		    )
 	    );
 
