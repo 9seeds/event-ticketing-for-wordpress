@@ -98,8 +98,6 @@ class WPET_Settings extends WPET_Module {
 		) );
 
 		wp_enqueue_style( 'editor' );
-		WPET::getInstance()->debug( 'lkajdf', 'askdlfj');
-		//do_action( 'wpet_log', 'settings', 'settings', 'log' );
 	}
 
 	/**
