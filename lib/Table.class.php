@@ -66,6 +66,7 @@ abstract class WPET_Table extends WP_List_Table {
 	protected function get_prepare_args( $defaults ) {
 		$override = array(
 			'post_type' => $this->_args['post_type'],
+			'post_status' => 'publish'
 		);
 		return wp_parse_args( $override, $defaults );
 	}
