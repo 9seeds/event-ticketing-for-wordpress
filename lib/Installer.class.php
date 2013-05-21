@@ -387,12 +387,13 @@ class WPET_Installer {
 			$default_options[] = $this->createTicketOption( __( 'First Name', 'wpet' ) );
 			$default_options[] = $this->createTicketOption( __( 'Last Name', 'wpet' ) );
 			$default_options[] = $this->createTicketOption( __( 'Email', 'wpet' ) );
-			$default_options[] = $this->createTicketOption( __( 'Twitter', 'wpet' ), false, false );
+			$default_options[] = $this->createTicketOption( __( 'Twitter', 'wpet' ), false, false, false );
 		}
 
-		$title = __( 'General Admission', 'wpet' );
+		
 
 		if ( ! $this->new_tickets->anyExist() ) {
+			$title = __( 'General Admission', 'wpet' );
 			$ticket = array(
 				'post_title' => $title,
 				'post_name' => sanitize_title_with_dashes( $title ),
@@ -405,13 +406,17 @@ class WPET_Installer {
 
 
 		if ( ! $this->new_packages->anyExist() ) {
+			$title = __( 'General Admission Package', 'wpet' );
 			$package = array(
 				'post_title' => $title,
 				'post_name' => sanitize_title_with_dashes( $title ),
+				'post_content' => $title, 
 				'meta' => array(
 					'package_cost' => '20',
 					'quantity' => '100',
 					'ticket_quantity' => '1',
+					'start_date' => date( 'm/d/Y' ),
+					'end_date' => date( 'm/d/Y', strtotime( '+60 days' ) )
 				),		
 			);
 
@@ -422,7 +427,7 @@ class WPET_Installer {
 		}		
 	}
 
-	private function createTicketOption( $name, $indeletable = true, $required = true ) {
+	private function createTicketOption( $name, $indeleteable = true, $ineditable = true, $required = true ) {
 		$data = array(
 			'post_title' => $name,
 			'post_name' => sanitize_title_with_dashes( $name ),
@@ -431,8 +436,11 @@ class WPET_Installer {
 			)
 		);
 
-		if ( $indeletable )
+		if ( $indeleteable )
 			$data['meta']['indeleteable'] = true;
+
+		if ( $ineditable )
+			$data['meta']['ineditable'] = true;
 
 		if ( $required )
 			$data['meta']['required'] = true;

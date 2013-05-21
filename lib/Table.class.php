@@ -87,8 +87,12 @@ abstract class WPET_Table extends WP_List_Table {
 	}
 
 	protected function column_title( $post ) {
-		$edit_url = $this->get_edit_url( $post );
-		$column = "<strong><a href='{$edit_url}'>{$post->post_title}</a></strong>";
+		if ( $post->wpet_ineditable ) {
+			$column = "<strong>{$post->post_title}</strong>";
+		} else {
+			$edit_url = $this->get_edit_url( $post );
+			$column = "<strong><a href='{$edit_url}'>{$post->post_title}</a></strong>";
+		}
 		$actions = array(); //@TODO add filter?
 		$column .= $this->row_actions( $this->get_row_actions( $actions, $post ) );
 		return $column;
@@ -96,11 +100,13 @@ abstract class WPET_Table extends WP_List_Table {
 
 	protected function get_row_actions( $actions, $post ) {
 
-	   	if ( empty( $_GET[self::STATUS] ) ) {		
-			$actions['edit'] = '<a href="' . $this->get_edit_url( $post ) . '">'. __( 'Edit' ) . '</a>';
+		if ( empty( $_GET[self::STATUS] ) ) {
+
+			if ( ! $post->wpet_ineditable )
+				$actions['edit'] = '<a href="' . $this->get_edit_url( $post ) . '">'. __( 'Edit' ) . '</a>';
 
 			//some tables may not show the trash link (notify attendees)
-			if ( isset ( $this->_args['trash_url'] ) ) {			
+			if ( isset ( $this->_args['trash_url'] ) && ! $post->wpet_indeleteable ) {			
 				$actions['trash'] = '<a href="' . $this->get_trash_url( $post ) . '">' . __( 'Trash' ) . '</a>';
 			}
 		} else if ( $_GET[self::STATUS] == 'trash' ) {
