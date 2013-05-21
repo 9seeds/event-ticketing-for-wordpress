@@ -92,7 +92,7 @@
 				<?php } ?>
 						<tr>
 						<td colspan="3">
-							Subtotal: $<span id="subTotal">0.00</span> 
+							<span id="invalid_coupon" >Invalid Coupon</span> Subtotal: $<span id="subTotal">0.00</span> 
 						</td>
 						<td>
 						    <input type="submit" name="order_submit" value="Submit" />

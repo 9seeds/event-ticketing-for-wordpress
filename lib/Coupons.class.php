@@ -45,6 +45,16 @@ class WPET_Coupons extends WPET_Module {
 	    }
 	    $coupon = $this->findByCode( $_POST['coupon_code'] );
 	    
+	    if( !$coupon ) {
+		$c = array( 
+		    'error' => 'Invalid coupon'
+		);
+
+		echo json_encode( $c );
+
+		die();
+	    }
+	    
 	    $c = array( 
 		'amount' => $coupon->wpet_amount,
 		'type'	=> $coupon->wpet_type

@@ -19,9 +19,14 @@ jQuery(document).ready(function($) {
 	    },
 	    function(response) {
 		var obj = jQuery.parseJSON( response );
+		
 		console.log(jQuery('#coupon_code').val());
 		console.log(obj);
-		
+		if(obj.error) {
+		    jQuery('#invalid_coupon').show();
+		} else {
+		    jQuery('#invalid_coupon').hide();
+		}
 		coupon_amount = obj.amount;
 		coupon_type = obj.type;
 		update_subtotal();
