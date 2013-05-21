@@ -20,6 +20,20 @@ class WPET_Table_Attendees extends WPET_Table {
 
 		return $columns;
 	}
+	
+	function column_title($item) {
+	    $actions = array(
+			'edit'      => sprintf('<a href="?page=%s&action=%s&post=%s">Edit</a>',$_REQUEST['page'],'edit',$item->ID),
+			'delete'    => sprintf('<a href="?page=%s&action=%s&post=%s">Delete</a>',$_REQUEST['page'],'trash',$item->ID),
+		    );
+
+	    $name = sprintf('<strong><a href="?page=%s&action=%s&post=%s">' . $item->wpet_first_name . ' ' . $item->wpet_last_name . '</a></strong>',$_REQUEST['page'],'edit',$item->ID);
+	    return sprintf('%1$s %2$s', $name, $this->row_actions($actions) );
+	}
+	
+	function column_wpet_purchase_date($item) {
+	    return date( get_option( 'date_format' ), (int)$item->wpet_purchase_date );
+	}
 
 	public function get_sortable_columns() {
 		return array(
