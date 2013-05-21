@@ -515,6 +515,16 @@ class WPET_Payments extends WPET_Module {
     private function publishPayment() {
 	$this->loadPayment();
 	
+	// This is a sad shim, which probably could have been avoided with 
+	// better architecture :(
+	if( 'complete' == $this->mPayment->wpet_complete ) {
+	    return;
+	} else {
+	    $data = array('meta' => array('complete' => 'complete'));
+
+	    $this->update($this->mPayment->ID, $data);
+	}
+	
 	//echo '<pre>'; var_dump($this->mPayment); echo '</pre>';
 	//echo '<pre>'; var_dump( $this->mPayment->wpet_attendees); echo '</pre>';
 	
@@ -582,10 +592,11 @@ class WPET_Payments extends WPET_Module {
 	$this->loadPayment();
 	$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);
 
-	foreach ($packages as $package_id => $package_qty) {
+	foreach ($packages as $package_id => $package_qty) { echo '<p>Loop qty ' . $package_qty . '</p>';
 	    if ($package_qty)
 		WPET::getInstance()->packages->reserve($package_id, $package_qty);
 	}
+	echo '<pre>'; var_dump($packages); echo '</pre>';
     }
 
     /**
