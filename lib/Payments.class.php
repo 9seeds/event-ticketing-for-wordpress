@@ -299,7 +299,7 @@ class WPET_Payments extends WPET_Module {
 		$content .= '<tr>';
 		$opt = WPET::getInstance()->ticket_options->findByID($o);
 		$content .= '<th>' . $opt->post_title . '</th>';
-		$content .= '<td>' . WPET::getInstance()->ticket_options->buildHtml($o, 'option[' . $attendee->ID . '][' . $opt->ID . ']') . '</td>';
+		$content .= '<td>' . WPET::getInstance()->ticket_options->buildHtml($o, 'option[' . $attendee->ID . '][' . $opt->post_name . ']') . '</td>';
 		$content .= '</tr>';
 	    }
 

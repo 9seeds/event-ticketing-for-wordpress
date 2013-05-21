@@ -425,7 +425,7 @@ class WPET_Installer {
 	private function createTicketOption( $name, $indeletable = true, $required = true ) {
 		$data = array(
 			'post_title' => $name,
-			'post_name' => sanitize_title_with_dashes( $name ),
+			'post_name' => str_replace( '-', '_', sanitize_title_with_dashes( $name ) ),
 			'meta' => array(
 				'type' => 'text',
 			)
