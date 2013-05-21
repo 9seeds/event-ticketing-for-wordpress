@@ -45,14 +45,14 @@ class WPET_Packages extends WPET_Module {
 					'<ul>'.
 						'<li>'. __( '<strong>Package Name</strong> is the name that will be displayed to your visitors on the purchase page.', 'wpet' ) .'</li>'.
 						'<li>'. __( '<strong>Description</strong> will be displayed to your visitors under the package name on the purchase page.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Included Tickets</strong> lets you select which ticket type and how many tickets are included with the purchase of this package.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>Ticket Name</strong> lets you select which ticket type will be included in this ticket package.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>Quantity</strong> lets you set how many of the selected ticket type will be included when somebody purchases this package.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>On Sale Date</strong> lets you control when this package is available for purchase.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>Start Date</strong> is the first day this ticket package will be available for purchase.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>End Date</strong> is the last day this ticket package will be available for purchase.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>Package Cost</strong> is the price for the package, no matter how many tickets are included.', 'wpet' ) .'</li>',
-						'<li>'. __( '<strong>Quantity</strong> is the total number of this specific package that you have available for sale.', 'wpet' ) .'</li>',
+						'<li>'. __( '<strong>Included Tickets</strong> lets you select which ticket type and how many tickets are included with the purchase of this package.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Ticket Name</strong> lets you select which ticket type will be included in this ticket package.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Quantity</strong> lets you set how many of the selected ticket type will be included when somebody purchases this package.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>On Sale Date</strong> lets you control when this package is available for purchase.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Start Date</strong> is the first day this ticket package will be available for purchase.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>End Date</strong> is the last day this ticket package will be available for purchase.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Package Cost</strong> is the price for the package, no matter how many tickets are included.', 'wpet' ) .'</li>'.
+						'<li>'. __( '<strong>Quantity</strong> is the total number of this specific package that you have available for sale.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
