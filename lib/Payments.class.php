@@ -328,6 +328,7 @@ class WPET_Payments extends WPET_Module {
 		);
 		$this->update($attendee_id, $args);
 	    }
+	    $this->update( $attendee_id, array( 'meta' => array('purchase_date' => time())));
 	}
 	$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
     }
