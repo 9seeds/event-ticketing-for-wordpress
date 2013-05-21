@@ -82,8 +82,8 @@ class WPET_Packages extends WPET_Module {
 				'title'	=> __( 'Available Actions' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the package list will display action links that allow you to manage each package. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Trash</strong> removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Edit', 'wpet' ). '</strong>'. __( ' takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Trash', 'wpet' ). '</strong>'. __( ' removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);

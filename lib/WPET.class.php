@@ -417,10 +417,11 @@ class WPET {
 	 *
 	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
 	 * @since 2.0
+	 * @todo  Ben, can you rewrite links 425 and 426 to properly i189 the two links so that "Support Forums" and "Developer Docs" get i18n'd but not the html tags.
 	 */
 	public function contextHelp( $screen ) {
 		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'Need help:', 'wpet' ) . '</strong></p>' .
+			'<p><strong>' . __( 'Need help', 'wpet' ) . ':</strong></p>' .
 			'<p>' . sprintf( __( '<a href="%s" target="_blank">Support Forums</a>', 'wpet' ), 'http://support.9seeds.com/' ) . '</p>' .
 			'<p>' . sprintf( __( '<a href="%s" target="_blank">Developer Docs</a>', 'wpet' ), 'https://github.com/9seeds/wp-event-ticketing/wiki/_pages' ) . '</p>'
 		);
