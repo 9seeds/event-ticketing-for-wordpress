@@ -53,11 +53,25 @@ class WPET_Reports extends WPET_Module {
 			array(
 			'id'	=> 'report-tab',
 			'title'	=> __( 'Reports', 'wpet' ),
-			'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
+			'content'	=> '<p>' . __( 'Here\'s an explanation of the reports found on this page:', 'wpet' ) . '</p>'.
+				'<h2>'. __( 'Sales by Package', 'wpet' ) .'</h2>'.
+				__( 'This is a report of sales broken down by package and contains the following columns.', 'wpet' ).
 				'<ul>'.
-			'<li>'. __( '<strong>Display Name</strong> is what will be shown to your visitor when this option is added to a ticket.', 'wpet' ) .'</li>'.
-					'<li>'. __( '<strong>Option Type</strong> lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select.', 'wpet' ) .'</li>'.
-				'</ul>',
+					'<li><strong>'. __( 'Packages', 'wpet' ). '</strong>'. __( ' is the name of the package that was sold.', 'wpet' ) .'</li>'.
+					'<li><strong>'. __( 'Sold', 'wpet' ). '</strong>'. __( ' is the number of packages sold. Keep in mind that a package may contain multiple tickets, so this number may not reflect the total number of tickets sold.', 'wpet' ) .'</li>'.
+					'<li><strong>'. __( 'Remaining', 'wpet' ). '</strong>'. __( ' is the quantity still remaining for purchase of this specific package.', 'wpet' ) .'</li>'.
+					'<li><strong>'. __( 'Revenue', 'wpet' ). '</strong>'. __( ' is the net amount earned from sales of the specific package after taking in to account any coupons used during.', 'wpet' ) .'</li>'.
+					'<li><strong>'. __( 'Coupons', 'wpet' ). '</strong>'. __( ' is the amount that clients saved using coupons during their orders.', 'wpet' ) .'</li>'.
+				'</ul>'.
+				'<h2>'. __( 'Sales by Ticket Type', 'wpet' ) .'</h2>'.
+				__( 'This is a report of sales broken down by ticket type and can be used to calculate the number of attendees to expect. It contais the following columns.', 'wpet' ).
+				'<ul>'.
+					'<li><strong>'. __( 'Ticket', 'wpet' ). '</strong>'. __( ' is the name of the ticket.', 'wpet' ) .'</li>'.
+					'<li><strong>'. __( 'Sold', 'wpet' ). '</strong>'. __( ' is the quantity of this specific ticket that have been sold.', 'wpet' ) .'</li>'.
+					'<li><strong>'. __( 'Remaining', 'wpet' ). '</strong>'. __( ' is the quantity of this specific ticket that are still remaining to be sold.', 'wpet' ) .'</li>'.
+				'</ul>'.
+				'<h2>'. __( 'Ticket Gauge', 'wpet' ) .'</h2>'.
+				__( 'The ticket guage shows you what percentage of tickets have been sold for the event. Once the guage reaches 100%, your event is sold out.', 'wpet' ),
 			)
 		);
 	}

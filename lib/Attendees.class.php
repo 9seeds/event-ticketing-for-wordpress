@@ -42,10 +42,6 @@ class WPET_Attendees extends WPET_Module {
 		parent::maybeSubmit();
 	}
 
-	
-	/**
-	 * @todo hawkins to rewrite these instructions
-	 */
 	/**
 	 * Displays page specific contextual help through the contextual help API
 	 *
@@ -67,7 +63,10 @@ class WPET_Attendees extends WPET_Module {
 				'title'	=> __( 'Options Explained' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Package</strong> is blah blah blah', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Package', 'wpet' ). '</strong>'. __( ' lets you select which package to associate this attendee with. Selecting a package will cause the value of the package to be included as part of the sales reports.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'First Name', 'wpet' ). '</strong>'. __( ' is the first name of the attendee and is a required field.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Last Name', 'wpet' ). '</strong>'. __( ' is the last name of the attendee and is a required field.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Email', 'wpet' ). '</strong>'. __( ' is the email address for the attendee and is a required field.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -85,18 +84,12 @@ class WPET_Attendees extends WPET_Module {
 				'title'	=> __( 'Available Actions' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the attendee list will display action links that allow you to manage each attendee. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee\'s name itself.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Trash</strong> removes the attendee from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Edit', 'wpet' ). '</strong>'. __( 'takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee\'s name itself.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Trash', 'wpet' ). '</strong>'. __( 'removes the attendee from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
 		}
-		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'Need help:' ) . '</strong></p>' .
-			'<p>' . __( '<a href="http://support.9seeds.com/" target="_blank">Support Forums</a>' ) . '</p>' .
-			'<p>' . __( '<a href="https://github.com/9seeds/wp-event-ticketing/wiki/_pages" target="_blank">Developer Docs</a>' ) . '</p>'
-		);
-
 	}
 	
 	/**

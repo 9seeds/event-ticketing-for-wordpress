@@ -420,9 +420,9 @@ class WPET {
 	 */
 	public function contextHelp( $screen ) {
 		$screen->set_help_sidebar(
-			'<p><strong>' . __( 'Need help:', 'wpet' ) . '</strong></p>' .
-			'<p>' . sprintf( __( '<a href="%s" target="_blank">Support Forums</a>', 'wpet' ), 'http://support.9seeds.com/' ) . '</p>' .
-			'<p>' . sprintf( __( '<a href="%s" target="_blank">Developer Docs</a>', 'wpet' ), 'https://github.com/9seeds/wp-event-ticketing/wiki/_pages' ) . '</p>'
+			'<p><strong>' . __( 'Need help', 'wpet' ) . ':</strong></p>' .
+			'<p>' . sprintf( '<a href="%s" target="_blank">%s</a>', 'http://support.9seeds.com/', __( 'Support Forums', 'wpet' ) ) . '</p>' .
+			'<p>' . sprintf( '<a href="%s" target="_blank">%s</a>', 'https://github.com/9seeds/wp-event-ticketing/wiki/_pages', __( 'Developer Docs', 'wpet' ) ) . '</p>'
 		);
 	}	
 	

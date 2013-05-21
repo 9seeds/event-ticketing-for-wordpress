@@ -44,9 +44,9 @@ class WPET_Notifications extends WPET_Module {
 				'title'	=> __( 'Options Explained' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>To</strong> lets you decide which group of attendees will receive the notification.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Subject</strong> is what will be sent as the subject of the email.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Email Body</strong> is the content of the email message that will be sent.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'To', 'wpet' ). '</strong>'. __( ' lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Subject', 'wpet' ). '</strong>'. __( ' is what will be sent as the subject of the email.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Email Body', 'wpet' ). '</strong>'. __( ' is the content of the email message that will be sent.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -64,7 +64,7 @@ class WPET_Notifications extends WPET_Module {
 				'title'	=> __( 'Available Actions' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the notification list will display action links that allow you to manage each of the previous notifications. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>View</strong> allows you see the notification that was sent along with who it was sent to.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'View', 'wpet' ). '</strong>'. __( ' allows you see the notification that was sent along with who it was sent to.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);

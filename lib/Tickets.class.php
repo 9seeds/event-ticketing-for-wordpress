@@ -63,8 +63,8 @@ class WPET_Tickets extends WPET_Module {
 				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Ticket Name</strong> is the name of the type of ticket your attendees purchase. For example, you may have a ticket named "general admission - meal included" and another named "general admission - no meal".', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Ticket Options</strong> is a list of the available ticket options you\'ve created. Check the box next to the pieces of data you\'d like to collect for each ticket.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Ticket Name', 'wpet' ). '</strong>'. __( ' is the name of the type of ticket your attendees purchase. For example, you may have a ticket named "general admission - meal included" and another named "general admission - no meal".', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Ticket Options', 'wpet' ). '</strong>'. __( ' is a list of the available ticket options you\'ve created. Check the box next to the pieces of data you\'d like to collect for each ticket.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -82,8 +82,8 @@ class WPET_Tickets extends WPET_Module {
 				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the ticket list will display action links that allow you to manage each ticket. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Trash</strong> removes your ticket from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Edit', 'wpet' ). '</strong>'. __( ' takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself.', 'wpet' ) .'</li>'.
+						'<li><strong>'. __( 'Trash', 'wpet' ). '</strong>'. __( ' removes your ticket from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
 					'</ul>',
 				)
 			);
