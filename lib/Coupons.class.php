@@ -94,6 +94,10 @@ class WPET_Coupons extends WPET_Module {
 	    $posts = new WP_Query( $args );
 	    
 	    $posts = ($posts->get_posts());
+	    
+	    if( empty( $posts )) 
+		return false;
+	    
 	    return $posts[0];
 	    
 	    //return $this->findOne( $args );
