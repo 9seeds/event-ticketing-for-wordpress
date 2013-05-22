@@ -63,10 +63,10 @@ class WPET_Attendees extends WPET_Module {
 				'title'	=> __( 'Options Explained' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li><strong>'. __( 'Package', 'wpet' ). '</strong>'. __( ' lets you select which package to associate this attendee with. Selecting a package will cause the value of the package to be included as part of the sales reports.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'First Name', 'wpet' ). '</strong>'. __( ' is the first name of the attendee and is a required field.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Last Name', 'wpet' ). '</strong>'. __( ' is the last name of the attendee and is a required field.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Email', 'wpet' ). '</strong>'. __( ' is the email address for the attendee and is a required field.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sPackage%s lets you select which package to associate this attendee with. Selecting a package will cause the value of the package to be included as part of the sales reports.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sFirst Name%s is the first name of the attendee and is a required field.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sLast Name%s is the last name of the attendee and is a required field.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEmail%s is the email address for the attendee and is a required field.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -84,8 +84,8 @@ class WPET_Attendees extends WPET_Module {
 				'title'	=> __( 'Available Actions' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the attendee list will display action links that allow you to manage each attendee. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li><strong>'. __( 'Edit', 'wpet' ). '</strong>'. __( 'takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee\'s name itself.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Trash', 'wpet' ). '</strong>'. __( 'removes the attendee from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee\'s name itself.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sTrash%s removes the attendee from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);

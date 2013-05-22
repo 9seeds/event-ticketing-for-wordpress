@@ -54,24 +54,24 @@ class WPET_Settings extends WPET_Module {
 			'title'	=> __( 'Tabs' ),
 			'content'	=> '<p>' . __( 'Here is a discription of each tab\'s functionality:', 'wpet' ) . '</p>' .
 				'<p><strong>' . __( 'Events', 'wpet' ) .':</strong></p>' .
-				'<li><strong>'. __( 'Event Date', 'wpet' ). '</strong> '. __( 'is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Organizer Name', 'wpet' ). ':</strong> '. __( 'The name of the organizer. This will be used for outgoing emails from the system.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Organizer Email', 'wpet' ). '</strong>: '. __( 'The email address for the organizer. This will be used for outgoing emails from the system.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Maximum Attendance', 'wpet' ). '</strong> '. __( 'This is the total amount of tickets that can be sold for this event.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Event Status', 'wpet' ). '</strong> '. __( 'Allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Closed Message Text', 'wpet' ). '</strong> '. __( 'This is the text that will be shown in place of the order from when registration is closed.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Thank You Page Text', 'wpet' ). '</strong> '. __( 'This is the text that will be displayed after a package is purchased.', 'wpet' ) . '</li>' .
+				'<li>'. sprintf( __( '%sEvent Date%s is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sOrganizer Name', 'wpet' ). '</strong> '. __( ' is the name of the organizer. This will be used for outgoing emails from the system.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sOrganizer Email%s is the email address for the organizer. This will be used for outgoing emails from the system.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sMaximum Attendance%s is the total amount of tickets that can be sold for this event.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sEvent Status%s allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sClosed Message Text%s is the text that will be shown in place of the order from when registration is closed.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sThank You Page Text%s is the text that will be displayed after a package is purchased.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 				'<p><strong>' . __( 'Payments', 'wpet' ) .':</strong></p>' .
-				'<li><strong>'. __( 'Payment Gateway', 'wpet' ). '</strong> '. __( 'Select which method you will use to accept payments.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Currency', 'wpet' ). '</strong> '. __( 'Select which currency you want funds paid in.', 'wpet' ) . '</li>' .
+				'<li>'. sprintf( __( '%sPayment Gateway%s lets you select which method you will use to accept payments.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sCurrency%s lets you select which currency you want funds paid in.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 				'<p><strong>' . __( 'Email', 'wpet' ) .':</strong></p>' .
-				'<li><strong>'. __( 'Subject', 'wpet' ). '</strong> '. __( 'This is the subject of the email that will get sent to the purchaser upon completion of an order.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Email Body', 'wpet' ). '</strong> '. sprintf( __( 'This will be the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the %s shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet' ), '[ticketlinks]' ) . '</li>' .
+				'<li>'. sprintf( __( '%sSubject%s is the subject of the email that will get sent to the purchaser upon completion of an order.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sEmail Body%s is the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the %s shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet' ), '<strong>', '</strong>', '[ticketlinks]' ) . '</li>' .
 				'<p><strong>' . __( 'Form Display', 'wpet' ) .':</strong></p>' .
-				'<li><strong>'. __( 'Show # of Remaining Packages', 'wpet' ). '</strong> '. __( 'Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.', 'wpet' ) . '</li>' .
-				'<li><strong>'. __( 'Hide Coupons', 'wpet' ). '</strong> '. __( 'If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.', 'wpet' ) . '</li>' .
+				'<li>'. sprintf( __( '%sShow # of Remaining Packages%s, Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sHide Coupons%s, If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 				'<p><strong>' . __( 'Reset', 'wpet' ) .':</strong></p>' .
-				'<li><strong>'. __( 'ALL CHECKBOXES', 'wpet' ). '</strong> '. __( 'Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.', 'wpet' ) . '</li>' ,
+				'<li>'. sprintf( __( '%sALL CHECKBOXES%s, Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' ,
 		    )
 	    );
 	}

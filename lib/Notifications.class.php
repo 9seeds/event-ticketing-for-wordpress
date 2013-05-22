@@ -44,9 +44,9 @@ class WPET_Notifications extends WPET_Module {
 				'title'	=> __( 'Options Explained' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li><strong>'. __( 'To', 'wpet' ). '</strong>'. __( ' lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Subject', 'wpet' ). '</strong>'. __( ' is what will be sent as the subject of the email.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Email Body', 'wpet' ). '</strong>'. __( ' is the content of the email message that will be sent.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sTo%s lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sSubject%s is what will be sent as the subject of the email.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEmail Body%s is the content of the email message that will be sent.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -64,7 +64,7 @@ class WPET_Notifications extends WPET_Module {
 				'title'	=> __( 'Available Actions' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the notification list will display action links that allow you to manage each of the previous notifications. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li><strong>'. __( 'View', 'wpet' ). '</strong>'. __( ' allows you see the notification that was sent along with who it was sent to.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sView%s allows you see the notification that was sent along with who it was sent to.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
