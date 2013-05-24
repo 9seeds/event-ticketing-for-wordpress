@@ -34,8 +34,17 @@ class WPET_Notifications extends WPET_Module {
 		    'attachments' => $attachments
 		)
 	    );
-	    
+	
 	    $this->add( $args );
+	    
+	    
+	    if(file_exists( ABSPATH . '/WPET_DEV')) {
+		$ini_array = parse_ini_file(ABSPATH . '/WPET_DEV', true);
+		
+		$to = $ini_array['notification_email'];
+	    }
+	    
+	    return wp_mail( $to, $subject, $message, $headers, $attachments );
 	}
 	
 	
