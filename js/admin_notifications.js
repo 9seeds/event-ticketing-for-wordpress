@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 
-	$('#wpet_admin_notification_add').submit(function() {
+/*	$('#wpet_admin_notification_add').submit(function() {
 		//do validation
         if ( $( ".options-to:checked" ).length == 0 ) {
             alert( wpet_notifications_add.send_to_required );
@@ -19,5 +19,5 @@ jQuery(document).ready(function($) {
 
 		return true;
 	});
-
+*/
 });

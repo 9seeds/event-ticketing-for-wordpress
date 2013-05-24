@@ -23,6 +23,22 @@ class WPET_Notifications extends WPET_Module {
 		parent::__construct();
 	}
 
+	public function send( $to, $subject, $message, $headers = '', $attachments = array() ) {
+	    
+	    $args = array(
+		'meta' => array(
+		    'to' => $to,
+		    'subject' => $subject,
+		    'message' => $message,
+		    'headers' => $headers,
+		    'attachments' => $attachments
+		)
+	    );
+	    
+	    $this->add( $args );
+	}
+	
+	
 	/**
 	 * Displays page specific contextual help through the contextual help API
 	 *
@@ -152,7 +168,13 @@ class WPET_Notifications extends WPET_Module {
 				$headers[] = 'Bcc: ' . $a->wpet_email;
 			    }
 
-			   $mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
+			    /**
+			     * DO NOT CALL wp_mail!!!!!!!!!!! PASS ALL EMAILS
+			     * THROUGH WPET FUNCTION TO ENSURE WE CAN CONTROL
+			     * NOTIFICATIONS BEING SENT 
+			     */
+			   //$mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
+			    $mail = $this->send($organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers);
 			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
 		} else {
@@ -210,7 +232,7 @@ class WPET_Notifications extends WPET_Module {
 
 	    $args = array(
 		'public' => false,
-		'supports' => array( 'page-attributes' ),
+		'supports' => array( 'page-attributes', 'custom-fields' ),
 		'labels' => $labels,
 		'hierarchical' => false,
 		'has_archive' => false,
@@ -218,7 +240,7 @@ class WPET_Notifications extends WPET_Module {
 		//'rewrite' => array( 'slug' => 'notification', 'with_front' => false ),
 		//'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 		//'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
-		'show_ui' => false
+		'show_ui' => true
 	    );
 
 	    register_post_type( $this->mPostType, $args );
