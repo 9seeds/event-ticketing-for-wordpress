@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 	//pull in the options on page load
 	wpet_show_options();
 
-	$('#wpet_admin_attendee_add').submit(function() {
+	/*$('#wpet_admin_attendee_add').submit(function() {
 		//do validation
 		if ( jQuery.trim( $( '#first_name' ).val() ) == '' ) {
 				alert( wpet_attendee_add.first_name_required );
@@ -41,6 +41,6 @@ jQuery(document).ready(function($){
 
 
 		return true;
-	});
+	});*/
 
 });
