@@ -28,7 +28,7 @@ class WPET_Settings extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'overview',
-			'title'	=> __( 'Overview' ),
+			'title'	=> __( 'Overview', 'wpet' ),
 			'content'	=> '<p>' . __( 'This screen provides access to all the settings for WP Event Ticketing.', 'wpet' ) . '</p>'
 		    )
 	    );
@@ -36,7 +36,7 @@ class WPET_Settings extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'default-values',
-			'title'	=> __( 'Default Values' ),
+			'title'	=> __( 'Default Values', 'wpet' ),
 			'content'	=> '<p>' . __( 'When you install WP Event Ticketing, the following settings are set by default:', 'wpet' ) . '</p>' .
 				'<p><strong>' . __( 'Events Tab', 'wpet' ) .':</strong></p>' .
 				'<li>' . __( 'Event Status: Registration is closed', 'wpet' ) . '</li>' .
@@ -51,7 +51,7 @@ class WPET_Settings extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'tabs',
-			'title'	=> __( 'Tabs' ),
+			'title'	=> __( 'Tabs', 'wpet' ),
 			'content'	=> '<p>' . __( 'Here is a discription of each tab\'s functionality:', 'wpet' ) . '</p>' .
 				'<p><strong>' . __( 'Events', 'wpet' ) .':</strong></p>' .
 				'<li>'. sprintf( __( '%sEvent Date%s is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
@@ -192,7 +192,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'event',
-			'title' => 'Settings Title',
+			'title' => __( 'Settings Title', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data, true )
 		);
 
@@ -215,7 +215,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'payment',
-			'title' => 'Second email',
+			'title' => __( 'Second email', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
 
@@ -227,12 +227,12 @@ class WPET_Settings extends WPET_Module {
 		//@TODO real data
 		$settings[] = array(
 		    'tab' => 'form_display',
-			'title' => 'Second email',
+			'title' => __( 'Second email', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', $form_display, true )
 		);
 		$settings[] = array(
 		    'tab' => 'reset',
-			'title' => 'Second email',
+			'title' => __( 'Second email', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', array(), true )
 		);
 

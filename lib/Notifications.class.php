@@ -59,14 +59,14 @@ class WPET_Notifications extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to send a notification to some or all of your attendees.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sTo%s lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
@@ -79,14 +79,14 @@ class WPET_Notifications extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your previously sent notifications.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the notification list will display action links that allow you to manage each of the previous notifications. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sView%s allows you see the notification that was sent along with who it was sent to.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.

@@ -53,14 +53,14 @@ class WPET_Attendees extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to add a new attendee for your event.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sPackage%s lets you select which package to associate this attendee with. Selecting a package will cause the value of the package to be included as part of the sales reports.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
@@ -74,14 +74,14 @@ class WPET_Attendees extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your attendees.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the attendee list will display action links that allow you to manage each attendee. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee\'s name itself.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.

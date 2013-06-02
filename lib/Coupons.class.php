@@ -47,7 +47,7 @@ class WPET_Coupons extends WPET_Module {
 	    
 	    if( !$coupon ) {
 		$c = array( 
-		    'error' => 'Invalid coupon'
+		    'error' => __( 'Invalid coupon', 'wpet' )
 		);
 
 		echo json_encode( $c );
@@ -147,14 +147,14 @@ class WPET_Coupons extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to add a new coupon for your event.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sCoupon Code%s is what a visitor would type in to the registration form to receive a discount. This should be a unique value and contain no spaces or special characters.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
@@ -169,14 +169,14 @@ class WPET_Coupons extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your coupons.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.

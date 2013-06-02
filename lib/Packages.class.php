@@ -33,14 +33,14 @@ class WPET_Packages extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to add a new package for your event.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sPackage Name%s is the name that will be displayed to your visitors on the purchase page.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
@@ -72,14 +72,14 @@ class WPET_Packages extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket packages.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the package list will display action links that allow you to manage each package. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
 						'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
