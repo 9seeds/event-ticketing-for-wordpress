@@ -67,7 +67,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands' => ','
 		    ),
 			array(
-				'display' => 'Brazilian Real (only for Brazilian users)',
+				'display' => __( 'Brazilian Real (only for Brazilian users)', 'wpet' ),
 				'code' => 'BRL',
 				'symbol' => 'R$',
 				'location' => 'before',
