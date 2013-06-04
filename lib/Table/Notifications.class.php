@@ -21,6 +21,10 @@ class WPET_Table_Notifications extends WPET_Table {
 		return $columns;
 	}
 
+	public function column_title( $item ) {
+	    return $item->wpet_subject;
+	}
+	
 	public function get_sortable_columns() {
 		return array(
 			'title' => array( 'title', true ),

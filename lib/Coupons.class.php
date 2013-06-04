@@ -45,6 +45,16 @@ class WPET_Coupons extends WPET_Module {
 	    }
 	    $coupon = $this->findByCode( $_POST['coupon_code'] );
 	    
+	    if( !$coupon ) {
+		$c = array( 
+		    'error' => __( 'Invalid coupon', 'wpet' )
+		);
+
+		echo json_encode( $c );
+
+		die();
+	    }
+	    
 	    $c = array( 
 		'amount' => $coupon->wpet_amount,
 		'type'	=> $coupon->wpet_type
@@ -137,21 +147,21 @@ class WPET_Coupons extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to add a new coupon for your event.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Coupon Code</strong> is what a visitor would type in to the registration form to receive a discount. This should be a unique value and contain no spaces or special characters.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Package</strong> allows you to choose which package is eligible for purchase with this coupon. Selecting a specific package from the dropdown will tie this coupon to the selected package.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Type</strong> lets you decide if this coupon will give a flat rate discount (e.g. $5.00 off), or a percentage of the package price.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Amount</strong> is the value of the coupon. If using flat rate, 5.00 would equal $5.00 off. If using percentage, 5 would = 5% off.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Quantity</strong> lets you set how many times this coupon can be used.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sCoupon Code%s is what a visitor would type in to the registration form to receive a discount. This should be a unique value and contain no spaces or special characters.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sPackage%s allows you to choose which package is eligible for purchase with this coupon. Selecting a specific package from the dropdown will tie this coupon to the selected package.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sType%s lets you decide if this coupon will give a flat rate discount (e.g. $5.00 off), or a percentage of the package price.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sAmount%s is the value of the coupon. If using flat rate, 5.00 would equal $5.00 off. If using percentage, 5 would equal 5 percent off.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sUses%s lets you set how many times this coupon can be used.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -159,18 +169,18 @@ class WPET_Coupons extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your coupons.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Trash</strong> removes your coupon from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sTrash%s removes your coupon from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);

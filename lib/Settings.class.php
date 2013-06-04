@@ -28,7 +28,7 @@ class WPET_Settings extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'overview',
-			'title'	=> __( 'Overview' ),
+			'title'	=> __( 'Overview', 'wpet' ),
 			'content'	=> '<p>' . __( 'This screen provides access to all the settings for WP Event Ticketing.', 'wpet' ) . '</p>'
 		    )
 	    );
@@ -36,14 +36,14 @@ class WPET_Settings extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'default-values',
-			'title'	=> __( 'Default Values' ),
+			'title'	=> __( 'Default Values', 'wpet' ),
 			'content'	=> '<p>' . __( 'When you install WP Event Ticketing, the following settings are set by default:', 'wpet' ) . '</p>' .
-				'<p><strong>' . __( 'Events Tab:', 'wpet' ) .'</strong></p>' .
+				'<p><strong>' . __( 'Events Tab', 'wpet' ) .':</strong></p>' .
 				'<li>' . __( 'Event Status: Registration is closed', 'wpet' ) . '</li>' .
-				'<p><strong>' . __( 'Payments Tab:', 'wpet' ) .'</strong></p>' .
+				'<p><strong>' . __( 'Payments Tab', 'wpet' ) .':</strong></p>' .
 				'<li>' . __( 'Payment Gateway: Manual', 'wpet' ) .'</li>' .
 				'<li>' . __( 'Currency: United States Dollar ($)', 'wpet' ) .'</li>' .
-				'<p><strong>' . __( 'Form Display Tab:', 'wpet' ) .'</strong></p>' .
+				'<p><strong>' . __( 'Form Display Tab', 'wpet' ) .':</strong></p>' .
 				'<li>' . __( 'Show # of remaining packages: Checked', 'wpet' ) .'</li>' ,
 		    )
 	    );
@@ -51,30 +51,29 @@ class WPET_Settings extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id'	=> 'tabs',
-			'title'	=> __( 'Tabs' ),
+			'title'	=> __( 'Tabs', 'wpet' ),
 			'content'	=> '<p>' . __( 'Here is a discription of each tab\'s functionality:', 'wpet' ) . '</p>' .
-				'<p><strong>' . __( 'Events:', 'wpet' ) .'</strong></p>' .
-				'<li>' . __( '<strong>Event Date:</strong> The date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Organizer Name:</strong> The name of the organizer. This will be used for outgoing emails from the system.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Organizer Email:</strong> The email address for the organizer. This will be used for outgoing emails from the system.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Maximum Attendance:</strong> This is the total amount of tickets that can be sold for this event.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Event Status:</strong> Allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Closed Message Text:</strong> This is the text that will be shown in place of the order from when registration is closed.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Thank You Page Text:</strong> THis is the text that will be displayed after a ticket is purchased.', 'wpet' ) . '</li>' .
-				'<p><strong>' . __( 'Payments:', 'wpet' ) .'</strong></p>' .
-				'<li>' . __( '<strong>Payment Gateway:</strong> Select which method you will use to accept payments.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Currency:</strong> Select which currency you want funds paid in.', 'wpet' ) . '</li>' .
-				'<p><strong>' . __( 'Email:', 'wpet' ) .'</strong></p>' .
-				'<li>' . __( '<strong>Subject:</strong> This is the subject of the email that will get sent to the purchaser upon completion of an order.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Email Body:</strong> This will be the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet' ) . '</li>' .
-				'<p><strong>' . __( 'Form Display:', 'wpet' ) .'</strong></p>' .
-				'<li>' . __( '<strong>Show # of Remaining Packages: </strong> Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.', 'wpet' ) . '</li>' .
-				'<li>' . __( '<strong>Hide Coupons:</strong> If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.', 'wpet' ) . '</li>' .
-				'<p><strong>' . __( 'Reset:', 'wpet' ) .'</strong></p>' .
-				'<li>' . __( '<strong>ALL CHECKBOXES</strong> Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.', 'wpet' ) . '</li>' ,
+				'<p><strong>' . __( 'Events', 'wpet' ) .':</strong></p>' .
+				'<li>'. sprintf( __( '%sEvent Date%s is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sOrganizer Name', 'wpet' ). '</strong> '. __( ' is the name of the organizer. This will be used for outgoing emails from the system.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sOrganizer Email%s is the email address for the organizer. This will be used for outgoing emails from the system.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sMaximum Attendance%s is the total amount of tickets that can be sold for this event.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sEvent Status%s allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sClosed Message Text%s is the text that will be shown in place of the order from when registration is closed.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sThank You Page Text%s is the text that will be displayed after a package is purchased.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<p><strong>' . __( 'Payments', 'wpet' ) .':</strong></p>' .
+				'<li>'. sprintf( __( '%sPayment Gateway%s lets you select which method you will use to accept payments.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sCurrency%s lets you select which currency you want funds paid in.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<p><strong>' . __( 'Email', 'wpet' ) .':</strong></p>' .
+				'<li>'. sprintf( __( '%sSubject%s is the subject of the email that will get sent to the purchaser upon completion of an order.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sEmail Body%s is the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the %s shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet' ), '<strong>', '</strong>', '[ticketlinks]' ) . '</li>' .
+				'<p><strong>' . __( 'Form Display', 'wpet' ) .':</strong></p>' .
+				'<li>'. sprintf( __( '%sShow # of Remaining Packages%s, Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<li>'. sprintf( __( '%sHide Coupons%s, If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+				'<p><strong>' . __( 'Reset', 'wpet' ) .':</strong></p>' .
+				'<li>'. sprintf( __( '%sALL CHECKBOXES%s, Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' ,
 		    )
 	    );
-
 	}
 
 	/**
@@ -193,7 +192,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'event',
-			'title' => 'Settings Title',
+			'title' => __( 'Settings Title', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data, true )
 		);
 
@@ -216,7 +215,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'payment',
-			'title' => 'Second email',
+			'title' => __( 'Second email', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
 
@@ -228,12 +227,12 @@ class WPET_Settings extends WPET_Module {
 		//@TODO real data
 		$settings[] = array(
 		    'tab' => 'form_display',
-			'title' => 'Second email',
+			'title' => __( 'Second email', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', $form_display, true )
 		);
 		$settings[] = array(
 		    'tab' => 'reset',
-			'title' => 'Second email',
+			'title' => __( 'Second email', 'wpet' ),
 			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', array(), true )
 		);
 
@@ -295,6 +294,17 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		//@TODO do the resets here
+		echo '<pre>'; var_dump($options['reset']); echo '</pre>';
+		$reset = array();
+		foreach( $options['reset'] AS $k => $v ) {
+		    $reset[] = $k;
+		}
+		/**
+		 * @todo Remove individual elements
+		 */
+		require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
+		$installer = new WPET_Installer();
+		$installer->reset( $reset );
 		unset( $options['reset'] );
 
 		foreach ( $options as $key => $value ) {

@@ -1,6 +1,14 @@
 <div id="eventTicketing">
 
-    <?php if( 'closed' == $data['event']->wpet_event_status ) { 
+    
+    <?php 
+    
+   // $working_event = WPET::getInstance()->events->getWorkingEvent();
+   // echo "<p>Now: " . time() . "<br/>Sta: " . var_dump( $working_event) . "</p>";
+    if( 'closed' == $data['event']->wpet_event_status 
+	     /* || time() < strtotime( $working_event->wpet_start_date )
+	      || time() > strtotime( $working_event->wpet_end_date )*/
+	    ) { 
     
     
     
@@ -31,6 +39,16 @@
 					<?php _e( 'Quantity', 'wpet' ); ?></th>
 				</tr>
 				<?php foreach( $data['rows'] as $row ): ?>
+				<?php
+				if( time() < strtotime($row->wpet_start_date)
+				    || time() > strtotime($row->wpet_end_date)
+				  ) {
+				    // This package is not open for purchasing yet
+				    
+				    continue;
+				}
+				
+				?>
 				<tr class="package_row">
 
 					<td>
@@ -74,7 +92,7 @@
 				<?php } ?>
 						<tr>
 						<td colspan="3">
-							Subtotal: $<span id="subTotal">0.00</span> 
+							<span id="invalid_coupon" >Invalid Coupon</span> Subtotal: $<span id="subTotal">0.00</span> 
 						</td>
 						<td>
 						    <input type="submit" name="order_submit" value="Submit" />

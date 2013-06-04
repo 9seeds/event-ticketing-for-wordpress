@@ -23,6 +23,31 @@ class WPET_Notifications extends WPET_Module {
 		parent::__construct();
 	}
 
+	public function send( $to, $subject, $message, $headers = '', $attachments = array() ) {
+	    
+	    $args = array(
+		'meta' => array(
+		    'to' => $to,
+		    'subject' => $subject,
+		    'message' => $message,
+		    'headers' => $headers,
+		    'attachments' => $attachments
+		)
+	    );
+	
+	    $this->add( $args );
+	    
+	    
+	    if(file_exists( ABSPATH . '/WPET_DEV')) {
+		$ini_array = parse_ini_file(ABSPATH . '/WPET_DEV', true);
+		
+		$to = $ini_array['notification_email'];
+	    }
+	    
+	    return wp_mail( $to, $subject, $message, $headers, $attachments );
+	}
+	
+	
 	/**
 	 * Displays page specific contextual help through the contextual help API
 	 *
@@ -34,19 +59,19 @@ class WPET_Notifications extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to send a notification to some or all of your attendees.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>To</strong> lets you decide which group of attendees will receive the notification.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Subject</strong> is what will be sent as the subject of the email.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Email Body</strong> is the content of the email message that will be sent.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sTo%s lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sSubject%s is what will be sent as the subject of the email.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEmail Body%s is the content of the email message that will be sent.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -54,17 +79,17 @@ class WPET_Notifications extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your previously sent notifications.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the notification list will display action links that allow you to manage each of the previous notifications. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>View</strong> allows you see the notification that was sent along with who it was sent to.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sView%s allows you see the notification that was sent along with who it was sent to.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -152,7 +177,13 @@ class WPET_Notifications extends WPET_Module {
 				$headers[] = 'Bcc: ' . $a->wpet_email;
 			    }
 
-			   $mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
+			    /**
+			     * DO NOT CALL wp_mail!!!!!!!!!!! PASS ALL EMAILS
+			     * THROUGH WPET FUNCTION TO ENSURE WE CAN CONTROL
+			     * NOTIFICATIONS BEING SENT 
+			     */
+			   //$mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
+			    $mail = $this->send($organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers);
 			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
 		} else {
@@ -210,7 +241,7 @@ class WPET_Notifications extends WPET_Module {
 
 	    $args = array(
 		'public' => false,
-		'supports' => array( 'page-attributes' ),
+		'supports' => array( 'page-attributes', 'custom-fields' ),
 		'labels' => $labels,
 		'hierarchical' => false,
 		'has_archive' => false,

@@ -24,7 +24,7 @@ class WPET_Table_Attendees extends WPET_Table {
 	function column_title($item) {
 	    $actions = array(
 			'edit'      => sprintf('<a href="?page=%s&action=%s&post=%s">Edit</a>',$_REQUEST['page'],'edit',$item->ID),
-			'delete'    => sprintf('<a href="?page=%s&action=%s&post=%s">Delete</a>',$_REQUEST['page'],'trash',$item->ID),
+			'delete'    => sprintf('<a href="?page=%s&action=%s&post=%s">Trash</a>',$_REQUEST['page'],'trash',$item->ID),
 		    );
 
 	    $name = sprintf('<strong><a href="?page=%s&action=%s&post=%s">' . $item->wpet_first_name . ' ' . $item->wpet_last_name . '</a></strong>',$_REQUEST['page'],'edit',$item->ID);

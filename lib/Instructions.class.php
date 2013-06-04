@@ -27,7 +27,7 @@ class WPET_Instructions extends WPET_Module {
 		$screen->add_help_tab(
 			array(
 			'id'	=> 'overview',
-			'title'	=> __( 'Overview' ),
+			'title'	=> __( 'Overview', 'wpet' ),
 			'content'	=> '<p>' . __( 'This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages.' ) . '</p>',
 			)
 		);
@@ -132,22 +132,22 @@ class WPET_Instructions extends WPET_Module {
 
 	    $instructions[] = array(
 		'tab'	=> 'getting_started',
-		'title' => 'Getting Started',
+		'title' => __( 'Getting Started', 'wpet' ),
 		'text'	=> WPET::getInstance()->getDisplay( 'instructions-getting-started.php', array(), true )
 	    );
 	    $instructions[] = array(
 		'tab'	=> 'payment_gateways',
-		'title' => 'Payment Gateways',
+		'title' => __( 'Payment Gateways', 'wpet' ),
 		'text'	=> WPET::getInstance()->getDisplay( 'instructions-payment-gateways.php', array(), true )
 	    );
 	    $instructions[] = array(
 		'tab'	=> 'design',
-		'title' => 'Design',
+		'title' => __( 'Design', 'wpet' ),
 		'text'	=> WPET::getInstance()->getDisplay( 'instructions-design.php', array(), true )
 	    );
 	    $instructions[] = array(
 		'tab'	=> 'extras',
-		'title' => 'Extras',
+		'title' => __( 'Extras', 'wpet' ),
 		'text'	=> WPET::getInstance()->getDisplay( 'instructions-extras.php', array(), true )
 	    );
 

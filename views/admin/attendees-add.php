@@ -15,10 +15,10 @@ $attendee = isset( $data['attendee'] ) ? $data['attendee'] : NULL;
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[package]"><?php _e('Package', 'wpet'); ?></label></th>
 				<td>
-				<?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', @$attendee->wpet_package, !empty( $attendee ) ); ?>
+				<?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', @$attendee->wpet_package ); ?>
 				</td>
 			</tr>
-			<tr class="form-field form-required">
+			<!--<tr class="form-field form-required">
 				<th scope="row"><label for="first_name"><?php _e('First Name', 'wpet'); ?></label></th>
 				<td><input name="first_name" type="text" id="first_name" value="<?php echo @$attendee->wpet_first_name; ?>"></td>
 			</tr>
@@ -29,7 +29,7 @@ $attendee = isset( $data['attendee'] ) ? $data['attendee'] : NULL;
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[email]"><?php _e('Email', 'wpet'); ?></label></th>
 				<td><input name="email" type="text" id="email" value="<?php echo @$attendee->wpet_email; ?>"></td>
-			</tr>
+			</tr>-->
 		</tbody>
 	</table>
     <table class="form-table"><tbody id="ticket_options" ></tbody></table>

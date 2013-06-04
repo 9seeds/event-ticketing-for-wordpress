@@ -33,38 +33,38 @@ class WPET_Packages extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen allows you to add a new package for your event.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'options-explained',
-				'title'	=> __( 'Options Explained' ),
+				'title'	=> __( 'Options Explained', 'wpet' ),
 				'content'	=> '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li><strong>'. __( 'Package Name', 'wpet' ). '</strong>'. __( ' is the name that will be displayed to your visitors on the purchase page.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Description', 'wpet' ). '</strong>'. __( ' will be displayed to your visitors under the package name on the purchase page.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sPackage Name%s is the name that will be displayed to your visitors on the purchase page.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sDescription%s will be displayed to your visitors under the package name on the purchase page.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>'.
 					'<h2>'. __( 'Included Tickets', 'wpet' ). '</h2>'.
 						__( 'This section lets you select which ticket type and how many tickets are included with the purchase of this package.', 'wpet' ).
 					'<ul>'.
-						'<li><strong>'. __( 'Ticket Name', 'wpet' ). '</strong>'. __( ' lets you select which ticket type will be included in this ticket package.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'Quantity', 'wpet' ). '</strong>'. __( ' lets you set how many of the selected ticket type will be included when somebody purchases this package.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sTicket Name%s lets you select which ticket type will be included in this ticket package.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sQuantity%s lets you set how many of the selected ticket type will be included when somebody purchases this package.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>'.
 					'<h2>'. __( 'On Sale Date', 'wpet' ). '</h2>'.
 						__( 'This section lets you control when this package is available for purchase.', 'wpet' ) .'</li>'.
 					'<ul>'.
-						'<li><strong>'. __( 'Start Date', 'wpet' ). '</strong>'. __( ' is the first day this ticket package will be available for purchase.', 'wpet' ) .'</li>'.
-						'<li><strong>'. __( 'End Date', 'wpet' ). '</strong>'. __( ' is the last day this ticket package will be available for purchase.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sStart Date%s is the first day this ticket package will be available for purchase.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEnd Date%s is the last day this ticket package will be available for purchase.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>'.
 					'<h2>'. __( 'Price', 'wpet' ) .'</h2>'.
 					'<ul>'.
-						'<li><strong>'. __( 'Package Cost', 'wpet' ). '</strong>'. __( ' is the price for the package, no matter how many tickets are included.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sPackage Cost%s is the price for the package, no matter how many tickets are included.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>'.
 					'<h2>'. __( 'Packages Available', 'wpet' ). '</h2>'.
 					'<ul>'.
-						'<li><strong>'. __( 'Packages Available', 'wpet' ). '</strong>'. __( ' is the total number of this specific package that you have available for sale.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sPackages Available%s is the total number of this specific package that you have available for sale.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);
@@ -72,18 +72,18 @@ class WPET_Packages extends WPET_Module {
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'overview',
-				'title'	=> __( 'Overview' ),
+				'title'	=> __( 'Overview', 'wpet' ),
 				'content'	=> '<p>' . __( 'This screen provides access to all of your ticket packages.', 'wpet' ) . '</p>',
 				)
 			);
 			$screen->add_help_tab(
 				array(
 				'id'	=> 'available-actions',
-				'title'	=> __( 'Available Actions' ),
+				'title'	=> __( 'Available Actions', 'wpet' ),
 				'content'	=> '<p>' . __( 'Hovering over a row in the package list will display action links that allow you to manage each package. You can perform the following actions:', 'wpet' ) . '</p>'.
 					'<ul>'.
-						'<li>'. __( '<strong>Edit</strong> takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself.', 'wpet' ) .'</li>'.
-						'<li>'. __( '<strong>Trash</strong> removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets.', 'wpet' ) .'</li>'.
+						'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
+						'<li>'. sprintf( __( '%sTrash%s removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets.', 'wpet' ), '<strong>', '</strong>' ) .'</li>'.
 					'</ul>',
 				)
 			);

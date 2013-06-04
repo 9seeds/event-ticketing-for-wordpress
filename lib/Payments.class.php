@@ -182,6 +182,22 @@ class WPET_Payments extends WPET_Module {
 
 	    case 'pending':
 		/*
+		 * Add the name of the payee to all the tickets
+		 */
+		$name = explode( ' ', $this->mPayment->wpet_name );
+		foreach( $this->mPayment->wpet_attendees AS $a ) {
+		    $args = array(
+			'meta' => array(
+			    'first_name' => @$name[0],
+			    'last_name' => @$name[1],
+			    'email' => $this->mPayment->wpet_email,
+			    'purchase_date' => time()
+			)
+		    );
+		    WPET::getInstance()->attendees->update($a, $args );
+		}
+		
+		/*
 		 * Data has been collected for the payment and will be sent off
 		 * to the payment gateway here
 		 */
@@ -299,7 +315,8 @@ class WPET_Payments extends WPET_Module {
 		$content .= '<tr>';
 		$opt = WPET::getInstance()->ticket_options->findByID($o);
 		$content .= '<th>' . $opt->post_title . '</th>';
-		$content .= '<td>' . WPET::getInstance()->ticket_options->buildHtml($o, 'option[' . $attendee->ID . '][' . $opt->post_name . ']') . '</td>';
+		$value_name = 'wpet_' . $opt->post_name;
+		$content .= '<td>' . WPET::getInstance()->ticket_options->buildHtml($o, 'option[' . $attendee->ID . '][' . $opt->post_name . ']', $a->$value_name) . '</td>';
 		$content .= '</tr>';
 	    }
 
@@ -469,7 +486,7 @@ class WPET_Payments extends WPET_Module {
 
 	if (empty($this->mPayment->wpet_attendees)) {
 	    $attendees = WPET::getInstance()->attendees;
-
+	    
 	    /*
 	     * Find all unique packages and number of them sold
 	     * Look into the package to find the number of tickets in each package
@@ -629,7 +646,7 @@ class WPET_Payments extends WPET_Module {
 	    'rewrite' => array('slug' => 'payment', 'with_front' => false),
 	    //'menu_icon' => WPET_PLUGIN_URL . 'images/icons/reviews.png',
 	    //'register_meta_box_cb' => array( &$this, 'registerMetaBox' ),
-	    'show_ui' => true
+	    'show_ui' => false
 	);
 
 	register_post_type($this->mPostType, $args);
