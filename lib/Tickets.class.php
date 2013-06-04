@@ -182,24 +182,24 @@ class WPET_Tickets extends WPET_Module {
 			    $value = $data->{"wpet_$field"};
 
 			$s .= '<tr>';
-			$s .= '<td colspan="2">Package: ' . $package->post_title . '</td>';
+			$s .= '<td colspan="2">'. __( 'Package', 'wpet' ) .': ' . $package->post_title . '</td>';
 			$s .= '</tr>';
 			
 			
 			$s .= '<tr class="form-field form-required">';
-			$s .= '<th scope="row">First name:</th>';
+			$s .= '<th scope="row">'. __( 'First name', 'wpet' ) .':</th>';
 			$s .= '<td>';
 			//$s .= '<input type="text" name='
 			$s .= '</td></tr>';
 			
 			$s .= '<tr class="form-field form-required">';
-			$s .= '<th scope="row">Last name:</th>';
+			$s .= '<th scope="row">'. __( 'Last name', 'wpet' ) .':</th>';
 			$s .= '<td>';
 			$s .= 
 			$s .= '</td></tr>';
 			
 			$s .= '<tr class="form-field form-required">';
-			$s .= '<th scope="row">Email:</th>';
+			$s .= '<th scope="row">'. __( 'Email', 'wpet') .':</th>';
 			$s .= '<td>';
 			$s .= 
 			$s .= '</td></tr>';

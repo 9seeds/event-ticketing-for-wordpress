@@ -33,17 +33,17 @@ class WPET_TicketOptions extends WPET_Module {
 		    array(
 			'id' => 'overview',
 			'title' => __('Overview', 'wpet' ),
-			'content' => '<p>' . __('This screen allows you to add a new ticket option for your tickets.') . '</p>',
+			'content' => '<p>' . __( 'This screen allows you to add a new ticket option for your tickets.', 'wpet' ) . '</p>',
 		    )
 	    );
 	    $screen->add_help_tab(
 		    array(
 			'id' => 'options-explained',
 			'title' => __('Options Explained', 'wpet' ),
-			'content' => '<p>' . __('Here\'s an explanation of the options found on this page:') . '</p>' .
+			'content' => '<p>' . __( 'Here\'s an explanation of the options found on this page:', 'wpet' ) . '</p>' .
 			'<ul>' .
-			'<li>'. sprintf( __( '%sDisplay Name%s is what will be shown to your visitor when this option is added to a ticket.'), '<strong>', '</strong>' ) . '</li>' .
-			'<li>'. sprintf( __( '%sOption Type%s lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select.'), '<strong>', '</strong>' ) . '</li>' .
+			'<li>'. sprintf( __( '%sDisplay Name%s is what will be shown to your visitor when this option is added to a ticket.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+			'<li>'. sprintf( __( '%sOption Type%s lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 			'</ul>',
 		    )
 	    );
@@ -51,18 +51,18 @@ class WPET_TicketOptions extends WPET_Module {
 	    $screen->add_help_tab(
 		    array(
 			'id' => 'overview',
-			'title' => __('Overview', 'wpet' ),
-			'content' => '<p>' . __('This screen provides access to all of your ticket options.') . '</p>',
+			'title' => __( 'Overview', 'wpet' ),
+			'content' => '<p>' . __( 'This screen provides access to all of your ticket options.', 'wpet' ) . '</p>',
 		    )
 	    );
 	    $screen->add_help_tab(
 		    array(
 			'id' => 'available-actions',
-			'title' => __('Available Actions', 'wpet' ),
-			'content' => '<p>' . __('Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:') . '</p>' .
+			'title' => __( 'Available Actions', 'wpet' ),
+			'content' => '<p>' . __( 'Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:', 'wpet' ) . '</p>' .
 			'<ul>' .
-			'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself.'), '<strong>', '</strong>' ) . '</li>' .
-			'<li>'. sprintf( __( '%sTrash%s removes your ticket option from this list and places it in the trash, from which you can permanently delete it.'), '<strong>', '</strong>' ) . '</li>' .
+			'<li>'. sprintf( __( '%sEdit%s takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
+			'<li>'. sprintf( __( '%sTrash%s removes your ticket option from this list and places it in the trash, from which you can permanently delete it.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 			'</ul>',
 		    )
 	    );

@@ -43,7 +43,7 @@ class WPET_Payments extends WPET_Module {
      */
     public function registerPostStatus() {
 	register_post_status('pending', array(
-	    'label' => _x('Pending', 'post'),
+	    'label' => __('Pending', 'wpet' ),
 	    'public' => true,
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
@@ -52,7 +52,7 @@ class WPET_Payments extends WPET_Module {
 	));
 
 	register_post_status('coll_att_data', array(
-	    'label' => _x('Collect Attendee Data', 'post'),
+	    'label' => __('Collect Attendee Data', 'wpet' ),
 	    'public' => true,
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
@@ -61,7 +61,7 @@ class WPET_Payments extends WPET_Module {
 	));
 
 	register_post_status('coll_att_data_post', array(
-	    'label' => _x('Collect Attendee Data Post', 'post'),
+	    'label' => __('Collect Attendee Data Post', 'wpet' ),
 	    'public' => true,
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
@@ -70,7 +70,7 @@ class WPET_Payments extends WPET_Module {
 	));
 
 	register_post_status('processing', array(
-	    'label' => _x('Processing', 'post'),
+	    'label' => __('Processing', 'wpet' ),
 	    'public' => true,
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
@@ -79,7 +79,7 @@ class WPET_Payments extends WPET_Module {
 	));
 
 	register_post_status('draft', array(
-	    'label' => _x('Draft', 'post'),
+	    'label' => __('Draft', 'wpet' ),
 	    'public' => true,
 	    'exclude_from_search' => false,
 	    'show_in_admin_all_list' => true,
