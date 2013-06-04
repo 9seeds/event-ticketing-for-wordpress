@@ -38,8 +38,8 @@
 					<td><strong><?php _e( 'Totals', 'wpet' ); ?></strong></td>
 					<td><strong><?php echo $totals['sold'] ?></strong></td>
 					<td><strong><?php echo $totals['remaining'] ?></strong></td>
-					<td><strong><?php echo $row['revenue'] ?></strong></td>
-					<td><strong><?php echo $row['coupons'] ?></strong></td>
+					<td><strong><?php echo $totals['revenue'] ?></strong></td>
+					<td><strong><?php echo $totals['coupons'] ?></strong></td>
 				</tr>						
 			</tbody>
 		</table>
