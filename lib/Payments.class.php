@@ -610,11 +610,10 @@ class WPET_Payments extends WPET_Module {
 	$this->loadPayment();
 	$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);
 
-	foreach ($packages as $package_id => $package_qty) { echo '<p>Loop qty ' . $package_qty . '</p>';
+	foreach ($packages as $package_id => $package_qty) {
 	    if ($package_qty)
 		WPET::getInstance()->packages->reserve($package_id, $package_qty);
 	}
-	echo '<pre>'; var_dump($packages); echo '</pre>';
     }
 
     /**

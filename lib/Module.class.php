@@ -61,6 +61,7 @@ abstract class WPET_Module {
 
 	/**
 	 * @since 2.0
+	 * @todo WTF naming. Not descriptive at all
 	 */
 	public function maybeSubmit() {
 		
@@ -92,7 +93,6 @@ abstract class WPET_Module {
 			}
 
 			$post_id = $this->add( $post_data );
-			
 			wp_redirect(
 				add_query_arg(
 					array( 'post' => $post_id,

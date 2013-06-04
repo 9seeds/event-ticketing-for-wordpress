@@ -481,6 +481,11 @@ class WPET {
 
 		return NULL;
 	}
+	
+	public function debug( $what ) {
+	    require_once('dBug.php');
+	    dbug($what);
+	}
 
 
 }// end class

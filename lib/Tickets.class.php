@@ -232,7 +232,7 @@ class WPET_Tickets extends WPET_Module {
 		$s = '';
 		if( !is_array( $options ) ) return '';
 		foreach( $options AS $o ) {
-
+	
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
 			$field = $opts->post_name;
 
