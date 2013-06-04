@@ -296,7 +296,7 @@ class WPET {
 	public function display( $template, $data = array(), $is_sub = false ) {
 		global $post;
 
-		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<a href="http://9seeds.com/" target="_blank"><div id="seeds-icon"></div></a>' );
+		$admin_page_icon = apply_filters( 'wpet_admin_page_icon', '<div id="seeds-icon"></div>' );
 
 		if ( is_admin() ) {
 			if( !$is_sub ) {
