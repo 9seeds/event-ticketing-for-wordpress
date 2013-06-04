@@ -38,6 +38,13 @@ $attendee = isset( $data['attendee'] ) ? $data['attendee'] : NULL;
 	$button_label = empty( $_REQUEST['post'] ) ? __( 'Add Attendee', 'wpet' ) : __( 'Save Attendee', 'wpet' );	
 	?>
 	<input type="hidden" name="attendee_id" id="attendee_id" value="<?php echo empty( $_REQUEST['post'] ) ? '' : $_REQUEST['post']; ?>" />
+	<?php
+	if(! isset( $_REQUEST['post'] ) ) {
+	    ?>
+	    <input type="hidden" name="purchase_date" id="purchase_date" value="<?php echo time(); ?>" />
+	    <?php
+	}
+	?>
 	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php echo $button_label; ?>"></p>
 </form>
 

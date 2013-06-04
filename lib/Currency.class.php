@@ -43,7 +43,7 @@ class WPET_Currency extends WPET_Module {
 	public function defaultCurrencies( $currencies ) {
 		$c = array(
 			array(
-				'display' => 'United States Dollar',
+				'display' => __( 'United States Dollar', 'wpet' ),
 				'code' => 'USD',
 				'symbol' => '$',
 				'location' => 'before',
@@ -51,7 +51,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Afghan Afghani',
+				'display' => __( 'Afghan Afghani', 'wpet' ),
 				'code' => 'AFN',
 				'symbol' => 'Afs',
 				'location' => 'after',
@@ -59,7 +59,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 		    ),
 			array(
-				'display' => 'Australian Dollars',
+				'display' => __( 'Australian Dollars', 'wpet' ),
 				'code' => 'AUD',
 				'symbol' => 'A$',
 				'location' => 'before',
@@ -67,7 +67,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands' => ','
 		    ),
 			array(
-				'display' => 'Brazilian Real (only for Brazilian users)',
+				'display' => __( 'Brazilian Real (only for Brazilian users)', 'wpet' ),
 				'code' => 'BRL',
 				'symbol' => 'R$',
 				'location' => 'before',
@@ -75,7 +75,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Canadian Dollars',
+				'display' => __( 'Canadian Dollars', 'wpet' ),
 				'code' => 'CAD',
 				'symbol' => 'C$',
 				'location' => 'before',
@@ -83,7 +83,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Czech Koruna',
+				'display' => __( 'Czech Koruna', 'wpet' ),
 				'code' => 'CZK',
 				'symbol' => 'Kč',
 				'location' => 'after',
@@ -91,7 +91,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 		    ),
 			array(
-				'display' => 'Danish Krone',
+				'display' => __( 'Danish Krone', 'wpet' ),
 				'code' => 'DKK',
 				'symbol' => 'kr.',
 				'location' => 'after',
@@ -99,7 +99,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Euros',
+				'display' => __( 'Euros', 'wpet' ),
 				'code' => 'EUR',
 				'symbol' => '€',
 				'location' => 'before',
@@ -107,7 +107,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Hong Kong Dollars',
+				'display' => __( 'Hong Kong Dollars', 'wpet' ),
 				'code' => 'HKD',
 				'symbol' => 'HK$',
 				'location' => 'before',
@@ -115,7 +115,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Hungarian Forint',
+				'display' => __( 'Hungarian Forint', 'wpet' ),
 				'code' => 'HUF',
 				'symbol' => 'Ft',
 				'location' => 'after',
@@ -123,7 +123,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Israeli Shekel',
+				'display' => __( 'Israeli Shekel', 'wpet' ),
 				'code' => 'ILS',
 				'symbol' => '₪',
 				'location' => 'before',
@@ -131,7 +131,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Malaysian Ringgits (only for Malaysian users)',
+				'display' => __( 'Malaysian Ringgits (only for Malaysian users)', 'wpet' ),
 				'code' => 'MYR',
 				'symbol' => 'RM',
 				'location' => 'after',
@@ -139,7 +139,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Mexican Peso',
+				'display' => __( 'Mexican Peso', 'wpet' ),
 				'code' => 'MXN',
 				'symbol' => 'Mex$',
 				'location' => 'before',
@@ -147,7 +147,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'New Zealand Dollars',
+				'display' => __( 'New Zealand Dollars', 'wpet' ),
 				'code' => 'NZD',
 				'symbol' => '$',
 				'location' => 'before',
@@ -155,7 +155,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Norwegian Krone',
+				'display' => __( 'Norwegian Krone', 'wpet' ),
 				'code' => 'NOK',
 				'symbol' => 'kr',
 				'location' => 'after',
@@ -163,7 +163,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Philippine Pesos',
+				'display' => __( 'Philippine Pesos', 'wpet' ),
 				'code' => 'PHP',
 				'symbol' => '₱',
 				'location' => 'before',
@@ -171,7 +171,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Polish Zloty',
+				'display' => __( 'Polish Zloty', 'wpet' ),
 				'code' => 'PLN',
 				'symbol' => 'zł',
 				'location' => 'before',
@@ -179,7 +179,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Pounds Sterling',
+				'display' => __( 'Pounds Sterling', 'wpet' ),
 				'code' => 'GBP',
 				'symbol' => '£',
 				'location' => 'before',
@@ -187,7 +187,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Singapore Dollar',
+				'display' => __( 'Singapore Dollar', 'wpet' ),
 				'code' => 'SGD',
 				'symbol' => '$',
 				'location' => 'before',
@@ -195,7 +195,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Swedish Krona',
+				'display' => __( 'Swedish Krona', 'wpet' ),
 				'code' => 'SEK',
 				'symbol' => 'kr',
 				'location' => 'before',
@@ -203,7 +203,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Swiss Franc',
+				'display' => __( 'Swiss Franc', 'wpet' ),
 				'code' => 'CHF',
 				'symbol' => 'CHF',
 				'location' => 'before',
@@ -211,7 +211,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Taiwan New Dollars',
+				'display' => __( 'Taiwan New Dollars', 'wpet' ),
 				'code' => 'TWD',
 				'symbol' => '$',
 				'location' => 'before',
@@ -219,7 +219,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Thai Baht',
+				'display' => __( 'Thai Baht', 'wpet' ),
 				'code' => 'THB',
 				'symbol' => '฿',
 				'location' => 'before',
@@ -227,7 +227,7 @@ class WPET_Currency extends WPET_Module {
 				'thousands_sep' => ','
 			),
 			array(
-				'display' => 'Yen',
+				'display' => __( 'Yen', 'wpet' ),
 				'code' => 'JYP',
 				'symbol' => '¥',
 				'location' => 'before',

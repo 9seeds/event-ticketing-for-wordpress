@@ -31,6 +31,8 @@ class WPET_Attendees extends WPET_Module {
 
 	/**
 	 * Overridden from parent to do download action if needed
+	 * 
+	 * @todo WTF naming. Not descriptive at all
 	 */
 	public function maybeSubmit() {
 		if ( isset( $_POST['download'] ) ) {

@@ -294,7 +294,7 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		//@TODO do the resets here
-		echo '<pre>'; var_dump($options['reset']); echo '</pre>';
+		
 		$reset = array();
 		foreach( $options['reset'] AS $k => $v ) {
 		    $reset[] = $k;

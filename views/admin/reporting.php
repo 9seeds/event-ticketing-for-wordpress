@@ -5,7 +5,7 @@
 		<?php
 			// if registration is closed, include link to settings page			
 			if( get_post_meta( WPET::getInstance()->events->getWorkingEvent()->ID ) && ( get_post_meta( WPET::getInstance()->events->getWorkingEvent()->ID, 'wpet_event_status', TRUE ) == 'closed' ) ) {
-				echo '<div id="message" class="updated"><p>Registration is currently closed. <a href="admin.php?page=wpet_settings">Open registration</a></p></div>';
+				echo '<div id="message" class="updated"><p>'. __( 'Registration is currently closed.', 'wpet' ) .'<a href="admin.php?page=wpet_settings">'. __( 'Open registration', 'wpet' ) .'</a></p></div>';
 			}
 		?>
 
@@ -81,7 +81,7 @@
 	<div class="report-column-2">
 		<div class="seeds-sidebar-box">
 			<h3><?php _e( 'Need Support?', 'wpet' ); ?></h3>
-			<p><?php echo sprintf( __( 'If you are having problems with the WP Event Ticketing plugin, please post them in the <a href="%s">support forums</a>.', 'wpet' ), 'http://support.9seeds.com/forum/wp-event-ticketing/' ); ?></p>
+			<p><?php echo sprintf( __( 'If you are having problems with the WP Event Ticketing plugin, please post them in the %ssupport forums%s.', 'wpet' ), '<a href="http://support.9seeds.com/">', '</a>' ); ?></p>
 		</div>
 		<div class="seeds-sidebar-box-2">
 			<h3><?php _e( 'Spread the Love', 'wpet' ); ?></h3>

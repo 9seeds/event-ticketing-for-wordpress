@@ -28,7 +28,7 @@ class WPET_Instructions extends WPET_Module {
 			array(
 			'id'	=> 'overview',
 			'title'	=> __( 'Overview', 'wpet' ),
-			'content'	=> '<p>' . __( 'This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages.' ) . '</p>',
+			'content'	=> '<p>' . __( 'This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages.', 'wpet' ) . '</p>',
 			)
 		);
 	}

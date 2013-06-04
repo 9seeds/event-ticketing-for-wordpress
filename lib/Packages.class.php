@@ -274,10 +274,10 @@ class WPET_Packages extends WPET_Module {
 	 */
 	public function reserve( $package_id, $qty ) {
 		$wpet_qty = (int)get_post_meta( $package_id, 'wpet_quantity', true);
-		echo "<p>wpet_qty: $wpet_qty - $qty = ";
+		
 		$wpet_qty -= $qty;
 		
-		echo "$wpet_qty</p>";
+		
 		
 		//don't let this go below zero (even though the possiblity of over-selling an event exists)
 		if ( $wpet_qty < 0 )
