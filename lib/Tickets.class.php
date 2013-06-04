@@ -350,12 +350,4 @@ class WPET_Tickets extends WPET_Module {
 	    return $s;
 	}
 
-	public function sold( $event_id, $ticket_id ) {
-
-	}
-
-	public function remaining( $event_id, $ticket_id ) {
-
-	}
-
 }// end class

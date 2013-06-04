@@ -490,10 +490,10 @@ class WPET_Installer {
 	$default_options = array();
 
 	if (!$this->new_ticket_options->anyExist()) {
-	    $default_options[] = $this->createTicketOption(__('First Name', 'wpet'));
-	    $default_options[] = $this->createTicketOption(__('Last Name', 'wpet'));
-	    $default_options[] = $this->createTicketOption(__('Email', 'wpet'));
-	    $default_options[] = $this->createTicketOption(__('Twitter', 'wpet'), false, false, false);
+	    $default_options[] = $this->new_ticket_options->createTicketOption(__('First Name', 'wpet'));
+	    $default_options[] = $this->new_ticket_options->createTicketOption(__('Last Name', 'wpet'));
+	    $default_options[] = $this->new_ticket_options->createTicketOption(__('Email', 'wpet'));
+	    $default_options[] = $this->new_ticket_options->createTicketOption(__('Twitter', 'wpet'), false, false, false);
 	}
 
 
@@ -533,26 +533,6 @@ class WPET_Installer {
 	}
     }
 
-    private function createTicketOption($name, $indeleteable = true, $ineditable = true, $required = true) {
-	$data = array(
-	    'post_title' => $name,
-	    'post_name' => str_replace('-', '_', sanitize_title_with_dashes($name)),
-	    'meta' => array(
-		'type' => 'text',
-	    )
-	);
-
-	if ($indeleteable)
-	    $data['meta']['indeleteable'] = true;
-
-	if ($ineditable)
-	    $data['meta']['ineditable'] = true;
-
-	if ($required)
-	    $data['meta']['required'] = true;
-
-	return $this->new_ticket_options->add($data);
-    }
 
     private function out($message) {
 	if ($this->cli)

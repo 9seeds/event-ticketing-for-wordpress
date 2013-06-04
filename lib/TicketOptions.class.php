@@ -211,6 +211,28 @@ class WPET_TicketOptions extends WPET_Module {
 	return $posts;
     }
 
+    public function createTicketOption($name, $indeleteable = true, $ineditable = true, $required = true) {
+		$data = array(
+			'post_title' => $name,
+			'post_name' => str_replace('-', '_', sanitize_title_with_dashes($name)),
+			'meta' => array(
+				'type' => 'text',
+							)
+					  );
+
+		if ($indeleteable)
+			$data['meta']['indeleteable'] = true;
+
+		if ($ineditable)
+			$data['meta']['ineditable'] = true;
+
+		if ($required)
+			$data['meta']['required'] = true;
+
+		return $this->add($data);
+    }
+
+	
     /**
      * Add post type for object
      *

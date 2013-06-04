@@ -268,7 +268,10 @@ class WPET_Packages extends WPET_Module {
 
 	    return $max_packages;
 	}
-
+	
+	/**
+	 * Decrease wpet_quantity, increase wpet_sold
+	 */
 	public function reserve( $package_id, $qty ) {
 		$wpet_qty = (int)get_post_meta( $package_id, 'wpet_quantity', true);
 		echo "<p>wpet_qty: $wpet_qty - $qty = ";
@@ -280,6 +283,15 @@ class WPET_Packages extends WPET_Module {
 		if ( $wpet_qty < 0 )
 			$wpet_qty = 0;
 		update_post_meta( $package_id, 'wpet_quantity', $wpet_qty );
-	}
 
+		//up the sold count
+		$wpet_sold = (int)get_post_meta( $package_id, 'wpet_sold', true);
+		update_post_meta( $package_id, 'wpet_sold', $wpet_sold + $qty, $wpet_sold );
+
+	}
+	
+	public function sold( $package_id ) {
+		return (int)get_post_meta( $package_id, 'wpet_sold', true );
+	}
+	
 }// end class

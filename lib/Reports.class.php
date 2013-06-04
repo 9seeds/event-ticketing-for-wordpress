@@ -98,8 +98,76 @@ class WPET_Reports extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function renderAdminPage() {
-		//$inst = apply_filters( 'wpet_instructions', $inst = array( 'instructions' => array() ) );
-		WPET::getInstance()->display( 'reporting.php' );
+
+
+		$event = WPET::getInstance()->events->getWorkingEvent();
+		$packages = WPET::getInstance()->packages;
+		$tickets = WPET::getInstance()->tickets;
+		$pkg_posts = $packages->findAllByEvent();
+
+		$package_rows = array();
+		$package_totals = array(
+			'sold' => 0,
+			'remaining' => 0,
+			'revenue' => 0,
+			'coupons' => 0 );
+
+		$ticket_rows = array();
+		$tkt_posts = array();
+		$ticket_totals = array(
+			'sold' => 0,
+			'remaining' => 0,
+		);
+		
+		foreach( $pkg_posts as $pkg_post ){
+			$packages_sold = $packages->sold( $pkg_post->ID );
+			$packages_remaining = $packages->remaining( $event->ID, $pkg_post->ID );
+
+			$package_rows[] = array(
+				'title' => $pkg_post->post_title,
+				'sold' => $packages_sold,
+				'remaining' => $packages_remaining,
+				'revenue' => 0, //@TODO
+				'coupons' => 0, //@TODO
+			);
+
+			//calc individual ticket info
+			if ( empty( $tkt_posts[$pkg_post->wpet_ticket_id] ) ) {
+				$tkt_post = $tickets->findByID( $pkg_post->wpet_ticket_id );
+				$tkt_posts[$pkg_post->wpet_ticket_id] = $tkt_post;
+				
+				$ticket_rows[$pkg_post->wpet_ticket_id] = array(
+					'title' => $tkt_post->post_title,
+					'sold' => 0,
+					'remaining' => 0,
+				);					
+			} else {
+				 $tkt_post = $tkt_posts[$pkg_post->wpet_ticket_id];
+			}
+
+			$tickets_sold = $pkg_post->wpet_ticket_quantity;
+			$tickets_remaining = 0; //@TODO
+			
+			$ticket_rows[$pkg_post->wpet_ticket_id]['sold'] += $tickets_sold;
+			$ticket_rows[$pkg_post->wpet_ticket_id]['remaining'] += $tickets_remaining;
+
+			
+			//add to totals
+			$ticket_totals['sold'] += $tickets_sold;
+			$ticket_totals['remaining'] += $tickets_remaining;
+			
+			$package_totals['sold'] += $packages_sold;
+			$package_totals['remaining'] += $packages_remaining;
+
+		}
+		$package_rows[] = $package_totals;
+		$ticket_rows[] = $ticket_totals;
+		
+		$data = array(
+			'package_rows' => $package_rows,
+			'ticket_rows' => $ticket_rows,
+		);
+		WPET::getInstance()->display( 'reporting.php', $data );
 	}
 
 }// end class

@@ -22,32 +22,25 @@
 			</thead>
 			<tbody>
 				<?php
-				/**
-				 * @todo Replace with proper data values
-				 *
-				 */
-				?>
+					end( $data['package_rows'] );
+					list( $key, $totals ) = each( $data['package_rows'] );
+					unset( $data['package_rows'][$key] );
+					foreach( $data['package_rows'] as $row ): ?>
 				<tr>
-					<td><?php _e( 'General Admission', 'wpet' ); ?></td>
-					<td>229</td>
-					<td>31</td>
-					<td>$2,220.00</td>
-					<td>($50.00)</td>
-				</tr>
-				<tr>
-					<td><?php _e( 'Earlybirds', 'wpet' ); ?></td>
-					<td>26</td>
-					<td>24</td>
-					<td>$260.00</td>
-					<td>($0.00)</td>
-				</tr>
+					<td><?php echo $row['title'] ?></td>
+					<td><?php echo $row['sold'] ?></td>
+					<td><?php echo $row['remaining'] ?></td>
+					<td><?php echo $row['revenue'] ?></td>
+					<td><?php echo $row['coupons'] ?></td>
+				</tr>						
+				<?php endforeach; ?>
 				<tr>
 					<td><strong><?php _e( 'Totals', 'wpet' ); ?></strong></td>
-					<td><strong>255</strong></td>
-					<td><strong>55</strong></td>
-					<td><strong>$2,480.00</strong></td>
-					<td><strong>($50.00)</strong></td>
-				</tr>
+					<td><strong><?php echo $totals['sold'] ?></strong></td>
+					<td><strong><?php echo $totals['remaining'] ?></strong></td>
+					<td><strong><?php echo $row['revenue'] ?></strong></td>
+					<td><strong><?php echo $row['coupons'] ?></strong></td>
+				</tr>						
 			</tbody>
 		</table>
 		<h2><?php _e( 'Sales by Ticket Type', 'wpet' ); ?></h2>
@@ -59,24 +52,21 @@
 					<th><?php _e( 'Remaining', 'wpet' ); ?></th>
 				</tr>
 				<?php
-				/**
-				 * @todo replace these with actual data
-				 */
+					end( $data['ticket_rows'] );
+					list( $key, $totals ) = each( $data['ticket_rows'] );
+					unset( $data['ticket_rows'][$key] );
+					foreach( $data['ticket_rows'] as $row ):
 				?>
 				<tr>
-					<td><?php _e( 'General Admission', 'wpet' ); ?></td>
-					<td>255</td>
-					<td>145</td>
-				</tr>
-				<tr>
-					<td><?php _e( 'Special Admission', 'wpet' ); ?></td>
-					<td>5</td>
-					<td>15</td>
-				</tr>
+					<td><?php echo $row['title'] ?></td>
+					<td><?php echo $row['sold'] ?></td>
+					<td><?php echo $row['remaining'] ?></td>
+				</tr>						
+				<?php endforeach; ?>
 				<tr>
 					<td><strong><?php _e( 'Totals', 'wpet' ); ?></strong></td>
-					<td><strong>260</strong></td>
-					<td><strong>160</strong></td>
+					<td><strong><?php echo $totals['sold'] ?></strong></td>
+					<td><strong><?php echo $totals['remaining'] ?></strong></td>
 				</tr>
 			</thead>
 			<tbody>
