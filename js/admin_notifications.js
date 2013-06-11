@@ -2,8 +2,8 @@ jQuery(document).ready(function($) {
 
 	$('#wpet_admin_notification_add').submit(function() {
 		//do validation
-		if ( ! ( $( '#all-attendees' ).checked || 
-			$( '#attendees-have-info' ).checked ) ) {
+		if ( ! ( $( '#all-attendees' ).is(':checked') || 
+			$( '#attendees-have-info' ).is(':checked') ) ) {
             alert( wpet_notifications_add.send_to_required );
             return false;
         }
