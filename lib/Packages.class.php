@@ -293,5 +293,9 @@ class WPET_Packages extends WPET_Module {
 	public function sold( $package_id ) {
 		return (int)get_post_meta( $package_id, 'wpet_sold', true );
 	}
+
+	public function cost( $package_id ) {
+		return get_post_meta( $package_id, 'wpet_package_cost', true );
+	}
 	
 }// end class

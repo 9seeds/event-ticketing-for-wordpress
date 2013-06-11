@@ -122,12 +122,13 @@ class WPET_Reports extends WPET_Module {
 		foreach( $pkg_posts as $pkg_post ){
 			$packages_sold = $packages->sold( $pkg_post->ID );
 			$packages_remaining = $packages->remaining( $event->ID, $pkg_post->ID );
-
+			$packages_rev = $packages_sold * $packages->cost( $pkg_post->ID );
+			
 			$package_rows[] = array(
 				'title' => $pkg_post->post_title,
 				'sold' => $packages_sold,
 				'remaining' => $packages_remaining,
-				'revenue' => 0, //@TODO
+				'revenue' => $packages_rev,
 				'coupons' => 0, //@TODO
 			);
 
@@ -140,13 +141,13 @@ class WPET_Reports extends WPET_Module {
 					'title' => $tkt_post->post_title,
 					'sold' => 0,
 					'remaining' => 0,
-				);					
+				);
 			} else {
 				 $tkt_post = $tkt_posts[$pkg_post->wpet_ticket_id];
 			}
 
 			$tickets_sold = $pkg_post->wpet_ticket_quantity;
-			$tickets_remaining = 0; //@TODO
+			$tickets_remaining = $packages_remaining * $pkg_post->wpet_ticket_quantity;
 			
 			$ticket_rows[$pkg_post->wpet_ticket_id]['sold'] += $tickets_sold;
 			$ticket_rows[$pkg_post->wpet_ticket_id]['remaining'] += $tickets_remaining;
@@ -158,6 +159,7 @@ class WPET_Reports extends WPET_Module {
 			
 			$package_totals['sold'] += $packages_sold;
 			$package_totals['remaining'] += $packages_remaining;
+			$package_totals['revenue'] += $packages_rev;
 
 		}
 		$package_rows[] = $package_totals;
