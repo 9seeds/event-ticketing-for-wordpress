@@ -35,24 +35,26 @@ jQuery(document).ready(function($) {
 
 	});
 
-/*	$('#wpet_admin_ticket_option_add').submit(function() {
+	$('#wpet_admin_ticket_option_add').submit(function() {
 		//do validation
 		if ( jQuery.trim( $( '#display_name' ).val() ) == '' ) {
 				alert( wpet_ticket_options_add.name_required );
 				return false;
 		}
 		
-		// Dynamic ticket options
-		rows = jQuery( '#option_values' ).find( '.option-value' );
-		var good_options = true;
-		rows.each( function() {
-		
-			if( jQuery.trim( $(this).val() ) == '') {
-				alert( wpet_ticket_options_add.option_required );
-				good_options = false;
-			}    
-		
-		});
+		if( jQuery.trim( $( '#option_type' ).val() ) != 'text' ) {
+			// Dynamic ticket options
+			rows = jQuery( '#option_values' ).find( '.option-value' );
+			var good_options = true;
+			rows.each( function() {
+			
+				if( jQuery.trim( $(this).val() ) == '') {
+					alert( wpet_ticket_options_add.option_required );
+					good_options = false;
+				}    
+			
+			});
+		}
 		
 		if( !good_options ) {
 		    return false;
@@ -60,5 +62,4 @@ jQuery(document).ready(function($) {
 
 		return true;
 	});
-*/
 });
