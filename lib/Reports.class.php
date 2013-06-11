@@ -5,11 +5,13 @@
  */
 class WPET_Reports extends WPET_Module {
 
+	private $percent_sold = 0;
+	
 	/**
 	 * @since 2.0
 	 */
 	public function __construct() {
-		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 1 );
+		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 1 );		
 	}
 
 	/**
@@ -18,17 +20,10 @@ class WPET_Reports extends WPET_Module {
 	 */
 	public function enqueueAdminScripts() {
 		wp_register_script( 'google-jsapi', 'https://www.google.com/jsapi' );
-		wp_register_script( 'wpet-admin-reports', WPET_PLUGIN_URL . 'js/admin_reports.js', array( 'google-jsapi' ) );
+		//put these in the footer
+		wp_register_script( 'wpet-admin-reports', WPET_PLUGIN_URL . 'js/admin_reports.js', array( 'google-jsapi' ), NULL, true );
 		wp_enqueue_script( 'wpet-admin-reports' );
-		wp_localize_script(
-			'wpet-admin-reports',
-			'reportsL10n',
-			array(
-				'data' => array(
-					array( 'Label', 'Value' ),
-					array( __( '% Sold' ), 80 ), //@TODO add percent sold of Working Event
-				),
-		) );
+		add_action( 'admin_footer', array( $this, 'adminFooter' ) );
 	}
 
 	/**
@@ -164,6 +159,8 @@ class WPET_Reports extends WPET_Module {
 		}
 		$package_rows[] = $package_totals;
 		$ticket_rows[] = $ticket_totals;
+
+		$this->percent_sold = ( $package_totals['sold'] / ( $package_totals['sold'] + $package_totals['remaining'] ) ) * 100;
 		
 		$data = array(
 			'package_rows' => $package_rows,
@@ -172,4 +169,16 @@ class WPET_Reports extends WPET_Module {
 		WPET::getInstance()->display( 'reporting.php', $data );
 	}
 
+	public function adminFooter() {
+		wp_localize_script(
+			'wpet-admin-reports',
+			'reportsL10n',
+			array(
+				'data' => array(
+					array( 'Label', 'Value' ),
+					array( __( '% Sold' ), $this->percent_sold ), //@TODO add percent sold of Working Event
+				),
+		) );
+	}
+	
 }// end class
