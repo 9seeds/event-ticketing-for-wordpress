@@ -275,7 +275,7 @@ class WPET {
 		if ( $file == $this_plugin ) {
 			$links[] = '<a href="'.menu_page_url( 'wpet_settings', 0 ).'">'.__('Settings', 'wpet').'</a>';
 			$links[] = '<a href="'.menu_page_url( 'wpet_instructions', 0 ).'">'.__('Instructions', 'wpet').'</a>';
-			$links[] = '<a href="http://support.9seeds.com/forums/wp-event-ticketing/">' . __('Support Forum','wpet') . '</a>';
+			$links[] = '<a href="http://support.9seeds.com/">' . __('Support Forum','wpet') . '</a>';
 		}
 
 		return $links;

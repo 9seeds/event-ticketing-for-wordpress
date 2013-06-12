@@ -5,7 +5,7 @@
 </div>
 
 <h3><strong><?php _e( 'Step 1', 'wpet' ); ?></strong></h3>
-<p><?php echo sprintf( __( 'On the %sPayments%s page, click the %s tab to configure your payment gateway', 'wpet' ), '<a href="admin.php?page=wpet_settings">Settings</a>', '<strong>', '</strong>' ); ?></p>
+<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sPayment Gateways%s tab to configure your payment gateway', 'wpet' ), '<a href="admin.php?page=wpet_settings">', '</a>', '<strong>', '</strong>' ); ?></p>
 
 <h3><strong><?php _e( 'Step 2', 'wpet' ); ?></strong></h3>
 <p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sEvent%s tab and enter the default settings for your event', 'wpet' ), '<a href="admin.php?page=wpet_settings">', '</a>', '<strong>', '</strong>' ); ?></p>
