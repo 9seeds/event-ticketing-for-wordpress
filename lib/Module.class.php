@@ -88,11 +88,12 @@ abstract class WPET_Module {
 
 			$message = 2; //save message
 			if ( ! empty( $_REQUEST['post'] ) ) {
-				$post_data['ID'] = $_REQUEST['post'];
+				$post_id = $this->update( $_REQUEST['post'], $post_data );
 				$message = 1; //update message
+			} else {
+				$post_id = $this->add( $post_data );
 			}
-
-			$post_id = $this->add( $post_data );
+			
 			wp_redirect(
 				add_query_arg(
 					array( 'post' => $post_id,
@@ -260,25 +261,18 @@ abstract class WPET_Module {
 	    $data['ID'] = $post_id;
 
 	    if( !isset( $data['post_type'] ) ) {
-		$post = get_post( $post_id );
-		$data['post_type'] = $post->post_type;
+			$post = get_post( $post_id );
+			$data['post_type'] = $post->post_type;
 	    }
 	    $data = apply_filters( $data['post_type'] . '_update', $data );
 	    $data = apply_filters( 'wpet_update', $data );
 	    
-	//    echo '<pre>'; var_dump( $data ); echo '</pre>';
-	    // Cleanup to prevent breakage
-//	    if( is_array( $data ) && isset( $data['guid'] ) )
-//		unset( $data['guid'] );
-//	    else if( isset( $data->guid ) )
-//		unset( $data->guid );
-//echo '<pre>'; var_dump( $data ); echo '</pre>';
 	    $post_id = wp_update_post( $data );
 
 	    if( isset( $data['meta'] ) ) {
-		$this->saveMeta( $post_id, $data['meta'] );
+			$this->saveMeta( $post_id, $data['meta'] );
 	    }
-	    //return $this->add( $data );
+	    return $post_id;
 	}
 
 	/**
