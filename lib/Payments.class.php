@@ -418,13 +418,12 @@ class WPET_Payments extends WPET_Module {
 		}
 		
 		$_POST['total'] = $total; // Add total to payment details
+		$_POST['event_id'] = WPET::getInstance()->events->getWorkingEvent()->ID; // @TODO can we guarantee this is set?
 		
 		$data = array(
 		    'post_title' => uniqid(),
 		    'post_status' => 'draft',
-		    'meta' => $_POST/* array(
-			  'package_data' => $_POST
-			  ) */
+		    'meta' => $_POST
 		);
 		$payment_id = WPET::getInstance()->payment->add($data);
 		
