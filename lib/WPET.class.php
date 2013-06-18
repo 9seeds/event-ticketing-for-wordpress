@@ -137,6 +137,12 @@ class WPET {
 	 * @param array $atts
 	 */
 	public function renderwpetShortcode( $atts ) {
+		wp_register_script( 'wpet-gateway-manual', WPET_PLUGIN_URL . 'js/gateway_manual.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpet-gateway-manual');
+		wp_localize_script( 'wpet-gateway-manual', 'wpet_manual_gateway', array(
+			'quantity_required' => __( 'Quantity is required', 'wpet' ),
+		) );
+
 	    wp_enqueue_script( 'wpet-order-form', WPET_PLUGIN_URL . 'js/order_form.js', array( 'jquery') );
 	    wp_localize_script( 'wpet-order-form', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	    $data = array();
