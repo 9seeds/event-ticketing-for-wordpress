@@ -294,15 +294,17 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		//@TODO do the resets here
-
 		/*
-		$reset = array();
-		foreach( $options['reset'] AS $k => $v ) {
-		    $reset[] = $k;
+		if( isset($options['reset']) && !empty($options['reset'])) {
+		    $reset = array();
+		    foreach( $options['reset'] AS $k => $v ) {
+				$reset[] = $k;
+		    }
+
+		    require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
+		    $installer = new WPET_Installer();
+		    $installer->reset( $reset );
 		}
-		require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
-		$installer = new WPET_Installer();
-		$installer->reset( $reset );
 		unset( $options['reset'] );
 		*/
 		

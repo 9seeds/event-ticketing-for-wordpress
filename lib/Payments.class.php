@@ -363,7 +363,7 @@ class WPET_Payments extends WPET_Module {
      * @return string 
      */
     public function showPayment($content) {
-	return '<p id="wpet-payment-sucessfull">Orer completed successful</p>' . $content;
+	return '<p id="wpet-payment-sucessfull">Order completed successful</p>' . $content;
     }
 
     /**
@@ -545,9 +545,6 @@ class WPET_Payments extends WPET_Module {
 
 	    $this->update($this->mPayment->ID, $data);
 	}
-	
-	//echo '<pre>'; var_dump($this->mPayment); echo '</pre>';
-	//echo '<pre>'; var_dump( $this->mPayment->wpet_attendees); echo '</pre>';
 	
 	/*
 	 * Subtract number of tickets in this package from the available

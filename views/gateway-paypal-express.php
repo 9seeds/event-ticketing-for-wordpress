@@ -1,4 +1,4 @@
-<h1>PayPal Payment</h1>
+<h1><?php _e( 'PayPal Payment', 'wpet' ); ?></h1>
 <div id="eventTicketing">
 <form action="" method="post">
 	<p><?php _e( 'Please enter your name and PayPal email address to pay for your tickets', 'wpet' ); ?></p>

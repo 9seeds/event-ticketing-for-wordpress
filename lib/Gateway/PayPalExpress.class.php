@@ -126,6 +126,24 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	    'CANCELURL' => add_query_arg(array('cancel' => '1'), $payment_url),
 	);
 
+	if( count( $payment->wpet_package_purchase ) <= 10 ) { 
+	    $index = 0;
+	    foreach( $payment->wpet_package_purchase AS $pkg => $qty ) {
+		if( $index > 9 ) continue; // last check for valid package count for paypal api
+		
+		$pack = WPET::getInstance()->packages->findByID( $pkg );
+		
+		//$item_total = $pack->wpet_package_cost * $qty;
+		
+		$nvp['L_PAYMENTREQUEST_' . $index . '_NAME' . $index] = $pack->post_title;
+		$nvp['L_PAYMENTREQUEST_' . $index . '_DESC' . $index] = $pack->post_content;
+		$nvp['L_PAYMENTREQUEST_' . $index . '_AMT' . $index] = $pack->wpet_package_cost;
+		$nvp['L_PAYMENTREQUEST_' . $index . '_QTY' . $index] = $qty;
+		
+		
+		$index++;
+	    }
+	}
 	$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
 	$other_args = array(
