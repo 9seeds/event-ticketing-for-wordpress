@@ -1,6 +1,6 @@
-<h1>Manual Payment</h1>
+<h1><?php _e( 'Manual Payment', 'wpet' ); ?></h1>
 <div id="eventTicketing">
-<form action="" method="post">
+<form action="" method="post" id="manual_payment_details">
 	<p><?php _e( 'Please enter a name and email address for your confirmation and tickets', 'wpet' ); ?></p>
 	<ul class="ticketPurchaseInfo">
 		<li>
