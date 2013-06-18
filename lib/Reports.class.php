@@ -6,6 +6,8 @@
 class WPET_Reports extends WPET_Module {
 
 	private $percent_sold = 0;
+	private $packages = array();
+	private $tickets = array();
 	
 	/**
 	 * @since 2.0
@@ -96,65 +98,79 @@ class WPET_Reports extends WPET_Module {
 
 
 		$event = WPET::getInstance()->events->getWorkingEvent();
+		$payment = WPET::getInstance()->payment;
 		$packages = WPET::getInstance()->packages;
-		$tickets = WPET::getInstance()->tickets;
-		$pkg_posts = $packages->findAllByEvent();
+		$coupons = WPET::getInstance()->coupons;
+
+		$pmt_posts = $payment->findAllByEvent();
+
+		//die('<pre>'.print_r($pmt_posts, true));
 
 		$package_rows = array();
-		$package_totals = array(
+		$default_package_row = array(
+			'title' => '',
 			'sold' => 0,
 			'remaining' => 0,
 			'revenue' => 0,
-			'coupons' => 0 );
+			'coupons' => 0 );		
+		$package_totals = $default_package_row;
 
 		$ticket_rows = array();
-		$tkt_posts = array();
-		$ticket_totals = array(
+		$default_ticket_row = array(
+			'title' => '',
 			'sold' => 0,
 			'remaining' => 0,
 		);
-		
-		foreach( $pkg_posts as $pkg_post ){
-			$packages_sold = $packages->sold( $pkg_post->ID );
+		$ticket_totals = $default_ticket_row;
+
+		//new
+		foreach ( $pmt_posts as $pmt_post ) {			
+			foreach ( $pmt_post->wpet_package_purchase as $package_id => $qty ) {
+				if ( ! isset( $package_rows[$package_id] ) )
+					$package_rows[$package_id] = $default_package_row;
+
+
+				$package_rev = $qty * $packages->cost( $package_id );
+				$package_rows[$package_id]['sold'] += $qty;
+				$package_rows[$package_id]['revenue'] = $package_rev;
+
+				if ( $pmt_post->wpet_coupon_code ) {
+					$discount = $coupons->calcDiscount( $package_rev, $package_id, $pmt_post->wpet_coupon_code );
+					$package_rows[$package_id]['coupons'] += $discount;
+					$package_rows[$package_id]['revenue'] -= $discount;
+				}
+			}			
+		}
+
+		foreach( $package_rows as $package_id => $row ) {
+			$pkg_post = $this->getPackage( $package_id );
 			$packages_remaining = $packages->remaining( $event->ID, $pkg_post->ID );
-			$packages_rev = $packages_sold * $packages->cost( $pkg_post->ID );
+
+			$package_rows[$package_id]['title'] = $pkg_post->post_title;
+			$package_rows[$package_id]['remaining'] = $packages_remaining;
 			
-			$package_rows[] = array(
-				'title' => $pkg_post->post_title,
-				'sold' => $packages_sold,
-				'remaining' => $packages_remaining,
-				'revenue' => $packages_rev,
-				'coupons' => 0, //@TODO
-			);
-
 			//calc individual ticket info
-			if ( empty( $tkt_posts[$pkg_post->wpet_ticket_id] ) ) {
-				$tkt_post = $tickets->findByID( $pkg_post->wpet_ticket_id );
-				$tkt_posts[$pkg_post->wpet_ticket_id] = $tkt_post;
-				
-				$ticket_rows[$pkg_post->wpet_ticket_id] = array(
-					'title' => $tkt_post->post_title,
-					'sold' => 0,
-					'remaining' => 0,
-				);
-			} else {
-				 $tkt_post = $tkt_posts[$pkg_post->wpet_ticket_id];
-			}
+			$tkt_post = $this->getTicket( $pkg_post->wpet_ticket_id );
 
+			if ( ! isset( $ticket_rows[$pkg_post->wpet_ticket_id] ) ) {
+				$ticket_rows[$pkg_post->wpet_ticket_id] = $default_ticket_row;
+				$ticket_rows[$pkg_post->wpet_ticket_id]['title'] = $tkt_post->post_title;
+			}
+			
 			$tickets_sold = $pkg_post->wpet_ticket_quantity;
 			$tickets_remaining = $packages_remaining * $pkg_post->wpet_ticket_quantity;
 			
 			$ticket_rows[$pkg_post->wpet_ticket_id]['sold'] += $tickets_sold;
 			$ticket_rows[$pkg_post->wpet_ticket_id]['remaining'] += $tickets_remaining;
-
 			
 			//add to totals
 			$ticket_totals['sold'] += $tickets_sold;
-			$ticket_totals['remaining'] += $tickets_remaining;
-			
-			$package_totals['sold'] += $packages_sold;
+			$ticket_totals['remaining'] += $tickets_remaining;			
+
+			$package_totals['sold'] += $package_rows[$package_id]['sold'];
 			$package_totals['remaining'] += $packages_remaining;
-			$package_totals['revenue'] += $packages_rev;
+			$package_totals['revenue'] += $package_rows[$package_id]['revenue'];
+			$package_totals['coupons'] += $package_rows[$package_id]['coupons'];
 
 		}
 		$package_rows[] = $package_totals;
@@ -173,6 +189,22 @@ class WPET_Reports extends WPET_Module {
 		WPET::getInstance()->display( 'reporting.php', $data );
 	}
 
+	private function getPackage( $package_id ) {
+		if ( ! isset( $this->packages[$package_id] ) ) {
+			$packages = WPET::getInstance()->packages;
+			$this->packages[$package_id] = $packages->findByID( $package_id );
+		}
+		return $this->packages[$package_id];
+	}
+
+	private function getTicket( $ticket_id ) {
+		if ( ! isset( $this->tickets[$ticket_id] ) ) {
+			$tickets = WPET::getInstance()->tickets;
+			$this->tickets[$ticket_id] = $tickets->findByID( $ticket_id );
+		}
+		return $this->tickets[$ticket_id];
+	}
+
 	public function adminFooter() {
 		wp_localize_script(
 			'wpet-admin-reports',
@@ -180,7 +212,7 @@ class WPET_Reports extends WPET_Module {
 			array(
 				'data' => array(
 					array( 'Label', 'Value' ),
-					array( __( '% Sold' ), $this->percent_sold ), //@TODO add percent sold of Working Event
+					array( __( '% Sold' ), (float)number_format($this->percent_sold, 2, '.', '' ) ),
 				),
 		) );
 	}

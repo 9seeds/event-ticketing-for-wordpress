@@ -283,30 +283,19 @@ class WPET_Packages extends WPET_Module {
 	}
 	
 	/**
-	 * Decrease wpet_quantity, increase wpet_sold
+	 * Decrease wpet_quantity
 	 */
 	public function reserve( $package_id, $qty ) {
 		$wpet_qty = (int)get_post_meta( $package_id, 'wpet_quantity', true);
 		
 		$wpet_qty -= $qty;
-		
-		
-		
+				
 		//don't let this go below zero (even though the possiblity of over-selling an event exists)
 		if ( $wpet_qty < 0 )
 			$wpet_qty = 0;
 		update_post_meta( $package_id, 'wpet_quantity', $wpet_qty );
-
-		//up the sold count
-		$wpet_sold = (int)get_post_meta( $package_id, 'wpet_sold', true);
-		update_post_meta( $package_id, 'wpet_sold', $wpet_sold + $qty, $wpet_sold );
-
 	}
 	
-	public function sold( $package_id ) {
-		return (int)get_post_meta( $package_id, 'wpet_sold', true );
-	}
-
 	public function cost( $package_id ) {
 		return get_post_meta( $package_id, 'wpet_package_cost', true );
 	}

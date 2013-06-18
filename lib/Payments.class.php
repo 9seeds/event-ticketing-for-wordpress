@@ -606,6 +606,27 @@ class WPET_Payments extends WPET_Module {
 	return $ret;
     }
 
+	/**
+	 * Find all payments attached to an event
+	 *
+	 * @since 2.0
+	 * @param int $event_id event ID (optional - current event used if not supplied)
+	 * @return Array of WP_Posts
+	 */
+	public function findAllByEvent( $event_id = NULL ) {
+
+		if ( ! $event_id )
+			$event_id = WPET::getInstance()->events->getWorkingEvent()->ID;
+
+		$args = array(
+			'meta_key' => 'wpet_event_id',
+			'meta_value' => $event_id
+		);
+		
+		return $this->find( $args );
+	}
+	
+
     private function reserveTickets() {
 	$this->loadPayment();
 	$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);

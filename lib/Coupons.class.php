@@ -65,40 +65,43 @@ class WPET_Coupons extends WPET_Module {
 	    die();
 	}
 	
-	public function calcDiscount( $amount, $package_id, $code ) {
-	    
+	public function calcDiscount( $amount, $package_id, $code ) {	    
 	    $coupon = $this->findByCode( $code );
 	    
 	    $discount = 0.00;
-	
-	    if( is_a( $coupon, 'WP_Post' ) 
-			    && /* odd hack */ $_POST['coupon_code'] == $coupon->post_title
-			    && ( /* applies to any */ '' == $coupon->wpet_package_id 
-				 || $package_id == $coupon->wpet_package_id 
-				 || 'any' == $coupon->wpet_package_id ) 
-		    ) {
 
-		switch( $coupon->wpet_type ) {
-		    case 'flat-rate':
-			$discount = $coupon->wpet_amount;
-			break;
-		    case 'percentage':
-			if( 100 == $coupon->wpet_amount ) {
-			    $discount = $amount;
-			    break;
-			}
+	    if( is_a( $coupon, 'WP_Post' ) ) {
+			if ( isset( $_POST['coupon_code'] ) && $_POST['coupon_code'] != $coupon->post_title )
+				return $discount;
+
+			if ( /* applies to any */ '' == $coupon->wpet_package_id 
+				 || $package_id == $coupon->wpet_package_id 
+				 || 'any' == $coupon->wpet_package_id ) {
+
+				switch( $coupon->wpet_type ) {
+					case 'flat-rate':
+						$discount = $coupon->wpet_amount;
+						break;
+					case 'percentage':
+						if( 100 == $coupon->wpet_amount ) {
+							$discount = $amount;
+							break;
+						}
 			 
-			$discount = $amount * ( $coupon->wpet_amount / 100 );
-			break;
+						$discount = $amount * ( $coupon->wpet_amount / 100 );
+						break;
+				}
+
+			}
 		}
-	    }
+
 	    return $discount;
 	}
 	
 	public function findByCode( $code ) {
 	    $args = array(
-		'name' => $code,
-		'post_type' => $this->mPostType,
+			'name' => $code,
+			'post_type' => $this->mPostType,
 	    );
 	    
 	    $posts = new WP_Query( $args );
@@ -106,11 +109,9 @@ class WPET_Coupons extends WPET_Module {
 	    $posts = ($posts->get_posts());
 	    
 	    if( empty( $posts )) 
-		return false;
+			return false;
 	    
-	    return $posts[0];
-	    
-	    //return $this->findOne( $args );
+	    return reset( $posts );
 	}
 	
 	/**
