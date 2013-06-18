@@ -110,7 +110,7 @@ class WPET {
 	 * @since 2.0
 	 */
 	public function registerShortcodes() {
-	    add_shortcode( 'wpet',  array( $this, 'renderwpeventticketingShortcode' ) );
+	    add_shortcode( 'wpet',  array( $this, 'renderwpetShortcode' ) );
 	    /* for backwards compat */
 	    add_shortcode( 'wpeventticketing',  array( $this, 'renderlegacyWpeventticketingShortcode' ) );
 	    
@@ -136,7 +136,7 @@ class WPET {
 	 * @since 2.0
 	 * @param array $atts
 	 */
-	public function renderwpeventticketingShortcode( $atts ) {
+	public function renderwpetShortcode( $atts ) {
 	    wp_enqueue_script( 'wpet-order-form', WPET_PLUGIN_URL . 'js/order_form.js', array( 'jquery') );
 	    wp_localize_script( 'wpet-order-form', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	    $data = array();
