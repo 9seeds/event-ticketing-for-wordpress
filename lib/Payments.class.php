@@ -271,6 +271,10 @@ class WPET_Payments extends WPET_Module {
 
 	// Ensure we are in a valid status
 	if ('coll_att_data' == $status ) {
+	    if( 'post' == WPET::getInstance()->settings->collect_attendee_data) {
+		
+		add_filter('the_content', array($this, 'showPayment'));
+	    }
 	    add_filter('the_content', array($this, 'collectAttendeeData'));
 	}
 
@@ -299,7 +303,7 @@ class WPET_Payments extends WPET_Module {
 
 	$attendees = $this->mPayment->wpet_attendees;
 
-	$content = '<form action="" method="post">';
+	$content = $content . '<form action="" method="post">';
 	$content .= '<table>';
 
 	foreach ($attendees AS $a) {
@@ -359,7 +363,7 @@ class WPET_Payments extends WPET_Module {
      * @return string 
      */
     public function showPayment($content) {
-	return 'Payment successful';
+	return '<p id="wpet-payment-sucessfull">Orer completed successful</p>' . $content;
     }
 
     /**
