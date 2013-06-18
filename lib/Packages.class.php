@@ -221,7 +221,7 @@ class WPET_Packages extends WPET_Module {
 			'post_type' => $this->mPostType,
 			'showposts' => -1,
 			'posts_per_page' => -1,
-			'post_status' => array( 'publish', 'draft' ),
+			'post_status' => array( 'publish' ),
 	    );
 		
 		$data = wp_parse_args( $args, $defaults );
