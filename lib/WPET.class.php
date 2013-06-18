@@ -173,8 +173,8 @@ class WPET {
 	    $rows = $this->packages->findAllByEvent( $atts['event'] );
 		$data['event'] = $atts['event'];
 
-	    $data['columns'] = apply_filters( 'wpet_wpeventticketing_shortcode_columns', $columns );
-	    $data['rows'] = apply_filters( 'wpet_wpeventticketing_shortcode_rows', $rows );
+	    $data['columns'] = apply_filters( 'wpet_wpet_shortcode_columns', $columns );
+	    $data['rows'] = apply_filters( 'wpet_wpet_shortcode_rows', $rows );
 	    $data['hide_coupons'] = $this->settings->hide_coupons;
 	    $this->display( 'order_form.php', $data );
 	}

@@ -215,6 +215,19 @@ class WPET_Packages extends WPET_Module {
 	public function findAllByEvent() {
 		return $this->find();
 	}
+	
+	public function findForOrderForm() {
+	    $defaults = array(
+			'post_type' => $this->mPostType,
+			'showposts' => -1,
+			'posts_per_page' => -1,
+			'post_status' => array( 'publish', 'draft' ),
+	    );
+		
+		$data = wp_parse_args( $args, $defaults );
+
+	    return get_posts( $data );
+	}
 
 
 	/**
