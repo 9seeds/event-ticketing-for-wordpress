@@ -160,7 +160,11 @@ class WPET_Reports extends WPET_Module {
 		$package_rows[] = $package_totals;
 		$ticket_rows[] = $ticket_totals;
 
-		$this->percent_sold = ( $package_totals['sold'] / ( $package_totals['sold'] + $package_totals['remaining'] ) ) * 100;
+		if( $package_totals['sold'] > 0 ) {
+		    $this->percent_sold = ( $package_totals['sold'] / ( $package_totals['sold'] + $package_totals['remaining'] ) ) * 100;
+		} else {
+		    $this->percent_sold = 0;
+		}
 		
 		$data = array(
 			'package_rows' => $package_rows,
