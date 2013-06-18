@@ -40,6 +40,14 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 
     public function getPaymentForm() {
 
+   		wp_register_script( 'wpet-gateway-manual', WPET_PLUGIN_URL . 'js/gateway_manual.js', array( 'jquery' ) );
+		wp_enqueue_script( 'wpet-gateway-manual');
+		wp_localize_script( 'wpet-gateway-manual', 'wpet_manual_gateway', array(
+			'name_required' => __( 'Name is required', 'wpet' ),
+			'email_required' => __( 'Email is required', 'wpet' ),
+		) );
+
+
 
 	if (isset($_POST['submit'])) {
 	    if (!is_email($_POST['email']) || empty($_POST['name'])) {
