@@ -15,6 +15,8 @@ define( 'WPET_BASE', plugin_basename( __FILE__ ) );
 define( 'WPET_PLUGIN_FILE', __FILE__ );
 define( 'WPET_JQUERY_VERSION', '1.9.2' );
 
+load_plugin_textdomain( 'wpet', false, dirname( WPET_BASE ) . '/lang/' );
+
 require_once( 'lib/WPET.class.php' );
 
 $wpet = WPET::getInstance();
