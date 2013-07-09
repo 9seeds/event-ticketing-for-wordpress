@@ -284,6 +284,15 @@ class WPET {
 			$links[] = '<a href="'.menu_page_url( 'wpet_settings', 0 ).'">'.__('Settings', 'wpet').'</a>';
 			$links[] = '<a href="'.menu_page_url( 'wpet_instructions', 0 ).'">'.__('Instructions', 'wpet').'</a>';
 			$links[] = '<a href="http://support.9seeds.com/">' . __('Support Forum','wpet') . '</a>';
+			
+			if(file_exists( ABSPATH . '/WPET_DEV')) {
+			    // If we are in dev mode show the git hash
+			    exec('cd ' . WPET_PLUGIN_DIR . ' && git rev-parse --verify HEAD 2> /dev/null', $output);
+			    $hash = substr( $output[0], 0, 7 );
+			    exec('cd ' . WPET_PLUGIN_DIR . ' && git rev-parse --abbrev-ref HEAD 2> /dev/null', $output2);
+			    $branch = $output2[0];
+			    $links[] = '<b>Git</b> (<span style="color:red">branch</span>/<span style="color:green">hash</span>): <b style="color:red">' . $branch . '</b>/ <span style="color:green">' . $hash . '</span>';
+			}
 		}
 
 		return $links;

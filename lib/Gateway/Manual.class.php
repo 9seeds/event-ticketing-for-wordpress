@@ -50,14 +50,14 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 
 
 	if ( isset($_POST['submit']) && isset( $_POST['email'] ) && is_email($_POST['email']) ) {
-	    if (!is_email($_POST['email']) || empty($_POST['name'])) {
-		wp_die('errors!');
+	    if (!is_email($_POST['email']) || empty($_POST['payee_name'])) {
+		//wp_die('errors!');
 	    } else {
 		// Yay! It worked
 		$payment = WPET::getInstance()->payment->loadPayment();
 		
 		$meta = array(
-		    'name' => $_POST['name'],
+		    'name' => $_POST['payee_name'],
 		    'email' => $_POST['email']
 		);
 		
