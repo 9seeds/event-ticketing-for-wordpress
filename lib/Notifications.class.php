@@ -108,6 +108,7 @@ class WPET_Notifications extends WPET_Module {
 						'send_to_required' => __( 'You must select at least one group to send to', 'wpet' ),
 						'subject_required' => __( 'Subject is required', 'wpet' ),
 						'body_required' => __( 'Email Body is required', 'wpet' ),
+                        'confirmation' => __( 'Are you sure?', 'wpet' ),
 		) );
 
 		}
