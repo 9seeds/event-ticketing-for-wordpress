@@ -10,6 +10,7 @@ class WPET_Events extends WPET_Module {
 	public function __construct() {
 		$this->mPostType = 'wpet_event';
 		add_action( 'init', array( $this, 'registerPostType' ) );
+		add_action( 'init', array( $this, 'registerPostStatus' ) );
 	}
 
 	/**
@@ -43,7 +44,23 @@ class WPET_Events extends WPET_Module {
 
 	    register_post_type( $this->mPostType, $args );
 	}
-
+	
+    /**
+     * Registering a new post status of 'archived' for events
+     * 
+     * @since 2.0
+     */
+    public function registerPostStatus() {
+		register_post_status( 'archived', array(
+								 'label' => __( 'Archived', 'wpet' ),
+								 'public' => false,
+								 'exclude_from_search' => true,
+								 'show_in_admin_all_list' => true,
+								 'show_in_admin_status_list' => true,
+								 'label_count' => __( 'Archived <span class="count">(%s)</span>', 'wpet' ),
+		) );
+	}
+	
 	/**
 	 * Returns the current working event
 	 * 
@@ -63,6 +80,19 @@ class WPET_Events extends WPET_Module {
 		self::$WORKING_EVENT = $this->findOne( $args );
 
 		return self::$WORKING_EVENT;
+	}
+
+	public function archive( $event_id ) {
+		if ( ! $event_id ) {
+			$event = $this->getWorkingEvent();
+			$event_id = $event->ID;
+		}
+
+		$args = array(
+			'post_status' => 'archived'
+		);
+
+		return $this->update( $event_id, $args );
 	}
 
 	/**
