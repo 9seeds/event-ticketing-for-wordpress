@@ -14,11 +14,12 @@ jQuery(document).ready(function($) {
 			return false;
 		}
 
+        console.debug( tinyMCE.activeEditor.getContent() );
 		if ( tinyMCE.activeEditor.getContent() == '' ) {
 			alert( wpet_notifications_add.body_required );
 			return false;
 		}
 
-		return true;
+		return false;
 	});
 });
