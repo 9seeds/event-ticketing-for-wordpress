@@ -288,10 +288,10 @@ class WPET {
 			if(file_exists( ABSPATH . '/WPET_DEV')) {
 			    // If we are in dev mode show the git hash
 			    exec('cd ' . WPET_PLUGIN_DIR . ' && git rev-parse --verify HEAD 2> /dev/null', $output);
-			    $hash = $output[0];
+			    $hash = substr( $output[0], 0, 7 );
 			    exec('cd ' . WPET_PLUGIN_DIR . ' && git rev-parse --abbrev-ref HEAD 2> /dev/null', $output2);
 			    $branch = $output2[0];
-			    $links[] = '<b>Git</b> (<span style="color:red">branch</span>/<span style="color:green">hash</span>): <b style="color:red">' . $branch . '</b>/<span style="color:green">' . $hash . '</span>';
+			    $links[] = '<b>Git</b> (<span style="color:red">branch</span>/<span style="color:green">hash</span>): <b style="color:red">' . $branch . '</b>/ <span style="color:green">' . $hash . '</span>';
 			}
 		}
 
