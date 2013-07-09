@@ -83,7 +83,7 @@ class WPET_Settings extends WPET_Module {
 		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'jquery-ui-datepicker', 'wpet-jquery-cookie' ) );
 		wp_enqueue_script( 'wpet-admin-settings' );
 		wp_localize_script( 'wpet-admin-settings', 'resetL10n',
-							array( 'message' => __( "Are you sure you want to reset these?:\n{reset_list}", 'wpet' ) )
+							array( 'message' => __( "Are you sure you want to archive your current event?", 'wpet' ) )
 		);
 
 		wp_localize_script( 'wpet-admin-settings', 'settings_check',
@@ -165,7 +165,6 @@ class WPET_Settings extends WPET_Module {
 	 */
 	public function resetTab( $tabs ) {
 	    $tabs['reset'] = __( 'Reset', 'wpet' );
-
 	    return $tabs;
 	}
 
@@ -192,7 +191,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'event',
-			'title' => __( 'Settings Title', 'wpet' ),
+			'title' => '',
 			'text' => WPET::getInstance()->getDisplay( 'settings-event.php', $event_data, true )
 		);
 
@@ -205,7 +204,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'email',
-			'title' => 'Disable upgrade nag?',
+			'title' => '',
 			'text' => WPET::getInstance()->getDisplay( 'settings-email.php', $email_data, true )
 		);
 
@@ -215,7 +214,7 @@ class WPET_Settings extends WPET_Module {
 
 		$settings[] = array(
 		    'tab' => 'payment',
-			'title' => __( 'Second email', 'wpet' ),
+			'title' => '',
 			'text' => WPET::getInstance()->getDisplay( 'settings-payment.php', $payment_data, true )
 		);
 
@@ -225,15 +224,18 @@ class WPET_Settings extends WPET_Module {
 		);
 
 		//@TODO real data
+		$settings_data = array(
+			'archive_name' => $event->post_title . ' ' . $event->wpet_event_date,
+		);
 		$settings[] = array(
 		    'tab' => 'form_display',
-			'title' => __( 'Second email', 'wpet' ),
+			'title' => '',
 			'text' => WPET::getInstance()->getDisplay( 'settings-form-display.php', $form_display, true )
 		);
 		$settings[] = array(
 		    'tab' => 'reset',
-			'title' => __( 'Second email', 'wpet' ),
-			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', array(), true )
+			'title' => '',
+			'text' => WPET::getInstance()->getDisplay( 'settings-reset.php', $settings_data, true )
 		);
 
 		return $settings;

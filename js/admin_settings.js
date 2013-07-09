@@ -17,27 +17,6 @@ jQuery(document).ready(function($) {
 	}
 
 	$('#settings_form').submit(function() {
-		var reset_settings = $('[id^="options\[reset\]"]:checked');
-
-		if ( reset_settings.length ) {
-			
-			var reset_list = '';
-			reset_settings.each(function() {
-				reset_list += $('label[for="'+ $(this).attr('id') +'"]').html() + "\n";
-			});
-
-			var message = resetL10n.message.replace('{reset_list}', reset_list);
-
-			if ( confirm( message ) ) {
-				return true;
-			}
-			return false;
-		}
-
-		return true;
-	});
-
-	$('#settings_form').submit(function() {
 		//do validation
 
 		if ( jQuery.trim( $( '#event_date' ).val() ) == '' ) {
@@ -70,9 +49,14 @@ jQuery(document).ready(function($) {
 				return false;
 		}
 
+		if ( $("#options\\[archive_confirm\\]").is(':checked') ) {
+			if ( confirm( resetL10n.message ) ) {
+				return true;
+			}
+			return false;
+		}
+
 		return true;
 	});
-
-
 
 });
