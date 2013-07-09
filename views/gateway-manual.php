@@ -1,5 +1,10 @@
 <h1><?php _e( 'Manual Payment', 'wpet' ); ?></h1>
 <div id="eventTicketing">
+    <?php if( isset( $render_data['invalid_email'] ) ) { 
+    echo '<div>';
+	echo $render_data['invalid_email'];
+    echo '</div>';
+	 } ?>
 <form action="" method="post" id="manual_payment_details">
 	<p><?php _e( 'Please enter a name and email address for your confirmation and tickets', 'wpet' ); ?></p>
 	<ul class="ticketPurchaseInfo">

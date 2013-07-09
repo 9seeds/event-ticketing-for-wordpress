@@ -20,6 +20,6 @@ jQuery(document).ready(function($) {
 			return false;
 		}
 
-		return false;
+        return confirm( wpet_notifications_add.confirmation );
 	});
 });
