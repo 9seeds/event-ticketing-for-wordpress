@@ -73,7 +73,6 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 	    if( isset($_POST['email']) && !is_email($_POST['email'])) {
 		$render_data['invalid_email'] = 'Please enter a valid email address';
 	    }
-	    echo WPET::getInstance()->getDisplay('gateway-manual.php', $render_data);
 	    return WPET::getInstance()->getDisplay('gateway-manual.php', $render_data);
 	}
     }
