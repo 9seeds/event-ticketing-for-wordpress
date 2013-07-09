@@ -79,7 +79,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
     }
 
     public function getPaymentForm() {
-	if (isset($_POST['submit'])) {
+	if (isset($_POST['submit']) && isset( $_POST['email'] ) && is_email($_POST['email']) ) {
 	    if (!is_email($_POST['email']) || empty($_POST['name'])) {
 		wp_die('errors!');
 	    } else {
@@ -99,6 +99,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	    $render_data = array(
 		'cart' => WPET::getInstance()->payment->getCart(),
 	    );
+	    
+	    if( isset($_POST['email']) && !is_email($_POST['email'])) {
+		$render_data['invalid_email'] = 'Please enter a valid email address';
+	    }
 	    return WPET::getInstance()->getDisplay('gateway-paypal-express.php', $render_data);
 	}
     }
