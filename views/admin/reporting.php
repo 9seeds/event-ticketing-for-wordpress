@@ -5,7 +5,7 @@
 		<?php
 			// if registration is closed, include link to settings page			
 			if( get_post_meta( WPET::getInstance()->events->getWorkingEvent()->ID ) && ( get_post_meta( WPET::getInstance()->events->getWorkingEvent()->ID, 'wpet_event_status', TRUE ) == 'closed' ) ) {
-				echo '<div id="message" class="updated"><p>'. __( 'Registration is currently closed.', 'wpet' ) .'<a href="admin.php?page=wpet_settings">'. __( 'Open registration', 'wpet' ) .'</a></p></div>';
+				echo '<div id="message" class="updated"><p>'. __( 'Registration is currently closed.', 'wpet' ) .' <a href="admin.php?page=wpet_settings">'. __( 'Open registration', 'wpet' ) .'</a></p></div>';
 			}
 		?>
 
