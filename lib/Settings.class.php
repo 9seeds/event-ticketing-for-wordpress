@@ -296,19 +296,12 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		//@TODO do the resets here
-		/*
-		if( isset($options['reset']) && !empty($options['reset'])) {
-		    $reset = array();
-		    foreach( $options['reset'] AS $k => $v ) {
-				$reset[] = $k;
-		    }
-
-		    require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
-		    $installer = new WPET_Installer();
-		    $installer->reset( $reset );
+		die(print_r($options, true));
+		//give user choice to keep ticket options
+		if ( ! empty( $options['archive_confirm'] ) ) {
+			WPET::getInstance()->events->archive();
+			WPET::getInstance()->events->add();
 		}
-		unset( $options['reset'] );
-		*/
 		
 		foreach ( $options as $key => $value ) {
 			$this->{$key} = stripslashes( $value );

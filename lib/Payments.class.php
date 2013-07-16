@@ -386,52 +386,52 @@ class WPET_Payments extends WPET_Module {
      * @TODO add attendees (based on package->ticket_quantity) here if attendee info is at beginning
      * @since 2.0
      */
-    public function maybeSalesSubmit() {
-	if (!empty($_POST['wpet_purchase_nonce']) && wp_verify_nonce($_POST['wpet_purchase_nonce'], 'wpet_purchase_tickets')) {
-	    if (!empty($_POST['order_submit'])) {
+	public function maybeSalesSubmit() {
+		if (!empty($_POST['wpet_purchase_nonce']) && wp_verify_nonce($_POST['wpet_purchase_nonce'], 'wpet_purchase_tickets')) {
+			if (!empty($_POST['order_submit'])) {
 		
-		/*
-		 * Set total cost for this order. This is a derived field, meaning
-		 * that it is calculated and stored seperate from the actual
-		 * price & quantity. If that changes this field will need to
-		 * be updated again.
-		 */
-		$total = 0.00;
-		foreach( $_POST['package_purchase'] AS $package => $qty ) {
-		    if( $qty < 1 ) continue; // No need to do extra processing!
+				/*
+				 * Set total cost for this order. This is a derived field, meaning
+				 * that it is calculated and stored seperate from the actual
+				 * price & quantity. If that changes this field will need to
+				 * be updated again.
+				 */
+				$total = 0.00;
+				foreach( $_POST['package_purchase'] as $package => $qty ) {
+					if( $qty < 1 ) continue; // No need to do extra processing!
 		    
-		    $p = WPET::getInstance()->packages->findByID( $package );
+					$p = WPET::getInstance()->packages->findByID( $package );
 		    
-		    $total += $p->wpet_package_cost * $qty;
-		}
+					$total += $p->wpet_package_cost * $qty;
+				}
 		
-		if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) { 		    
-		   $coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
+				if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) { 		    
+					$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
 		  
-		   $total -= $coupon_amount;
+					$total -= $coupon_amount;
 		   
-		   if( 0 > $total ) {
-		       // Oops, total went past zero dollars. Reset it to zero
-		       $total = 0.00;
-		   }
+					if( 0 > $total ) {
+						// Oops, total went past zero dollars. Reset it to zero
+						$total = 0.00;
+					}
 			
+				}
+		
+				$_POST['total'] = $total; // Add total to payment details
+				$_POST['event_id'] = WPET::getInstance()->events->getWorkingEvent()->ID; // @TODO can we guarantee this is set?
+		
+				$data = array(
+					'post_title' => uniqid(),
+					'post_status' => 'draft',
+					'meta' => $_POST
+				);
+				$payment_id = WPET::getInstance()->payment->add($data);
+		
+				wp_redirect(get_permalink($payment_id));
+				exit();
+			}
 		}
-		
-		$_POST['total'] = $total; // Add total to payment details
-		$_POST['event_id'] = WPET::getInstance()->events->getWorkingEvent()->ID; // @TODO can we guarantee this is set?
-		
-		$data = array(
-		    'post_title' => uniqid(),
-		    'post_status' => 'draft',
-		    'meta' => $_POST
-		);
-		$payment_id = WPET::getInstance()->payment->add($data);
-		
-		wp_redirect(get_permalink($payment_id));
-		exit();
-	    }
 	}
-    }
     
 
     public function filterMyTitle($title) {
@@ -453,30 +453,30 @@ class WPET_Payments extends WPET_Module {
 	return __('Checkout', 'wpet');
     }
 
-    public function getCart() {
-	$this->loadPayment();
+	public function getCart() {
+		$this->loadPayment();
 
-	$packages = WPET::getInstance()->packages;
-	$cart = array(
-	    'items' => array(),
-	    'total' => 0
-	);
-
-	foreach ($this->mPayment->wpet_package_purchase as $package_id => $quantity) {
-	    if ($quantity) {
-		$package = $packages->findByID($package_id);
-		$cart['items'][] = array(
-		    'package_name' => $package->post_title,
-		    'package_cost' => $package->wpet_package_cost,
-		    'quantity' => $quantity,
+		$packages = WPET::getInstance()->packages;
+		$cart = array(
+			'items' => array(),
+			'total' => 0
 		);
-		//$cart['total'] += $package->wpet_package_cost * $quantity;
-	    }
-	}
+
+		foreach ($this->mPayment->wpet_package_purchase as $package_id => $quantity) {
+			if ($quantity) {
+				$package = $packages->findByID($package_id);
+				$cart['items'][] = array(
+					'package_name' => $package->post_title,
+					'package_cost' => $package->wpet_package_cost,
+					'quantity' => $quantity,
+				);
+				//$cart['total'] += $package->wpet_package_cost * $quantity;
+			}
+		}
 	
-	$cart['total'] = $this->mPayment->wpet_total;
-	return $cart;
-    }
+		$cart['total'] = $this->mPayment->wpet_total;
+		return $cart;
+	}
 
     /**
      * Creates a set of draft attendees for the current payment order
@@ -485,47 +485,45 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0 
      */
     private function maybeCreateAttendees() {
-	$this->loadPayment();
+		$this->loadPayment();
 
-	if (empty($this->mPayment->wpet_attendees)) {
-	    $attendees = WPET::getInstance()->attendees;
+		if (empty($this->mPayment->wpet_attendees)) {
+			$attendees = WPET::getInstance()->attendees;
 	    
-	    /*
-	     * Find all unique packages and number of them sold
-	     * Look into the package to find the number of tickets in each package
-	     * 
-	     * num attendees = num packages x num tickets per package
-	     */
-	    $packages = $this->mPayment->wpet_package_purchase;
+			/*
+			 * Find all unique packages and number of them sold
+			 * Look into the package to find the number of tickets in each package
+			 * 
+			 * num attendees = num packages x num tickets per package
+			 */
+			$packages = $this->mPayment->wpet_package_purchase;
 
-	    $total_attendees = 0;
-	    $attendee_ids = array();
-	    foreach ($packages AS $package => $qty) {
-		if (0 == $qty)
-		    continue;
-		// Get the package
-		$p = WPET::getInstance()->packages->findByID($package);
-		// Multiply tickets in package by number of packages
-		$ticket = $p->wpet_ticket_id;
-		for( $x = 0; $x < $qty; $x++ ) {
-		    for ($i = 0; $i < $p->wpet_ticket_quantity; $i++) {
-			$args = array(
-			    'meta' => array(
-				'ticket_id' => $ticket,
-				'package_id' => $p->ID
-			    )
-			);
-			$attendee_ids[] = $attendees->draftAttendee($args);
-		    }
+			$total_attendees = 0;
+			$attendee_ids = array();
+			foreach ($packages AS $package => $qty) {
+				if (0 == $qty)
+					continue;
+				// Get the package
+				$p = WPET::getInstance()->packages->findByID($package);
+				// Multiply tickets in package by number of packages
+				$ticket = $p->wpet_ticket_id;
+				for( $x = 0; $x < $qty; $x++ ) {
+					for ($i = 0; $i < $p->wpet_ticket_quantity; $i++) {
+						$args = array(
+							'meta' => array(
+								'ticket_id' => $ticket,
+								'package_id' => $p->ID
+							)
+						);
+						$attendee_ids[] = $attendees->draftAttendee($args);
+					}
+				}
+			}
+
+			$data = array('meta' => array('attendees' => $attendee_ids));
+
+			$this->update($this->mPayment->ID, $data);
 		}
-	    }
-
-
-
-	    $data = array('meta' => array('attendees' => $attendee_ids));
-
-	    $this->update($this->mPayment->ID, $data);
-	}
     }
 
     /**
@@ -628,13 +626,13 @@ class WPET_Payments extends WPET_Module {
 	
 
     private function reserveTickets() {
-	$this->loadPayment();
-	$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);
+		$this->loadPayment();
+		$packages = get_post_meta($this->mPayment->ID, 'wpet_package_purchase', true);
 
-	foreach ($packages as $package_id => $package_qty) {
-	    if ($package_qty)
-		WPET::getInstance()->packages->reserve($package_id, $package_qty);
-	}
+		foreach ($packages as $package_id => $package_qty) {
+			if ($package_qty)
+				WPET::getInstance()->packages->reserve($package_id, $package_qty);
+		}
     }
 
     /**

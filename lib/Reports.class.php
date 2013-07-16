@@ -123,7 +123,6 @@ class WPET_Reports extends WPET_Module {
 		);
 		$ticket_totals = $default_ticket_row;
 
-		//new
 		foreach ( $pmt_posts as $pmt_post ) {			
 			foreach ( $pmt_post->wpet_package_purchase as $package_id => $qty ) {
 				if ( ! isset( $package_rows[$package_id] ) )

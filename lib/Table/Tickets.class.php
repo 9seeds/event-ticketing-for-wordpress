@@ -13,7 +13,7 @@ class WPET_Table_Tickets extends WPET_Table {
 	function get_columns() {
 		$columns = array(
 			//'cb'        => '<input type="checkbox" />',
-			'title'     => __( 'Ticket Name' ),
+			'title'     => __( 'Ticket Name', 'wpet' ),
 		);
 
 		return $columns;
