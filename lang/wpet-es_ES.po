@@ -1,0 +1,1606 @@
+# Translation of WP Event Ticketing in Spanish (Spain)
+# This file is distributed under the same license as the WP Event Ticketing package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2013-07-19 18:05:35+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: WP Event Ticketing\n"
+
+#: lib/Instructions.class.php:30 lib/Attendees.class.php:58
+#: lib/Attendees.class.php:79 lib/Settings.class.php:31
+#: lib/Packages.class.php:36 lib/Packages.class.php:75
+#: lib/Coupons.class.php:151 lib/Coupons.class.php:173
+#: lib/Notifications.class.php:62 lib/Notifications.class.php:82
+#: lib/Tickets.class.php:56 lib/Tickets.class.php:75 lib/Reports.class.php:45
+#: lib/TicketOptions.class.php:35 lib/TicketOptions.class.php:54
+msgid "Overview"
+msgstr "visión de conjunto"
+
+#: lib/Instructions.class.php:31
+msgid "This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages."
+msgstr "Esto es sólo un ejemplo de lo que se ve en la etiqueta de ayuda en cualquiera de las otras WP páginas de venta de entradas de eventos."
+
+#: lib/Instructions.class.php:45 lib/Instructions.class.php:46
+#: lib/WPET.class.php:285 views/admin/instructions.php:1
+msgid "Instructions"
+msgstr "instrucciones"
+
+#: lib/Instructions.class.php:97 lib/Instructions.class.php:135
+msgid "Getting Started"
+msgstr "Introducción"
+
+#: lib/Instructions.class.php:98 lib/Instructions.class.php:140
+msgid "Payment Gateways"
+msgstr "pasarelas de pago"
+
+#: lib/Instructions.class.php:99 lib/Instructions.class.php:145
+msgid "Design"
+msgstr "diseño"
+
+#: lib/Instructions.class.php:100 lib/Instructions.class.php:150
+msgid "Extras"
+msgstr "Extras"
+
+#: lib/Attendees.class.php:59
+msgid "This screen allows you to add a new attendee for your event."
+msgstr "Esta pantalla le permite agregar un nuevo asistente para su evento."
+
+#: lib/Attendees.class.php:65 lib/Packages.class.php:43
+#: lib/Coupons.class.php:158 lib/Notifications.class.php:69
+#: lib/Tickets.class.php:63 lib/TicketOptions.class.php:42
+msgid "Options Explained"
+msgstr "Opciones Explicación"
+
+#: lib/Attendees.class.php:66 lib/Packages.class.php:44
+#: lib/Coupons.class.php:159 lib/Notifications.class.php:70
+#: lib/Tickets.class.php:64 lib/TicketOptions.class.php:43
+msgid "Here's an explanation of the options found on this page:"
+msgstr "He aquí una explicación de las opciones que se encuentran en esta página:"
+
+#: lib/Attendees.class.php:68
+msgid "%sPackage%s lets you select which package to associate this attendee with. Selecting a package will cause the value of the package to be included as part of the sales reports."
+msgstr "%sPackage%s le permite seleccionar qué paquete de asociarse con este asistente. Selección de un paquete hará que el valor del paquete para ser incluido como parte de los informes de ventas."
+
+#: lib/Attendees.class.php:69
+msgid "%sFirst Name%s is the first name of the attendee and is a required field."
+msgstr "%sFirst Name%s es el nombre del participante y es un campo obligatorio."
+
+#: lib/Attendees.class.php:70
+msgid "%sLast Name%s is the last name of the attendee and is a required field."
+msgstr "%sLast Name%s es el apellido del participante y es un campo obligatorio."
+
+#: lib/Attendees.class.php:71
+msgid "%sEmail%s is the email address for the attendee and is a required field."
+msgstr "%sEmail%s es la dirección de correo electrónico del participante y es un campo obligatorio."
+
+#: lib/Attendees.class.php:80
+msgid "This screen provides access to all of your attendees."
+msgstr "Esta pantalla permite el acceso a todos los asistentes."
+
+#: lib/Attendees.class.php:86 lib/Packages.class.php:82
+#: lib/Coupons.class.php:180 lib/Notifications.class.php:89
+#: lib/Tickets.class.php:82 lib/TicketOptions.class.php:61
+msgid "Available Actions"
+msgstr "Acciones Disponibles"
+
+#: lib/Attendees.class.php:87
+msgid "Hovering over a row in the attendee list will display action links that allow you to manage each attendee. You can perform the following actions:"
+msgstr "Al pasar por encima de una fila de la lista de asistentes se mostrará vínculos de acción que permiten gestionar cada asistente. Puede realizar las siguientes acciones:"
+
+#: lib/Attendees.class.php:89
+msgid "%sEdit%s takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee's name itself."
+msgstr "%sEdit%s te lleva a la pantalla de edición para ese asistente. También puede llegar a esta pantalla haciendo clic en el mismo el nombre del asistente."
+
+#: lib/Attendees.class.php:90
+msgid "%sTrash%s removes the attendee from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s elimina los asistentes de esta lista y lo coloca en la papelera, desde donde se puede eliminar de forma permanente."
+
+#: lib/Attendees.class.php:197 lib/Attendees.class.php:198
+#: views/admin/settings-reset.php:29 views/admin/attendees.php:1
+msgid "Attendees"
+msgstr "Los asistentes"
+
+#: lib/Attendees.class.php:210
+msgid "First Name is required"
+msgstr "Primero Nombre es solicitado"
+
+#: lib/Attendees.class.php:211
+msgid "Last Name is required"
+msgstr "Es obligatorio Apellido"
+
+#: lib/Attendees.class.php:212 lib/Gateway/Manual.class.php:47
+msgid "Email is required"
+msgstr "Se requiere Email"
+
+#: lib/WPET.class.php:145 lib/Packages.class.php:103
+msgid "Quantity is required"
+msgstr "Se requiere Cantidad"
+
+#: lib/WPET.class.php:163 views/order_form.php:29
+#: views/admin/packages-add.php:21
+msgid "Description"
+msgstr "descripción"
+
+#: lib/WPET.class.php:164 lib/Packages.class.php:61
+#: lib/Table/Packages.class.php:23 views/order_form.php:30
+#: views/admin/packages-add.php:57
+msgid "Price"
+msgstr "precio"
+
+#: lib/WPET.class.php:170 lib/Table/Packages.class.php:24
+#: lib/Table/Coupons.class.php:19 views/order_form.php:33
+#: views/admin/reporting.php:18 views/admin/reporting.php:52
+msgid "Remaining"
+msgstr "restante"
+
+#: lib/WPET.class.php:173 lib/Table/Packages.class.php:25
+#: views/order_form.php:39 views/admin/packages-add.php:39
+msgid "Quantity"
+msgstr "cantidad"
+
+#: lib/WPET.class.php:255 lib/WPET.class.php:256 lib/Tickets.class.php:102
+#: lib/Tickets.class.php:103 views/admin/tickets.php:1
+msgid "Tickets"
+msgstr "Entradas"
+
+#: lib/WPET.class.php:284 lib/Settings.class.php:111 lib/Settings.class.php:112
+msgid "Settings"
+msgstr "Configuración"
+
+#: lib/WPET.class.php:286
+msgid "Support Forum"
+msgstr "Foro Atención al Cliente"
+
+#: lib/WPET.class.php:431
+msgid "Need help"
+msgstr "necesitar ayuda"
+
+#: lib/WPET.class.php:432
+msgid "Support Forums"
+msgstr "foros de ayuda"
+
+#: lib/WPET.class.php:433
+msgid "Developer Docs"
+msgstr "desarrollador Docs"
+
+#: lib/Installer.class.php:493 views/single_attendee.php:4
+#: views/admin/attendees-add.php:22
+msgid "First Name"
+msgstr "Nombre"
+
+#: lib/Installer.class.php:494 views/single_attendee.php:8
+#: views/admin/attendees-add.php:26
+msgid "Last Name"
+msgstr "apellido"
+
+#: lib/Installer.class.php:495 lib/Settings.class.php:67
+#: lib/Settings.class.php:153 lib/Tickets.class.php:202
+#: lib/Table/Attendees.class.php:17 views/single_attendee.php:12
+#: views/gateway-paypal-express.php:11 views/gateway-manual.php:11
+#: views/admin/attendees-add.php:30
+msgid "Email"
+msgstr "Email"
+
+#: lib/Installer.class.php:496
+msgid "Twitter"
+msgstr "gorjeo"
+
+#: lib/Installer.class.php:502
+msgid "General Admission"
+msgstr "Admisión General"
+
+#: lib/Installer.class.php:515
+msgid "General Admission Package"
+msgstr "Paquete de Admisión General"
+
+#: lib/Settings.class.php:32
+msgid "This screen provides access to all the settings for WP Event Ticketing."
+msgstr "Esta pantalla permite el acceso a todos los ajustes de WP boletería para eventos."
+
+#: lib/Settings.class.php:39
+msgid "Default Values"
+msgstr "Valores por defecto"
+
+#: lib/Settings.class.php:40
+msgid "When you install WP Event Ticketing, the following settings are set by default:"
+msgstr "Al instalar WP Evento venta de entradas, los siguientes valores se establecen de forma predeterminada:"
+
+#: lib/Settings.class.php:41
+msgid "Events Tab"
+msgstr "Tab Eventos"
+
+#: lib/Settings.class.php:42
+msgid "Event Status: Registration is closed"
+msgstr "Estado del evento: El registro está cerrado"
+
+#: lib/Settings.class.php:43
+msgid "Payments Tab"
+msgstr "Tab Pagos"
+
+#: lib/Settings.class.php:44
+msgid "Payment Gateway: Manual"
+msgstr "Gateway de pago: Manual"
+
+#: lib/Settings.class.php:45
+msgid "Currency: United States Dollar ($)"
+msgstr "Moneda: Dólar estadounidense ($)"
+
+#: lib/Settings.class.php:46
+msgid "Form Display Tab"
+msgstr "Formulario Tab Display"
+
+#: lib/Settings.class.php:47
+msgid "Show # of remaining packages: Checked"
+msgstr "Show # de los paquetes restantes: Seleccionado"
+
+#: lib/Settings.class.php:54
+msgid "Tabs"
+msgstr "Tabs"
+
+#: lib/Settings.class.php:55
+msgid "Here is a discription of each tab's functionality:"
+msgstr "He aquí una descripción de la funcionalidad de cada ficha:"
+
+#: lib/Settings.class.php:56 lib/Settings.class.php:151 lib/Events.class.php:22
+msgid "Events"
+msgstr "Eventos"
+
+#: lib/Settings.class.php:57
+msgid "%sEvent Date%s is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event."
+msgstr "%sEvent Date%s es la fecha en que el evento se llevará a cabo el. Si está ejecutando un evento de varios días, ajuste este parámetro en el primer día del evento."
+
+#: lib/Settings.class.php:58
+msgid "%sOrganizer Name"
+msgstr "%sOrganizer Nombre"
+
+#: lib/Settings.class.php:58
+msgid " is the name of the organizer. This will be used for outgoing emails from the system."
+msgstr "es el nombre del organizador. Esto se utiliza para mensajes de correo electrónico salientes desde el sistema."
+
+#: lib/Settings.class.php:59
+msgid "%sOrganizer Email%s is the email address for the organizer. This will be used for outgoing emails from the system."
+msgstr "%sOrganizer Email%s es la dirección de correo electrónico del organizador. Esto se utiliza para mensajes de correo electrónico salientes desde el sistema."
+
+#: lib/Settings.class.php:60
+msgid "%sMaximum Attendance%s is the total amount of tickets that can be sold for this event."
+msgstr "%sMaximum Attendance%s es la cantidad total de entradas que puede vender para el evento."
+
+#: lib/Settings.class.php:61
+msgid "%sEvent Status%s allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased."
+msgstr "%sEvent Status%s le permite encender la venta de entradas on / off para el evento. Cuando el registro está cerrado, hay entradas pueden ser compradas."
+
+#: lib/Settings.class.php:62
+msgid "%sClosed Message Text%s is the text that will be shown in place of the order from when registration is closed."
+msgstr "%sClosed Message Text%s es el texto que se mostrará en lugar de la orden de registro cuando se cierra."
+
+#: lib/Settings.class.php:63
+msgid "%sThank You Page Text%s is the text that will be displayed after a package is purchased."
+msgstr "%sThank You Page Text%s es el texto que se mostrará después de que se compró un paquete."
+
+#: lib/Settings.class.php:64 lib/Settings.class.php:152
+msgid "Payments"
+msgstr "Pagos"
+
+#: lib/Settings.class.php:65
+msgid "%sPayment Gateway%s lets you select which method you will use to accept payments."
+msgstr "%sPayment Gateway%s le permite seleccionar el método que va a utilizar para aceptar pagos."
+
+#: lib/Settings.class.php:66
+msgid "%sCurrency%s lets you select which currency you want funds paid in."
+msgstr "%sCurrency%s le permite seleccionar la moneda que desee fondos pagados in."
+
+#: lib/Settings.class.php:68
+msgid "%sSubject%s is the subject of the email that will get sent to the purchaser upon completion of an order."
+msgstr "%sSubject%s es el asunto del correo electrónico que son enviadas al comprador al completar el pedido."
+
+#: lib/Settings.class.php:69
+msgid "%sEmail Body%s is the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the %s shortcode in the email body to send the buyer the link to edit their ticket information."
+msgstr "%sEmail Body%s es el contenido del correo electrónico que se envía al comprador al completar el pedido. Asegúrese de incluir el archivo %s abreviado en el cuerpo del correo electrónico para enviar al comprador el enlace para editar la información del boleto."
+
+#: lib/Settings.class.php:70 lib/Settings.class.php:154
+msgid "Form Display"
+msgstr "Mostrar formulario"
+
+#: lib/Settings.class.php:71
+msgid "%sShow # of Remaining Packages%s, Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase."
+msgstr "%sShow # of Remaining Packages%s, Si no seleccionas esta opción eliminará la columna de la hoja de pedido que se muestra el número de cada paquete están todavía disponibles para su compra."
+
+#: lib/Settings.class.php:72
+msgid "%sHide Coupons%s, If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form."
+msgstr "%sHide Coupons%s, Si usted no tiene intención de ofrecer cupones, marque esta casilla y el campo de cupón será retirado de la orden de pedido."
+
+#: lib/Settings.class.php:73 lib/Settings.class.php:167
+msgid "Reset"
+msgstr "reajustar"
+
+#: lib/Settings.class.php:74
+msgid "%sALL CHECKBOXES%s, Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone."
+msgstr "%sALL CHECKBOXES%s, Comprobación de alguna de estas casillas y haga clic en el botón Save Settings borrará cualquier cambio que haya añadido al sistema. Esto no se puede deshacer."
+
+#: lib/Settings.class.php:86
+msgid ""
+"Are you sure you want to reset these?:\n"
+"{reset_list}"
+msgstr ""
+"¿Está seguro de que desea restablecer los siguientes:? \n"
+" {reset_list}"
+
+#: lib/Settings.class.php:90
+msgid "Max attendance must be numeric"
+msgstr "Asistencia Max debe ser numérico"
+
+#: lib/Settings.class.php:91
+msgid "Event Date is required"
+msgstr "Se requiere Fecha del Evento"
+
+#: lib/Settings.class.php:92
+msgid "Organizer Name is required"
+msgstr "El nombre es obligatorio Organizador"
+
+#: lib/Settings.class.php:93
+msgid "Organizer Email is required"
+msgstr "Se requiere Organizador Email"
+
+#: lib/Settings.class.php:94
+msgid "Email Subject is required"
+msgstr "Se requiere Asunto del correo"
+
+#: lib/Settings.class.php:95 lib/Notifications.class.php:110
+msgid "Email Body is required"
+msgstr "Se requiere Email Cuerpo"
+
+#: lib/Settings.class.php:195
+msgid "Settings Title"
+msgstr "Ajustes Título"
+
+#: lib/Settings.class.php:218 lib/Settings.class.php:230
+#: lib/Settings.class.php:235
+msgid "Second email"
+msgstr "segundo email"
+
+#: lib/Packages.class.php:37
+msgid "This screen allows you to add a new package for your event."
+msgstr "Esta pantalla le permite agregar un nuevo paquete para su evento."
+
+#: lib/Packages.class.php:46
+msgid "%sPackage Name%s is the name that will be displayed to your visitors on the purchase page."
+msgstr "%sPackage Name%s es el nombre que se mostrará a los visitantes en la página de compra."
+
+#: lib/Packages.class.php:47
+msgid "%sDescription%s will be displayed to your visitors under the package name on the purchase page."
+msgstr "%sDescription%s se mostrará a sus visitantes bajo el nombre del paquete en la página de compra."
+
+#: lib/Packages.class.php:49 views/admin/packages-add.php:26
+msgid "Included Tickets"
+msgstr "Entradas incluidas"
+
+#: lib/Packages.class.php:50
+msgid "This section lets you select which ticket type and how many tickets are included with the purchase of this package."
+msgstr "Esta sección le permite seleccionar qué tipo de entrada y el número de entradas se incluyen con la compra de este paquete."
+
+#: lib/Packages.class.php:52
+msgid "%sTicket Name%s lets you select which ticket type will be included in this ticket package."
+msgstr "%sTicket Name%s le permite seleccionar la que se incluirá tipo de entrada en este paquete de entradas."
+
+#: lib/Packages.class.php:53
+msgid "%sQuantity%s lets you set how many of the selected ticket type will be included when somebody purchases this package."
+msgstr "%sQuantity%s permite establecer cuántos de los tipo de entrada seleccionada se incluirá cuando alguien compra este paquete."
+
+#: lib/Packages.class.php:55 views/admin/packages-add.php:44
+msgid "On Sale Date"
+msgstr "Por Fecha de Venta"
+
+#: lib/Packages.class.php:56
+msgid "This section lets you control when this package is available for purchase."
+msgstr "Esta sección le permite controlar cuando este paquete está disponible para su compra."
+
+#: lib/Packages.class.php:58
+msgid "%sStart Date%s is the first day this ticket package will be available for purchase."
+msgstr "%sStart Date%s es el primer día de este paquete de boletos estará disponible para su compra."
+
+#: lib/Packages.class.php:59
+msgid "%sEnd Date%s is the last day this ticket package will be available for purchase."
+msgstr "%sEnd Date%s es el último día de este paquete de boletos estará disponible para su compra."
+
+#: lib/Packages.class.php:63
+msgid "%sPackage Cost%s is the price for the package, no matter how many tickets are included."
+msgstr "%sPackage Cost%s es el precio para el paquete, no importa cuántas entradas están incluidas."
+
+#: lib/Packages.class.php:65 views/admin/packages-add.php:66
+#: views/admin/packages-add.php:70
+msgid "Packages Available"
+msgstr "Paquetes disponibles"
+
+#: lib/Packages.class.php:67
+msgid "%sPackages Available%s is the total number of this specific package that you have available for sale."
+msgstr "%sPackages Available%s es el número total de este paquete específico que tiene disponible para la venta."
+
+#: lib/Packages.class.php:76
+msgid "This screen provides access to all of your ticket packages."
+msgstr "Esta pantalla permite el acceso a todos los paquetes de entradas."
+
+#: lib/Packages.class.php:83
+msgid "Hovering over a row in the package list will display action links that allow you to manage each package. You can perform the following actions:"
+msgstr "Al pasar por encima de una fila de la lista de paquetes mostrará vínculos de acción que permiten gestionar cada paquete. Puede realizar las siguientes acciones:"
+
+#: lib/Packages.class.php:85
+msgid "%sEdit%s takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself."
+msgstr "%sEdit%s te lleva a la pantalla de edición para ese paquete. También puede llegar a esta pantalla haciendo clic en el mismo nombre del paquete."
+
+#: lib/Packages.class.php:86
+msgid "%sTrash%s removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets."
+msgstr "%sTrash%s elimina el paquete de esta lista y lo coloca en la papelera, desde donde se puede eliminar de forma permanente. Eliminación de un paquete no elimina las entradas conectadas."
+
+#: lib/Packages.class.php:100
+msgid "Package Name is required"
+msgstr "Se requiere nombre de paquete"
+
+#: lib/Packages.class.php:101
+msgid "Description is required"
+msgstr "Descripción se requiere"
+
+#: lib/Packages.class.php:102 lib/Tickets.class.php:29
+msgid "Ticket Name is required"
+msgstr "El nombre es obligatorio Ticket"
+
+#: lib/Packages.class.php:104
+msgid "Quantity must be numeric"
+msgstr "La cantidad debe ser numérico"
+
+#: lib/Packages.class.php:105
+msgid "Start Date is required"
+msgstr "Se requiere Start Fecha"
+
+#: lib/Packages.class.php:106
+msgid "End Date is required"
+msgstr "Se requiere End Fecha"
+
+#: lib/Packages.class.php:107
+msgid "End Date must be after Start Date"
+msgstr "Fecha de finalización deberá ser posterior a Fecha de Inicio"
+
+#: lib/Packages.class.php:108
+msgid "Package Cost is required"
+msgstr "Se requiere Costo del paquete"
+
+#: lib/Packages.class.php:109
+msgid "Package Cost must be numeric"
+msgstr "El costo del paquete debe ser numérico"
+
+#: lib/Packages.class.php:110
+msgid "Packages Available is required"
+msgstr "Paquetes disponibles se requiere"
+
+#: lib/Packages.class.php:111
+msgid "Packages Available must be numeric"
+msgstr "Paquetes disponibles deben ser numéricas"
+
+#: lib/Packages.class.php:124 lib/Packages.class.php:125
+#: views/admin/packages.php:1 views/admin/reporting.php:16
+#: views/admin/settings-reset.php:17
+msgid "Packages"
+msgstr "Paquetes"
+
+#: lib/Packages.class.php:249
+msgid "Any Package"
+msgstr "Cualquier paquete"
+
+#: lib/Currency.class.php:46
+msgid "United States Dollar"
+msgstr "Dólar estadounidense"
+
+#: lib/Currency.class.php:54
+msgid "Afghan Afghani"
+msgstr "Afghan Afghani"
+
+#: lib/Currency.class.php:62
+msgid "Australian Dollars"
+msgstr "Dólares australianos"
+
+#: lib/Currency.class.php:70
+msgid "Brazilian Real (only for Brazilian users)"
+msgstr "Real brasileño (sólo para usuarios de Brasil)"
+
+#: lib/Currency.class.php:78
+msgid "Canadian Dollars"
+msgstr "Dólares canadienses"
+
+#: lib/Currency.class.php:86
+msgid "Czech Koruna"
+msgstr "Corona checa"
+
+#: lib/Currency.class.php:94
+msgid "Danish Krone"
+msgstr "Corona danesa"
+
+#: lib/Currency.class.php:102
+msgid "Euros"
+msgstr "Euros"
+
+#: lib/Currency.class.php:110
+msgid "Hong Kong Dollars"
+msgstr "Dólares de Hong Kong"
+
+#: lib/Currency.class.php:118
+msgid "Hungarian Forint"
+msgstr "Florín húngaro"
+
+#: lib/Currency.class.php:126
+msgid "Israeli Shekel"
+msgstr "Shekel israelí"
+
+#: lib/Currency.class.php:134
+msgid "Malaysian Ringgits (only for Malaysian users)"
+msgstr "Ringgits malayos (sólo para usuarios de Malasia)"
+
+#: lib/Currency.class.php:142
+msgid "Mexican Peso"
+msgstr "peso mejicano"
+
+#: lib/Currency.class.php:150
+msgid "New Zealand Dollars"
+msgstr "Dólares de Nueva Zelanda"
+
+#: lib/Currency.class.php:158
+msgid "Norwegian Krone"
+msgstr "Corona noruega"
+
+#: lib/Currency.class.php:166
+msgid "Philippine Pesos"
+msgstr "pesos filipinos"
+
+#: lib/Currency.class.php:174
+msgid "Polish Zloty"
+msgstr "Zloty polaco"
+
+#: lib/Currency.class.php:182
+msgid "Pounds Sterling"
+msgstr "Libras Esterlinas"
+
+#: lib/Currency.class.php:190
+msgid "Singapore Dollar"
+msgstr "Dólar de Singapur"
+
+#: lib/Currency.class.php:198
+msgid "Swedish Krona"
+msgstr "Corona sueca"
+
+#: lib/Currency.class.php:206
+msgid "Swiss Franc"
+msgstr "Franco suizo"
+
+#: lib/Currency.class.php:214
+msgid "Taiwan New Dollars"
+msgstr "Nuevo dólar taiwanés"
+
+#: lib/Currency.class.php:222
+msgid "Thai Baht"
+msgstr "Baht tailandés"
+
+#: lib/Currency.class.php:230
+msgid "Yen"
+msgstr "yen"
+
+#: lib/Coupons.class.php:28
+msgid "Coupon Code is required"
+msgstr "Se requiere código de cupón"
+
+#: lib/Coupons.class.php:29
+msgid "Amount must be less than 100 percent"
+msgstr "La cantidad debe ser inferior a 100 por ciento"
+
+#: lib/Coupons.class.php:30
+msgid "Amount must be a number"
+msgstr "Cantidad debe ser un número"
+
+#: lib/Coupons.class.php:31
+msgid "Uses must be a number"
+msgstr "Usos debe ser un número"
+
+#: lib/Coupons.class.php:50
+msgid "Invalid coupon"
+msgstr "cupón válido"
+
+#: lib/Coupons.class.php:152
+msgid "This screen allows you to add a new coupon for your event."
+msgstr "Esta pantalla le permite agregar un nuevo cupón para su evento."
+
+#: lib/Coupons.class.php:161
+msgid "%sCoupon Code%s is what a visitor would type in to the registration form to receive a discount. This should be a unique value and contain no spaces or special characters."
+msgstr "%sCoupon Code%s es lo que un visitante se introduzca en el formulario de inscripción para recibir un descuento. Este debe ser un valor único y no deberá incluir espacios ni caracteres especiales."
+
+#: lib/Coupons.class.php:162
+msgid "%sPackage%s allows you to choose which package is eligible for purchase with this coupon. Selecting a specific package from the dropdown will tie this coupon to the selected package."
+msgstr "%sPackage%s le permite elegir qué paquete es elegible para la compra con este cupón. Selección de un paquete específico de la lista desplegable se unirá este cupón para el paquete seleccionado."
+
+#: lib/Coupons.class.php:163
+msgid "%sType%s lets you decide if this coupon will give a flat rate discount (e.g. $5.00 off), or a percentage of the package price."
+msgstr "%sType%s le permite decidir si este cupón dará un descuento a tasa única (por ejemplo, $ 5.00 de descuento), o un porcentaje del precio del paquete."
+
+#: lib/Coupons.class.php:164
+msgid "%sAmount%s is the value of the coupon. If using flat rate, 5.00 would equal $5.00 off. If using percentage, 5 would equal 5 percent off."
+msgstr "%sAmount%s es el valor del cupón. Si se utiliza tanto alzado, 5.00 sería igual a $ 5.00 de descuento. Si utiliza porcentajes, 5 equivaldría a 5 por ciento de descuento."
+
+#: lib/Coupons.class.php:165
+msgid "%sUses%s lets you set how many times this coupon can be used."
+msgstr "%sUses%s permite establecer cuántas veces se puede utilizar este cupón."
+
+#: lib/Coupons.class.php:174
+msgid "This screen provides access to all of your coupons."
+msgstr "Esta pantalla permite el acceso a todos sus cupones."
+
+#: lib/Coupons.class.php:181
+msgid "Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:"
+msgstr "Al pasar por encima de una fila de la lista de cupón mostrará vínculos de acción que permiten gestionar cada cupón. Puede realizar las siguientes acciones:"
+
+#: lib/Coupons.class.php:183
+msgid "%sEdit%s takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself."
+msgstr "%sEdit%s te lleva a la pantalla de edición para ese cupón. También puede llegar a esta pantalla haciendo clic en el código de cupón en sí."
+
+#: lib/Coupons.class.php:184
+msgid "%sTrash%s removes your coupon from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s elimina su cupón de esta lista y lo coloca en la papelera, desde donde se puede eliminar de forma permanente."
+
+#: lib/Coupons.class.php:200 lib/Coupons.class.php:201
+#: views/admin/reporting.php:20 views/admin/settings-reset.php:23
+#: views/admin/coupons.php:1
+msgid "Coupons"
+msgstr "Cupones"
+
+#: lib/Payments.class.php:46
+msgid "Pending"
+msgstr "pendiente"
+
+#: lib/Payments.class.php:55
+msgid "Collect Attendee Data"
+msgstr "Recopilar datos de participante"
+
+#: lib/Payments.class.php:64
+msgid "Collect Attendee Data Post"
+msgstr "Recoger Asistente de Datos Post"
+
+#: lib/Payments.class.php:73
+msgid "Processing"
+msgstr "transformación"
+
+#: lib/Payments.class.php:82
+msgid "Draft"
+msgstr "borrador"
+
+#: lib/Payments.class.php:453
+msgid "Checkout"
+msgstr "caja"
+
+#: lib/Notifications.class.php:63
+msgid "This screen allows you to send a notification to some or all of your attendees."
+msgstr "Esta pantalla le permite enviar una notificación a todos o algunos de los asistentes."
+
+#: lib/Notifications.class.php:72
+msgid "%sTo%s lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups."
+msgstr "%sTo%s le permite decidir qué grupo de asistentes recibirán la notificación. Selección de varios checkboxs enviará la notificación a todos los asistentes en cada una de los grupos seleccionados."
+
+#: lib/Notifications.class.php:73
+msgid "%sSubject%s is what will be sent as the subject of the email."
+msgstr "%sSubject%s es lo que se enviará en el asunto del correo electrónico."
+
+#: lib/Notifications.class.php:74
+msgid "%sEmail Body%s is the content of the email message that will be sent."
+msgstr "%sEmail Body%s es el contenido del mensaje de correo electrónico que se enviará."
+
+#: lib/Notifications.class.php:83
+msgid "This screen provides access to all of your previously sent notifications."
+msgstr "Esta pantalla permite el acceso a todas las notificaciones enviadas previamente."
+
+#: lib/Notifications.class.php:90
+msgid "Hovering over a row in the notification list will display action links that allow you to manage each of the previous notifications. You can perform the following actions:"
+msgstr "Al pasar por encima de una fila de la lista de notificación mostrará vínculos de acción que permiten gestionar cada una de las notificaciones previas. Puede realizar las siguientes acciones:"
+
+#: lib/Notifications.class.php:92
+msgid "%sView%s allows you see the notification that was sent along with who it was sent to."
+msgstr "%sView%s le permite ver la notificación que se envía junto con quien fue enviado a."
+
+#: lib/Notifications.class.php:108
+msgid "You must select at least one group to send to"
+msgstr "Debe seleccionar al menos un grupo para enviar a"
+
+#: lib/Notifications.class.php:109
+msgid "Subject is required"
+msgstr "Se requiere reserva"
+
+#: lib/Notifications.class.php:125 lib/Notifications.class.php:126
+#: views/admin/notifications.php:1
+msgid "Notify Attendees"
+msgstr "Notificar a los asistentes"
+
+#: lib/Module.class.php:37
+msgid "%s updated."
+msgstr "%s actualizado."
+
+#: lib/Module.class.php:38
+msgid "%s saved."
+msgstr "%s guardado."
+
+#: lib/Tickets.class.php:57
+msgid "This screen allows you to add a new ticket type for your event."
+msgstr "Esta pantalla le permite agregar un nuevo tipo de entrada para su evento."
+
+#: lib/Tickets.class.php:66
+msgid "%sTicket Name%s is the name of the type of ticket your attendees purchase. For example, you may have a ticket named \"general admission - meal included\" and another named \"general admission - no meal\"."
+msgstr "%sTicket Name%s es el nombre del tipo de boleto que la compra asistentes. Por ejemplo, usted puede tener un billete llamado \"entrada general - comida incluida\" y otro llamado \"entrada general - sin comida\"."
+
+#: lib/Tickets.class.php:67
+msgid "%sTicket Options%s is a list of the available ticket options you've created. Check the box next to the pieces of data you'd like to collect for each ticket."
+msgstr "%sTicket Options%s es una lista de los opciones de entradas de disponibles que has creado. Compruebe el cuadro de al lado de las piezas de datos que le gustaría para recoger para cada ticket."
+
+#: lib/Tickets.class.php:76
+msgid "This screen provides access to all of your ticket types."
+msgstr "Esta pantalla permite el acceso a todos los tipos de boletos."
+
+#: lib/Tickets.class.php:83
+msgid "Hovering over a row in the ticket list will display action links that allow you to manage each ticket. You can perform the following actions:"
+msgstr "Al pasar por encima de una fila de la lista de entradas mostrará vínculos de acción que permiten gestionar cada billete. Puede realizar las siguientes acciones:"
+
+#: lib/Tickets.class.php:85
+msgid "%sEdit%s takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself."
+msgstr "%sEdit%s te lleva a la pantalla de edición para ese ticket. También puede llegar a esta pantalla haciendo clic en el nombre mismo ticket."
+
+#: lib/Tickets.class.php:86
+msgid "%sTrash%s removes your ticket from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s quita su boleto de esta lista y lo coloca en la papelera, desde donde se puede eliminar de forma permanente."
+
+#: lib/Tickets.class.php:185 lib/Table/Coupons.class.php:17
+#: views/admin/attendees-add.php:16 views/admin/coupons-add.php:21
+msgid "Package"
+msgstr "paquete"
+
+#: lib/Tickets.class.php:190
+msgid "First name"
+msgstr "primer nombre"
+
+#: lib/Tickets.class.php:196
+msgid "Last name"
+msgstr "apellido"
+
+#: lib/Table.class.php:106
+msgid "Edit"
+msgstr "editar"
+
+#: lib/Table.class.php:110 lib/Table.class.php:130
+msgid "Trash"
+msgstr "Papelera"
+
+#: lib/Table.class.php:113
+msgid "Restore this item from the Trash"
+msgstr "Restaurar este elemento de la Papelera"
+
+#: lib/Table.class.php:113
+msgid "Restore"
+msgstr "restaurar"
+
+#: lib/Table.class.php:114
+msgid "Delete this item permanently"
+msgstr "Eliminar este artículo de forma permanente"
+
+#: lib/Table.class.php:114
+msgid "Delete Permanently"
+msgstr "Eliminar permanentemente"
+
+#: lib/Table.class.php:144
+msgid "All <span class=\"count\">(%s)</span>"
+msgstr "Todos <span class=\"count\">(%s)</span>"
+
+#: lib/Table.class.php:147
+msgid "%s <span class=\"count\">(%s)</span>"
+msgstr "%s <span class=\"count\">(%s)</span>"
+
+#: lib/Reports.class.php:46
+msgid "This screen provides a quick overview of your event."
+msgstr "Esta pantalla proporciona una visión general de su evento."
+
+#: lib/Reports.class.php:52 lib/Reports.class.php:84 lib/Reports.class.php:85
+#: views/admin/reporting.php:2
+msgid "Reports"
+msgstr "Informes"
+
+#: lib/Reports.class.php:53
+msgid "Here's an explanation of the reports found on this page:"
+msgstr "He aquí una explicación de los informes que figuran en esta página:"
+
+#: lib/Reports.class.php:54 views/admin/reporting.php:12
+msgid "Sales by Package"
+msgstr "Ventas por paquete"
+
+#: lib/Reports.class.php:55
+msgid "This is a report of sales broken down by package and contains the following columns."
+msgstr "Este es un informe de las ventas desglosadas por paquete y contiene las siguientes columnas."
+
+#: lib/Reports.class.php:57
+msgid "%sPackages%s is the name of the package that was sold."
+msgstr "%sPackages%s es el nombre del paquete que se vende."
+
+#: lib/Reports.class.php:58
+msgid "%sSold%s is the number of packages sold. Keep in mind that a package may contain multiple tickets, so this number may not reflect the total number of tickets sold."
+msgstr "%sSold%s es el número de paquetes que se venden. Tenga en cuenta que un paquete puede contener múltiples entradas, por lo que este número puede no reflejar el número total de entradas vendidas."
+
+#: lib/Reports.class.php:59
+msgid "%sRemaining%s is the quantity still remaining for purchase of this specific package."
+msgstr "%sRemaining%s es la cantidad que aún quedan para la compra de este paquete específico."
+
+#: lib/Reports.class.php:60
+msgid "%sRevenue%s is the net amount earned from sales of the specific package after taking in to account any coupons used during."
+msgstr "%sRevenue%s es el importe neto obtenido por la venta del paquete específico después de tomar en cuenta a todos los cupones utilizados durante."
+
+#: lib/Reports.class.php:61
+msgid "%sCoupons%s is the amount that clients saved using coupons during their orders."
+msgstr "%sCoupons%s es la cantidad que los clientes guardan el uso de cupones durante sus órdenes."
+
+#: lib/Reports.class.php:63 views/admin/reporting.php:46
+msgid "Sales by Ticket Type"
+msgstr "Ventas por Tipo de entradas"
+
+#: lib/Reports.class.php:64
+msgid "This is a report of sales broken down by ticket type and can be used to calculate the number of attendees to expect. It contais the following columns."
+msgstr "Este es un informe de las ventas desglosadas por tipo de entrada y se puede utilizar para calcular el número de asistentes a esperar. Contiene las siguientes columnas."
+
+#: lib/Reports.class.php:66
+msgid "%sTicket%s is the name of the ticket."
+msgstr "%sTicket%s es el nombre de la entrada."
+
+#: lib/Reports.class.php:67
+msgid "%sSold%s is the quantity of this specific ticket that have been sold."
+msgstr "%sSold%s es la cantidad de este ticket específico que se han vendido."
+
+#: lib/Reports.class.php:68
+msgid "%sRemaining%s is the quantity of this specific ticket that are still remaining to be sold."
+msgstr "%sRemaining%s es la cantidad de este billete específico que todavía quedan disponibles para la venta."
+
+#: lib/Reports.class.php:70
+msgid "Ticket Gauge"
+msgstr "Gauge Ticket"
+
+#: lib/Reports.class.php:71
+msgid "The ticket guage shows you what percentage of tickets have been sold for the event. Once the guage reaches 100%, your event is sold out."
+msgstr "El medidor de entradas muestra el porcentaje de entradas se han vendido para el evento. Una vez que el indicador llegue al 100%, el evento está agotado."
+
+#: lib/Reports.class.php:215
+msgid "% Sold"
+msgstr "% vendido"
+
+#: lib/TicketOptions.class.php:36
+msgid "This screen allows you to add a new ticket option for your tickets."
+msgstr "Esta pantalla le permite agregar una nueva opción de compra de entradas para sus boletos."
+
+#: lib/TicketOptions.class.php:45
+msgid "%sDisplay Name%s is what will be shown to your visitor when this option is added to a ticket."
+msgstr "%sDisplay Name%s es lo que se mostrará al usuario cuando esta opción se añade a una entrada."
+
+#: lib/TicketOptions.class.php:46
+msgid "%sOption Type%s lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select."
+msgstr "%sOption Type%s le permite decidir lo que se mostrará el tipo de campo de formulario. Las opciones son la entrada de texto, desplegable o Multi Select."
+
+#: lib/TicketOptions.class.php:55
+msgid "This screen provides access to all of your ticket options."
+msgstr "Esta pantalla permite el acceso a todas las opciones de entradas."
+
+#: lib/TicketOptions.class.php:62
+msgid "Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:"
+msgstr "Al pasar por encima de una fila de la lista de cupón mostrará vínculos de acción que permiten gestionar cada opción de venta de entradas. Puede realizar las siguientes acciones:"
+
+#: lib/TicketOptions.class.php:64
+msgid "%sEdit%s takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself."
+msgstr "%sEdit%s te lleva a la pantalla de edición de esa opción ticket. También puede llegar a esta pantalla haciendo clic en la opción de billete en sí."
+
+#: lib/TicketOptions.class.php:65
+msgid "%sTrash%s removes your ticket option from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s elimina la opción de compra de entradas de esta lista y lo coloca en la papelera, desde donde se puede eliminar de forma permanente."
+
+#: lib/TicketOptions.class.php:114
+msgid "Display Name is required"
+msgstr "Visualize el Nombre solicitado"
+
+#: lib/TicketOptions.class.php:115
+msgid "All Option fields are required"
+msgstr "Todos los campos de opción se requieren"
+
+#: lib/TicketOptions.class.php:128 lib/TicketOptions.class.php:129
+#: views/admin/settings-reset.php:5 views/admin/ticket-options.php:1
+#: views/admin/tickets-add.php:20
+msgid "Ticket Options"
+msgstr "Opciones de entradas"
+
+#: lib/Events.class.php:23
+msgid "Event"
+msgstr "evento"
+
+#: lib/Events.class.php:24
+msgid "Create Event"
+msgstr "Crear un evento"
+
+#: lib/Events.class.php:25 lib/Events.class.php:27
+msgid "New Event"
+msgstr "Nuevo Evento"
+
+#: lib/Events.class.php:26
+msgid "Edit Event"
+msgstr "Editar evento"
+
+#: lib/Events.class.php:28
+msgid "View Event"
+msgstr "Ver Evento"
+
+#: lib/Events.class.php:29
+msgid "Search Events"
+msgstr "Buscar Eventos"
+
+#: lib/Events.class.php:30
+msgid "No Events found"
+msgstr "Ningún evento encontrado"
+
+#: lib/Events.class.php:31
+msgid "No Events found in trash"
+msgstr "Ningún evento encontrado en la basura"
+
+#: lib/Events.class.php:77
+msgid "My Event"
+msgstr "Mi Evento"
+
+#: lib/Table/Attendees.class.php:16 lib/Table/TicketOptions.class.php:16
+#: views/gateway-paypal-express.php:7 views/gateway-manual.php:7
+msgid "Name"
+msgstr "nombre"
+
+#: lib/Table/Attendees.class.php:18
+msgid "Purchase Date"
+msgstr "Fecha de compra"
+
+#: lib/Table/Packages.class.php:22 views/admin/packages-add.php:17
+msgid "Package Name"
+msgstr "Nombre del paquete"
+
+#: lib/Table/Packages.class.php:26
+msgid "Start"
+msgstr "iniciar"
+
+#: lib/Table/Packages.class.php:27
+msgid "End"
+msgstr "final"
+
+#: lib/Table/Coupons.class.php:16 views/order_form.php:85
+#: views/admin/coupons-add.php:17
+msgid "Coupon Code"
+msgstr "Código promocional"
+
+#: lib/Table/Coupons.class.php:18
+msgid "Coupon Value"
+msgstr "Cupón Valor"
+
+#: lib/Table/Coupons.class.php:20
+msgid "Total"
+msgstr "total"
+
+#: lib/Table/Coupons.class.php:31
+msgid "Any"
+msgstr "cualquier"
+
+#: lib/Table/Notifications.class.php:16 views/admin/notifications-add.php:42
+#: views/admin/settings-email.php:13
+msgid "Subject"
+msgstr "tema"
+
+#: lib/Table/Notifications.class.php:17
+msgid "To"
+msgstr "a"
+
+#: lib/Table/Notifications.class.php:18
+msgid "Sent Date"
+msgstr "Fecha de envío"
+
+#: lib/Table/Tickets.class.php:16 views/admin/packages-add.php:30
+#: views/admin/tickets-add.php:15
+msgid "Ticket Name"
+msgstr "Nombre Ticket"
+
+#: lib/Table/TicketOptions.class.php:17 views/admin/coupons-add.php:27
+msgid "Type"
+msgstr "tipo"
+
+#: lib/Gateway/PayPalStandard.class.php:76
+#: lib/Gateway/PayPalExpress.class.php:63
+msgid "Sandbox"
+msgstr "arenero"
+
+#: lib/Gateway/PayPalStandard.class.php:77
+#: lib/Gateway/PayPalExpress.class.php:64
+msgid "Live"
+msgstr "vivir"
+
+#: lib/Gateway/Manual.class.php:46
+msgid "Name is required"
+msgstr "El nombre es requerido"
+
+#: lib/Gateway/PayPalExpress.class.php:161
+#: lib/Gateway/PayPalExpress.class.php:224
+msgid "Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>"
+msgstr "Detectó un error al intentar ponerse en contacto PayPal<br />Error: <pre>%s</pre>"
+
+#: views/single_attendee.php:21
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: views/order_form.php:89
+msgid "Apply Coupon"
+msgstr "Aplicar Cupón"
+
+#: views/order_form.php:105
+msgid "Choose your tickets and pay for them at PayPal. You will fill in your ticket information after your purchase is completed."
+msgstr "¡Elige tus entradas y pagar por ellos en PayPal. Tendrá que llenar la información de su billete después de que se termine su compra."
+
+#: views/gateway-paypal-express.php:1
+msgid "PayPal Payment"
+msgstr "PayPal Payment"
+
+#: views/gateway-paypal-express.php:4
+msgid "Please enter your name and PayPal email address to pay for your tickets"
+msgstr "Por favor, introduzca su nombre y dirección de correo electrónico de PayPal para pagar sus boletos"
+
+#: views/gateway-paypal-express.php:15 views/gateway-manual.php:15
+msgid "Total: %s"
+msgstr "Total: %s"
+
+#: views/gateway-manual.php:1
+msgid "Manual Payment"
+msgstr "Pago Manual"
+
+#: views/gateway-manual.php:4
+msgid "Please enter a name and email address for your confirmation and tickets"
+msgstr "Por favor, introduzca un nombre y dirección de correo electrónico para su confirmación y entradas"
+
+#: views/admin/packages.php:2 views/admin/notifications-add.php:8
+#: views/admin/tickets.php:1 views/admin/ticket-options-add.php:7
+#: views/admin/packages-add.php:7 views/admin/attendees.php:2
+#: views/admin/coupons.php:1 views/admin/attendees-add.php:7
+#: views/admin/notifications.php:1 views/admin/coupons-add.php:7
+#: views/admin/ticket-options.php:1 views/admin/tickets-add.php:6
+msgid "Add New"
+msgstr "Añadir nuevo"
+
+#: views/admin/gateway-paypal-standard.php:4
+#: views/admin/gateway-paypal-express.php:4 views/admin/gateway-manual.php:4
+msgid "Currency"
+msgstr "moneda"
+
+#: views/admin/gateway-paypal-standard.php:10
+#: views/admin/gateway-paypal-express.php:10
+msgid "Gateway Status"
+msgstr "Estado de gateway"
+
+#: views/admin/gateway-paypal-standard.php:18
+#: views/admin/gateway-paypal-express.php:18
+msgid "Sandbox Settings"
+msgstr "Configuración Sandbox"
+
+#: views/admin/gateway-paypal-standard.php:22
+#: views/admin/gateway-paypal-standard.php:39
+#: views/admin/gateway-paypal-express.php:22
+#: views/admin/gateway-paypal-express.php:39
+msgid "API Username"
+msgstr "API Usuario"
+
+#: views/admin/gateway-paypal-standard.php:26
+#: views/admin/gateway-paypal-standard.php:43
+#: views/admin/gateway-paypal-express.php:26
+#: views/admin/gateway-paypal-express.php:43
+msgid "API Password"
+msgstr "API Contraseña"
+
+#: views/admin/gateway-paypal-standard.php:30
+#: views/admin/gateway-paypal-standard.php:47
+#: views/admin/gateway-paypal-express.php:30
+#: views/admin/gateway-paypal-express.php:47
+msgid "API Signature"
+msgstr "Firma API"
+
+#: views/admin/gateway-paypal-standard.php:35
+#: views/admin/gateway-paypal-express.php:35
+msgid "Live Settings"
+msgstr "Ajustes en Vivo"
+
+#: views/admin/notifications-add.php:2
+msgid "Add Notification"
+msgstr "Agregar Notificación"
+
+#: views/admin/notifications-add.php:2
+msgid "View Notification"
+msgstr "Ver Notificación"
+
+#: views/admin/notifications-add.php:11
+msgid "To:"
+msgstr "To:"
+
+#: views/admin/notifications-add.php:15
+msgid "All attendees"
+msgstr "Todos los asistentes"
+
+#: views/admin/notifications-add.php:21
+msgid "Have filled out info"
+msgstr "Haber completado info"
+
+#: views/admin/notifications-add.php:27
+msgid "Have not filled out info"
+msgstr "No han cumplimentado info"
+
+#: views/admin/notifications-add.php:38
+msgid "Message"
+msgstr "mensaje"
+
+#: views/admin/notifications-add.php:46 views/admin/settings-email.php:17
+msgid "Email Body"
+msgstr "Email Cuerpo"
+
+#: views/admin/notifications-add.php:59
+msgid "Send Notification"
+msgstr "Enviar notificación"
+
+#: views/admin/reporting.php:8
+msgid "Registration is currently closed."
+msgstr "El registro está cerrado."
+
+#: views/admin/reporting.php:8
+msgid "Open registration"
+msgstr "abierta la inscripción"
+
+#: views/admin/reporting.php:17 views/admin/reporting.php:51
+msgid "Sold"
+msgstr "vendido"
+
+#: views/admin/reporting.php:19
+msgid "Revenue"
+msgstr "ingresos"
+
+#: views/admin/reporting.php:38 views/admin/reporting.php:67
+msgid "Totals"
+msgstr "Totales"
+
+#: views/admin/reporting.php:50
+msgid "Ticket"
+msgstr "billete"
+
+#: views/admin/reporting.php:83
+msgid "Need Support?"
+msgstr "¿Necesitas Ayuda?"
+
+#: views/admin/reporting.php:84
+msgid "If you are having problems with the WP Event Ticketing plugin, please post them in the %ssupport forums%s."
+msgstr "Si usted está teniendo problemas con el plugin de WP Evento venta de entradas, por favor, publicarlo en el %ssupport forums%s."
+
+#: views/admin/reporting.php:87
+msgid "Spread the Love"
+msgstr "Separe el amor"
+
+#: views/admin/reporting.php:88
+msgid "Did WP Event Ticketing help you run a kick ass event? Consider helping us out in one of the following ways:"
+msgstr "¿Se Ticketing WP Evento ayudarle a ejecutar un evento de puta madre? Considere la posibilidad de ayudarnos a salir en una de las siguientes formas:"
+
+#: views/admin/reporting.php:97
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr "PayPal - La forma más rápida y segura de pagar en línea!"
+
+#: views/admin/reporting.php:100
+msgid "or maybe..."
+msgstr "o tal vez ..."
+
+#: views/admin/reporting.php:104
+msgid "Give a 5-Star review"
+msgstr "Dale una revisión 5-Star"
+
+#: views/admin/reporting.php:105
+msgid "Tweet about it"
+msgstr "Tweet acerca de ello"
+
+#: views/admin/reporting.php:106
+msgid "Like our page on Facebook"
+msgstr "Al igual que nuestra página en Facebook"
+
+#: views/admin/reporting.php:109
+msgid "Subscribe to our mailing list"
+msgstr "Suscríbete a nuestra lista de correo"
+
+#: views/admin/reporting.php:110
+msgid "email address"
+msgstr "dirección de correo electrónico"
+
+#: views/admin/reporting.php:111
+msgid "Subscribe"
+msgstr "suscribir"
+
+#: views/admin/settings-email.php:1
+msgid "Registration Email"
+msgstr "Inscripción Email"
+
+#: views/admin/settings-email.php:5
+msgid "From Name"
+msgstr "De Nombre"
+
+#: views/admin/settings-email.php:9
+msgid "From Email"
+msgstr "Desde el correo electrónico"
+
+#: views/admin/settings-email.php:22
+msgid "Note: Include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information."
+msgstr "Nota: Incluya la [ticketlinks] shortcode en el cuerpo del correo electrónico para enviar al comprador el enlace para editar la información del boleto."
+
+#: views/admin/settings-reset.php:1
+msgid "Check the boxes for all of the settings you wish to reset. Be warned, checking the boxes and hitting the reset button WILL reset each checked box to the factory defaults."
+msgstr "Marque las casillas de todos los ajustes que desea restablecer. Se advirtió, marcando las casillas y pulsar el botón RESET, se restablece cada casilla para la configuración de fábrica."
+
+#: views/admin/settings-reset.php:11
+msgid "Ticket Types"
+msgstr "Tipos de entradas"
+
+#: views/admin/settings-reset.php:35 views/admin/settings.php:1
+msgid "Event Settings"
+msgstr "Configuración de Eventos"
+
+#: views/admin/settings-reset.php:41
+msgid "Payment Settings"
+msgstr "Configuración de pago"
+
+#: views/admin/settings-reset.php:47
+msgid "Email Settings"
+msgstr "Configuración del correo electrónico"
+
+#: views/admin/ticket-options-add.php:2 views/admin/ticket-options-add.php:78
+msgid "Add Ticket Option"
+msgstr "Añadir Opción Ticket"
+
+#: views/admin/ticket-options-add.php:2 views/admin/ticket-options-add.php:78
+msgid "Edit Ticket Option"
+msgstr "Editar Opción Ticket"
+
+#: views/admin/ticket-options-add.php:17
+msgid "Display Name"
+msgstr "Mostrar nombre"
+
+#: views/admin/ticket-options-add.php:21
+msgid "Option Type"
+msgstr "Tipo de Opción"
+
+#: views/admin/ticket-options-add.php:27
+msgid "Text Input"
+msgstr "La entrada de texto"
+
+#: views/admin/ticket-options-add.php:28
+msgid "Dropdown"
+msgstr "desplegable"
+
+#: views/admin/ticket-options-add.php:29
+msgid "Multi Select"
+msgstr "Multi Select"
+
+#: views/admin/ticket-options-add.php:56 views/admin/ticket-options-add.php:69
+msgid "Option Value"
+msgstr "Valor de la opción"
+
+#: views/admin/ticket-options-add.php:65
+msgid "Add Another Value"
+msgstr "Añadir otro valor"
+
+#: views/admin/packages-add.php:2 views/admin/packages-add.php:77
+msgid "Add Package"
+msgstr "Agregar paquete"
+
+#: views/admin/packages-add.php:2
+msgid "Edit Package"
+msgstr "Editar paquete"
+
+#: views/admin/packages-add.php:48
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#: views/admin/packages-add.php:52
+msgid "End Date"
+msgstr "Fecha de finalización"
+
+#: views/admin/packages-add.php:61
+msgid "Package Cost"
+msgstr "Costo Package"
+
+#: views/admin/packages-add.php:77
+msgid "Save Package"
+msgstr "Guardar el paquete"
+
+#: views/admin/attendees.php:21
+msgid "Download CSV"
+msgstr "Descarga CSV"
+
+#: views/admin/instructions-design.php:1
+msgid "Modify the attendees shortcode display"
+msgstr "Modificar los asistentes shortcode pantalla"
+
+#: views/admin/instructions-design.php:2
+msgid "After you place the %s shortcode on a page, by default your attendees will be displayed in order based on when they purchased their tickets. However, you can modify the order by adding a parameter to the shortcode. Here are a couple examples:"
+msgstr "Después de colocar el archivo %s shortcode en una página, por defecto los asistentes se mostrarán en orden basado en cuando compraron sus boletos. Sin embargo, se puede modificar el orden mediante la adición de un parámetro al código corto. Aquí hay un par de ejemplos:"
+
+#: views/admin/instructions-design.php:3
+msgid "%s to sort by First Name"
+msgstr "%s para ordenar por Nombre"
+
+#: views/admin/instructions-design.php:4
+msgid "%s to sort by Last Name"
+msgstr "%s ordenar por apellido"
+
+#: views/admin/instructions-design.php:5
+msgid "%s to sort by the attendees's Twitter handle"
+msgstr "%s ordenar por gestor Twitter de los asistentes"
+
+#: views/admin/instructions-getting-started.php:3
+msgid "Did you know?"
+msgstr "¿Sabía usted?"
+
+#: views/admin/instructions-getting-started.php:4
+msgid "While you are working inside WP Event Ticketing you can click the Help button in the top-right corner of the screen to receive page-specific help."
+msgstr "Mientras que usted está trabajando dentro de WP evento Ticketing puede hacer clic en el botón Ayuda en la esquina superior derecha de la pantalla para recibir la ayuda específica de la página."
+
+#: views/admin/instructions-getting-started.php:7
+msgid "Step 1"
+msgstr "Paso 1"
+
+#: views/admin/instructions-getting-started.php:8
+msgid "On the %sSettings%s page, click the %sPayment Gateways%s tab to configure your payment gateway"
+msgstr "En la página %sSettings%s, haga clic en tab el directorio %s Payment Gateways%s para configurar su pasarela de pago"
+
+#: views/admin/instructions-getting-started.php:10
+msgid "Step 2"
+msgstr "Paso 2"
+
+#: views/admin/instructions-getting-started.php:11
+msgid "On the %sSettings%s page, click the %sEvent%s tab and enter the default settings for your event"
+msgstr "En la página %sSettings%s, haga clic en la pestaña %sEvent%s e introduzca los ajustes predeterminados para su evento"
+
+#: views/admin/instructions-getting-started.php:13
+msgid "Step 3"
+msgstr "Paso 3"
+
+#: views/admin/instructions-getting-started.php:14
+msgid "On the %sSettings%s page, click the %sEmail%s tab and enter the default information that will be sent via email to your attendees after a sucessfull purchase."
+msgstr "En la página de la configuración de %sSettings%s, haga clic en la pestaña %sEmail%s e ingrese la información por defecto que será enviado por correo electrónico a los asistentes después de una compra exitosa."
+
+#: views/admin/instructions-getting-started.php:16
+msgid "Step 4"
+msgstr "Paso 4"
+
+#: views/admin/instructions-getting-started.php:17
+msgid "The %sTicket Options%s page is where you will set up what types of data you want to collect from your event attendees.%sNote, not all options have to be used for each ticket type. More on that shortly.%s"
+msgstr "La página %sTicket Options%s es donde va a configurar los tipos de datos que desea cobrar a sus asistentes al evento. %sNote, not all options have to be used for each ticket type. More on that shortly.%s"
+
+#: views/admin/instructions-getting-started.php:19
+msgid "Step 5"
+msgstr "Paso 5"
+
+#: views/admin/instructions-getting-started.php:20
+msgid "The %sTickets%s page is where you'll set up the types of tickets you want to offer. For example, you can set up ticket type \"A\" to include a shirt and lunch and type \"B\" which includes just the basics. As you are creating your ticket, you select the ticket options you want included for each ticket type."
+msgstr "La página %sTickets%s es donde se configura el tipo de entradas que desea ofrecer. Por ejemplo, puede configurar tipo de entrada \"A\" para incluir una camisa y el almuerzo y el tipo \"B\", que incluye lo básico. Como va a crear su boleto, usted selecciona las opciones de entradas que desea incluir para cada tipo de entrada."
+
+#: views/admin/instructions-getting-started.php:22
+msgid "Step 6"
+msgstr "Paso 6"
+
+#: views/admin/instructions-getting-started.php:23
+msgid "The %sPackages%s page is used to create the items that will be listed for sale on your site. For example, if you created ticket types \"A\" and \"B\" in the previous step, you could now create a package called \"General Admission\" and select ticket type \"A\" to be included. Then create a second package called \"Cheapy Ticket\" and attach ticket type \"B\". Another good use of a ticket package would be for offering event sponsorships. For example, create a package called \"Gold Sponsor\" with a price tag of $1,000 and includes multiple general admission tickets."
+msgstr "La página %sPackages%s se utiliza para crear los elementos que se encuentra a la venta en su sitio. Por ejemplo, si ha creado tipos de boletos \"A\" y \"B\" en el paso anterior, puede ahora crear un paquete llamado \"Entrada General\" y seleccionar el tipo de ticket \"A\" para ser incluido. A continuación, cree un segundo paquete llamado \"Ticket Cheapy\" y adjuntar tipo de entrada \"B\". Otro buen uso de un paquete de entradas sería para ofrecer patrocinios de eventos. Por ejemplo, cree un paquete llamado \"Gold Sponsor\" con un precio de $ 1,000 e incluye múltiples entradas de admisión general."
+
+#: views/admin/instructions-getting-started.php:25
+msgid "Step 7"
+msgstr "Paso 7"
+
+#: views/admin/instructions-getting-started.php:26
+msgid "Create a new %sPage%s and add the following shortcode: %s. This will display the ticket packages available for your event."
+msgstr "Crear una nueva %sPage%s y añadir el siguiente código corto: %s. Esto mostrará los paquetes de entradas disponibles para el evento."
+
+#: views/admin/instructions-getting-started.php:28
+msgid "Step 8"
+msgstr "Paso 8"
+
+#: views/admin/instructions-getting-started.php:29
+msgid "Once you are ready to start selling tickets, return to the %sSettings%s page and switch %sEvent Status%s to %sRegistration is Open%s"
+msgstr "Una vez que esté listo para empezar a vender entradas, vuelve a la página %sSettings%s y %sSettings%s a %sRegistration is Open%s"
+
+#: views/admin/instructions-getting-started.php:31
+msgid "Step 9"
+msgstr "Paso 9"
+
+#: views/admin/instructions-getting-started.php:31
+msgid "Optional"
+msgstr "opcional"
+
+#: views/admin/instructions-getting-started.php:32
+msgid "Create a new %sPage%s and add the following shortcode: %s to display a list of all the attendees for your event"
+msgstr "Crear una nueva %sPage%s y añadir el siguiente código corto: %s para ver una lista de todos los asistentes a su evento"
+
+#: views/admin/instructions-payment-gateways.php:1
+msgid "PayPal API Signature"
+msgstr "PayPal Firma API"
+
+#: views/admin/instructions-payment-gateways.php:2
+msgid "WP Event Ticketing requires a PayPal API Signature in order to accept payments. You will need a business account at PayPal in order to use their API Signature tool. Once you have a business account set up, here is how you set up you API Signature:"
+msgstr "WP evento Ticketing requiere una firma API de PayPal para aceptar pagos. Usted necesitará una cuenta comercial en PayPal con el fin de utilizar su herramienta de firma de API. Una vez que tenga una cuenta de negocio establecido, así es como se configura usted Firma API:"
+
+#: views/admin/instructions-payment-gateways.php:4
+msgid "Log in to your PayPal account"
+msgstr "Inicie sesión en su cuenta PayPal"
+
+#: views/admin/instructions-payment-gateways.php:5
+msgid "Hover over the %sProfile%s subtab on the top navigation area and click the %sMy Selling Tools%s link"
+msgstr "Pase el ratón sobre la %sProfile%s ficha secundaria en el área de navegación superior y haga clic en el %sMy Selling Tools%s enlace"
+
+#: views/admin/instructions-payment-gateways.php:6
+msgid "Click %supdate%s on the API Access line"
+msgstr "clic %supdate%s en la línea de acceso API"
+
+#: views/admin/instructions-payment-gateways.php:7
+msgid "Click the %srequest api credentials%s link (under Option 2)"
+msgstr "Haga clic en el %srequest api credentials%s enlace (en la Opción 2)"
+
+#: views/admin/instructions-payment-gateways.php:8
+msgid "Submit the form to %srequest api signature%s"
+msgstr "Envíe el formulario de %srequest api signature%s"
+
+#: views/admin/instructions-payment-gateways.php:9
+msgid "Copy and paste the API username, password and signature into the fields on the Tickets -> Settings -> Payments tab"
+msgstr "Copia y pega el nombre de usuario API, contraseña y firma en los campos de las entradas -> Configuración -> pestaña Pagos"
+
+#: views/admin/attendees-add.php:2 views/admin/attendees-add.php:38
+msgid "Add Attendee"
+msgstr "Agregar asistente"
+
+#: views/admin/attendees-add.php:2
+msgid "Edit Attendee"
+msgstr "Editar asistentes"
+
+#: views/admin/attendees-add.php:38
+msgid "Save Attendee"
+msgstr "Guardar asistente"
+
+#: views/admin/coupons-add.php:2 views/admin/coupons-add.php:48
+msgid "Add Coupon"
+msgstr "Añade cupón"
+
+#: views/admin/coupons-add.php:2
+msgid "Edit Coupon"
+msgstr "Edite Cupón"
+
+#: views/admin/coupons-add.php:30
+msgid "Flat Rate"
+msgstr "Tarifa Plana"
+
+#: views/admin/coupons-add.php:31
+msgid "Percentage"
+msgstr "porcentaje"
+
+#: views/admin/coupons-add.php:36
+msgid "Amount"
+msgstr "cantidad"
+
+#: views/admin/coupons-add.php:40
+msgid "Uses"
+msgstr "utiliza"
+
+#: views/admin/coupons-add.php:48
+msgid "Save Coupon"
+msgstr "Guardar Cupón"
+
+#: views/admin/settings-form-display.php:1
+msgid "These settings affect how the form is displayed to visitors."
+msgstr "Estos ajustes afectan a cómo se muestra el formulario para los visitantes."
+
+#: views/admin/settings-form-display.php:8
+msgid "Show # of remaining packages"
+msgstr "Show # de los paquetes restantes"
+
+#: views/admin/settings-form-display.php:14
+msgid "Hide coupons"
+msgstr "Ocultar cupones"
+
+#: views/admin/settings-event.php:4
+msgid "Event Date"
+msgstr "Fecha del evento"
+
+#: views/admin/settings-event.php:8
+msgid "Organizer Name"
+msgstr "Nombre del Organizador"
+
+#: views/admin/settings-event.php:12
+msgid "Organizer Email"
+msgstr "Organizador Email"
+
+#: views/admin/settings-event.php:16
+msgid "Maximum Attendance"
+msgstr "La asistencia máxima"
+
+#: views/admin/settings-event.php:20
+msgid "Event Status"
+msgstr "Estado del evento"
+
+#: views/admin/settings-event.php:23
+msgid "Registration is closed"
+msgstr "El registro está cerrado"
+
+#: views/admin/settings-event.php:24
+msgid "Registration is open"
+msgstr "La inscripción está abierta"
+
+#: views/admin/settings-event.php:29
+msgid "Closed Message text"
+msgstr "Texto del mensaje Cerrado"
+
+#: views/admin/settings-event.php:33
+msgid "Thank you page text"
+msgstr "Gracias texto de la página"
+
+#: views/admin/settings-event.php:35
+msgid "Note: To display the link to each ticket on the thank you page, include the [ticketlinks] shortcode."
+msgstr "Nota: Para ver el enlace a cada boleto en la página de agradecimiento, incluya el [ticketlinks] shortcode."
+
+#: views/admin/instructions-extras.php:1
+msgid "Reporting"
+msgstr "Reporting"
+
+#: views/admin/instructions-extras.php:2
+msgid "The %sReporting%s page gives you a snap shot of the packages and ticket types sold, coupons used and a graph displaying the number of tickets used and still available. The Summary Report makes it easy to get a count of your attendees based on the data provided. Very handy for getting a count of how many t-shirts you need to order in each size."
+msgstr "El %sReporting%s le da una instantánea de los paquetes y tipos de billetes vendidos, cupones utilizados y un gráfico que muestra el número de entradas utilizadas y todavía disponible. El informe de síntesis hace que sea fácil de obtener un recuento de los asistentes sobre la base de los datos proporcionados. Muy práctico para conseguir un recuento de la cantidad de camisetas que tienes que pedir en cada tamaño."
+
+#: views/admin/instructions-extras.php:4
+msgid "Create Coupons"
+msgstr "Crear Cupones"
+
+#: views/admin/instructions-extras.php:5
+msgid "On the %sCoupons%s page you can create an easy way to give discounts on tickets. Create a ticket code, set a flat-rate or percentage discount and select the number of times it can be used. This is handy for giving your speakers free entry to the event, but having them register so they are included in the attendee list and receive email notifications you might send."
+msgstr "En la página %sCoupons%s se puede crear una manera fácil de dar descuentos en las entradas. Crear un código de ticket, establecer una tarifa plana o un porcentaje de descuento y seleccione el número de veces que se puede utilizar. Esto es útil para dar a sus altavoces entrada gratuita al evento, pero que tiene que se registren por lo que se incluyen en la lista de asistentes y recibir notificaciones por correo electrónico que puede enviar."
+
+#: views/admin/instructions-extras.php:7
+msgid "Send Emails to Attendees"
+msgstr "Enviar correos electrónicos a los asistentes"
+
+#: views/admin/instructions-extras.php:8
+msgid "The %sNotify Attendees%s page will let you send an email to everybody on the Attendee list. A copy of the email gets sent to the admin automatically. A history of the messages sent is stored and displayed at the bottom of the page."
+msgstr "La página %sNotify Attendees%s le permitirá enviar un correo electrónico a todo el mundo en la lista de asistentes. Una copia del correo electrónico se envía automáticamente a la administración. Una historia de los mensajes enviados se almacenan y se muestran en la parte inferior de la página."
+
+#: views/admin/instructions-extras.php:10
+msgid "Create Tickets Manually"
+msgstr "Crear entradas manualmente"
+
+#: views/admin/instructions-extras.php:11
+msgid "You may find it necessary to create a ticket for somebody manually. Use the %sAdd Attendee%s page to create a ticket, as an example, for somebody who may have paid cash."
+msgstr "Puede verse en la necesidad de crear una entrada para alguien manualmente. Utilice la página  %sAdd Attendee%s para crear una entrada, por ejemplo, para alguien que pudo haber pagado en efectivo."
+
+#: views/admin/instructions-extras.php:13
+msgid "Export Attendee List"
+msgstr "Lista de asistentes Exportación"
+
+#: views/admin/instructions-extras.php:14
+msgid "Also on the Attendee page you have the option to export a list of all the attendees. This creates a CSV of all attendees and the data they've provided."
+msgstr "También en la página del asistente tiene la opción de exportar una lista de todos los asistentes. Esto crea un archivo CSV de todos los asistentes y los datos que nos ha facilitado."
+
+#: views/admin/tickets-add.php:2 views/admin/tickets-add.php:40
+msgid "Add Ticket"
+msgstr "Añadir Ticket"
+
+#: views/admin/tickets-add.php:2
+msgid "Edit Ticket"
+msgstr "Editar Ticket"
+
+#: views/admin/tickets-add.php:40
+msgid "Save Ticket"
+msgstr "Guardar Ticket"
+
+#: views/admin/settings-payment.php:4
+msgid "Payment Gateway"
+msgstr "Pasarela de Pagos"
+
+#: views/admin/settings.php:32
+msgid "Save All Settings"
+msgstr "Guardar todos los ajustes"

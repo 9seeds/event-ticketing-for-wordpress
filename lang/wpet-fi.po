@@ -1,0 +1,1606 @@
+# Translation of WP Event Ticketing in Finnish
+# This file is distributed under the same license as the WP Event Ticketing package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2013-07-19 18:06:05+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: WP Event Ticketing\n"
+
+#: lib/Instructions.class.php:30 lib/Attendees.class.php:58
+#: lib/Attendees.class.php:79 lib/Settings.class.php:31
+#: lib/Packages.class.php:36 lib/Packages.class.php:75
+#: lib/Coupons.class.php:151 lib/Coupons.class.php:173
+#: lib/Notifications.class.php:62 lib/Notifications.class.php:82
+#: lib/Tickets.class.php:56 lib/Tickets.class.php:75 lib/Reports.class.php:45
+#: lib/TicketOptions.class.php:35 lib/TicketOptions.class.php:54
+msgid "Overview"
+msgstr "Yleisnäkymä"
+
+#: lib/Instructions.class.php:31
+msgid "This is just an example of what you will see on the help tab on any of the other WP Event Ticketing pages."
+msgstr "Tämä on vain esimerkki siitä, mitä näet on apua välilehteä jollekin muulle WP pääsylippujen sivua."
+
+#: lib/Instructions.class.php:45 lib/Instructions.class.php:46
+#: lib/WPET.class.php:285 views/admin/instructions.php:1
+msgid "Instructions"
+msgstr "Käyttöohjeet"
+
+#: lib/Instructions.class.php:97 lib/Instructions.class.php:135
+msgid "Getting Started"
+msgstr "Aloitus"
+
+#: lib/Instructions.class.php:98 lib/Instructions.class.php:140
+msgid "Payment Gateways"
+msgstr "Maksukanavat"
+
+#: lib/Instructions.class.php:99 lib/Instructions.class.php:145
+msgid "Design"
+msgstr "Ulkoasu"
+
+#: lib/Instructions.class.php:100 lib/Instructions.class.php:150
+msgid "Extras"
+msgstr "Ekstrat"
+
+#: lib/Attendees.class.php:59
+msgid "This screen allows you to add a new attendee for your event."
+msgstr "Tässä ikkunassa voit lisätä uuden osallistujan oman tapahtuman."
+
+#: lib/Attendees.class.php:65 lib/Packages.class.php:43
+#: lib/Coupons.class.php:158 lib/Notifications.class.php:69
+#: lib/Tickets.class.php:63 lib/TicketOptions.class.php:42
+msgid "Options Explained"
+msgstr "Vaihtoehdot selitettynä"
+
+#: lib/Attendees.class.php:66 lib/Packages.class.php:44
+#: lib/Coupons.class.php:159 lib/Notifications.class.php:70
+#: lib/Tickets.class.php:64 lib/TicketOptions.class.php:43
+msgid "Here's an explanation of the options found on this page:"
+msgstr "Tässä selitys vaihtoehtoja löytyy tältä sivulta:"
+
+#: lib/Attendees.class.php:68
+msgid "%sPackage%s lets you select which package to associate this attendee with. Selecting a package will cause the value of the package to be included as part of the sales reports."
+msgstr "%sPackage%s voit valita mikä paketti yhdistää tämän osallistujan kanssa. Valitsemalla paketti aiheuttaa arvo paketti voidaan sisällyttää osaksi myynnin raportit."
+
+#: lib/Attendees.class.php:69
+msgid "%sFirst Name%s is the first name of the attendee and is a required field."
+msgstr "%sFirst Name%s on osallistujan etunimi ja on pakollinen tieto."
+
+#: lib/Attendees.class.php:70
+msgid "%sLast Name%s is the last name of the attendee and is a required field."
+msgstr "%sLast Name%s on osallistujan sukunimi ja on pakollinen tieto."
+
+#: lib/Attendees.class.php:71
+msgid "%sEmail%s is the email address for the attendee and is a required field."
+msgstr "%sEmail%s on osallistujan sähköpostisoite ja on pakollinen tieto."
+
+#: lib/Attendees.class.php:80
+msgid "This screen provides access to all of your attendees."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikkiin läsnäolijoille."
+
+#: lib/Attendees.class.php:86 lib/Packages.class.php:82
+#: lib/Coupons.class.php:180 lib/Notifications.class.php:89
+#: lib/Tickets.class.php:82 lib/TicketOptions.class.php:61
+msgid "Available Actions"
+msgstr "saatavilla Toiminnot"
+
+#: lib/Attendees.class.php:87
+msgid "Hovering over a row in the attendee list will display action links that allow you to manage each attendee. You can perform the following actions:"
+msgstr "Leijuu rivi osallistujaluettelo näyttää toimintaa linkkejä, joiden avulla voit hallita kunkin osallistujan. Voit tehdä seuraavat toimet:"
+
+#: lib/Attendees.class.php:89
+msgid "%sEdit%s takes you to the editing screen for that attendee. You can also reach that screen by clicking on the attendee's name itself."
+msgstr "%sEdit%s vie muokkausnäyttöön että osallistuja. Voit myös päästä, että näytön klikkaamalla osallistujan nimi itse."
+
+#: lib/Attendees.class.php:90
+msgid "%sTrash%s removes the attendee from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s poistaa osallistujan luettelosta ja sijoittaa sen roskakoriin, josta voit poistaa sen pysyvästi."
+
+#: lib/Attendees.class.php:197 lib/Attendees.class.php:198
+#: views/admin/settings-reset.php:29 views/admin/attendees.php:1
+msgid "Attendees"
+msgstr "Osallistujat"
+
+#: lib/Attendees.class.php:210
+msgid "First Name is required"
+msgstr "Etunimi on pakollinen"
+
+#: lib/Attendees.class.php:211
+msgid "Last Name is required"
+msgstr "Sukunimi on pakollinen"
+
+#: lib/Attendees.class.php:212 lib/Gateway/Manual.class.php:47
+msgid "Email is required"
+msgstr "Sähköpostiosoite on pakollinen"
+
+#: lib/WPET.class.php:145 lib/Packages.class.php:103
+msgid "Quantity is required"
+msgstr "Määrä on pakollinen"
+
+#: lib/WPET.class.php:163 views/order_form.php:29
+#: views/admin/packages-add.php:21
+msgid "Description"
+msgstr "Selitys"
+
+#: lib/WPET.class.php:164 lib/Packages.class.php:61
+#: lib/Table/Packages.class.php:23 views/order_form.php:30
+#: views/admin/packages-add.php:57
+msgid "Price"
+msgstr "Hinta"
+
+#: lib/WPET.class.php:170 lib/Table/Packages.class.php:24
+#: lib/Table/Coupons.class.php:19 views/order_form.php:33
+#: views/admin/reporting.php:18 views/admin/reporting.php:52
+msgid "Remaining"
+msgstr "Jäljellä"
+
+#: lib/WPET.class.php:173 lib/Table/Packages.class.php:25
+#: views/order_form.php:39 views/admin/packages-add.php:39
+msgid "Quantity"
+msgstr "Määrä"
+
+#: lib/WPET.class.php:255 lib/WPET.class.php:256 lib/Tickets.class.php:102
+#: lib/Tickets.class.php:103 views/admin/tickets.php:1
+msgid "Tickets"
+msgstr "Liput"
+
+#: lib/WPET.class.php:284 lib/Settings.class.php:111 lib/Settings.class.php:112
+msgid "Settings"
+msgstr "Asetukset"
+
+#: lib/WPET.class.php:286
+msgid "Support Forum"
+msgstr "Tukiforum"
+
+#: lib/WPET.class.php:431
+msgid "Need help"
+msgstr "Tarvitsetko apua"
+
+#: lib/WPET.class.php:432
+msgid "Support Forums"
+msgstr "Tukiforumit"
+
+#: lib/WPET.class.php:433
+msgid "Developer Docs"
+msgstr "Developer Docs"
+
+#: lib/Installer.class.php:493 views/single_attendee.php:4
+#: views/admin/attendees-add.php:22
+msgid "First Name"
+msgstr "Etunimi"
+
+#: lib/Installer.class.php:494 views/single_attendee.php:8
+#: views/admin/attendees-add.php:26
+msgid "Last Name"
+msgstr "Sukunimi"
+
+#: lib/Installer.class.php:495 lib/Settings.class.php:67
+#: lib/Settings.class.php:153 lib/Tickets.class.php:202
+#: lib/Table/Attendees.class.php:17 views/single_attendee.php:12
+#: views/gateway-paypal-express.php:11 views/gateway-manual.php:11
+#: views/admin/attendees-add.php:30
+msgid "Email"
+msgstr "Sähköposti"
+
+#: lib/Installer.class.php:496
+msgid "Twitter"
+msgstr "Twitter"
+
+#: lib/Installer.class.php:502
+msgid "General Admission"
+msgstr "Pääsylippu"
+
+#: lib/Installer.class.php:515
+msgid "General Admission Package"
+msgstr "Lippupaketti"
+
+#: lib/Settings.class.php:32
+msgid "This screen provides access to all the settings for WP Event Ticketing."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikkiin asetuksia WP Tapahtuman lipunmyynti."
+
+#: lib/Settings.class.php:39
+msgid "Default Values"
+msgstr "Default Values"
+
+#: lib/Settings.class.php:40
+msgid "When you install WP Event Ticketing, the following settings are set by default:"
+msgstr "Kun asennat WP Tapahtuman lipunmyynti, seuraavat asetukset ovat oletusarvoisesti:"
+
+#: lib/Settings.class.php:41
+msgid "Events Tab"
+msgstr "Tapahtumat Tab"
+
+#: lib/Settings.class.php:42
+msgid "Event Status: Registration is closed"
+msgstr "Tapahtuma Tila: Rekisteröinti on suljettu"
+
+#: lib/Settings.class.php:43
+msgid "Payments Tab"
+msgstr "Maksut Tab"
+
+#: lib/Settings.class.php:44
+msgid "Payment Gateway: Manual"
+msgstr "Maksu Gateway: Manuaalinen"
+
+#: lib/Settings.class.php:45
+msgid "Currency: United States Dollar ($)"
+msgstr "Valuutta: Yhdysvaltain dollari ($)"
+
+#: lib/Settings.class.php:46
+msgid "Form Display Tab"
+msgstr "Lomake Näyttö-välilehti"
+
+#: lib/Settings.class.php:47
+msgid "Show # of remaining packages: Checked"
+msgstr "Näytä # jäljellä paketteja: Tarkastettu"
+
+#: lib/Settings.class.php:54
+msgid "Tabs"
+msgstr "Välilehdet"
+
+#: lib/Settings.class.php:55
+msgid "Here is a discription of each tab's functionality:"
+msgstr "Tässä on kuvaus kustakin välilehden toiminnot:"
+
+#: lib/Settings.class.php:56 lib/Settings.class.php:151 lib/Events.class.php:22
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: lib/Settings.class.php:57
+msgid "%sEvent Date%s is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event."
+msgstr "%sEvent Date%s on päivä tapahtuma järjestetään. Jos käytät usean päivän tapahtuma, aseta tämä ensimmäisen päivän tapahtuma."
+
+#: lib/Settings.class.php:58
+msgid "%sOrganizer Name"
+msgstr "%s Järjestäjän nimi"
+
+#: lib/Settings.class.php:58
+msgid " is the name of the organizer. This will be used for outgoing emails from the system."
+msgstr "on nimi järjestäjä. Tätä käytetään lähtevät sähköpostit järjestelmästä."
+
+#: lib/Settings.class.php:59
+msgid "%sOrganizer Email%s is the email address for the organizer. This will be used for outgoing emails from the system."
+msgstr "%sOrganizer Email%s on sähköpostiosoite järjestäjä. Tätä käytetään lähtevät sähköpostit järjestelmästä."
+
+#: lib/Settings.class.php:60
+msgid "%sMaximum Attendance%s is the total amount of tickets that can be sold for this event."
+msgstr "%sMaximum Attendance%s on kokonaismäärä lippuja voidaan myydä tätä tapahtumaa."
+
+#: lib/Settings.class.php:61
+msgid "%sEvent Status%s allows you to turn ticket sales on/off for the event. When registration is closed, no tickets are able to be purchased."
+msgstr "%sEvent Status%s avulla voit kytkeä lipunmyynti on / off tapahtuma. Kun rekisteröinti on päättynyt, lippuja ei voi ostaa."
+
+#: lib/Settings.class.php:62
+msgid "%sClosed Message Text%s is the text that will be shown in place of the order from when registration is closed."
+msgstr "%sClosed Message Text%s on teksti, joka näkyy sijasta tilauksen, kun rekisteröinti on päättynyt."
+
+#: lib/Settings.class.php:63
+msgid "%sThank You Page Text%s is the text that will be displayed after a package is purchased."
+msgstr "%sThank You Page Text%s on teksti, joka näytetään, kun paketti on ostettu."
+
+#: lib/Settings.class.php:64 lib/Settings.class.php:152
+msgid "Payments"
+msgstr "Maksut"
+
+#: lib/Settings.class.php:65
+msgid "%sPayment Gateway%s lets you select which method you will use to accept payments."
+msgstr "%sPayment Gateway%s voit valita, mitä menetelmää voit käyttää hyväksymään maksuja."
+
+#: lib/Settings.class.php:66
+msgid "%sCurrency%s lets you select which currency you want funds paid in."
+msgstr "%sCurrency%s voit valita haluamasi valuutan varat maksetaan sisään"
+
+#: lib/Settings.class.php:68
+msgid "%sSubject%s is the subject of the email that will get sent to the purchaser upon completion of an order."
+msgstr "%sSubject%s on sähköpostin aihe, joka saa lähettää ostajalle päätyttyä järjestyksessä."
+
+#: lib/Settings.class.php:69
+msgid "%sEmail Body%s is the content of the email that gets sent to the purchaser upon completion of an order. Be sure to include the %s shortcode in the email body to send the buyer the link to edit their ticket information."
+msgstr "%sEmail Body%s on sisältö sähköpostin, joka saa lähettää ostajalle päätyttyä järjestyksessä. Muista liittää %s Puute, sähköpostissa elin lähettää ostajalle linkin muokata lipun tiedot."
+
+#: lib/Settings.class.php:70 lib/Settings.class.php:154
+msgid "Form Display"
+msgstr "kaava-näyttö"
+
+#: lib/Settings.class.php:71
+msgid "%sShow # of Remaining Packages%s, Unchecking this setting will remove the column from the order form that displays how many of each package are still available for purchase."
+msgstr "%sShow # of Remaining Packages%s, Poistamalla tämä asetus poistaa sarakkeen tilauslomakkeen, joka näyttää, kuinka monta kunkin paketin vielä ostettavissa."
+
+#: lib/Settings.class.php:72
+msgid "%sHide Coupons%s, If you do not intend to offer coupons, check this box and the coupon field will be removed from the order form."
+msgstr "%sHide Coupons%s, Jos et aio tarjota kuponkeja, tämä ruutu ja kuponki alan poistetaan tilauslomakkeella."
+
+#: lib/Settings.class.php:73 lib/Settings.class.php:167
+msgid "Reset"
+msgstr "Nollaa"
+
+#: lib/Settings.class.php:74
+msgid "%sALL CHECKBOXES%s, Checking any of these boxes and clicking the Save All Settings button will delete any changes you added to the system. This can not be undone."
+msgstr "%sALL CHECKBOXES%s, Tarkistaminen jokin näistä laatikot ja klikkaamalla Tallenna kaikki asetukset painike poistaa kaikki muutokset lisätty järjestelmään. Tätä ei voi perua."
+
+#: lib/Settings.class.php:86
+msgid ""
+"Are you sure you want to reset these?:\n"
+"{reset_list}"
+msgstr ""
+"Oletko varma, että haluat palauttaa nämä?:\n"
+"{reset_list}"
+
+#: lib/Settings.class.php:90
+msgid "Max attendance must be numeric"
+msgstr "Max läsnäolo on numeerinen"
+
+#: lib/Settings.class.php:91
+msgid "Event Date is required"
+msgstr "Tapahtuman päivämäärä vaaditaan"
+
+#: lib/Settings.class.php:92
+msgid "Organizer Name is required"
+msgstr "Järjestäjä nimi tarvitaan"
+
+#: lib/Settings.class.php:93
+msgid "Organizer Email is required"
+msgstr "Järjestäjä Sähköposti tarvitaan"
+
+#: lib/Settings.class.php:94
+msgid "Email Subject is required"
+msgstr "Sähköposti Aihe vaaditaan"
+
+#: lib/Settings.class.php:95 lib/Notifications.class.php:110
+msgid "Email Body is required"
+msgstr "Sähköposti Body tarvitaan"
+
+#: lib/Settings.class.php:195
+msgid "Settings Title"
+msgstr "Asetukset Otsikko"
+
+#: lib/Settings.class.php:218 lib/Settings.class.php:230
+#: lib/Settings.class.php:235
+msgid "Second email"
+msgstr "toinen sähköposti"
+
+#: lib/Packages.class.php:37
+msgid "This screen allows you to add a new package for your event."
+msgstr "Tässä ikkunassa voit lisätä uuden paketin oman tapahtuman."
+
+#: lib/Packages.class.php:46
+msgid "%sPackage Name%s is the name that will be displayed to your visitors on the purchase page."
+msgstr "%sPackage Name%s on nimi, joka näytetään kävijöitä ostosta sivulla."
+
+#: lib/Packages.class.php:47
+msgid "%sDescription%s will be displayed to your visitors under the package name on the purchase page."
+msgstr "%sDescription%s näytetään kävijöitä alle paketin nimi ostamista."
+
+#: lib/Packages.class.php:49 views/admin/packages-add.php:26
+msgid "Included Tickets"
+msgstr "Mukana Liput"
+
+#: lib/Packages.class.php:50
+msgid "This section lets you select which ticket type and how many tickets are included with the purchase of this package."
+msgstr "Tässä kohdassa voit valita, minkä lipun tyyppi ja kuinka monta lippua mukana ostaa tämän paketin."
+
+#: lib/Packages.class.php:52
+msgid "%sTicket Name%s lets you select which ticket type will be included in this ticket package."
+msgstr "%sTicket Name%s voit valita, minkä lipun tyyppi sisällytetään tähän lippupaketti."
+
+#: lib/Packages.class.php:53
+msgid "%sQuantity%s lets you set how many of the selected ticket type will be included when somebody purchases this package."
+msgstr "%sQuantity%s voit määrittää, kuinka monta valitun lipputyyppi sisällytetään kun joku ostaa tämän paketin."
+
+#: lib/Packages.class.php:55 views/admin/packages-add.php:44
+msgid "On Sale Date"
+msgstr "Myynnissä Päivämäärä"
+
+#: lib/Packages.class.php:56
+msgid "This section lets you control when this package is available for purchase."
+msgstr "Tässä osiossa voit valvoa, kun tämä paketti on ostettavissa."
+
+#: lib/Packages.class.php:58
+msgid "%sStart Date%s is the first day this ticket package will be available for purchase."
+msgstr "%sStart Date%s on ensimmäinen päivä tämä lippupaketti on ostettavissa."
+
+#: lib/Packages.class.php:59
+msgid "%sEnd Date%s is the last day this ticket package will be available for purchase."
+msgstr "%sEnd Date%s on viimeinen päivä tässä lippupaketti on ostettavissa."
+
+#: lib/Packages.class.php:63
+msgid "%sPackage Cost%s is the price for the package, no matter how many tickets are included."
+msgstr "%sPackage Cost%s on hinta paketti, ei väliä kuinka monta lippua ovat mukana."
+
+#: lib/Packages.class.php:65 views/admin/packages-add.php:66
+#: views/admin/packages-add.php:70
+msgid "Packages Available"
+msgstr "paketteja"
+
+#: lib/Packages.class.php:67
+msgid "%sPackages Available%s is the total number of this specific package that you have available for sale."
+msgstr "%sPackages Available%s on määrä tämän tietyn paketin, että sinulla on myynnissä."
+
+#: lib/Packages.class.php:76
+msgid "This screen provides access to all of your ticket packages."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikkiin lippusi paketteja."
+
+#: lib/Packages.class.php:83
+msgid "Hovering over a row in the package list will display action links that allow you to manage each package. You can perform the following actions:"
+msgstr "Leijuu rivi pakettiluettelo näyttää toimintaa linkkejä, joiden avulla voit hallita jokaisen paketin. Voit tehdä seuraavat toimet:"
+
+#: lib/Packages.class.php:85
+msgid "%sEdit%s takes you to the editing screen for that package. You can also reach that screen by clicking on the package name itself."
+msgstr "%sEdit%s vie muokkausnäyttöön että paketti. Voit myös päästä, että näytön klikkaamalla paketin nimi itse."
+
+#: lib/Packages.class.php:86
+msgid "%sTrash%s removes your package from this list and places it in the trash, from which you can permanently delete it. Deleting a package does not delete the attached tickets."
+msgstr "%sTrash%s poistaa paketin luettelosta ja sijoittaa sen roskakoriin, josta voit poistaa sen pysyvästi. Poistaminen paketti ei poista liitteenä liput."
+
+#: lib/Packages.class.php:100
+msgid "Package Name is required"
+msgstr "Paketin nimi tarvitaan"
+
+#: lib/Packages.class.php:101
+msgid "Description is required"
+msgstr "Kuvaus vaaditaan"
+
+#: lib/Packages.class.php:102 lib/Tickets.class.php:29
+msgid "Ticket Name is required"
+msgstr "Lippujen nimi tarvitaan"
+
+#: lib/Packages.class.php:104
+msgid "Quantity must be numeric"
+msgstr "Määrän täytyy olla numero"
+
+#: lib/Packages.class.php:105
+msgid "Start Date is required"
+msgstr "Alkaa tarvitaan"
+
+#: lib/Packages.class.php:106
+msgid "End Date is required"
+msgstr "Päättymispäivä on tarpeen"
+
+#: lib/Packages.class.php:107
+msgid "End Date must be after Start Date"
+msgstr "Päättymispäivä on oltava jälkeen aloituspäivä"
+
+#: lib/Packages.class.php:108
+msgid "Package Cost is required"
+msgstr "Paketti kustannukset vaaditaan"
+
+#: lib/Packages.class.php:109
+msgid "Package Cost must be numeric"
+msgstr "Paketti kustannukset on numeerinen"
+
+#: lib/Packages.class.php:110
+msgid "Packages Available is required"
+msgstr "Paketteja tarvitaan"
+
+#: lib/Packages.class.php:111
+msgid "Packages Available must be numeric"
+msgstr "Paketteja on numeerinen"
+
+#: lib/Packages.class.php:124 lib/Packages.class.php:125
+#: views/admin/packages.php:1 views/admin/reporting.php:16
+#: views/admin/settings-reset.php:17
+msgid "Packages"
+msgstr "paketit"
+
+#: lib/Packages.class.php:249
+msgid "Any Package"
+msgstr "Kaikki Paketti"
+
+#: lib/Currency.class.php:46
+msgid "United States Dollar"
+msgstr "Yhdysvaltain dollari"
+
+#: lib/Currency.class.php:54
+msgid "Afghan Afghani"
+msgstr "Afganistanin afgaani"
+
+#: lib/Currency.class.php:62
+msgid "Australian Dollars"
+msgstr "Australian dollari"
+
+#: lib/Currency.class.php:70
+msgid "Brazilian Real (only for Brazilian users)"
+msgstr "Brasilian real (vain Brasilialaisille käyttäjille)"
+
+#: lib/Currency.class.php:78
+msgid "Canadian Dollars"
+msgstr "Kanadan dollari"
+
+#: lib/Currency.class.php:86
+msgid "Czech Koruna"
+msgstr "Tšekin koruna"
+
+#: lib/Currency.class.php:94
+msgid "Danish Krone"
+msgstr "Tanskan kruunu"
+
+#: lib/Currency.class.php:102
+msgid "Euros"
+msgstr "Euroa"
+
+#: lib/Currency.class.php:110
+msgid "Hong Kong Dollars"
+msgstr "Hongkongin dollaria"
+
+#: lib/Currency.class.php:118
+msgid "Hungarian Forint"
+msgstr "Unkarin forintti"
+
+#: lib/Currency.class.php:126
+msgid "Israeli Shekel"
+msgstr "Israelin sekeli"
+
+#: lib/Currency.class.php:134
+msgid "Malaysian Ringgits (only for Malaysian users)"
+msgstr "Malesian Ringgits (vain Malesian käyttäjille)"
+
+#: lib/Currency.class.php:142
+msgid "Mexican Peso"
+msgstr "Meksikon peso"
+
+#: lib/Currency.class.php:150
+msgid "New Zealand Dollars"
+msgstr "Uuden Seelannin dollari"
+
+#: lib/Currency.class.php:158
+msgid "Norwegian Krone"
+msgstr "Norja Krone"
+
+#: lib/Currency.class.php:166
+msgid "Philippine Pesos"
+msgstr "Filippiinien pesoa"
+
+#: lib/Currency.class.php:174
+msgid "Polish Zloty"
+msgstr "Puolan zloty"
+
+#: lib/Currency.class.php:182
+msgid "Pounds Sterling"
+msgstr "punta"
+
+#: lib/Currency.class.php:190
+msgid "Singapore Dollar"
+msgstr "Singaporen dollari"
+
+#: lib/Currency.class.php:198
+msgid "Swedish Krona"
+msgstr "Ruotsin kruunu"
+
+#: lib/Currency.class.php:206
+msgid "Swiss Franc"
+msgstr "Sveitsin frangi"
+
+#: lib/Currency.class.php:214
+msgid "Taiwan New Dollars"
+msgstr "Taiwan New Dollars"
+
+#: lib/Currency.class.php:222
+msgid "Thai Baht"
+msgstr "Thaimaan baht"
+
+#: lib/Currency.class.php:230
+msgid "Yen"
+msgstr "jeni"
+
+#: lib/Coupons.class.php:28
+msgid "Coupon Code is required"
+msgstr "Kuponkikoodi tarvitaan"
+
+#: lib/Coupons.class.php:29
+msgid "Amount must be less than 100 percent"
+msgstr "Määrän on oltava alle 100 prosenttia"
+
+#: lib/Coupons.class.php:30
+msgid "Amount must be a number"
+msgstr "Määrä on useita"
+
+#: lib/Coupons.class.php:31
+msgid "Uses must be a number"
+msgstr "Käyttää täytyy olla numero"
+
+#: lib/Coupons.class.php:50
+msgid "Invalid coupon"
+msgstr "Virheellinen kuponki"
+
+#: lib/Coupons.class.php:152
+msgid "This screen allows you to add a new coupon for your event."
+msgstr "Tässä ikkunassa voit lisätä uuden kuponki oman tapahtuman."
+
+#: lib/Coupons.class.php:161
+msgid "%sCoupon Code%s is what a visitor would type in to the registration form to receive a discount. This should be a unique value and contain no spaces or special characters."
+msgstr "%sCoupon Code%s on mitä kävijä kirjoittaa ilmoittautumislomakkeeseen saada alennusta. Tämän pitäisi olla ainutlaatuinen arvo ja ei ole välilyöntejä tai erikoismerkkejä."
+
+#: lib/Coupons.class.php:162
+msgid "%sPackage%s allows you to choose which package is eligible for purchase with this coupon. Selecting a specific package from the dropdown will tie this coupon to the selected package."
+msgstr "%sPackage%s voit valita mikä paketti on oikeutettu ostaa tämän kupongin. Valitsemalla tietyn paketin avattavasta sidotaan kuponki valittu paketti."
+
+#: lib/Coupons.class.php:163
+msgid "%sType%s lets you decide if this coupon will give a flat rate discount (e.g. $5.00 off), or a percentage of the package price."
+msgstr "%sType%s voit päättää, jos tämä kuponki antaa kiinteä alennus (esim. 5,00 dollaria pois), tai prosentteina paketin hinta."
+
+#: lib/Coupons.class.php:164
+msgid "%sAmount%s is the value of the coupon. If using flat rate, 5.00 would equal $5.00 off. If using percentage, 5 would equal 5 percent off."
+msgstr "%sAmount%s on kupongin. Jos käytät kiinteä, 5,00 vastaisi 5,00 dollaria pois. Jos käytät prosenttiosuus, 5 vastaisi 5 prosenttia pois."
+
+#: lib/Coupons.class.php:165
+msgid "%sUses%s lets you set how many times this coupon can be used."
+msgstr "%sUses%s lets you set how many times this coupon can be used."
+
+#: lib/Coupons.class.php:174
+msgid "This screen provides access to all of your coupons."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikkiin kupongit."
+
+#: lib/Coupons.class.php:181
+msgid "Hovering over a row in the coupon list will display action links that allow you to manage each coupon. You can perform the following actions:"
+msgstr "Leijuu rivi kuponki-luettelo tulee näkyviin toimiin linkkejä, joiden avulla voit hallita kupongin. Voit tehdä seuraavat toimet:"
+
+#: lib/Coupons.class.php:183
+msgid "%sEdit%s takes you to the editing screen for that coupon. You can also reach that screen by clicking on the coupon code itself."
+msgstr "%sEdit%s vie muokkausnäyttöön että kuponki. Voit myös päästä, että näytön klikkaamalla kuponkikoodi itse."
+
+#: lib/Coupons.class.php:184
+msgid "%sTrash%s removes your coupon from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s poistaa kupongin tästä luettelosta ja sijoittaa sen roskakoriin, josta voit poistaa sen pysyvästi."
+
+#: lib/Coupons.class.php:200 lib/Coupons.class.php:201
+#: views/admin/reporting.php:20 views/admin/settings-reset.php:23
+#: views/admin/coupons.php:1
+msgid "Coupons"
+msgstr "Kupongit"
+
+#: lib/Payments.class.php:46
+msgid "Pending"
+msgstr "odotettaessa"
+
+#: lib/Payments.class.php:55
+msgid "Collect Attendee Data"
+msgstr "Kerää Osallistuja Data"
+
+#: lib/Payments.class.php:64
+msgid "Collect Attendee Data Post"
+msgstr "Kerää Osallistuja Data Post"
+
+#: lib/Payments.class.php:73
+msgid "Processing"
+msgstr "käsittely"
+
+#: lib/Payments.class.php:82
+msgid "Draft"
+msgstr "Luonnos"
+
+#: lib/Payments.class.php:453
+msgid "Checkout"
+msgstr "Kassa"
+
+#: lib/Notifications.class.php:63
+msgid "This screen allows you to send a notification to some or all of your attendees."
+msgstr "Tämän näytön avulla voit lähettää ilmoituksen joitakin tai kaikkia osallistujia."
+
+#: lib/Notifications.class.php:72
+msgid "%sTo%s lets you decide which group of attendees will receive the notification. Selecting multiple checkboxs will send the notification to all attendees in each of the selected groups."
+msgstr "%sTo%s voit päättää, mikä ryhmä osallistujat saavat ilmoituksen. Valitsemalla useita checkboxs lähettää ilmoituksen kaikille osallistujille kussakin valittujen ryhmien."
+
+#: lib/Notifications.class.php:73
+msgid "%sSubject%s is what will be sent as the subject of the email."
+msgstr "%sSubject%s on mitä tullaan lähetetään kuin sähköpostin aihe."
+
+#: lib/Notifications.class.php:74
+msgid "%sEmail Body%s is the content of the email message that will be sent."
+msgstr "%sEmail Body%s sisältö on sähköpostiviesti, joka lähetetään."
+
+#: lib/Notifications.class.php:83
+msgid "This screen provides access to all of your previously sent notifications."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikki aiemmin lähetetty ilmoituksia."
+
+#: lib/Notifications.class.php:90
+msgid "Hovering over a row in the notification list will display action links that allow you to manage each of the previous notifications. You can perform the following actions:"
+msgstr "Leijuu rivi ilmoitusluettelosta näyttää toimintaa linkkejä, joiden avulla voit hallita kunkin aiempia ilmoituksia. Voit tehdä seuraavat toimet:"
+
+#: lib/Notifications.class.php:92
+msgid "%sView%s allows you see the notification that was sent along with who it was sent to."
+msgstr "%sView%s mahdollistaa näet ilmoituksen, joka lähetetään yhdessä, kuka se oli lähetetty."
+
+#: lib/Notifications.class.php:108
+msgid "You must select at least one group to send to"
+msgstr "Sinun on valittava vähintään yksi ryhmä lähettää"
+
+#: lib/Notifications.class.php:109
+msgid "Subject is required"
+msgstr "Aihe on tarpeen"
+
+#: lib/Notifications.class.php:125 lib/Notifications.class.php:126
+#: views/admin/notifications.php:1
+msgid "Notify Attendees"
+msgstr "Muistuta Osallistujat"
+
+#: lib/Module.class.php:37
+msgid "%s updated."
+msgstr "%s päivitetty."
+
+#: lib/Module.class.php:38
+msgid "%s saved."
+msgstr "%s tallennetaan."
+
+#: lib/Tickets.class.php:57
+msgid "This screen allows you to add a new ticket type for your event."
+msgstr "Tässä ikkunassa voit lisätä uuden lipputyyppi oman tapahtuman."
+
+#: lib/Tickets.class.php:66
+msgid "%sTicket Name%s is the name of the type of ticket your attendees purchase. For example, you may have a ticket named \"general admission - meal included\" and another named \"general admission - no meal\"."
+msgstr "%sTicket Name%s on nimi tyyppinen lippu läsnäolijoille ostaa. Esimerkiksi, sinulla voi olla lippu nimeltään \"Pääsylippu - aterian mukana\" ja toinen nimeltään \"Pääsylippu - Ei ateriaa\"."
+
+#: lib/Tickets.class.php:67
+msgid "%sTicket Options%s is a list of the available ticket options you've created. Check the box next to the pieces of data you'd like to collect for each ticket."
+msgstr "%sTicket Options%s on luettelo käytettävissä lippuvaihtoehtoja olet luonut. Tarkista ruutu datakappaleesta haluat kerätä jokaisen lipun."
+
+#: lib/Tickets.class.php:76
+msgid "This screen provides access to all of your ticket types."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikkiin lippusi tyyppejä."
+
+#: lib/Tickets.class.php:83
+msgid "Hovering over a row in the ticket list will display action links that allow you to manage each ticket. You can perform the following actions:"
+msgstr "Leijuu rivi lipun lista näyttää toimintaa linkkejä, joiden avulla voit hallita jokaisesta lipusta. Voit tehdä seuraavat toimet:"
+
+#: lib/Tickets.class.php:85
+msgid "%sEdit%s takes you to the editing screen for that ticket. You can also reach that screen by clicking on the ticket name itself."
+msgstr "%sEdit%s vie muokkausnäyttöön että lippu. Voit myös päästä, että näytön klikkaamalla lipun nimi itse."
+
+#: lib/Tickets.class.php:86
+msgid "%sTrash%s removes your ticket from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s poistaa lippusi tästä luettelosta ja sijoittaa sen roskakoriin, josta voit poistaa sen pysyvästi."
+
+#: lib/Tickets.class.php:185 lib/Table/Coupons.class.php:17
+#: views/admin/attendees-add.php:16 views/admin/coupons-add.php:21
+msgid "Package"
+msgstr "paketti"
+
+#: lib/Tickets.class.php:190
+msgid "First name"
+msgstr "etunimi"
+
+#: lib/Tickets.class.php:196
+msgid "Last name"
+msgstr "sukunimi"
+
+#: lib/Table.class.php:106
+msgid "Edit"
+msgstr "muokata"
+
+#: lib/Table.class.php:110 lib/Table.class.php:130
+msgid "Trash"
+msgstr "Roskakori"
+
+#: lib/Table.class.php:113
+msgid "Restore this item from the Trash"
+msgstr "Palauta tämän kohteen roskakorista"
+
+#: lib/Table.class.php:113
+msgid "Restore"
+msgstr "palauttaa"
+
+#: lib/Table.class.php:114
+msgid "Delete this item permanently"
+msgstr "Poista tämä tuote pysyvästi"
+
+#: lib/Table.class.php:114
+msgid "Delete Permanently"
+msgstr "Poista lopullisesti"
+
+#: lib/Table.class.php:144
+msgid "All <span class=\"count\">(%s)</span>"
+msgstr "kaikki <span class=\"count\">(%s)</span>"
+
+#: lib/Table.class.php:147
+msgid "%s <span class=\"count\">(%s)</span>"
+msgstr "%s <span class=\"count\">(%s)</span>"
+
+#: lib/Reports.class.php:46
+msgid "This screen provides a quick overview of your event."
+msgstr "Tämä näyttö tarjoaa nopean yleiskuvan tapahtumasta."
+
+#: lib/Reports.class.php:52 lib/Reports.class.php:84 lib/Reports.class.php:85
+#: views/admin/reporting.php:2
+msgid "Reports"
+msgstr "raportit"
+
+#: lib/Reports.class.php:53
+msgid "Here's an explanation of the reports found on this page:"
+msgstr "Tässä selitys raportteja löytyy tältä sivulta:"
+
+#: lib/Reports.class.php:54 views/admin/reporting.php:12
+msgid "Sales by Package"
+msgstr "Myynti paketeittain"
+
+#: lib/Reports.class.php:55
+msgid "This is a report of sales broken down by package and contains the following columns."
+msgstr "Tämä on kertomus myynti jaoteltuna paketti ja sisältää seuraavat sarakkeet."
+
+#: lib/Reports.class.php:57
+msgid "%sPackages%s is the name of the package that was sold."
+msgstr "%sPackages%s on paketin nimi, joka myytiin."
+
+#: lib/Reports.class.php:58
+msgid "%sSold%s is the number of packages sold. Keep in mind that a package may contain multiple tickets, so this number may not reflect the total number of tickets sold."
+msgstr "%sSold%s on määrä paketteja myydään. Muista, että pakkaus voi sisältää useita lippuja, joten tämä määrä ei välttämättä yhteensä myytyjen lippujen määrän."
+
+#: lib/Reports.class.php:59
+msgid "%sRemaining%s is the quantity still remaining for purchase of this specific package."
+msgstr "%sRemaining%s on määrä vielä jäljellä ostaa tämän tietyn paketin."
+
+#: lib/Reports.class.php:60
+msgid "%sRevenue%s is the net amount earned from sales of the specific package after taking in to account any coupons used during."
+msgstr "%sRevenue%s on nettosumma ansainnut myynnistä tietyn paketin jälkeen ottamalla huomioon kupongit käytetty."
+
+#: lib/Reports.class.php:61
+msgid "%sCoupons%s is the amount that clients saved using coupons during their orders."
+msgstr "%sCoupons%s on summa, jonka asiakkaat tallennettu käyttämällä kuponkeja aikana tilauksia."
+
+#: lib/Reports.class.php:63 views/admin/reporting.php:46
+msgid "Sales by Ticket Type"
+msgstr "Myynti lipputyyppi"
+
+#: lib/Reports.class.php:64
+msgid "This is a report of sales broken down by ticket type and can be used to calculate the number of attendees to expect. It contais the following columns."
+msgstr "Tämä on kertomus myynti jaoteltuna lipputyyppi ja voidaan laskea henkilömäärän odottaa. Se sisältää seuraavat sarakkeet."
+
+#: lib/Reports.class.php:66
+msgid "%sTicket%s is the name of the ticket."
+msgstr "%sTicket%s on nimi lipun."
+
+#: lib/Reports.class.php:67
+msgid "%sSold%s is the quantity of this specific ticket that have been sold."
+msgstr "%sSold%s on määrä tämän erityisen lipun, joka on myyty."
+
+#: lib/Reports.class.php:68
+msgid "%sRemaining%s is the quantity of this specific ticket that are still remaining to be sold."
+msgstr "%sRemaining%s on määrä tämän erityisen lipun, jotka ovat vielä jäljellä myydä."
+
+#: lib/Reports.class.php:70
+msgid "Ticket Gauge"
+msgstr "lippujen Gauge"
+
+#: lib/Reports.class.php:71
+msgid "The ticket guage shows you what percentage of tickets have been sold for the event. Once the guage reaches 100%, your event is sold out."
+msgstr "Lippu mittari näyttää kuinka monta prosenttia liput on myyty tapahtuman. Kun mittari on 100%, sinun tapahtuma on loppuunmyyty."
+
+#: lib/Reports.class.php:215
+msgid "% Sold"
+msgstr "% Myyty"
+
+#: lib/TicketOptions.class.php:36
+msgid "This screen allows you to add a new ticket option for your tickets."
+msgstr "Tässä ikkunassa voit lisätä uuden lipun vaihtoehto lippuja."
+
+#: lib/TicketOptions.class.php:45
+msgid "%sDisplay Name%s is what will be shown to your visitor when this option is added to a ticket."
+msgstr "%sDisplay Name%s on mitä näytetään kävijä, kun tämä vaihtoehto on lisätä lippu."
+
+#: lib/TicketOptions.class.php:46
+msgid "%sOption Type%s lets you decide what type of form field will be displayed. The options are Text Input, Dropdown or Multi Select."
+msgstr "%sOption Type%s voit päättää, millaista muotoa kenttään tulee näkyviin.Vaihtoehdot ovat tekstinsyöttö, Avautuva tai Multi Select."
+
+#: lib/TicketOptions.class.php:55
+msgid "This screen provides access to all of your ticket options."
+msgstr "Tämä näyttö tarjoaa pääsyn kaikkiin lippusi vaihtoehtoja."
+
+#: lib/TicketOptions.class.php:62
+msgid "Hovering over a row in the coupon list will display action links that allow you to manage each ticket option. You can perform the following actions:"
+msgstr "Leijuu rivi kuponki-luettelo tulee näkyviin toimiin linkkejä, joiden avulla voit hallita jokaisen lipun vaihtoehto. Voit tehdä seuraavat toimet:"
+
+#: lib/TicketOptions.class.php:64
+msgid "%sEdit%s takes you to the editing screen for that ticket option. You can also reach that screen by clicking on the ticket option itself."
+msgstr "%sEdit%s vie muokkausnäyttöön että lippujen vaihtoehto. Voit myös päästä, että näytön klikkaamalla lippu vaihtoehto itse."
+
+#: lib/TicketOptions.class.php:65
+msgid "%sTrash%s removes your ticket option from this list and places it in the trash, from which you can permanently delete it."
+msgstr "%sTrash%s poistaa lippusi vaihtoehto luettelosta ja sijoittaa sen roskakoriin, josta voit poistaa sen pysyvästi."
+
+#: lib/TicketOptions.class.php:114
+msgid "Display Name is required"
+msgstr "Display Name on pakollinen"
+
+#: lib/TicketOptions.class.php:115
+msgid "All Option fields are required"
+msgstr "Kaikki Vaihtoehto kentät ovat pakollisia"
+
+#: lib/TicketOptions.class.php:128 lib/TicketOptions.class.php:129
+#: views/admin/settings-reset.php:5 views/admin/ticket-options.php:1
+#: views/admin/tickets-add.php:20
+msgid "Ticket Options"
+msgstr "lippuvaihtoehtoja"
+
+#: lib/Events.class.php:23
+msgid "Event"
+msgstr "tapahtuma"
+
+#: lib/Events.class.php:24
+msgid "Create Event"
+msgstr "Luo tapahtuma"
+
+#: lib/Events.class.php:25 lib/Events.class.php:27
+msgid "New Event"
+msgstr "uusi tapahtuma"
+
+#: lib/Events.class.php:26
+msgid "Edit Event"
+msgstr "Muokkaa Tapahtuma"
+
+#: lib/Events.class.php:28
+msgid "View Event"
+msgstr "Katso Tapahtuma"
+
+#: lib/Events.class.php:29
+msgid "Search Events"
+msgstr "Hae tapahtumia"
+
+#: lib/Events.class.php:30
+msgid "No Events found"
+msgstr "Ei tapahtumia"
+
+#: lib/Events.class.php:31
+msgid "No Events found in trash"
+msgstr "Tapahtumia ei löytynyt roskakoriin"
+
+#: lib/Events.class.php:77
+msgid "My Event"
+msgstr "Tapahtumani"
+
+#: lib/Table/Attendees.class.php:16 lib/Table/TicketOptions.class.php:16
+#: views/gateway-paypal-express.php:7 views/gateway-manual.php:7
+msgid "Name"
+msgstr "nimi"
+
+#: lib/Table/Attendees.class.php:18
+msgid "Purchase Date"
+msgstr "ostopäivästä"
+
+#: lib/Table/Packages.class.php:22 views/admin/packages-add.php:17
+msgid "Package Name"
+msgstr "paketin nimi"
+
+#: lib/Table/Packages.class.php:26
+msgid "Start"
+msgstr "alkaa"
+
+#: lib/Table/Packages.class.php:27
+msgid "End"
+msgstr "pää"
+
+#: lib/Table/Coupons.class.php:16 views/order_form.php:85
+#: views/admin/coupons-add.php:17
+msgid "Coupon Code"
+msgstr "kuponkikoodi"
+
+#: lib/Table/Coupons.class.php:18
+msgid "Coupon Value"
+msgstr "kuponki Arvo"
+
+#: lib/Table/Coupons.class.php:20
+msgid "Total"
+msgstr "kokonais-"
+
+#: lib/Table/Coupons.class.php:31
+msgid "Any"
+msgstr "kaikki"
+
+#: lib/Table/Notifications.class.php:16 views/admin/notifications-add.php:42
+#: views/admin/settings-email.php:13
+msgid "Subject"
+msgstr "Aihe"
+
+#: lib/Table/Notifications.class.php:17
+msgid "To"
+msgstr "Voit"
+
+#: lib/Table/Notifications.class.php:18
+msgid "Sent Date"
+msgstr "Lähetetyt Päivämäärä"
+
+#: lib/Table/Tickets.class.php:16 views/admin/packages-add.php:30
+#: views/admin/tickets-add.php:15
+msgid "Ticket Name"
+msgstr "lippujen nimi"
+
+#: lib/Table/TicketOptions.class.php:17 views/admin/coupons-add.php:27
+msgid "Type"
+msgstr "tyyppi"
+
+#: lib/Gateway/PayPalStandard.class.php:76
+#: lib/Gateway/PayPalExpress.class.php:63
+msgid "Sandbox"
+msgstr "hiekkalaatikko"
+
+#: lib/Gateway/PayPalStandard.class.php:77
+#: lib/Gateway/PayPalExpress.class.php:64
+msgid "Live"
+msgstr "elää"
+
+#: lib/Gateway/Manual.class.php:46
+msgid "Name is required"
+msgstr "Nimi tarvitaan"
+
+#: lib/Gateway/PayPalExpress.class.php:161
+#: lib/Gateway/PayPalExpress.class.php:224
+msgid "Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>"
+msgstr "Tapahtui virhe yrittää ottaa yhteyttä PayPal<br />Error: <pre>%s</pre>"
+
+#: views/single_attendee.php:21
+msgid "Save Changes"
+msgstr "Tallenna muutokset"
+
+#: views/order_form.php:89
+msgid "Apply Coupon"
+msgstr "Käytä kuponki"
+
+#: views/order_form.php:105
+msgid "Choose your tickets and pay for them at PayPal. You will fill in your ticket information after your purchase is completed."
+msgstr "Valitse lippuja ja maksaa ne PayPal. Täytät lippusi tietoa, kun ostoksesi on käsitelty."
+
+#: views/gateway-paypal-express.php:1
+msgid "PayPal Payment"
+msgstr "PayPal-maksu"
+
+#: views/gateway-paypal-express.php:4
+msgid "Please enter your name and PayPal email address to pay for your tickets"
+msgstr "Anna nimesi ja PayPal sähköpostiosoitteesi lipuista maksamasi"
+
+#: views/gateway-paypal-express.php:15 views/gateway-manual.php:15
+msgid "Total: %s"
+msgstr "Yhteensä: %s"
+
+#: views/gateway-manual.php:1
+msgid "Manual Payment"
+msgstr "Manuaalinen maksaminen"
+
+#: views/gateway-manual.php:4
+msgid "Please enter a name and email address for your confirmation and tickets"
+msgstr "Kirjoita nimesi ja sähköpostiosoitteesi vahvistusta ja liput"
+
+#: views/admin/packages.php:2 views/admin/notifications-add.php:8
+#: views/admin/tickets.php:1 views/admin/ticket-options-add.php:7
+#: views/admin/packages-add.php:7 views/admin/attendees.php:2
+#: views/admin/coupons.php:1 views/admin/attendees-add.php:7
+#: views/admin/notifications.php:1 views/admin/coupons-add.php:7
+#: views/admin/ticket-options.php:1 views/admin/tickets-add.php:6
+msgid "Add New"
+msgstr "Lisää uusi"
+
+#: views/admin/gateway-paypal-standard.php:4
+#: views/admin/gateway-paypal-express.php:4 views/admin/gateway-manual.php:4
+msgid "Currency"
+msgstr "valuutta"
+
+#: views/admin/gateway-paypal-standard.php:10
+#: views/admin/gateway-paypal-express.php:10
+msgid "Gateway Status"
+msgstr "Maksukanavan tila"
+
+#: views/admin/gateway-paypal-standard.php:18
+#: views/admin/gateway-paypal-express.php:18
+msgid "Sandbox Settings"
+msgstr "hiekkalaatikko Asetukset"
+
+#: views/admin/gateway-paypal-standard.php:22
+#: views/admin/gateway-paypal-standard.php:39
+#: views/admin/gateway-paypal-express.php:22
+#: views/admin/gateway-paypal-express.php:39
+msgid "API Username"
+msgstr "API Käyttäjätunnus"
+
+#: views/admin/gateway-paypal-standard.php:26
+#: views/admin/gateway-paypal-standard.php:43
+#: views/admin/gateway-paypal-express.php:26
+#: views/admin/gateway-paypal-express.php:43
+msgid "API Password"
+msgstr "API Salasana"
+
+#: views/admin/gateway-paypal-standard.php:30
+#: views/admin/gateway-paypal-standard.php:47
+#: views/admin/gateway-paypal-express.php:30
+#: views/admin/gateway-paypal-express.php:47
+msgid "API Signature"
+msgstr "API Allekirjoitus"
+
+#: views/admin/gateway-paypal-standard.php:35
+#: views/admin/gateway-paypal-express.php:35
+msgid "Live Settings"
+msgstr "live-asetukset"
+
+#: views/admin/notifications-add.php:2
+msgid "Add Notification"
+msgstr "Lisää ilmoitus"
+
+#: views/admin/notifications-add.php:2
+msgid "View Notification"
+msgstr "Näytä Ilmoitus"
+
+#: views/admin/notifications-add.php:11
+msgid "To:"
+msgstr "to:"
+
+#: views/admin/notifications-add.php:15
+msgid "All attendees"
+msgstr "kaikki osallistujat"
+
+#: views/admin/notifications-add.php:21
+msgid "Have filled out info"
+msgstr "Ovat täytetty info"
+
+#: views/admin/notifications-add.php:27
+msgid "Have not filled out info"
+msgstr "Ole täytetty info"
+
+#: views/admin/notifications-add.php:38
+msgid "Message"
+msgstr "viesti"
+
+#: views/admin/notifications-add.php:46 views/admin/settings-email.php:17
+msgid "Email Body"
+msgstr "Sähköposti Body"
+
+#: views/admin/notifications-add.php:59
+msgid "Send Notification"
+msgstr "Lähetä ilmoitus"
+
+#: views/admin/reporting.php:8
+msgid "Registration is currently closed."
+msgstr "Rekisteröinti on tällä hetkellä suljettu."
+
+#: views/admin/reporting.php:8
+msgid "Open registration"
+msgstr "avoin rekisteröinti"
+
+#: views/admin/reporting.php:17 views/admin/reporting.php:51
+msgid "Sold"
+msgstr "myyty"
+
+#: views/admin/reporting.php:19
+msgid "Revenue"
+msgstr "Tulot"
+
+#: views/admin/reporting.php:38 views/admin/reporting.php:67
+msgid "Totals"
+msgstr "Summat"
+
+#: views/admin/reporting.php:50
+msgid "Ticket"
+msgstr "lippu"
+
+#: views/admin/reporting.php:83
+msgid "Need Support?"
+msgstr "Tarvitsetko tukea?"
+
+#: views/admin/reporting.php:84
+msgid "If you are having problems with the WP Event Ticketing plugin, please post them in the %ssupport forums%s."
+msgstr "Jos sinulla on ongelmia WP Tapahtuman lipunmyynti plugin, lähetä ne %ssupport forums%s."
+
+#: views/admin/reporting.php:87
+msgid "Spread the Love"
+msgstr "Levitä Rakkaus"
+
+#: views/admin/reporting.php:88
+msgid "Did WP Event Ticketing help you run a kick ass event? Consider helping us out in one of the following ways:"
+msgstr "Oliko WP Tapahtuman lipunmyynti auttaa sinua ajaa kickass tapahtumaan? Harkitse auttaa meitä jollakin seuraavista tavoista:"
+
+#: views/admin/reporting.php:97
+msgid "PayPal - The safer, easier way to pay online!"
+msgstr "PayPal - Turvallisempi, helpompi tapa maksaa verkossa!"
+
+#: views/admin/reporting.php:100
+msgid "or maybe..."
+msgstr "tai ehkä..."
+
+#: views/admin/reporting.php:104
+msgid "Give a 5-Star review"
+msgstr "Anna 5 tähden arvostelu"
+
+#: views/admin/reporting.php:105
+msgid "Tweet about it"
+msgstr "Tweet siitä"
+
+#: views/admin/reporting.php:106
+msgid "Like our page on Facebook"
+msgstr "Tykkää sivustamme Facebookissa."
+
+#: views/admin/reporting.php:109
+msgid "Subscribe to our mailing list"
+msgstr "Tilaa postituslistalle"
+
+#: views/admin/reporting.php:110
+msgid "email address"
+msgstr "sähköpostiosoite"
+
+#: views/admin/reporting.php:111
+msgid "Subscribe"
+msgstr "merkitä"
+
+#: views/admin/settings-email.php:1
+msgid "Registration Email"
+msgstr "Rekisteröinti Sähköposti"
+
+#: views/admin/settings-email.php:5
+msgid "From Name"
+msgstr "Lähettäjän nimi"
+
+#: views/admin/settings-email.php:9
+msgid "From Email"
+msgstr "Email"
+
+#: views/admin/settings-email.php:22
+msgid "Note: Include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information."
+msgstr "Huom: Sisällytä [ticketlinks] shortcode in sähköpostia elin lähettää ostajalle linkin voit muokata heidän lipun tiedot."
+
+#: views/admin/settings-reset.php:1
+msgid "Check the boxes for all of the settings you wish to reset. Be warned, checking the boxes and hitting the reset button WILL reset each checked box to the factory defaults."
+msgstr "Tarkista laatikot kaikki asetukset haluat palauttaa. Varoitetaan, tarkkailun laatikot ja lyömällä nollauspainiketta uudestaan ​​jokaisen rasti ruutuun takaisin tehdasasetuksiin."
+
+#: views/admin/settings-reset.php:11
+msgid "Ticket Types"
+msgstr "Lipputyypit"
+
+#: views/admin/settings-reset.php:35 views/admin/settings.php:1
+msgid "Event Settings"
+msgstr "tapahtuma Asetukset"
+
+#: views/admin/settings-reset.php:41
+msgid "Payment Settings"
+msgstr "maksu Asetukset"
+
+#: views/admin/settings-reset.php:47
+msgid "Email Settings"
+msgstr "Sähköposti Asetukset"
+
+#: views/admin/ticket-options-add.php:2 views/admin/ticket-options-add.php:78
+msgid "Add Ticket Option"
+msgstr "Lisää Ticket Vaihtoehto"
+
+#: views/admin/ticket-options-add.php:2 views/admin/ticket-options-add.php:78
+msgid "Edit Ticket Option"
+msgstr "Muokkaa Ticket Vaihtoehto"
+
+#: views/admin/ticket-options-add.php:17
+msgid "Display Name"
+msgstr "Ylläpitäjän nimi"
+
+#: views/admin/ticket-options-add.php:21
+msgid "Option Type"
+msgstr "Option Type"
+
+#: views/admin/ticket-options-add.php:27
+msgid "Text Input"
+msgstr "tekstinsyöttö"
+
+#: views/admin/ticket-options-add.php:28
+msgid "Dropdown"
+msgstr "pudotusvalikko"
+
+#: views/admin/ticket-options-add.php:29
+msgid "Multi Select"
+msgstr "Multi Valitse"
+
+#: views/admin/ticket-options-add.php:56 views/admin/ticket-options-add.php:69
+msgid "Option Value"
+msgstr "Option arvo"
+
+#: views/admin/ticket-options-add.php:65
+msgid "Add Another Value"
+msgstr "Lisää toinen Arvo"
+
+#: views/admin/packages-add.php:2 views/admin/packages-add.php:77
+msgid "Add Package"
+msgstr "Lisää Paketti"
+
+#: views/admin/packages-add.php:2
+msgid "Edit Package"
+msgstr "Muokkaa pakettia"
+
+#: views/admin/packages-add.php:48
+msgid "Start Date"
+msgstr "Aloituspäivä"
+
+#: views/admin/packages-add.php:52
+msgid "End Date"
+msgstr "Päättymispäivä"
+
+#: views/admin/packages-add.php:61
+msgid "Package Cost"
+msgstr "Paketin hinta"
+
+#: views/admin/packages-add.php:77
+msgid "Save Package"
+msgstr "Tallenna Paketti"
+
+#: views/admin/attendees.php:21
+msgid "Download CSV"
+msgstr "Lataa CSV"
+
+#: views/admin/instructions-design.php:1
+msgid "Modify the attendees shortcode display"
+msgstr "Muokkaa osallistujat shortcode näyttö"
+
+#: views/admin/instructions-design.php:2
+msgid "After you place the %s shortcode on a page, by default your attendees will be displayed in order based on when they purchased their tickets. However, you can modify the order by adding a parameter to the shortcode. Here are a couple examples:"
+msgstr "Kun laitat %s shortcode sivulla, oletuksena läsnäolijoille näytetään järjestyksessä perusteella, kun ne ostavat lippunsa. Voit kuitenkin muuttaa järjestystä lisäämällä parametri shortcode. Tässä pari esimerkkiä:"
+
+#: views/admin/instructions-design.php:3
+msgid "%s to sort by First Name"
+msgstr "%s lajitella Etunimi"
+
+#: views/admin/instructions-design.php:4
+msgid "%s to sort by Last Name"
+msgstr "%s lajitella sukunimen mukaan"
+
+#: views/admin/instructions-design.php:5
+msgid "%s to sort by the attendees's Twitter handle"
+msgstr "%s lajitella osallistujat Twitter kahva"
+
+#: views/admin/instructions-getting-started.php:3
+msgid "Did you know?"
+msgstr "Tiesitkö?"
+
+#: views/admin/instructions-getting-started.php:4
+msgid "While you are working inside WP Event Ticketing you can click the Help button in the top-right corner of the screen to receive page-specific help."
+msgstr "Kun olet työskennellyt sisällä WP pääsylippujen voit napsauttaa Ohje-painiketta sivun oikeassa yläkulmassa saada sivukohtaisista apua."
+
+#: views/admin/instructions-getting-started.php:7
+msgid "Step 1"
+msgstr "Vaihe 1"
+
+#: views/admin/instructions-getting-started.php:8
+msgid "On the %sSettings%s page, click the %sPayment Gateways%s tab to configure your payment gateway"
+msgstr "on %sSettings%s sivulla sitä %sPayment Gateways%s välilehti määrittää maksu yhdyskäytävä"
+
+#: views/admin/instructions-getting-started.php:10
+msgid "Step 2"
+msgstr "Vaihe 2"
+
+#: views/admin/instructions-getting-started.php:11
+msgid "On the %sSettings%s page, click the %sEvent%s tab and enter the default settings for your event"
+msgstr "on %sSettings%s sivulla sitä %sEvent%s välilehteä ja kirjoita oletusasetukset tapahtuma"
+
+#: views/admin/instructions-getting-started.php:13
+msgid "Step 3"
+msgstr "Vaihe 3"
+
+#: views/admin/instructions-getting-started.php:14
+msgid "On the %sSettings%s page, click the %sEmail%s tab and enter the default information that will be sent via email to your attendees after a sucessfull purchase."
+msgstr "on %sSettings%s sivulla sitä %sEmail%s välilehti ja syötä oletuksena tiedot lähetetään sähköpostitse läsnäolijoille jälkeen onnistunut hankinta."
+
+#: views/admin/instructions-getting-started.php:16
+msgid "Step 4"
+msgstr "Vaihe 4"
+
+#: views/admin/instructions-getting-started.php:17
+msgid "The %sTicket Options%s page is where you will set up what types of data you want to collect from your event attendees.%sNote, not all options have to be used for each ticket type. More on that shortly.%s"
+msgstr "sitä %sTicket Options%s sivu on, jos perustaa, millaisia ​​tietoja haluat kerätä oman tapahtuman osallistujia %sNote, not all options have to be used for each ticket type. More on that shortly.%s"
+
+#: views/admin/instructions-getting-started.php:19
+msgid "Step 5"
+msgstr "Vaihe 5"
+
+#: views/admin/instructions-getting-started.php:20
+msgid "The %sTickets%s page is where you'll set up the types of tickets you want to offer. For example, you can set up ticket type \"A\" to include a shirt and lunch and type \"B\" which includes just the basics. As you are creating your ticket, you select the ticket options you want included for each ticket type."
+msgstr "sitä %sTickets%s sivu on, jos voit asentaa tyyppisiä lippuja haluat tarjota. Esimerkiksi voit asettaa lipputyyppi \"\" sisällyttää paita ja lounas ja tyyppi \"B\", joka sisältää vain perusasiat. Kuten olet luonut lippu, voit valita lippuvaihtoehtoja haluat sisällyttää jokaisen lipputyyppi."
+
+#: views/admin/instructions-getting-started.php:22
+msgid "Step 6"
+msgstr "Vaihe 6"
+
+#: views/admin/instructions-getting-started.php:23
+msgid "The %sPackages%s page is used to create the items that will be listed for sale on your site. For example, if you created ticket types \"A\" and \"B\" in the previous step, you could now create a package called \"General Admission\" and select ticket type \"A\" to be included. Then create a second package called \"Cheapy Ticket\" and attach ticket type \"B\". Another good use of a ticket package would be for offering event sponsorships. For example, create a package called \"Gold Sponsor\" with a price tag of $1,000 and includes multiple general admission tickets."
+msgstr "sitä %sPackages%s sivun avulla voidaan luoda kohteita, jotka on lueteltu myytävänä sivustossasi. Jos esimerkiksi olet luonut lipputyyppejä \"A\" ja \"B\" edellisessä vaiheessa, voit nyt luoda paketti nimeltään \"Pääsylippu\" ja valitse lipputyyppi \"\" olla mukana. Sitten luoda toinen paketti nimeltään \"Cheapy Ticket\" ja liittää lipputyyppi \"B\". Toinen hyvä käyttää lippupaketti olisi tarjoamalla tapahtuman sponsorointiin. Voit esimerkiksi luoda paketti nimeltään \"Gold Sponsor\", jonka hinta 1000 dollaria ja sisältää useita yleisiä pääsylippuja."
+
+#: views/admin/instructions-getting-started.php:25
+msgid "Step 7"
+msgstr "Vaihe 7"
+
+#: views/admin/instructions-getting-started.php:26
+msgid "Create a new %sPage%s and add the following shortcode: %s. This will display the ticket packages available for your event."
+msgstr "Luo uusi %sPage%s ja lisää seuraava shortcode: %s. Tämä näyttää lipun paketteja oman tapahtuman."
+
+#: views/admin/instructions-getting-started.php:28
+msgid "Step 8"
+msgstr "Vaihe 8"
+
+#: views/admin/instructions-getting-started.php:29
+msgid "Once you are ready to start selling tickets, return to the %sSettings%s page and switch %sEvent Status%s to %sRegistration is Open%s"
+msgstr "Kun olet valmis alkaa myydä lippuja, palaa %sSettings%s sivu ja kytkin %sEvent Status%s to %sRegistration is Open%s"
+
+#: views/admin/instructions-getting-started.php:31
+msgid "Step 9"
+msgstr "Vaihe 9"
+
+#: views/admin/instructions-getting-started.php:31
+msgid "Optional"
+msgstr "valinnainen"
+
+#: views/admin/instructions-getting-started.php:32
+msgid "Create a new %sPage%s and add the following shortcode: %s to display a list of all the attendees for your event"
+msgstr "Luo uusi %sPage%s ja lisää seuraavat shortcode: %s näyttää listan kaikista osallistujista oman tapahtuman"
+
+#: views/admin/instructions-payment-gateways.php:1
+msgid "PayPal API Signature"
+msgstr "PayPal API Allekirjoitus"
+
+#: views/admin/instructions-payment-gateways.php:2
+msgid "WP Event Ticketing requires a PayPal API Signature in order to accept payments. You will need a business account at PayPal in order to use their API Signature tool. Once you have a business account set up, here is how you set up you API Signature:"
+msgstr "WP Tapahtuman lipunmyynti vaatii PayPal API allekirjoitus, jotta hyväksy maksuja. Tarvitset liiketoiminnan tili PayPal voidakseen käyttää API Allekirjoitus työkalu. Kun sinulla on yrityksen tilille perustaa, on se, miten voit määrittää sinun API Allekirjoitus:"
+
+#: views/admin/instructions-payment-gateways.php:4
+msgid "Log in to your PayPal account"
+msgstr "Kirjaudu PayPal-tilillesi"
+
+#: views/admin/instructions-payment-gateways.php:5
+msgid "Hover over the %sProfile%s subtab on the top navigation area and click the %sMy Selling Tools%s link"
+msgstr "Vie hiiren osoitin %sProfile%s alivälilehdessä päällä navigointialueella ja napsauta %sMy Selling Tools%s linkki"
+
+#: views/admin/instructions-payment-gateways.php:6
+msgid "Click %supdate%s on the API Access line"
+msgstr "napsauttaa %supdate%s on API Access line"
+
+#: views/admin/instructions-payment-gateways.php:7
+msgid "Click the %srequest api credentials%s link (under Option 2)"
+msgstr "valitse %srequest api credentials%s linkki (vaihtoehdon 2)"
+
+#: views/admin/instructions-payment-gateways.php:8
+msgid "Submit the form to %srequest api signature%s"
+msgstr "Lähetä lomake %srequest api signature%s"
+
+#: views/admin/instructions-payment-gateways.php:9
+msgid "Copy and paste the API username, password and signature into the fields on the Tickets -> Settings -> Payments tab"
+msgstr "Kopioi ja liitä API käyttäjätunnuksen, salasanan ja allekirjoitus osaksi kentät Liput -> Asetukset -> Maksut-välilehti"
+
+#: views/admin/attendees-add.php:2 views/admin/attendees-add.php:38
+msgid "Add Attendee"
+msgstr "Lisää Osallistuja"
+
+#: views/admin/attendees-add.php:2
+msgid "Edit Attendee"
+msgstr "Muokkaa Osallistuja"
+
+#: views/admin/attendees-add.php:38
+msgid "Save Attendee"
+msgstr "Tallenna Osallistuja"
+
+#: views/admin/coupons-add.php:2 views/admin/coupons-add.php:48
+msgid "Add Coupon"
+msgstr "Lisää kuponki"
+
+#: views/admin/coupons-add.php:2
+msgid "Edit Coupon"
+msgstr "Muokkaa kuponkia"
+
+#: views/admin/coupons-add.php:30
+msgid "Flat Rate"
+msgstr "Flat Rate"
+
+#: views/admin/coupons-add.php:31
+msgid "Percentage"
+msgstr "osuus"
+
+#: views/admin/coupons-add.php:36
+msgid "Amount"
+msgstr "määrä"
+
+#: views/admin/coupons-add.php:40
+msgid "Uses"
+msgstr "käyttää"
+
+#: views/admin/coupons-add.php:48
+msgid "Save Coupon"
+msgstr "Tallenna kuponki"
+
+#: views/admin/settings-form-display.php:1
+msgid "These settings affect how the form is displayed to visitors."
+msgstr "Nämä asetukset vaikuttavat siihen, miten lomake on näkyvissä vierailijoille."
+
+#: views/admin/settings-form-display.php:8
+msgid "Show # of remaining packages"
+msgstr "Näytä # Jäljellä olevien pakkausten"
+
+#: views/admin/settings-form-display.php:14
+msgid "Hide coupons"
+msgstr "Piilota kuponkeja"
+
+#: views/admin/settings-event.php:4
+msgid "Event Date"
+msgstr "Tapahtuman päivämäärä"
+
+#: views/admin/settings-event.php:8
+msgid "Organizer Name"
+msgstr "järjestäjä nimi"
+
+#: views/admin/settings-event.php:12
+msgid "Organizer Email"
+msgstr "järjestäjä Sähköposti"
+
+#: views/admin/settings-event.php:16
+msgid "Maximum Attendance"
+msgstr "suurin Läsnäolo"
+
+#: views/admin/settings-event.php:20
+msgid "Event Status"
+msgstr "Tapahtuman tila"
+
+#: views/admin/settings-event.php:23
+msgid "Registration is closed"
+msgstr "Rekisteröinti on suljettu"
+
+#: views/admin/settings-event.php:24
+msgid "Registration is open"
+msgstr "Rekisteröityminen on avoin"
+
+#: views/admin/settings-event.php:29
+msgid "Closed Message text"
+msgstr "Suljettu Viestin teksti"
+
+#: views/admin/settings-event.php:33
+msgid "Thank you page text"
+msgstr "Kiitos-sivun teksti"
+
+#: views/admin/settings-event.php:35
+msgid "Note: To display the link to each ticket on the thank you page, include the [ticketlinks] shortcode."
+msgstr "Huomautus: Jos haluat näyttää linkin jokaiseen lippu kiitos sivun, kuuluu [ticketlinks] shortcode."
+
+#: views/admin/instructions-extras.php:1
+msgid "Reporting"
+msgstr "raportointi"
+
+#: views/admin/instructions-extras.php:2
+msgid "The %sReporting%s page gives you a snap shot of the packages and ticket types sold, coupons used and a graph displaying the number of tickets used and still available. The Summary Report makes it easy to get a count of your attendees based on the data provided. Very handy for getting a count of how many t-shirts you need to order in each size."
+msgstr "Sitä %sReporting%s sivu antaa snap laukaus paketteja ja lippujen myydyt mallit kuponkeja käytetään ja kuvaaja näyttää lippujen määrä käyttää ja edelleen käytettävissä.Yhteenvetoraportti on helppo saada laskea läsnäolijoille perustuu tietoihin nähden. Erittäin kätevä saada laskea, kuinka monta t-paitoja täytyy tilata kunkin koon."
+
+#: views/admin/instructions-extras.php:4
+msgid "Create Coupons"
+msgstr "Luo kuponkeja"
+
+#: views/admin/instructions-extras.php:5
+msgid "On the %sCoupons%s page you can create an easy way to give discounts on tickets. Create a ticket code, set a flat-rate or percentage discount and select the number of times it can be used. This is handy for giving your speakers free entry to the event, but having them register so they are included in the attendee list and receive email notifications you might send."
+msgstr "On %sCoupons%s sivulla voit luoda helppo tapa antaa alennuksia lipuista. Luo lippu koodi, asettaa kiinteä tai prosentuaalinen alennus ja valitse, kuinka monta kertaa sitä voidaan käyttää. Tämä on kätevä antaa kaiuttimet vapaa pääsy tapahtumaan, mutta ottaa ne rekisteröidä, joten ne sisältyvät osallistujaluettelo ja saada sähköposti-ilmoituksia saatat lähettää."
+
+#: views/admin/instructions-extras.php:7
+msgid "Send Emails to Attendees"
+msgstr "Lähetä Sähköpostit Osallistujat"
+
+#: views/admin/instructions-extras.php:8
+msgid "The %sNotify Attendees%s page will let you send an email to everybody on the Attendee list. A copy of the email gets sent to the admin automatically. A history of the messages sent is stored and displayed at the bottom of the page."
+msgstr "Sitä %sNotify Attendees%s sivun voit lähettää sähköpostia kaikille siitä Osallistuja lista.Kopio sähköpostin saa lähettää admin automaattisesti.Historia lähetetyt viestit tallennetaan ja näytetään sivun alaosassa."
+
+#: views/admin/instructions-extras.php:10
+msgid "Create Tickets Manually"
+msgstr "Luo Liput manuaalisesti"
+
+#: views/admin/instructions-extras.php:11
+msgid "You may find it necessary to create a ticket for somebody manually. Use the %sAdd Attendee%s page to create a ticket, as an example, for somebody who may have paid cash."
+msgstr "Sinun voi olla tarpeen luoda lipun joku manuaalisesti. Käytä %sAdd Attendee%s sivu luoda lippu, kuten esimerkiksi joku, joka saattoi maksaa käteisellä."
+
+#: views/admin/instructions-extras.php:13
+msgid "Export Attendee List"
+msgstr "Vie Osallistuja List"
+
+#: views/admin/instructions-extras.php:14
+msgid "Also on the Attendee page you have the option to export a list of all the attendees. This creates a CSV of all attendees and the data they've provided."
+msgstr "Myös Osallistuja sivulla sinulla on mahdollisuus viedä luettelon kaikista osallistujista. Tämä luo CSV kaikki osallistujat ja tietoja ne koonneet."
+
+#: views/admin/tickets-add.php:2 views/admin/tickets-add.php:40
+msgid "Add Ticket"
+msgstr "Lisää Ticket"
+
+#: views/admin/tickets-add.php:2
+msgid "Edit Ticket"
+msgstr "Muokkaa Ticket"
+
+#: views/admin/tickets-add.php:40
+msgid "Save Ticket"
+msgstr "Tallenna Ticket"
+
+#: views/admin/settings-payment.php:4
+msgid "Payment Gateway"
+msgstr "Payment Gateway"
+
+#: views/admin/settings.php:32
+msgid "Save All Settings"
+msgstr "Tallenna kaikki asetukset"
