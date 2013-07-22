@@ -15,6 +15,8 @@
 	?>
 </h2>
 
+<form action="" method="post" id="settings_form" class="form-<?php echo $active_tab; ?>">
+
 <?php
 foreach ( $data['settings'] as $tab_id => $settings ) {
 
@@ -32,15 +34,6 @@ foreach ( $data['settings'] as $tab_id => $settings ) {
 }
 ?>
 
-
-<form action="" method="post" id="settings_form">
-
-	<?php settings_fields( 'sandbox_theme_display_options' ); ?>
-	<?php do_settings_sections( 'sandbox_theme_display_options' ); ?>	
-	
-	<?php settings_fields( 'sandbox_theme_social_options' ); ?>
-	<?php do_settings_sections( 'sandbox_theme_social_options' ); ?>	
-
-	<?php submit_button(); ?>
+<?php submit_button(); ?>
 	
 </form>

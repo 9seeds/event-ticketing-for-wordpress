@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
 		$('#' + $(this).val()).show();
 	}
 
-	$('#settings_form').submit(function() {
+	$('.form-event').submit(function() {
 		//do validation
 
 		if ( jQuery.trim( $( '#event_date' ).val() ) == '' ) {
@@ -39,6 +39,10 @@ jQuery(document).ready(function($) {
 				return false;
 		}
 
+		return true;
+	});
+
+	$('.form-email').submit(function() {
 		if ( jQuery.trim( $( '#options\\[subject\\]' ).val() ) == '' ) {
 				alert( settings_check.options_subject_required );
 				return false;
@@ -56,7 +60,6 @@ jQuery(document).ready(function($) {
 			return false;
 		}
 
-		return true;
 	});
 
 });
