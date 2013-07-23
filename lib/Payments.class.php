@@ -423,7 +423,8 @@ class WPET_Payments extends WPET_Module {
 				$data = array(
 					'post_title' => uniqid(),
 					'post_status' => 'draft',
-					'meta' => $_POST
+					'meta' => $_POST,
+					'comment_status' => 'closed'
 				);
 				$payment_id = WPET::getInstance()->payment->add($data);
 
