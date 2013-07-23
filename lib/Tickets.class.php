@@ -29,7 +29,7 @@ class WPET_Tickets extends WPET_Module {
 								'name_required' => __( 'Ticket Name is required', 'wpet' ),
 		) );
 	}
-	
+
 	public function ajaxGetTicketOption() {
 	    $package_id = (int)$_POST['package_id'];
 		$attendee = NULL;
@@ -37,7 +37,6 @@ class WPET_Tickets extends WPET_Module {
 			$attendee = WPET::getInstance()->attendees->findById( $_POST['attendee_id'] );
 		}
 	   // die(1);
-	    //print_r( $_POST );
 	    echo $this->buildOptionsHtmlFormForPackage( $package_id, $attendee );
 	    exit();
 	}
@@ -122,7 +121,7 @@ class WPET_Tickets extends WPET_Module {
 			return; //don't do anything else
 		}
 
-		
+
 		//default view
 		WPET::getInstance()->display( 'tickets.php', $this->render_data );
 	}
@@ -143,7 +142,7 @@ class WPET_Tickets extends WPET_Module {
 		foreach( $reqd_options as $reqd_option ) {
 			$options[$reqd_option->ID] = 'on';
 		}
-		
+
 		unset($options['ticket-name']);
 		$post_data['meta'] = array(
 			'options_selected' => array_keys( $options )
@@ -164,7 +163,7 @@ class WPET_Tickets extends WPET_Module {
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket_id', true );
 	    return $this->buildOptionsHtmlForm( $ticket_id, $data );
 	}
-	
+
 	public function buildAttendee( $attendee_id, $data = null ) {
 	    $package = get_post( $package_id );
 	    $ticket_id = get_post_meta( $package_id, 'wpet_ticket_id', true );
@@ -184,27 +183,27 @@ class WPET_Tickets extends WPET_Module {
 			$s .= '<tr>';
 			$s .= '<td colspan="2">'. __( 'Package', 'wpet' ) .': ' . $package->post_title . '</td>';
 			$s .= '</tr>';
-			
-			
+
+
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">'. __( 'First name', 'wpet' ) .':</th>';
 			$s .= '<td>';
 			//$s .= '<input type="text" name='
 			$s .= '</td></tr>';
-			
+
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">'. __( 'Last name', 'wpet' ) .':</th>';
 			$s .= '<td>';
-			$s .= 
+			$s .=
 			$s .= '</td></tr>';
-			
+
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">'. __( 'Email', 'wpet') .':</th>';
 			$s .= '<td>';
-			$s .= 
+			$s .=
 			$s .= '</td></tr>';
-			
-			
+
+
 			$s .= '<tr class="form-field form-required">';
 			$s .= '<th scope="row">' . $opts->post_title .  '</th>';
 			$s .= '<td>';
@@ -232,7 +231,7 @@ class WPET_Tickets extends WPET_Module {
 		$s = '';
 		if( !is_array( $options ) ) return '';
 		foreach( $options AS $o ) {
-	
+
 			$opts = WPET::getInstance()->ticket_options->findByID( $o );
 			$field = $opts->post_name;
 

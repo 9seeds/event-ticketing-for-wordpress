@@ -64,7 +64,7 @@ abstract class WPET_Module {
 	 * @todo WTF naming. Not descriptive at all
 	 */
 	public function maybeSubmit() {
-		
+
 		//do some common actions
 		if ( isset( $_GET['action'] ) && $_GET['action'] != 'edit' ) {
 			switch ( $_GET['action'] ) {
@@ -81,7 +81,7 @@ abstract class WPET_Module {
 			}
 		}
 
-		
+
 		if ( ! empty($_POST['wpet_submit_nonce'] ) && wp_verify_nonce( $_POST['wpet_submit_nonce'], 'wpet_submit' ) ) {
 
 			$post_data = $this->getPostData();
@@ -93,7 +93,7 @@ abstract class WPET_Module {
 			} else {
 				$post_id = $this->add( $post_data );
 			}
-			
+
 			wp_redirect(
 				add_query_arg(
 					array( 'post' => $post_id,
@@ -131,7 +131,7 @@ abstract class WPET_Module {
 			'posts_per_page' => -1,
 			'post_status' => array( 'publish', 'draft' ),
 	    );
-		
+
 		$data = wp_parse_args( $args, $defaults );
 
 	    return get_posts( $data );
@@ -192,16 +192,16 @@ abstract class WPET_Module {
 	    $args = array(
 			'post_type' => $this->mPostType
 	    );
-	    
+
 	    $posts = get_posts( $args );
-	    
+
 	    if( count( $posts ) > 0 )
 			return true;
-	    else 
+	    else
 			return false;
 	}
 
-	
+
 	/**
 	 * Adds the object data to the database
 	 *
@@ -209,7 +209,7 @@ abstract class WPET_Module {
 	 * @param array $data
 	 * @return int|WP_Error The value 0 or WP_Error on failure. The post ID on success.
 	 */
-	public function add( $data = array() ) { 
+	public function add( $data = array() ) {
 	    $defaults = array(
 			'post_type' => $this->mPostType,
 			'post_status' => 'publish',
@@ -218,7 +218,7 @@ abstract class WPET_Module {
 
 	    if( $user_id = get_current_user_id() )
 			$defaults['post_author'] = $user_id;
-	    
+
 	    // Cleanup to prevent breakage
 	    if( is_array( $data ) && isset( $data['guid'] ) )
 			unset( $data['guid'] );
@@ -239,7 +239,6 @@ abstract class WPET_Module {
 	}
 
 	public function saveMeta( $post_id, $meta ) {
-	    //echo 'saveMeta<br><br><pre>'; print_r( $meta ); echo '</pre>';
 	    foreach( $meta as $k => $v ) {
 
 		/*if( is_array( $v ) ) {
@@ -266,7 +265,7 @@ abstract class WPET_Module {
 	    }
 	    $data = apply_filters( $data['post_type'] . '_update', $data );
 	    $data = apply_filters( 'wpet_update', $data );
-	    
+
 	    $post_id = wp_update_post( $data );
 
 	    if( isset( $data['meta'] ) ) {
@@ -292,5 +291,5 @@ abstract class WPET_Module {
 
 		return wp_update_post( $data );
 	}
-	
+
 }

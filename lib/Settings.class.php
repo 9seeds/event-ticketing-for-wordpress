@@ -251,7 +251,6 @@ class WPET_Settings extends WPET_Module {
 	    $s = array();
 
 	    foreach( $settings as $set ) {
-			//echo '<pre>';var_dump($settings); echo '</pre>';
 			$s[$set['tab']][] = array(
 				'title' => $set['title'],
 				'text' => $set['text']
@@ -296,7 +295,6 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		//@TODO do the resets here
-		//die(print_r($options, true));
 		//give user choice to keep ticket options
 		if ( ! empty( $options['archive_confirm'] ) ) {
 			WPET::getInstance()->events->archive();

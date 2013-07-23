@@ -112,7 +112,6 @@ class WPET_Instructions extends WPET_Module {
 	    $s = array();
 
 	    foreach( $instructions as $set ) {
-			//echo '<pre>';var_dump($settings); echo '</pre>';
 			$s[$set['tab']][] = array(
 				'title' => $set['title'],
 				'text' => $set['text']

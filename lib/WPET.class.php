@@ -33,7 +33,7 @@ class WPET {
 	 * @var Array
 	 */
 	private $mGateways = array();
- 
+
 	/**
 	 * Singleton link
 	 *
@@ -48,8 +48,8 @@ class WPET {
 	 * @var bool
 	 */
 	static $mProInstalled;
-	
-	
+
+
 	private $mLog = array();
 
 	/**
@@ -105,7 +105,7 @@ class WPET {
 		return $update_actions;
 	}
 	*/
-	
+
 	/**
 	 * Registers the shortcodes required by the WPET base plugin
 	 *
@@ -115,14 +115,14 @@ class WPET {
 	    add_shortcode( 'wpet',  array( $this, 'renderwpetShortcode' ) );
 	    /* for backwards compat */
 	    add_shortcode( 'wpeventticketing',  array( $this, 'renderlegacyWpeventticketingShortcode' ) );
-	    
-	    
+
+
 	}
-	
+
 	/**
 	 * Original shortcode - deprecated
 	 * @since 1.0
-	 * @param type $atts 
+	 * @param type $atts
 	 */
 	public function renderlegacyWpeventticketingShortcode( $atts ) {
 	    _deprecated_function('[wpeventticketing]', '2.0', 'Please use the [wpet] shortcode.');
@@ -148,9 +148,8 @@ class WPET {
 	    wp_enqueue_script( 'wpet-order-form', WPET_PLUGIN_URL . 'js/order_form.js', array( 'jquery') );
 	    wp_localize_script( 'wpet-order-form', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 	    $data = array();
-	    
-	    //var_dump( $this->settings->hide_coupons ); die();
 
+	   
 	    $defaults = array(
 			'event' => $this->events->getWorkingEvent()
 		);
@@ -223,7 +222,7 @@ class WPET {
 
 		require_once 'Attendees.class.php';
 		$modules['attendees'] = new WPET_Attendees();
-		
+
 		require_once 'Notifications.class.php';
 		$modules['notifications'] = new WPET_Notifications();
 
@@ -238,7 +237,7 @@ class WPET {
 
 		require_once 'Currency.class.php';
 		$modules['currency'] = new WPET_Currency();
-		
+
 		require_once 'Payments.class.php';
 		$modules['payment'] = new WPET_Payments();
 
@@ -258,7 +257,7 @@ class WPET {
 						 'wpet_reports',
 						 array( $this->mModules['reports'], 'renderAdminPage' ),
 						 WPET_PLUGIN_URL . '/images/menu_icon.png' );
-		
+
 		$menu_items = array();
 
 		$menu_items = apply_filters( 'wpet_admin_menu', $menu_items );
@@ -284,7 +283,7 @@ class WPET {
 			$links[] = '<a href="'.menu_page_url( 'wpet_settings', 0 ).'">'.__('Settings', 'wpet').'</a>';
 			$links[] = '<a href="'.menu_page_url( 'wpet_instructions', 0 ).'">'.__('Instructions', 'wpet').'</a>';
 			$links[] = '<a href="http://support.9seeds.com/">' . __('Support Forum','wpet') . '</a>';
-			
+
 			if(file_exists( ABSPATH . '/WPET_DEV')) {
 			    // If we are in dev mode show the git hash
 			    exec('cd ' . WPET_PLUGIN_DIR . ' && git rev-parse --verify HEAD 2> /dev/null', $output);
@@ -298,7 +297,7 @@ class WPET {
 		return $links;
 	}
 
-	
+
 	/**
 	 * Handles the display of templates to the user. Pass it in associative
 	 * array of data that can be used by the template
@@ -367,25 +366,25 @@ class WPET {
 	public function getGateways() {
 		if ( ! empty( $this->mGateways ) )
 			return $this->mGateways;
-		
+
 		require_once WPET_PLUGIN_DIR . 'lib/Gateway/Manual.class.php';
 		require_once WPET_PLUGIN_DIR . 'lib/Gateway/PayPalExpress.class.php';
 		$payment_gateways = array(
 			'WPET_Gateway_Manual' => new WPET_Gateway_Manual(),
 			'WPET_Gateway_PayPalExpress' => new WPET_Gateway_PayPalExpress(),
 		);
-		$this->mGateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );		
-		return $this->mGateways;	
+		$this->mGateways = apply_filters( 'wpet_payment_gateway_list', $payment_gateways );
+		return $this->mGateways;
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public function getGateway() {
 		$gateways = $this->getGateways();
 		return $gateways[$this->settings->payment_gateway];
 	}
-	
+
 	/**
 	 * enqueue stylesheet on front end
 	 *
@@ -416,9 +415,9 @@ class WPET {
 			//allow individual pages to do pre-header actions
 			if ( $pos === 0 || /*hack to show reports page*/$current_screen->base == 'toplevel_page_wpet_reports') {
 				$page = substr( $current_screen->base, 18 ); //'tickets_page_wpet_'
-				
+
 				if( '_reports' == $page ) $page = 'reports'; // Odd hack to ge the reports page working
-				
+
 				if ( ! empty( $this->mModules[$page] ) ) {
 					$this->mModules[$page]->maybeSubmit();
 					$this->mModules[$page]->enqueueAdminScripts();
@@ -441,8 +440,8 @@ class WPET {
 			'<p>' . sprintf( '<a href="%s" target="_blank">%s</a>', 'http://support.9seeds.com/', __( 'Support Forums', 'wpet' ) ) . '</p>' .
 			'<p>' . sprintf( '<a href="%s" target="_blank">%s</a>', 'https://github.com/9seeds/wp-event-ticketing/wiki/_pages', __( 'Developer Docs', 'wpet' ) ) . '</p>'
 		);
-	}	
-	
+	}
+
 
 	/**
 	 * Method called on plugin activation
@@ -452,7 +451,7 @@ class WPET {
 	public function activate() {
 		if ( defined( 'WPET_SKIP_INSTALL' ) && WPET_SKIP_INSTALL ) //for CLI testing
 			return;
-		
+
 		require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';
 		$installer = new WPET_Installer();
 		$installer->install();
@@ -498,7 +497,7 @@ class WPET {
 
 		return NULL;
 	}
-	
+
 	public function debug( $what ) {
 	    require_once('dBug.php');
 	    dbug($what);

@@ -1,9 +1,7 @@
 <p><?php _e('These settings affect how the form is displayed to visitors.', 'wpet'); ?></p>
 <table class="form-table">
 	<tbody>
-	   <!-- <tr>
-		<td colspan="2"><?php echo '<pre>'; var_dump($data); echo '</pre>'; ?></td>
-	    </tr>-->
+	   
 		<tr>
 			<th scope="row"><label for="options[show_package_count]"><?php _e('Show # of remaining packages', 'wpet'); ?></label></th>
 			<td>

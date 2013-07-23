@@ -24,8 +24,7 @@ abstract class WPET_Table extends WP_List_Table {
 			'offset' => ( $paged - 1 ) * $this->per_page,
 		);
 
-		//die( print_r($_REQUEST, true));
-
+		
 		/*
 		if ( !empty( $_REQUEST['s'] ) ) {
 			$usersearch = $_REQUEST['s'];
@@ -40,7 +39,7 @@ abstract class WPET_Table extends WP_List_Table {
 		*/
 
 		//@TODO meta orderby http://wordpress.stackexchange.com/questions/30241/wp-query-order-results-by-meta-value
-		
+
 		if ( isset( $_REQUEST['orderby'] ) )
 			$args['orderby'] = $_REQUEST['orderby'];
 
@@ -106,7 +105,7 @@ abstract class WPET_Table extends WP_List_Table {
 				$actions['edit'] = '<a href="' . $this->get_edit_url( $post ) . '">'. __( 'Edit', 'wpet' ) . '</a>';
 
 			//some tables may not show the trash link (notify attendees)
-			if ( isset ( $this->_args['trash_url'] ) && ! $post->wpet_indeleteable ) {			
+			if ( isset ( $this->_args['trash_url'] ) && ! $post->wpet_indeleteable ) {
 				$actions['trash'] = '<a href="' . $this->get_trash_url( $post ) . '">' . __( 'Trash', 'wpet' ) . '</a>';
 			}
 		} else if ( $_GET[self::STATUS] == 'trash' ) {
@@ -136,14 +135,14 @@ abstract class WPET_Table extends WP_List_Table {
 		// Subtract post types that are not included in the admin all list (trash)
 		foreach ( get_post_stati( array( 'show_in_admin_all_list' => false ) ) as $state )
 			$total_posts -= $num_posts->$state;
-		
+
 		$view_filter = empty( $_GET[self::STATUS] ) ? NULL : $_GET[self::STATUS];
 		$url = $this->_args['base_url'];
 		$class = empty( $view_filter ) ? ' class="current"' : '';
 		$links = array();
 		$links['all'] = "<a href='{$url}'{$class}>". sprintf( __( 'All <span class="count">(%s)</span>', 'wpet' ), $total_posts ) .'</a>';
 		foreach ( $views as $index => $label ) {
-			$class = $view_filter == $index ? ' class="current"' : '';				
+			$class = $view_filter == $index ? ' class="current"' : '';
 			$links[$index] = "<a href='" . esc_url( add_query_arg( self::STATUS, $index, $url ) ) . "'{$class}>" . sprintf( __( '%s <span class="count">(%s)</span>', 'wpet' ), $label, $num_posts->$index ) .'</a>';
 		}
 		return $links;

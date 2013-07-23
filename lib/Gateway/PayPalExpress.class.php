@@ -139,16 +139,18 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 &PAYMENTREQUEST_0_INSURANCEAMT=1.00
 &PAYMENTREQUEST_0_AMT=105.87
 &PAYMENTREQUEST_0_CURRENCYCODE=USD
+	 * PAYMENTREQUEST_n_DESC
 	*/
 
-	$nvp['PAYMENTREQUEST_0_AMT'] = urlencode($cart['total']);
-	$nvp['PAYMENTREQUEST_0_TAXAMT'] = urlencode(0);
-	$nvp['PAYMENTREQUEST_0_SHIPPINGAMT'] = urlencode(0);
-	$nvp['PAYMENTREQUEST_0_HANDLINGAMT'] = urlencode(0);
-	$nvp['PAYMENTREQUEST_0_SHIPDISCAMT'] = urlencode(0);
-	$nvp['PAYMENTREQUEST_0_INSURANCEAMT'] = urlencode(0);
-	$nvp['PAYMENTREQUEST_0_ITEMAMT'] = urlencode($cart['total']);
-	$nvp['PAYMENTREQUEST_0_CURRENCYCODE'] = urlencode('USD');
+	$nvp['PAYMENTREQUEST_0_DESC'] = "My Awesome Event";
+	$nvp['PAYMENTREQUEST_0_AMT'] = ($cart['total']);
+	$nvp['PAYMENTREQUEST_0_TAXAMT'] = (0);
+	$nvp['PAYMENTREQUEST_0_SHIPPINGAMT'] = (0);
+	$nvp['PAYMENTREQUEST_0_HANDLINGAMT'] = (0);
+	$nvp['PAYMENTREQUEST_0_SHIPDISCAMT'] = (0);
+	$nvp['PAYMENTREQUEST_0_INSURANCEAMT'] = (0);
+	$nvp['PAYMENTREQUEST_0_ITEMAMT'] = ($cart['total']);
+	$nvp['PAYMENTREQUEST_0_CURRENCYCODE'] = ('USD');
 
 
 	if( count( $payment->wpet_package_purchase ) <= 10 ) {
@@ -160,10 +162,10 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 
 		//$item_total = $pack->wpet_package_cost * $qty;
 
-		$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = urlencode($pack->post_title);
-		$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = urlencode($pack->post_content);
-		$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = urlencode($pack->wpet_package_cost);
-		$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = urlencode($qty);
+		$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = ($pack->post_title);
+//		$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = ($pack->post_title);
+		$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = ($pack->wpet_package_cost);
+		$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = ($qty);
 
 
 		$index++;
@@ -176,10 +178,9 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	    'body' => http_build_query($nvp, NULL, '&'),
 	    'sslverify' => false,
 	);
-//echo '<pre>'; var_dump($other_args);die();
+
 	$response = wp_remote_post($nvpurl, $other_args);
 	if( is_a( $response, 'WP_Error') ) {
-	    echo '<pre>'; var_dump($response); echo '</pre>';
 	}
 
 	if (empty($response['response']['code']) || $response['response']['code'] != 200) {
@@ -238,25 +239,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		'CANCELURL' => add_query_arg(array('cancel' => '1'), $payment_url),
 	    );
 
-	    if( count( $payment->wpet_package_purchase ) <= 10 ) {
-	    $index = 0;
-	    foreach( $payment->wpet_package_purchase AS $pkg => $qty ) {
-		if( $index > 9 ) continue; // last check for valid package count for paypal api
 
-		$pack = WPET::getInstance()->packages->findByID( $pkg );
-
-		//$item_total = $pack->wpet_package_cost * $qty;
-
-		$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = urlencode($pack->post_title);
-		//$nvp['L_PAYMENTREQUEST_0_NUMBER' . $index] = urlencode(3);
-		$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = urlencode($pack->post_content);
-		$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = urlencode($pack->wpet_package_cost);
-		$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = urlencode($qty);
-
-
-		$index++;
-	    }
-	}
 
 	    $nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
