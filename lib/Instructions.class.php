@@ -54,7 +54,7 @@ class WPET_Instructions extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function enqueueAdminScripts() {
-		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'jquery-ui-datepicker', 'wpet-jquery-cookie' ) );
+		wp_register_script( 'wpet-admin-settings', WPET_PLUGIN_URL . 'js/admin_settings.js', array( 'jquery-ui-tabs', 'jquery-ui-datepicker' ) );
 		wp_enqueue_script( 'wpet-admin-settings' );
 
 		wp_enqueue_style( 'editor' );

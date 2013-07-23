@@ -407,10 +407,9 @@ class WPET {
 			wp_register_style( 'wpet-admin-style', WPET_PLUGIN_URL . 'css/admin.css' );
 			wp_enqueue_style( 'wpet-admin-style' );
 
-			wp_register_style( 'wpet-jquery-ui-theme', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/themes/base/jquery-ui.css' );
+			wp_register_style( 'wpet-jquery-ui-theme', WPET_PLUGIN_URL . '3rd-party/jquery-ui-theme-base/themes/base/jquery-ui.css' );
 			wp_enqueue_style( 'wpet-jquery-ui-theme' );
 
-			wp_register_script( 'wpet-jquery-cookie', WPET_PLUGIN_URL . '3rd-party/jquery-ui-' . WPET_JQUERY_VERSION . '/external/cookie.js' );
 
 			//allow individual pages to do pre-header actions
 			if ( $pos === 0 || /*hack to show reports page*/$current_screen->base == 'toplevel_page_wpet_reports') {
