@@ -250,6 +250,11 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 
 	    $response = wp_remote_post($nvpurl, $other_args);
 
+	    if( is_wp_error( $response ) ) {
+		    echo "<h1>Something really bad happened while talking to PayPal!</h2>";
+		    echo '<pre>'; var_dump($response); die();
+	    }
+
 	    if (empty($response['response']['code']) || $response['response']['code'] != 200) {
 		echo '<div class="ticketingerror">' . sprintf(__('Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet'), var_export($response, true)) . '</div>';
 		return;
