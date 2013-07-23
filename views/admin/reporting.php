@@ -113,10 +113,5 @@
 				</li>
 			</ul>
 		</div>
-		<?php
-		/**
-		 * @todo At some point, add a box to pull in RSS feed from 9seeds.com but just for wpet category
-		 */
-		?>
 	</div>
 </div>

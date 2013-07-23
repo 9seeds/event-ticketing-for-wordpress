@@ -29,10 +29,6 @@ class WPET_Reports extends WPET_Module {
 	}
 
 	/**
-	 * @todo this help section isn't showing up like it should.
-	 */
-
-	/**
 	 * Displays page specific contextual help through the contextual help API
 	 *
 	 * @see http://codex.wordpress.org/Function_Reference/add_help_tab
