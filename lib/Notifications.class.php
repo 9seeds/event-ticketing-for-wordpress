@@ -24,7 +24,7 @@ class WPET_Notifications extends WPET_Module {
 	}
 
 	public function send( $to, $subject, $message, $headers = '', $attachments = array() ) {
-	    
+
 	    $args = array(
 		'meta' => array(
 		    'to' => $to,
@@ -34,20 +34,20 @@ class WPET_Notifications extends WPET_Module {
 		    'attachments' => $attachments
 		)
 	    );
-	
+
 	    $this->add( $args );
-	    
-	    
+
+
 	    if(file_exists( ABSPATH . '/WPET_DEV')) {
 		$ini_array = parse_ini_file(ABSPATH . '/WPET_DEV', true);
-		
+
 		$to = $ini_array['notification_email'];
 	    }
-	    
+
 	    return wp_mail( $to, $subject, $message, $headers, $attachments );
 	}
-	
-	
+
+
 	/**
 	 * Displays page specific contextual help through the contextual help API
 	 *
@@ -181,10 +181,11 @@ class WPET_Notifications extends WPET_Module {
 			    /**
 			     * DO NOT CALL wp_mail!!!!!!!!!!! PASS ALL EMAILS
 			     * THROUGH WPET FUNCTION TO ENSURE WE CAN CONTROL
-			     * NOTIFICATIONS BEING SENT 
+			     * NOTIFICATIONS BEING SENT
 			     */
 			   //$mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
 			    $mail = $this->send($organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers);
+			    $this->render_data['mail'] = $mail;
 			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
 		} else {
