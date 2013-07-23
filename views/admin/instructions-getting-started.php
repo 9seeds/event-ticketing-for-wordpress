@@ -1,4 +1,3 @@
-<!-- @TODO: don't translate shortcodes -->
 <div id="message" class="updated below-h2">
 	<h3><?php _e( 'Did you know?', 'wpet' ); ?></h2>
 	<p><?php _e( 'While you are working inside WP Event Ticketing you can click the Help button in the top-right corner of the screen to receive page-specific help.', 'wpet' ); ?></p>

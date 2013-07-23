@@ -1,29 +1,33 @@
 <h2><?php _e('Instructions', 'wpet'); ?></h2>
+<?php settings_errors(); ?>
 
-<div id="tabs">
-	<ul>
-		<?php
-		
-		foreach ($data['tabs'] as $tab_id => $tab) {
-			echo "<li><a href='#tab-{$tab_id}'>{$tab}</a></li>\n";
-		}
-		?>
-	</ul>
+<?php
+	$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'getting_started';
+?>
 
+<h2 class="nav-tab-wrapper">
 	<?php
-	foreach ($data['instructions'] as $tab_id => $instructions) {
+	foreach ($data['tabs'] as $tab_id => $tab) {
+		?>
+		<a href="?page=wpet_instructions&tab=<?php echo $tab_id; ?>" class="nav-tab <?php echo $active_tab == $tab_id ? 'nav-tab-active' : ''; ?>"><?php echo $tab; ?></a>
+		<?php
+	}
+	?>
+</h2>
 
-		if (!in_array($tab_id, array_keys($data['tabs'])))
-			continue;
+<?php
+foreach ($data['instructions'] as $tab_id => $instructions) {
 
+	if (!in_array($tab_id, array_keys($data['tabs'])))
+		continue;
+
+	if( $tab_id == $active_tab ) {
 		echo "<div id='tab-{$tab_id}'>";
 
 		foreach ($instructions AS $set) {
-//		    echo "<h2>{$set['title']}</h2>";
 			echo $set['text'];
 		}
-
-		echo "</div>\n";
+		echo '</div>';
 	}
-	?>
-</div><!-- #tabs -->
+}
+?>

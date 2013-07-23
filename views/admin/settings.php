@@ -29,6 +29,7 @@ foreach ( $data['settings'] as $tab_id => $settings ) {
 		foreach ($settings AS $set) {
 			echo $set['text'];
 		}
+		echo '</div>';
 	}
 	echo '</div>';
 }
