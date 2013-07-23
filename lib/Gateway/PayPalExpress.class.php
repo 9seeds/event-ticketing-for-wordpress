@@ -75,7 +75,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
     }
 
     public function settingsSave() {
-	
+
     }
 
     public function getPaymentForm() {
@@ -99,7 +99,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	    $render_data = array(
 		'cart' => WPET::getInstance()->payment->getCart(),
 	    );
-	    
+
 	    if( isset($_POST['email']) && !is_email($_POST['email'])) {
 		$render_data['invalid_email'] = 'Please enter a valid email address';
 	    }
@@ -110,7 +110,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
     /**
      * @todo Sanely handle HTTP returns that are not what is expected
      * @since 2.0
-     * @return type 
+     * @return type
      */
     public function processPayment() {
 	//@TODO maybe just pass the total in? - (What does this mean? Valid? - Ben L)
@@ -130,36 +130,58 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 	    'CANCELURL' => add_query_arg(array('cancel' => '1'), $payment_url),
 	);
 
-	if( count( $payment->wpet_package_purchase ) <= 10 ) { 
+	/*
+	&PAYMENTREQUEST_0_ITEMAMT=99.30
+&PAYMENTREQUEST_0_TAXAMT=2.58
+&PAYMENTREQUEST_0_SHIPPINGAMT=3.00
+&PAYMENTREQUEST_0_HANDLINGAMT=2.99
+&PAYMENTREQUEST_0_SHIPDISCAMT=-3.00
+&PAYMENTREQUEST_0_INSURANCEAMT=1.00
+&PAYMENTREQUEST_0_AMT=105.87
+&PAYMENTREQUEST_0_CURRENCYCODE=USD
+	*/
+
+	$nvp['PAYMENTREQUEST_0_AMT'] = urlencode($cart['total']);
+	$nvp['PAYMENTREQUEST_0_TAXAMT'] = urlencode(0);
+	$nvp['PAYMENTREQUEST_0_SHIPPINGAMT'] = urlencode(0);
+	$nvp['PAYMENTREQUEST_0_HANDLINGAMT'] = urlencode(0);
+	$nvp['PAYMENTREQUEST_0_SHIPDISCAMT'] = urlencode(0);
+	$nvp['PAYMENTREQUEST_0_INSURANCEAMT'] = urlencode(0);
+	$nvp['PAYMENTREQUEST_0_ITEMAMT'] = urlencode($cart['total']);
+	$nvp['PAYMENTREQUEST_0_CURRENCYCODE'] = urlencode('USD');
+
+
+	if( count( $payment->wpet_package_purchase ) <= 10 ) {
 	    $index = 0;
 	    foreach( $payment->wpet_package_purchase AS $pkg => $qty ) {
 		if( $index > 9 ) continue; // last check for valid package count for paypal api
-		
+
 		$pack = WPET::getInstance()->packages->findByID( $pkg );
-		
+
 		//$item_total = $pack->wpet_package_cost * $qty;
-		
-		$nvp['L_PAYMENTREQUEST_' . $index . '_NAME' . $index] = $pack->post_title;
-		$nvp['L_PAYMENTREQUEST_' . $index . '_DESC' . $index] = $pack->post_content;
-		$nvp['L_PAYMENTREQUEST_' . $index . '_AMT' . $index] = $pack->wpet_package_cost;
-		$nvp['L_PAYMENTREQUEST_' . $index . '_QTY' . $index] = $qty;
-		
-		
+
+		$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = urlencode($pack->post_title);
+		$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = urlencode($pack->post_content);
+		$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = urlencode($pack->wpet_package_cost);
+		$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = urlencode($qty);
+
+
 		$index++;
 	    }
 	}
+	//
 	$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
 	$other_args = array(
 	    'body' => http_build_query($nvp, NULL, '&'),
 	    'sslverify' => false,
 	);
-
+//echo '<pre>'; var_dump($other_args);die();
 	$response = wp_remote_post($nvpurl, $other_args);
 	if( is_a( $response, 'WP_Error') ) {
 	    echo '<pre>'; var_dump($response); echo '</pre>';
 	}
-	
+
 	if (empty($response['response']['code']) || $response['response']['code'] != 200) {
 	    //@TODO i18n
 	    echo '<div class="ticketingerror">' . sprintf(__('Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet'), var_export($response, true)) . '</div>';
@@ -209,11 +231,32 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		'TOKEN' => $_GET['token'],
 		'PAYERID' => $_GET['PayerID'],
 		'AMT' => $cart['total'],
+		'ITEMAMT' => $cart['total'],
 		'PAYMENTACTION' => 'Sale',
 		'CURRENCYCODE' => $this->getCurrencyCode(),
 		'RETURNURL' => $payment_url,
 		'CANCELURL' => add_query_arg(array('cancel' => '1'), $payment_url),
 	    );
+
+	    if( count( $payment->wpet_package_purchase ) <= 10 ) {
+	    $index = 0;
+	    foreach( $payment->wpet_package_purchase AS $pkg => $qty ) {
+		if( $index > 9 ) continue; // last check for valid package count for paypal api
+
+		$pack = WPET::getInstance()->packages->findByID( $pkg );
+
+		//$item_total = $pack->wpet_package_cost * $qty;
+
+		$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = urlencode($pack->post_title);
+		//$nvp['L_PAYMENTREQUEST_0_NUMBER' . $index] = urlencode(3);
+		$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = urlencode($pack->post_content);
+		$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = urlencode($pack->wpet_package_cost);
+		$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = urlencode($qty);
+
+
+		$index++;
+	    }
+	}
 
 	    $nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
@@ -249,7 +292,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		    'post_content' => serialize($post_content),
 		    'post_status' => 'publish'
 		);
-		
+
 		wp_update_post($purchase);
 		wp_redirect($payment_url);
 		exit();
