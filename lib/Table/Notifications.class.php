@@ -15,7 +15,7 @@ class WPET_Table_Notifications extends WPET_Table {
 			//'cb'        => '<input type="checkbox" />',
 			'title' => __( 'Subject', 'wpet' ),
 			'wpet_to' => __( 'To', 'wpet' ),
-			'wpet_sent_date' => __( 'Sent Date', 'wpet' )
+			'post_date' => __( 'Sent Date', 'wpet' )
 		);
 
 		return $columns;
@@ -24,7 +24,7 @@ class WPET_Table_Notifications extends WPET_Table {
 	public function column_title( $item ) {
 	    return $item->wpet_subject;
 	}
-	
+
 	public function get_sortable_columns() {
 		return array(
 			'title' => array( 'title', true ),
