@@ -213,6 +213,7 @@ abstract class WPET_Module {
 	    $defaults = array(
 			'post_type' => $this->mPostType,
 			'post_status' => 'publish',
+			'comment_status' => 'closed',
 			//'post_title' => uniqid(),
 	    );
 
