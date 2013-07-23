@@ -122,7 +122,7 @@ class WPET_Settings extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function renderAdminPage() {
-		if ( ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) ) {
+		if ( !empty($_POST) /* ! empty($_POST['wpet_settings_nonce'] ) && wp_verify_nonce( $_POST['wpet_settings_nonce'], 'wpet_settings_update' ) */) {
 			$this->submit( $_POST );
 		}
 
@@ -296,13 +296,13 @@ class WPET_Settings extends WPET_Module {
 		unset( $options['event_status'] );
 
 		//@TODO do the resets here
-		die(print_r($options, true));
+		//die(print_r($options, true));
 		//give user choice to keep ticket options
 		if ( ! empty( $options['archive_confirm'] ) ) {
 			WPET::getInstance()->events->archive();
 			WPET::getInstance()->events->add();
 		}
-		
+
 		foreach ( $options as $key => $value ) {
 			$this->{$key} = stripslashes( $value );
 		}
