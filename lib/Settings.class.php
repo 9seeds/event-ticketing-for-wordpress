@@ -283,16 +283,13 @@ class WPET_Settings extends WPET_Module {
 		//these go with the active event
 		$event = (array)WPET::getInstance()->events->getWorkingEvent();
 
-		$event['meta']['event_date'] = $options['event_date'];
-		$event['meta']['max_attendance'] = $options['max_attendance'];
-		$event['meta']['event_status'] = $options['event_status'];
+		if ( ! isset( $_GET['tab'] ) || $_GET['tab'] == 'event' ) {
+			$event['meta']['event_date'] = $options['event_date'];
+			$event['meta']['max_attendance'] = $options['max_attendance'];
+			$event['meta']['event_status'] = $options['event_status'];
+		}
 
 		WPET::getInstance()->events->add( $event );
-
-		//don't update these in options
-		unset( $options['event_date'] );
-		unset( $options['max_attendance'] );
-		unset( $options['event_status'] );
 
 		//@TODO do the resets here
 		//give user choice to keep ticket options
