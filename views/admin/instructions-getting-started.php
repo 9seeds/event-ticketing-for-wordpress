@@ -4,13 +4,13 @@
 </div>
 
 <h3><strong><?php _e( 'Step 1', 'wpet' ); ?></strong></h3>
-<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sPayment Gateways%s tab to configure your payment gateway', 'wpet' ), '<a href="admin.php?page=wpet_settings">', '</a>', '<strong>', '</strong>' ); ?></p>
+<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sPayment Gateways%s tab to configure your payment gateway', 'wpet' ), '<a href="admin.php?page=wpet_settings&tab=payment">', '</a>', '<strong>', '</strong>' ); ?></p>
 
 <h3><strong><?php _e( 'Step 2', 'wpet' ); ?></strong></h3>
-<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sEvent%s tab and enter the default settings for your event', 'wpet' ), '<a href="admin.php?page=wpet_settings">', '</a>', '<strong>', '</strong>' ); ?></p>
+<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sEvents%s tab and enter the default settings for your event', 'wpet' ), '<a href="admin.php?page=wpet_settings&tab=event">', '</a>', '<strong>', '</strong>' ); ?></p>
 
 <h3><strong><?php _e( 'Step 3', 'wpet' ); ?></strong></h3>
-<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sEmail%s tab and enter the default information that will be sent via email to your attendees after a sucessfull purchase.', 'wpet' ), '<a href="admin.php?page=wpet_settings">', '</a>', '<strong>', '</strong>' ); ?></p>
+<p><?php echo sprintf( __( 'On the %sSettings%s page, click the %sEmail%s tab and enter the default information that will be sent via email to your attendees after a sucessfull purchase.', 'wpet' ), '<a href="admin.php?page=wpet_settings&tab=email">', '</a>', '<strong>', '</strong>' ); ?></p>
 
 <h3><strong><?php _e( 'Step 4', 'wpet' ); ?></strong></h3>
 <p><?php echo sprintf( __( 'The %sTicket Options%s page is where you will set up what types of data you want to collect from your event attendees.%sNote, not all options have to be used for each ticket type. More on that shortly.%s', 'wpet' ), '<a href="admin.php?page=wpet_ticket_options">', '</a>', '<br /><em>', '</em>' ); ?></p>
