@@ -14,11 +14,11 @@ jQuery(document).ready(function($) {
 			return false;
 		}
 
-        console.debug( tinyMCE.activeEditor.getContent() );
-		if ( tinyMCE.activeEditor.getContent() == '' ) {
-			alert( wpet_notifications_add.body_required );
-			return false;
-		}
+        if ( tinyMCE.activeEditor == null && $.trim( $( '#options\\[email_body\\]' ).val() ) == '' ||
+                tinyMCE.activeEditor != null && tinyMCE.activeEditor.getContent() == '' ) {
+            alert( wpet_notifications_add.body_required );
+            return false;
+        }
 
         return confirm( wpet_notifications_add.confirmation );
 	});
