@@ -5,6 +5,8 @@
  */
 class WPET_Settings extends WPET_Module {
 
+	private $message = NULL;
+	
 	/**
 	 * @since 2.0
 	 */
@@ -12,9 +14,7 @@ class WPET_Settings extends WPET_Module {
 		add_filter( 'wpet_admin_menu', array( $this, 'adminMenu' ), 30 );
 		add_filter( 'wpet_settings', array( $this, 'defaultSettings' ) );
 		add_filter( 'wpet_settings_tabs', array( $this, 'defaultTabs' ), 1 );
-
 		add_filter( 'wpet_settings_tabs', array( $this, 'resetTab' ), 100 );
-
 		add_action( 'wpet_settings_submit', array( $this, 'submit_form_display' ) );
 	}
 
@@ -134,6 +134,7 @@ class WPET_Settings extends WPET_Module {
 		    'tabs' => $tabs,
 		    'settings' => $this->sortByTab( $settings ),
 		    'nonce' => wp_nonce_field( 'wpet_settings_update', 'wpet_settings_nonce', true, false ),
+			'message' => $this->message,
 		);
 
 		WPET::getInstance()->display( 'settings.php', $data );
@@ -305,6 +306,9 @@ class WPET_Settings extends WPET_Module {
 		}
 
 		do_action( 'wpet_settings_submit', $post );
+
+		//maybe change this based on tab?
+		$this->message = __( 'Settings saved.', 'wpet' );
 	}
 
 	/**
