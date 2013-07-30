@@ -298,8 +298,10 @@ class WPET_Settings extends WPET_Module {
 			WPET::getInstance()->events->add();
 		}
 
-		foreach ( $options as $key => $value ) {
-			$this->{$key} = stripslashes( $value );
+		if( $options ) {
+			foreach ( $options as $key => $value ) {
+				$this->{$key} = stripslashes( $value );
+			}
 		}
 
 		do_action( 'wpet_settings_submit', $post );
