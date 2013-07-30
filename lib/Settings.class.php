@@ -38,7 +38,7 @@ class WPET_Settings extends WPET_Module {
 			'id'	=> 'default-values',
 			'title'	=> __( 'Default Values', 'wpet' ),
 			'content'	=> '<p>' . __( 'When you install WP Event Ticketing, the following settings are set by default:', 'wpet' ) . '</p>' .
-				'<p><strong>' . __( 'Events Tab', 'wpet' ) .':</strong></p>' .
+				'<p><strong>' . __( 'Event Tab', 'wpet' ) .':</strong></p>' .
 				'<li>' . __( 'Event Status: Registration is closed', 'wpet' ) . '</li>' .
 				'<p><strong>' . __( 'Payments Tab', 'wpet' ) .':</strong></p>' .
 				'<li>' . __( 'Payment Gateway: Manual', 'wpet' ) .'</li>' .
@@ -53,7 +53,7 @@ class WPET_Settings extends WPET_Module {
 			'id'	=> 'tabs',
 			'title'	=> __( 'Tabs', 'wpet' ),
 			'content'	=> '<p>' . __( 'Here is a discription of each tab\'s functionality:', 'wpet' ) . '</p>' .
-				'<p><strong>' . __( 'Events', 'wpet' ) .':</strong></p>' .
+				'<p><strong>' . __( 'Event', 'wpet' ) .':</strong></p>' .
 				'<li>'. sprintf( __( '%sEvent Date%s is the date the event will be held on. If you are running a multi-day event, set this to the first day of the event.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 				'<li>'. sprintf( __( '%sOrganizer Name', 'wpet' ). '</strong> '. __( ' is the name of the organizer. This will be used for outgoing emails from the system.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
 				'<li>'. sprintf( __( '%sOrganizer Email%s is the email address for the organizer. This will be used for outgoing emails from the system.', 'wpet' ), '<strong>', '</strong>' ) . '</li>' .
@@ -148,7 +148,7 @@ class WPET_Settings extends WPET_Module {
 	 */
 	public function defaultTabs( $tabs ) {
 
-	    $tabs['event'] = __( 'Events', 'wpet' );
+	    $tabs['event'] = __( 'Event', 'wpet' );
 	    $tabs['payment'] = __( 'Payments', 'wpet' );
 	    $tabs['email'] = __( 'Email', 'wpet' );
 	    $tabs['form_display'] = __( 'Form Display', 'wpet' );
@@ -323,6 +323,7 @@ class WPET_Settings extends WPET_Module {
 	    if( ! isset( $post['options']['hide_coupons'] ) )
 			update_option( 'wpet_hide_coupons', '0' );
 
+		$_GET['save_message'] = TRUE;
 	}
 
 	/**

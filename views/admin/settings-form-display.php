@@ -16,4 +16,3 @@
 		</tr>
 	</tbody>
 </table>
-
