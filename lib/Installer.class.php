@@ -359,7 +359,7 @@ class WPET_Installer {
 						$new_option_id = $this->ticket_option_map[$ticket_option->optionId];
 						$ticket_option_post = $this->new_ticket_options->findByID($new_option_id);
 						//save meta as 'wpet_<post-name>"
-						$meta_key = str_replace( '-', '_', $ticket_option_post->post_name );
+						$meta_key = str_replace( '_', '-', $ticket_option_post->post_name );
 						$meta[$meta_key] = $ticket_option->value;
 					}
 
