@@ -34,10 +34,17 @@ class WPET_Table_Packages extends WPET_Table {
 		return array(
 			'title' => array( 'title', true ),
 		);
-	}
-
+	}	
+	
 	protected function column_wpet_remaining( $post ) {
 		return $this->packages->remaining( $this->event_id, $post->ID );
+	}
+
+	protected function column_wpet_quantity( $post ) {
+		$qty = $post->wpet_quantity;
+		if ( $qty == '' )
+			return __( 'Unlimited', 'wpet' );
+		return $qty;
 	}
 	
 }
