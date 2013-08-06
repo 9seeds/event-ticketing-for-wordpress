@@ -275,8 +275,8 @@ class WPET_Installer {
 				'meta' => array(
 					'type' => $coupon['type'] == 'flat' ? 'flat-rate' : 'percentage',
 					'amount' => $coupon['amt'],
-					'quantity' => $coupon['uses'],
-					'quantity_remaining' => $coupon['uses'] - $coupon['used'],
+					'quantity' => $coupon['uses'] + $coupon['used'],
+					'quantity_remaining' => $coupon['uses'],
 					'package_id' => $this->package_map[$coupon['packageId']],
 				),
 			);
