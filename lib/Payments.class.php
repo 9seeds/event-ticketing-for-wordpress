@@ -18,20 +18,20 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0
      */
     public function __construct() {
-	$this->mPostType = 'wpet_payments';
+		$this->mPostType = 'wpet_payments';
 
-	add_action('init', array($this, 'registerPostType'));
-	add_action('init', array($this, 'registerPostStatus'));
-	//add_action( 'all', array( $this, 'hookDebug' ) );
-	//add_filter( 'all', array( $this, 'hookDebug' ) );
+		add_action( 'init', array( $this, 'registerPostType' ) );
+		add_action( 'init', array( $this, 'registerPostStatus' ) );
+		//add_action( 'all', array( $this, 'hookDebug' ) );
+		//add_filter( 'all', array( $this, 'hookDebug' ) );
 
-	if (!is_admin()) {
-	    add_action('template_redirect', array($this, 'handlePayment'), 15);
-	    //add_action( 'the_post', array( $this, 'setPayment' ) );
-	}
+		if ( ! is_admin() ) {
+			add_action( 'template_redirect', array( $this, 'handlePayment' ), 15 );
+			//add_action( 'the_post', array( $this, 'setPayment' ) );
+		}
 
-	//do this after post type is set
-	parent::__construct();
+		//do this after post type is set
+		parent::__construct();
     }
 
     /**
@@ -89,7 +89,7 @@ class WPET_Payments extends WPET_Module {
     }
 
     public function hookDebug($name) {
-	echo "<!-- {$name} -->\n";
+		echo "<!-- {$name} -->\n";
     }
 
     /**

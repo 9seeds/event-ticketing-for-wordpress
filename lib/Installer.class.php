@@ -55,8 +55,12 @@ class WPET_Installer {
 		$this->new_attendees = new WPET_Attendees();
 		$this->new_payments = new WPET_Payments();
 
-		$this->my_event = $this->new_events->getWorkingEvent();
+		$this->loadEvent();
     }
+
+	private function loadEvent() {
+		$this->my_event = $this->new_events->getWorkingEvent();
+	}
 
     public function install() {
 		$plugin_data = get_plugin_data( WPET_PLUGIN_FILE );
@@ -297,6 +301,7 @@ class WPET_Installer {
 				$event['meta']['event_status'] = $data['eventTicketingStatus'] ? 'open' : 'closed';
 
 			$this->new_events->add( $event );
+			$this->loadEvent();
 			$this->out( '.' . PHP_EOL );
 		} else {
 			$this->out( 'Working Event Found' . PHP_EOL );
@@ -340,24 +345,24 @@ class WPET_Installer {
     }
 
     private function convertAttendeesAndPayments( $packages ) {
-		$this->out( 'Attendee & Payment' );
+		$this->out( 'Attendees & Payments' );
 
 		foreach ($packages as $package) {
 
 			//hope this works
-			$package_post = $this->new_packages->findByTitle($package->packageName);
-			$meta = array('package' => $package_post->ID);
+			$package_post = $this->new_packages->findByTitle( $package->packageName );
+			$meta = array( 'package' => $package_post->ID );
 
-			foreach ($package->tickets as $ticket) {
+			foreach ( $package->tickets as $ticket ) {
 				$first_name = '';
 				$last_name = '';
 				
-				foreach ($ticket->ticketOptions as $ticket_option) {
-					if (!empty($ticket_option->value)) {
+				foreach ( $ticket->ticketOptions as $ticket_option ) {
+					if ( ! empty( $ticket_option->value ) ) {
 
 						//find the ticket option
 						$new_option_id = $this->ticket_option_map[$ticket_option->optionId];
-						$ticket_option_post = $this->new_ticket_options->findByID($new_option_id);
+						$ticket_option_post = $this->new_ticket_options->findByID( $new_option_id );
 						//save meta as 'wpet_<post-name>"
 						$meta_key = str_replace( '_', '-', $ticket_option_post->post_name );
 						$meta[$meta_key] = $ticket_option->value;
@@ -389,6 +394,7 @@ class WPET_Installer {
 				'post_title' => $package->packageId,
 				'meta' => array(
 					'package_purchase' => $pkg_array,
+					'event_id' => $this->my_event->ID,
 				),
 			);
 
@@ -396,7 +402,7 @@ class WPET_Installer {
 				$data['meta']['coupon_code'] = $package->coupon['couponCode'];	
 			}
 
-			$this->new_payments->add($data);			
+			$this->new_payments->add( $data );
 			$this->out( '.' );
 			
 		}

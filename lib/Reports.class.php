@@ -92,7 +92,6 @@ class WPET_Reports extends WPET_Module {
 	 */
 	public function renderAdminPage() {
 
-
 		$event = WPET::getInstance()->events->getWorkingEvent();
 		$payment = WPET::getInstance()->payment;
 		$packages = WPET::getInstance()->packages;
@@ -100,7 +99,6 @@ class WPET_Reports extends WPET_Module {
 
 		$pmt_posts = $payment->findAllByEvent();
 
-		
 		$package_rows = array();
 		$default_package_row = array(
 			'title' => '',
