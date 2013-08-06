@@ -296,7 +296,7 @@ class WPET_Installer {
 			if ( ! empty( $data['eventTicketingStatus'] ) )
 				$event['meta']['event_status'] = $data['eventTicketingStatus'] ? 'open' : 'closed';
 
-			$this->new_events->add();
+			$this->new_events->add( $event );
 			$this->out( '.' . PHP_EOL );
 		} else {
 			$this->out( 'Working Event Found' . PHP_EOL );
