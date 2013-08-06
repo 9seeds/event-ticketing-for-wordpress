@@ -36,7 +36,6 @@ class WPET_Tickets extends WPET_Module {
 		if ( ! empty( $_POST['attendee_id'] ) ) {
 			$attendee = WPET::getInstance()->attendees->findById( $_POST['attendee_id'] );
 		}
-	   // die(1);
 	    echo $this->buildOptionsHtmlFormForPackage( $package_id, $attendee );
 	    exit();
 	}

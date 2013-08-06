@@ -238,7 +238,7 @@ class WPET_Installer {
 		  )
 	 	*/
 		$this->out('Packages');
-		foreach ($packages as $package) {
+		foreach ( $packages as $package ) {
 
 			$tickets_selected = array();
 			$ticket = reset( $package->tickets );
@@ -256,8 +256,8 @@ class WPET_Installer {
 				),
 			);
 
-			if ($selected)
-				$data['meta']['ticket_id'] = $selected->ID; //@TODO Trying to get property of non-object
+			if ( $selected )
+				$data['meta']['ticket_id'] = $selected;
 
 			$new_package_id = $this->new_packages->add( $data );
 			$this->package_map[$package->packageId] = $new_package_id;
@@ -507,7 +507,7 @@ class WPET_Installer {
     private function maybeCreateDefaults() {
 		$default_options = array();
 
-		if (!$this->new_ticket_options->anyExist()) {
+		if ( ! $this->new_ticket_options->anyExist() ) {
 			$default_options[] = $this->new_ticket_options->createTicketOption(__('First Name', 'wpet'));
 			$default_options[] = $this->new_ticket_options->createTicketOption(__('Last Name', 'wpet'));
 			$default_options[] = $this->new_ticket_options->createTicketOption(__('Email', 'wpet'));
@@ -516,7 +516,7 @@ class WPET_Installer {
 
 
 
-		if (!$this->new_tickets->anyExist()) {
+		if ( ! $this->new_tickets->anyExist() ) {
 			$title = __('General Admission', 'wpet');
 			$ticket = array(
 				'post_title' => $title,
@@ -529,7 +529,7 @@ class WPET_Installer {
 		}
 
 
-		if (!$this->new_packages->anyExist()) {
+		if ( ! $this->new_packages->anyExist() ) {
 			$title = __('General Admission Package', 'wpet');
 			$package = array(
 				'post_title' => $title,
@@ -544,7 +544,7 @@ class WPET_Installer {
 				),
 			);
 
-			if (!empty($ticket_id))
+			if ( ! empty( $ticket_id ) )
 				$package['meta']['ticket_id'] = $ticket_id;
 
 			$this->new_packages->add($package);
