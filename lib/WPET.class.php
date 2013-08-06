@@ -378,7 +378,7 @@ class WPET {
 	}
 
 	/**
-	 *
+	 * Get the currently selected gateway
 	 */
 	public function getGateway() {
 		$gateways = $this->getGateways();

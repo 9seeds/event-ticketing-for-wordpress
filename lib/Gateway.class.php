@@ -6,7 +6,7 @@ abstract class WPET_Gateway {
     protected $mPayment;
 
     public function __construct() {
-	$this->mSettings = WPET::getInstance()->settings;
+		$this->mSettings = WPET::getInstance()->settings;
     }
 
     /**
@@ -14,7 +14,7 @@ abstract class WPET_Gateway {
      * @param $payment WP_Post payment cpt object
      */
     public function setPayment($payment) {
-	$this->mPayment = $payment;
+		$this->mPayment = $payment;
     }
 
     //name
@@ -43,16 +43,16 @@ abstract class WPET_Gateway {
 
     // if not overloaded will simply go to the next step
     public function processPayment() {
-	$payment = WPET::getInstance()->payment->loadPayment();
-	wp_update_post(array('ID' => $payment->ID, 'post_status' => 'processing'));
-	wp_redirect(get_permalink($payment->ID));
+		$payment = WPET::getInstance()->payment->loadPayment();
+		wp_update_post(array('ID' => $payment->ID, 'post_status' => 'processing'));
+		wp_redirect(get_permalink($payment->ID));
     }
 
     // if not overloaded will simply go to the next step
     public function processPaymentReturn() {
-	$payment = WPET::getInstance()->payment->loadPayment();
-	wp_update_post(array('ID' => $payment->ID, 'post_status' => 'publish'));
-	wp_redirect(get_permalink($payment->ID));
+		$payment = WPET::getInstance()->payment->loadPayment();
+		wp_update_post(array('ID' => $payment->ID, 'post_status' => 'publish'));
+		wp_redirect(get_permalink($payment->ID));
     }
 
 }

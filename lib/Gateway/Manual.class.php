@@ -13,25 +13,25 @@ class WPET_Gateway_Manual extends WPET_Gateway {
     }
 
     public function getCurrencies() {
-	return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
+		return array('AUD', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK', 'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'JPY', 'MXN', 'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'SEK', 'SGD', 'THB', 'TWD', 'USD');
    }
 
     public function getDefaultCurrency() {
-	return 'USD';
+		return 'USD';
     }
 
     public function getCurrencyCode() {
-	//set a default currency for first time use
-	return empty($this->mSettings->manual_currency) ? $this->getDefaultCurrency() : $this->mSettings->manual_currency;
+		//set a default currency for first time use
+		return empty($this->mSettings->manual_currency) ? $this->getDefaultCurrency() : $this->mSettings->manual_currency;
     }
 
     public function settingsForm() {
-	$payment_data = array(
-	    'currency' => $this->getCurrencyCode(),
-	    'currencies' => $this->getCurrencies(),
-	);
+		$payment_data = array(
+		    'currency' => $this->getCurrencyCode(),
+	    	'currencies' => $this->getCurrencies(),
+		);
 
-	return WPET::getInstance()->display('gateway-manual.php', $payment_data, true);
+		return WPET::getInstance()->display('gateway-manual.php', $payment_data, true);
     }
 
     public function settingsSave() {
@@ -47,34 +47,32 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 			'email_required' => __( 'Email is required', 'wpet' ),
 		) );
 
-
-
-	if ( isset($_POST['submit']) && isset( $_POST['email'] ) && is_email($_POST['email']) ) {
-	    if (!is_email($_POST['email']) || empty($_POST['payee_name'])) {
-		//wp_die('errors!');
-	    } else {
-		// Yay! It worked
-		$payment = WPET::getInstance()->payment->loadPayment();
+		if ( isset( $_POST['submit'] ) && isset( $_POST['email'] ) && is_email( $_POST['email'] ) ) {
+			if ( ! is_email( $_POST['email'] ) || empty( $_POST['payee_name'] ) ) {
+				//wp_die('errors!');
+			} else {
+				// Yay! It worked
+				$payment = WPET::getInstance()->payment->loadPayment();
 		
-		$meta = array(
-		    'name' => $_POST['payee_name'],
-		    'email' => $_POST['email']
-		);
+				$meta = array(
+					'name' => $_POST['payee_name'],
+					'email' => $_POST['email']
+				);
 		
-		WPET::getInstance()->payment->update( $payment->ID, array( 'meta' => $meta ) );
-		wp_update_post(array('ID' => $payment->ID, 'post_status' => 'pending'));
-		wp_redirect(get_permalink($payment->ID));
-	    }
-	} else {
-	    $render_data = array(
-		'cart' => WPET::getInstance()->payment->getCart(),
-	    );
+				WPET::getInstance()->payment->update( $payment->ID, array( 'meta' => $meta ) );
+				wp_update_post( array( 'ID' => $payment->ID, 'post_status' => 'pending' ) );
+				wp_redirect( get_permalink( $payment->ID ) );
+			}
+		} else {
+			$render_data = array(
+				'cart' => WPET::getInstance()->payment->getCart(),
+			);
 	    
-	    if( isset($_POST['email']) && !is_email($_POST['email'])) {
-		$render_data['invalid_email'] = 'Please enter a valid email address';
-	    }
-	    return WPET::getInstance()->getDisplay('gateway-manual.php', $render_data);
-	}
+			if( isset( $_POST['email'] ) && ! is_email( $_POST['email'] ) ) {
+				$render_data['invalid_email'] = 'Please enter a valid email address';
+			}
+			return WPET::getInstance()->getDisplay( 'gateway-manual.php', $render_data );
+		}
     }
 
     
