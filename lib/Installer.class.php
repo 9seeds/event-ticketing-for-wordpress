@@ -343,50 +343,77 @@ class WPET_Installer {
     }
 
     private function convertAttendeesAndPayments( $packages ) {
-		$this->out( 'Attendees & Payments' );
+		$this->out( 'Attendees' );
 
+		$pkg_purchases = array();
+		
 		foreach ($packages as $package) {
 
 			$package_post = $this->new_packages->findByTitle( $package->packageName ); //hope this works
 			$meta = array( 'package' => $package_post->ID );
 
-			foreach ( $package->tickets as $ticket ) {
-				$first_name = '';
-				$last_name = '';
+			$ticket = reset( $package->tickets ); //there's only ever one
+
+			$first_name = '';
+		   	$last_name = '';
 				
-				foreach ( $ticket->ticketOptions as $ticket_option ) {
-					if ( ! empty( $ticket_option->value ) ) {
+			foreach ( $ticket->ticketOptions as $ticket_option ) {
+				if ( ! empty( $ticket_option->value ) ) {
 
-						//find the ticket option
-						$new_option_id = $this->ticket_option_map[$ticket_option->optionId];
-						$ticket_option_post = $this->new_ticket_options->findByID( $new_option_id );
-						//save meta as 'wpet_<post-name>"
-						$meta_key = str_replace( '_', '-', $ticket_option_post->post_name );
-						$meta[$meta_key] = $ticket_option->value;
-					}
-
-					if ( strtolower( $ticket_option->displayName ) == 'first name' )
-						$first_name = $ticket_option->value;
-
-					if ( strtolower( $ticket_option->displayName ) == 'last name' )
-						$last_name = $ticket_option->value;
+					//find the ticket option
+					$new_option_id = $this->ticket_option_map[$ticket_option->optionId];
+					$ticket_option_post = $this->new_ticket_options->findByID( $new_option_id );
+					//save meta as 'wpet_<post-name>"
+					$meta_key = str_replace( '_', '-', $ticket_option_post->post_name );
+					$meta[$meta_key] = $ticket_option->value;
 				}
+
+				if ( strtolower( $ticket_option->displayName ) == 'first name' )
+					$first_name = $ticket_option->value;
+
+				if ( strtolower( $ticket_option->displayName ) == 'last name' )
+					$last_name = $ticket_option->value;
+			}
+
+			//group purchases by sold time
+			if ( ! isset( $pkg_purchases[$ticket->soldTime] ) )
+				$pkg_purchases[$ticket->soldTime] = array();
+
+			$new_package_id = $this->package_map[$item['packageid']];
+			
+			if ( ! isset( $pkg_purchases[$ticket->soldTime][$new_package_id] ) )
+				$pkg_purchases[$ticket->soldTime][$new_package_id] = 0;
+
+			//increase ticket count
+			$pkg_purchases[$ticket->soldTime][$new_package_id]++;
+
+			//add coupon
+			if ( is_array( $package->coupon ) ) {
+				$pkg_purchases[$ticket->soldTime]['coupon'] = $package->coupon['couponCode'];	
+			}
 				
-				$data = array(
-					'post_title' => "{$first_name} {$last_name}",
-					'meta' => $meta,
-				);
+			$data = array(
+				'post_title' => "{$first_name} {$last_name}",
+				'meta' => $meta,
+			);
 
-				$this->new_attendees->add($data);			
-				$this->out( '.' );
+			$this->new_attendees->add($data);
+			$this->out( '.' );
+			
+		}
 
+		$this->out( PHP_EOL );
+
+		$this->out( 'Payments' );
+		foreach ( $pkg_purchases as $soldTime => $pkg_array ) {
+
+			$coupon = NULL;
+			
+			if ( isset( $pkg_array['coupon'] ) ) {
+				$coupon = $pkg_array['coupon'];
+				unset( $pkg_array['coupon'] );
 			}
-
-			$pkg_array = array();
-			foreach ( $package->orderDetails['items'] as $item ) {
-				$pkg_array[$this->package_map[$item['packageid']]] = $item['quantity']; //@TODO Undefined offset: 424242
-			}
-
+			
 			$data = array(
 				'post_title' => $package->packageId,
 				'meta' => array(
@@ -395,14 +422,16 @@ class WPET_Installer {
 				),
 			);
 
-			if ( is_array( $package->coupon ) ) {
-				$data['meta']['coupon_code'] = $package->coupon['couponCode'];	
+			if ( $coupon ) {
+				$data['meta']['coupon_code'] = $coupon;	
 			}
 
 			$this->new_payments->add( $data );
 			$this->out( '.' );
 			
 		}
+
+			
 		$this->out( PHP_EOL );
     }
 
