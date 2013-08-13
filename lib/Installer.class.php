@@ -1,17 +1,15 @@
 <?php
 
-//dummy classes from 1.x needed by PHP to complete "__PHP_Incomplete_Class_Name"
-class ticketOption {
-    
+function wpet_maybe_define_old_classes() {
+	if ( ! class_exists( 'ticketOption' ) ) {
+		//dummy classes from 1.x needed by PHP to complete "__PHP_Incomplete_Class_Name"
+		class ticketOption {}
+		class ticket {}
+		class package {}
+	}
 }
 
-class ticket {
-    
-}
-
-class package {
-    
-}
+add_action( 'init', 'wpet_maybe_define_old_classes' );
 
 class WPET_Installer {
 
@@ -349,8 +347,7 @@ class WPET_Installer {
 
 		foreach ($packages as $package) {
 
-			//hope this works
-			$package_post = $this->new_packages->findByTitle( $package->packageName );
+			$package_post = $this->new_packages->findByTitle( $package->packageName ); //hope this works
 			$meta = array( 'package' => $package_post->ID );
 
 			foreach ( $package->tickets as $ticket ) {
