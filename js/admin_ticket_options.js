@@ -54,10 +54,11 @@ jQuery(document).ready(function($) {
 				}    
 			
 			});
-		}
 		
-		if( !good_options ) {
-		    return false;
+			if( !good_options ) {
+			    return false;
+			}
+
 		}
 
 		return true;
