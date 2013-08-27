@@ -1,4 +1,3 @@
-<h2><?php _e('Event Settings', 'wpet'); ?></h2>
 <?php
 
 $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'event';
