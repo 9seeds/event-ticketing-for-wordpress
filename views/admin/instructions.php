@@ -1,4 +1,4 @@
-<h2><?php _e('Instructions', 'wpet'); ?></h2>
+
 <?php settings_errors(); ?>
 
 <?php
