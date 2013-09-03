@@ -513,7 +513,8 @@ class WPET_Payments extends WPET_Module {
 						$args = array(
 							'meta' => array(
 								'ticket_id' => $ticket,
-								'package_id' => $p->ID
+								'package_id' => $p->ID,
+								'event_id' => $this->mPayment->wpet_event_id,
 							)
 						);
 						$attendee_ids[] = $attendees->draftAttendee($args);

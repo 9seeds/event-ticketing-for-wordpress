@@ -179,7 +179,8 @@ class WPET_Attendees extends WPET_Module {
 	 * @param array $atts
 	 */
 	public function renderAttendeesShortcode( $atts ) {
-	    $data = $this->findAllByEvent(1);
+		$event_id = isset( $atts['event_id'] ) ? $atts['event_id'] : WPET::getInstance()->events->getWorkingEvent()->ID;
+	    $data = $this->findAllByEvent( $event_id );
 	    WPET::getInstance()->display( 'attendees_shortcode.php', $data );
 	}
 

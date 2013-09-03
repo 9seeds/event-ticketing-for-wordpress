@@ -136,6 +136,8 @@ abstract class WPET_Table extends WP_List_Table {
 		foreach ( get_post_stati( array( 'show_in_admin_all_list' => false ) ) as $state )
 			$total_posts -= $num_posts->$state;
 
+		$total_posts = apply_filters( 'wpet_table_total', $total_posts );
+		
 		$view_filter = empty( $_GET[self::STATUS] ) ? NULL : $_GET[self::STATUS];
 		$url = $this->_args['base_url'];
 		$class = empty( $view_filter ) ? ' class="current"' : '';

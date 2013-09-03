@@ -294,8 +294,8 @@ class WPET_Settings extends WPET_Module {
 
 		//@TODO do the resets here
 		//give user choice to keep ticket options
-		if ( ! empty( $options['archive_confirm'] ) ) {
-			WPET::getInstance()->events->archive();
+		if ( ! empty( $options['archive_confirm'] ) ) {			
+			WPET::getInstance()->events->archive( $event->ID );
 			WPET::getInstance()->events->add();
 		}
 
