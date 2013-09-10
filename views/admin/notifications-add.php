@@ -2,12 +2,12 @@
 $heading = empty($_REQUEST['post']) ? __('Add Notification', 'wpet') : __('View Notification', 'wpet');
 
 $submit_url =(add_query_arg(array('notify' => 'doit')));
-
+$sent = ! empty($data['mail']) && $data['mail'];
 ?>
 <h2><?php echo $heading; ?> <?php if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 	echo '<a href="' . $data['edit_url'] . '" class="add-new-h2">' . __('Add New', 'wpet') . '</a>';
 } ?></h2>
-<?php if ( !empty($data['mail']) && $data['mail'] ) : ?>
+<?php if ( $sent ) : ?>
 <div id="message" class="updated"><p>Notification sent</p></div>
 <?php endif; ?>
 <form method="post" action="<?php echo $submit_url; ?>" id="wpet_admin_notification_add">
@@ -59,5 +59,5 @@ $submit_url =(add_query_arg(array('notify' => 'doit')));
 
 		</tbody>
 	</table>
-	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Send Notification', 'wpet') ?>"></p>
+	<p class="submit"><input type="submit" name="submit" id="submit" class="button button-primary" value="<?php _e('Send Notification', 'wpet') ?>"<?php echo $sent ? ' disabled="disabled"' : '' ?>></p>
 </form>
