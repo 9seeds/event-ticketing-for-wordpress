@@ -23,30 +23,37 @@ class WPET_Notifications extends WPET_Module {
 		parent::__construct();
 	}
 
-	public function send( $to, $subject, $message, $headers = '', $attachments = array() ) {
+	public function send( $to, $subject, $message, $attendees ) {
 
+		$headers = array();
+	    $headers[] = "From: $organizer_email <$organizer_email>";
+
+		foreach( $attendees as $a ) {
+			$headers[] = 'Bcc: ' . $a->wpet_email;
+		}
+
+		
 	    $args = array(
-		'meta' => array(
-		    'to' => $to,
-		    'subject' => $subject,
-		    'message' => $message,
-		    'headers' => $headers,
-		    'attachments' => $attachments
-		)
+			'meta' => array(
+			    'to' => $to,
+			    'subject' => $subject,
+			    'message' => $message,
+		    	'headers' => $headers,
+				'option_to' => $_POST['options']['to'],
+				'recipients' => $attendees,
+			)
 	    );
 
 	    $this->add( $args );
 
 
-	    if(file_exists( ABSPATH . '/WPET_DEV')) {
-		$ini_array = parse_ini_file(ABSPATH . '/WPET_DEV', true);
-
-		$to = $ini_array['notification_email'];
+	    if ( file_exists( ABSPATH . '/WPET_DEV' ) ) {
+			$ini_array = parse_ini_file( ABSPATH . '/WPET_DEV', true );
+			$to = $ini_array['notification_email'];
 	    }
 
-	    return wp_mail( $to, $subject, $message, $headers, $attachments );
+	    return wp_mail( $to, $subject, $message, $headers );
 	}
-
 
 	/**
 	 * Displays page specific contextual help through the contextual help API
@@ -153,8 +160,6 @@ class WPET_Notifications extends WPET_Module {
 			    $organizer_name = WPET::getInstance()->settings->organizer_name;
 			    $organizer_email = WPET::getInstance()->settings->organizer_email;
 
-			    $headers[] = "From: $organizer_email <$organizer_email>";
-
 			    /*
 			     * Determine which attendees to send to. Start with the
 			     * largest possible pool and work up
@@ -162,7 +167,7 @@ class WPET_Notifications extends WPET_Module {
 			     *
 			     */
 			    $attendees = array();
-			    switch( $_POST['options']['to']) {
+			    switch( $_POST['options']['to'] ) {
 				case 'all-attendees':
 				    $attendees = WPET::getInstance()->attendees->findAllByEvent( WPET::getInstance()->events->getWorkingEvent() );
 				    break;
@@ -174,17 +179,13 @@ class WPET_Notifications extends WPET_Module {
 				    break;
 			    }
 
-			    foreach( $attendees AS $a ) {
-				$headers[] = 'Bcc: ' . $a->wpet_email;
-			    }
-
 			    /**
 			     * DO NOT CALL wp_mail!!!!!!!!!!! PASS ALL EMAILS
 			     * THROUGH WPET FUNCTION TO ENSURE WE CAN CONTROL
 			     * NOTIFICATIONS BEING SENT
 			     */
-			   //$mail =  wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
-			    $mail = $this->send($organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers);
+			   	//$mail = wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
+			    $mail = $this->send( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $attendees );
 			    $this->render_data['mail'] = $mail;
 			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
@@ -214,9 +215,9 @@ class WPET_Notifications extends WPET_Module {
 	 */
 	public function findAllNotificationsByEvent( ) {
 	    $args = array(
-		'post_type' => 'wpet_notifications',
-		'showposts' => '-1',
-		'posts_per_page' => '-1'
+			'post_type' => 'wpet_notifications',
+			'showposts' => '-1',
+			'posts_per_page' => '-1'
 	    );
 
 	    return get_posts( $args );
