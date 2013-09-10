@@ -338,20 +338,22 @@ class WPET_Payments extends WPET_Module {
 
     public function saveAttendeeData() {
 
-	foreach ($_POST['option'] AS $attendee_id => $data) {
-	    //  echo "<p>Attendee: $attendee_id</p>";
-	    foreach ($data AS $opt_id => $value) {
-		//	echo "<p>Option $opt_id: $value</p>";
-		$args = array(
-		    'meta' => array(
-			$opt_id => $value
-		    )
-		);
-		$this->update($attendee_id, $args);
-	    }
-	    $this->update( $attendee_id, array( 'meta' => array('purchase_date' => time())));
-	}
-	$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true )));
+		
+
+		foreach ( $_POST['option'] AS $attendee_id => $data ) {
+			//  echo "<p>Attendee: $attendee_id</p>";
+			if ( isset( $data['attendee_id'] ) )
+				unset( $data['attendee_id'] );
+			foreach ( $data AS $opt_id => $value ) {
+				//	echo "<p>Option $opt_id: $value</p>";
+				$args = array(
+					'meta' => array( $opt_id => $value )
+				);
+				$this->update($attendee_id, $args);
+			}
+			$this->update( $attendee_id, array( 'meta' => array( 'purchase_date' => time() ) ) );
+		}
+		$this->update( $this->mPayment->ID, array( 'meta' => array( 'attendees_collected' => true ) ) );
     }
 
     /**
