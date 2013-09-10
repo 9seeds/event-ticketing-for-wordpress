@@ -23,7 +23,9 @@ class WPET_Notifications extends WPET_Module {
 		parent::__construct();
 	}
 
-	public function send( $to, $subject, $message, $attendees ) {
+	public function send( $subject, $message, $attendees ) {
+	    $organizer_name = WPET::getInstance()->settings->organizer_name;
+	    $organizer_email = WPET::getInstance()->settings->organizer_email;
 
 		$headers = array();
 	    $headers[] = "From: $organizer_email <$organizer_email>";
@@ -35,7 +37,7 @@ class WPET_Notifications extends WPET_Module {
 		
 	    $args = array(
 			'meta' => array(
-			    'to' => $to,
+			    'to' => $organizer_email,
 			    'subject' => $subject,
 			    'message' => $message,
 		    	'headers' => $headers,
@@ -52,7 +54,7 @@ class WPET_Notifications extends WPET_Module {
 			$to = $ini_array['notification_email'];
 	    }
 
-	    return wp_mail( $to, $subject, $message, $headers );
+	    return wp_mail( $organizer_email, $subject, $message, $headers );
 	}
 
 	/**
@@ -157,9 +159,6 @@ class WPET_Notifications extends WPET_Module {
 
 			if( isset( $_GET['notify'] ) ) {
 
-			    $organizer_name = WPET::getInstance()->settings->organizer_name;
-			    $organizer_email = WPET::getInstance()->settings->organizer_email;
-
 			    /*
 			     * Determine which attendees to send to. Start with the
 			     * largest possible pool and work up
@@ -185,7 +184,7 @@ class WPET_Notifications extends WPET_Module {
 			     * NOTIFICATIONS BEING SENT
 			     */
 			   	//$mail = wp_mail( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $headers );
-			    $mail = $this->send( $organizer_email, $_POST['options']['subject'], $_POST['options']['email_body'], $attendees );
+			    $mail = $this->send( $_POST['options']['subject'], $_POST['options']['email_body'], $attendees );
 			    $this->render_data['mail'] = $mail;
 			}
 		    WPET::getInstance()->display( 'notifications-add.php', $this->render_data );
