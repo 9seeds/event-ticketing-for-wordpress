@@ -15,7 +15,7 @@ $attendee = isset( $data['attendee'] ) ? $data['attendee'] : NULL;
 			<tr class="form-field form-required">
 				<th scope="row"><label for="options[package]"><?php _e('Package', 'wpet'); ?></label></th>
 				<td>
-				<?php echo WPET::getInstance()->packages->selectMenu( 'package', 'package', @$attendee->wpet_package_id ); ?>
+				<?php echo WPET::getInstance()->packages->selectMenu( 'package_id', 'package_id', @$attendee->wpet_package_id ); ?>
 				</td>
 			</tr>
 			<!--<tr class="form-field form-required">

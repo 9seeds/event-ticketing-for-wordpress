@@ -6,7 +6,7 @@ jQuery(document).ready(function($){
 	    	ajaxurl, 
 	    	{
 				action: "get_ticket_options_for_package", 
-				package_id : $('#package').val(),
+				package_id : $('#package_id').val(),
 				attendee_id : $('#attendee_id').val()
 	    		//nonce: nonce
 	    	},
@@ -17,7 +17,7 @@ jQuery(document).ready(function($){
 	    );
     }
 
-    $("#package").bind('change keyup', wpet_show_options );
+    $("#package_id").bind('change keyup', wpet_show_options );
 
 	//pull in the options on page load
 	wpet_show_options();

@@ -240,9 +240,12 @@ class WPET_Attendees extends WPET_Module {
 	 * @since 2.0
 	 */
 	public function getPostData() {
+		$meta = $_POST;
+		$meta['event_id'] = WPET::getInstance()->events->getWorkingEvent()->ID;
+		unset( $meta['attendee_id'] );
 		$data = array(
 			'post_title' => $_POST['first_name'] . ' ' . $_POST['last_name'],
-			'meta' => $_POST,
+			'meta' => $meta,
 			'post_name' => uniqid()
 		);
 		return $data;
