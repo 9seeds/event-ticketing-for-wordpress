@@ -17,7 +17,7 @@
 			<th scope="row"><label for="options[email_body]"><?php _e('Email Body', 'wpet'); ?></label></th>
 			<td>
 				<div class="postarea">
-					<?php wp_editor( $data['email_body'], 'options[email_body]', array('textarea_rows' => 20)); ?>
+					<?php wp_editor( html_entity_decode( $data['email_body'] ), 'options[email_body]', array('textarea_rows' => 20)); ?>
 				</div>
 				<em><?php _e('Note: Include the [ticketlinks] shortcode in the email body to send the buyer the link to edit their ticket information.', 'wpet'); ?></em>
 			</td>
