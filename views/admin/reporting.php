@@ -52,10 +52,11 @@
 					<th><?php _e( 'Remaining', 'wpet' ); ?></th>
 				</tr>
 				<?php
-					end( $data['ticket_rows'] );
-					list( $key, $totals ) = each( $data['ticket_rows'] );
-					unset( $data['ticket_rows'][$key] );
-					foreach( $data['ticket_rows'] as $row ):
+				//set up the totals row
+				end( $data['ticket_rows'] );
+				list( $key, $totals ) = each( $data['ticket_rows'] );
+				unset( $data['ticket_rows'][$key] );
+				foreach( $data['ticket_rows'] as $row ):
 				?>
 				<tr>
 					<td><?php echo $row['title'] ?></td>

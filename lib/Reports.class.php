@@ -117,7 +117,7 @@ class WPET_Reports extends WPET_Module {
 		$ticket_totals = $default_ticket_row;
 
 		foreach ( $pmt_posts as $pmt_post ) {
-			foreach ( $pmt_post->wpet_package_purchase as $package_id => $qty ) {
+			foreach ( $pmt_post->wpet_package_purchase as $package_id => $qty ) {				
 				if ( ! isset( $package_rows[$package_id] ) )
 					$package_rows[$package_id] = $default_package_row;
 
@@ -136,6 +136,7 @@ class WPET_Reports extends WPET_Module {
 
 		foreach( $package_rows as $package_id => $row ) {
 			$pkg_post = $this->getPackage( $package_id );
+			
 			$packages_remaining = $packages->remaining( $event->ID, $pkg_post->ID );
 
 			$package_rows[$package_id]['title'] = $pkg_post->post_title;
@@ -149,7 +150,7 @@ class WPET_Reports extends WPET_Module {
 				$ticket_rows[$pkg_post->wpet_ticket_id]['title'] = $tkt_post->post_title;
 			}
 
-			$tickets_sold = $pkg_post->wpet_ticket_quantity;
+			$tickets_sold = $package_rows[$package_id]['sold'] * $pkg_post->wpet_ticket_quantity;
 			$tickets_remaining = $packages_remaining * $pkg_post->wpet_ticket_quantity;
 
 			$ticket_rows[$pkg_post->wpet_ticket_id]['sold'] += $tickets_sold;
