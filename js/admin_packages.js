@@ -39,7 +39,9 @@ jQuery(document).ready(function($) {
 				return false;
 		}
 
-		if ( jQuery.trim( $( '#end_date' ).val() ) < jQuery.trim( $( '#start_date' ).val() ) ) {
+		var start_date = new Date( $( '#start_date' ).val() );
+		var end_date = new Date( $( '#end_date' ).val() );
+		if ( end_date.getTime() < start_date.getTime() ) {
 				alert( wpet_package_add.end_after_start );
 				return false;
 		}
