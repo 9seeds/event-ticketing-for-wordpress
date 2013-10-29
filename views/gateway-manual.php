@@ -17,7 +17,7 @@
 			<input name="email" id="email" size="35" value="">
 		</li>
 	</ul>
-	 <p><?php printf( __( 'Total: %s', 'wpet' ), number_format($data['cart']['total'], 2) ); ?></p>
+	 <p><?php printf( __( 'Total: %s', 'wpet' ), WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $data['cart']['total'] ) ); ?></p>
 	 	<p>
 			<input type="submit" name="submit" value="Submit" />
 	 	</p>
