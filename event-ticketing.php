@@ -1,12 +1,15 @@
 <?php
 /*
-Plugin Name: WP Event Ticketing
+Plugin Name: Event Ticketing
 Plugin URI: http://9seeds.com/plugins/
-Description: The WP Event Ticketing plugin makes it easy to sell and manage tickets for your event.
+Description: Event Ticketing is the easiest way to sell tickets for your event!
 Author: 9seeds.com
 Version: 2.0
 Author URI: http://9seeds.com/
 Text Domain: wpet
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
 */
 
 define( 'WPET_PLUGIN_DIR', trailingslashit( dirname( __FILE__) ) );

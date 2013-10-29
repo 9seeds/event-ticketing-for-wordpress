@@ -326,7 +326,7 @@ class WPET_Payments extends WPET_Module {
 
 	    $content .= '</tr>';
 	}
-	$content .= '<tr><td colspan="2"><input type="submit" name="save_attendees" value="Save Attendee Info"></td></tr>';
+	$content .= '<tr><td colspan="2"><input type="submit" name="save_attendees" value="'. __( 'Save Attendee Info', 'wpet' )  .'"></td></tr>';
 	$content .= '</table>';
 	$content .= '</form>';
 
@@ -365,7 +365,7 @@ class WPET_Payments extends WPET_Module {
      * @return string
      */
     public function showPayment($content) {
-	return '<p id="wpet-payment-sucessfull">Order completed successful</p>';
+	return '<p id="wpet-payment-sucessfull">'. __( 'Order completed successfully', 'wpet' ) .'</p>';
     }
 
     /**
