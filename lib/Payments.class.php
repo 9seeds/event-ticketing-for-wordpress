@@ -103,141 +103,139 @@ class WPET_Payments extends WPET_Module {
      * @since 2.0
      */
     public function handlePayment() {
-	global $post;
+		global $post;
 
-	//standard payment page stuffs
-	if (is_singular($this->mPostType)) {
-	    //don't show adjacent payments
-	    remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
-	    add_filter('previous_post_link', '__return_null');
-	    add_filter('next_post_link', '__return_null');
+		//standard payment page stuffs
+		if (is_singular($this->mPostType)) {
+			//don't show adjacent payments
+			remove_action('wp_head', 'adjacent_posts_rel_link_wp_head');
+			add_filter('previous_post_link', '__return_null');
+			add_filter('next_post_link', '__return_null');
 
-	    //don't show this payment's uniqid
-	    add_filter('the_title', array($this, 'filterMyTitle'));
-	    add_filter('single_post_title', array($this, 'filterTitle'));
-	}
-
-	// Check to see if an order has been submitted. If so create a new payment
-	$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
-
-
-	/*
-	 * At this point we should have access to a payment via $post or $_GET
-	 * Lets retrieve it. If we cannot then exit
-	 */
-	if (!$this->loadPayment())
-	    return false;
-
-	// Figure out which step we are on via the post_status and take action accordingly
-	switch ($this->mPayment->post_status) {
-	    case 'draft':
-		/*
-		 * Draft mode flow
-		 *
-		 * - Create draft attendees for this payment if none are created yet
-		 * - Apply coupons if needed
-		 * - If the site admin has selected to collect attendee data before
-		 *    payment collect it now
-		 * - Update the payment status to move to the next stage
-		 * - Show the gateway payment collection form
-		 * - Redirect to the next step
-		 */
-
-		// If attendees need to be reserved for this payment do it now
-		$this->maybeCreateAttendees();
-
-
-		// Check to see if the site admin wants to collect attendee data first
-		if ('pre' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
-		    // Site admin wants to collect attendee data before payment
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data'));
-		    //wp_redirect(get_permalink($this->mPayment->ID));
-		    break;
-		}
-		    // Update payment status to move to next step
-		    //wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
-		    // Gateway should do this
-		    // Show gateway payment collection form
-		    remove_filter ('the_content','wpautop');
-		    $post->post_content = WPET::getInstance()->getGateway()->getPaymentForm();
-
-		    // Redirect to the next step
-		    //wp_redirect(get_permalink($this->mPayment->ID));
-
-
-		break;
-
-	    case 'coll_att_data':
-		/*
-		 * Collects the attendee data before the payment is collected then
-		 * send the payment back to draft status to display the payment
-		 * gateway collection form
-		 */
-		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
-		$this->maybeCollectAttendeeData();
-
-		// Redirect to the next step
-		//wp_redirect(get_permalink($this->mPayment->ID));
-		break;
-
-	    case 'pending':
-		/*
-		 * Add the name of the payee to all the tickets
-		 */
-		$name = explode( ' ', $this->mPayment->wpet_name );
-		foreach( $this->mPayment->wpet_attendees AS $a ) {
-		    $args = array(
-			'meta' => array(
-			    'first_name' => @$name[0],
-			    'last_name' => @$name[1],
-			    'email' => $this->mPayment->wpet_email,
-			    'purchase_date' => time()
-			)
-		    );
-		    WPET::getInstance()->attendees->update($a, $args );
+			//don't show this payment's uniqid
+			add_filter('the_title', array($this, 'filterMyTitle'));
+			add_filter('single_post_title', array($this, 'filterTitle'));
 		}
 
+		// Check to see if an order has been submitted. If so create a new payment
+		$this->maybeSalesSubmit(); // Note, if there is an order this function stops executing here
+
+
 		/*
-		 * Data has been collected for the payment and will be sent off
-		 * to the payment gateway here
+		 * At this point we should have access to a payment via $post or $_GET
+		 * Lets retrieve it. If we cannot then exit
 		 */
-		WPET::getInstance()->getGateway()->processPayment();
+		if (!$this->loadPayment())
+			return false;
 
-		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
-		// Gateway should do this
-		// Redirect to the next step
-		//wp_redirect(get_permalink($this->mPayment->ID));
+		// Figure out which step we are on via the post_status and take action accordingly
+		switch ($this->mPayment->post_status) {
+			case 'draft':
+				/*
+				 * Draft mode flow
+				 *
+				 * - Create draft attendees for this payment if none are created yet
+				 * - Apply coupons if needed
+				 * - If the site admin has selected to collect attendee data before
+				 *    payment collect it now
+				 * - Update the payment status to move to the next stage
+				 * - Show the gateway payment collection form
+				 * - Redirect to the next step
+				 */
 
-		exit();
+				// If attendees need to be reserved for this payment do it now
+				$this->maybeCreateAttendees();
 
-	    case 'processing':
-		/*
-		 * Waiting for the payment gateway to process the payment
-		 */
-		WPET::getInstance()->getGateway()->processPaymentReturn();
-		//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
-		// Gateway should do this
-		// Redirect to the next step
-		//wp_redirect(get_permalink($this->mPayment->ID));
-		exit();
+				// Check to see if the site admin wants to collect attendee data first
+				if ('pre' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
+					// Site admin wants to collect attendee data before payment
+					wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data'));
+					//wp_redirect(get_permalink($this->mPayment->ID));
+					break;
+				}
+				// Update payment status to move to next step
+				//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'pending'));
+				// Gateway should do this
+				// Show gateway payment collection form
+				remove_filter ('the_content','wpautop');
+				$post->post_content = WPET::getInstance()->getGateway()->getPaymentForm();
 
-	    case 'publish':
-
-		// Check to see if the site admin wants to collect attendee data last
-		if ('post' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
-		    // Site admin wants to collect attendee data before payment
-		    wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data'));
-		     wp_redirect(get_permalink($this->mPayment->ID));
-		}
+				// Redirect to the next step
+				//wp_redirect(get_permalink($this->mPayment->ID));
 
 
-		$this->publishPayment();
-		// Payment has completed successfully, show receipt
-		//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
-		add_filter('the_content', array($this, 'showPayment'));
-		break;
-	}// end switch
-	//wp_redirect( get_permalink( $this->mPayment->ID ) );
+				break;
+
+			case 'coll_att_data':
+				/*
+				 * Collects the attendee data before the payment is collected then
+				 * send the payment back to draft status to display the payment
+				 * gateway collection form
+				 */
+				//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'draft'));
+				$this->maybeCollectAttendeeData();
+
+				// Redirect to the next step
+				//wp_redirect(get_permalink($this->mPayment->ID));
+				break;
+
+			case 'pending':
+				/*
+				 * Add the name of the payee to all the tickets
+				 */
+				$name = explode( ' ', $this->mPayment->wpet_name );
+				foreach( $this->mPayment->wpet_attendees AS $a ) {
+					$args = array(
+						'meta' => array(
+							'first_name' => @$name[0],
+							'last_name' => @$name[1],
+							'email' => $this->mPayment->wpet_email,
+							'purchase_date' => time()
+						)
+					);
+					WPET::getInstance()->attendees->update($a, $args );
+				}
+
+				/*
+				 * Data has been collected for the payment and will be sent off
+				 * to the payment gateway here
+				 */
+				WPET::getInstance()->getGateway()->processPayment();
+
+				//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'processing'));
+				// Gateway should do this
+				// Redirect to the next step
+				//wp_redirect(get_permalink($this->mPayment->ID));
+
+				exit();
+
+			case 'processing':
+				/*
+				 * Waiting for the payment gateway to process the payment
+				 */
+				WPET::getInstance()->getGateway()->processPaymentReturn();
+				//wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'publish'));
+				// Gateway should do this
+				// Redirect to the next step
+				//wp_redirect(get_permalink($this->mPayment->ID));
+				exit();
+
+			case 'publish':
+				// Check to see if the site admin wants to collect attendee data last
+				if ('post' == WPET::getInstance()->settings->collect_attendee_data && !$this->mPayment->wpet_attendees_collected) {
+					// Site admin wants to collect attendee data before payment
+					wp_update_post(array('ID' => $this->mPayment->ID, 'post_status' => 'coll_att_data'));
+					wp_redirect(get_permalink($this->mPayment->ID));
+				}
+
+
+				$this->publishPayment();
+				// Payment has completed successfully, show receipt
+				//$this->update( $this->mPayment->ID, array( 'post_status' => 'pending' ) );
+				add_filter('the_content', array($this, 'showPayment'));
+				break;
+		}// end switch
+		//wp_redirect( get_permalink( $this->mPayment->ID ) );
     }
 
     function maybeCollectAttendeeData() {
