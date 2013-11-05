@@ -127,6 +127,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		$payment = WPET::getInstance()->payment->loadPayment();
 		$payment_url = WPET::getInstance()->payment->getPermalink();
 
+		die('<pre>'.print_r($payment->wpet_package_purchase, true));
 		//skip paypal on free tickets
 		if ( $cart['total'] <= 0 )
 			parent::processPayment();
@@ -158,14 +159,14 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		  */
 
 		$nvp['PAYMENTREQUEST_0_DESC'] = "My Awesome Event";
-		$nvp['PAYMENTREQUEST_0_AMT'] = ($cart['total']);
-		$nvp['PAYMENTREQUEST_0_TAXAMT'] = (0);
-		$nvp['PAYMENTREQUEST_0_SHIPPINGAMT'] = (0);
-		$nvp['PAYMENTREQUEST_0_HANDLINGAMT'] = (0);
-		$nvp['PAYMENTREQUEST_0_SHIPDISCAMT'] = (0);
-		$nvp['PAYMENTREQUEST_0_INSURANCEAMT'] = (0);
-		$nvp['PAYMENTREQUEST_0_ITEMAMT'] = ($cart['total']);
-		$nvp['PAYMENTREQUEST_0_CURRENCYCODE'] = ('USD');
+		$nvp['PAYMENTREQUEST_0_AMT'] = $cart['total'];
+		$nvp['PAYMENTREQUEST_0_TAXAMT'] = 0;
+		$nvp['PAYMENTREQUEST_0_SHIPPINGAMT'] = 0;
+		$nvp['PAYMENTREQUEST_0_HANDLINGAMT'] = 0;
+		$nvp['PAYMENTREQUEST_0_SHIPDISCAMT'] = 0;
+		$nvp['PAYMENTREQUEST_0_INSURANCEAMT'] = 0;
+		$nvp['PAYMENTREQUEST_0_ITEMAMT'] = $cart['total'];
+		$nvp['PAYMENTREQUEST_0_CURRENCYCODE'] = $this->getCurrencyCode();
 
 
 		if( count( $payment->wpet_package_purchase ) <= 10 ) {
@@ -178,7 +179,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 				//$item_total = $pack->wpet_package_cost * $qty;
 
 				$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = ($pack->post_title);
-//		$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = ($pack->post_title);
+				//$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = ($pack->post_title);
 				$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = ($pack->wpet_package_cost);
 				$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = ($qty);
 
@@ -186,6 +187,8 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 				$index++;
 			}
 		}
+
+		die('<pre>'.print_r($nvp,true));
 		//
 		$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 

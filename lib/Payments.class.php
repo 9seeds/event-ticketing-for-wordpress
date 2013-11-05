@@ -403,18 +403,18 @@ class WPET_Payments extends WPET_Module {
 					$p = WPET::getInstance()->packages->findByID( $package );
 
 					$total += $p->wpet_package_cost * $qty;
-				}
 
-				if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) {
-					$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
+					if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) {
+						$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
 
-					$total -= $coupon_amount;
+						$total -= $coupon_amount;
 
-					if( 0 > $total ) {
-						// Oops, total went past zero dollars. Reset it to zero
-						$total = 0.00;
+						if( 0 > $total ) {
+							// Oops, total went past zero dollars. Reset it to zero
+							$total = 0.00;
+						}
+
 					}
-
 				}
 
 				$_POST['total'] = $total; // Add total to payment details
@@ -458,10 +458,13 @@ class WPET_Payments extends WPET_Module {
 		$this->loadPayment();
 
 		$packages = WPET::getInstance()->packages;
+		
 		$cart = array(
 			'items' => array(),
 			'total' => 0
 		);
+
+		//die('<pre>'.print_r($this->mPayment->wpet_coupon_code, true));
 
 		foreach ($this->mPayment->wpet_package_purchase as $package_id => $quantity) {
 			if ($quantity) {

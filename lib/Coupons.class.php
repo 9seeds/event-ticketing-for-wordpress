@@ -32,37 +32,32 @@ class WPET_Coupons extends WPET_Module {
 		) );
 	}
 	
-	public function ajaxGetCoupon() { 
-	    if( !isset( $_POST['coupon_code'] ) || '' == $_POST['coupon_code'] ) {
-		$c = array( 
-		    'amount' => '0.00',
-		    'type'	=> 'flat-rate'
-		);
+	public function ajaxGetCoupon() {
 
+		//@todo refactor this and Payments.class.php:399
+		$total = 0.00;
+		foreach( $_POST['packages'] as $package => $qty ) {
+			if( $qty < 1 ) continue; // No need to do extra processing!
+
+			$p = WPET::getInstance()->packages->findByID( $package );
+
+			$total += $p->wpet_package_cost * $qty;
+
+			if( '' != trim( $_POST['coupon_code'] ) ) {
+				$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
+
+				$total -= $coupon_amount;
+
+				if( 0 > $total ) {
+					// Oops, total went past zero dollars. Reset it to zero
+					$total = 0.00;
+				}
+			}
+		}
+
+		$c = array( 'amount' => $total );
 		echo json_encode( $c );
-
 		die();
-	    }
-	    $coupon = $this->findByCode( $_POST['coupon_code'] );
-	    
-	    if( !$coupon ) {
-		$c = array( 
-		    'error' => __( 'Invalid coupon', 'wpet' )
-		);
-
-		echo json_encode( $c );
-
-		die();
-	    }
-	    
-	    $c = array( 
-		'amount' => $coupon->wpet_amount,
-		'type'	=> $coupon->wpet_type
-	    );
-	    
-	    echo json_encode( $c );
-	    
-	    die();
 	}
 	
 	public function calcDiscount( $amount, $package_id, $code ) {	    
