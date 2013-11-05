@@ -127,7 +127,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		$payment = WPET::getInstance()->payment->loadPayment();
 		$payment_url = WPET::getInstance()->payment->getPermalink();
 
-		die('<pre>'.print_r($payment->wpet_package_purchase, true));
+		//die('<pre>'.print_r($payment, true));
 		//skip paypal on free tickets
 		if ( $cart['total'] <= 0 )
 			parent::processPayment();
@@ -175,12 +175,13 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 				if( $index > 9 ) continue; // last check for valid package count for paypal api
 
 				$pack = WPET::getInstance()->packages->findByID( $pkg );
+				$discount =  WPET::getInstance()->coupons->calcDiscount( $pack->wpet_package_cost, $pkg, $payment->wpet_coupon_code );
 
 				//$item_total = $pack->wpet_package_cost * $qty;
 
 				$nvp['L_PAYMENTREQUEST_0_NAME' . $index] = ($pack->post_title);
 				//$nvp['L_PAYMENTREQUEST_0_DESC' . $index] = ($pack->post_title);
-				$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = ($pack->wpet_package_cost);
+				$nvp['L_PAYMENTREQUEST_0_AMT' . $index] = $pack->wpet_package_cost - $discount;
 				$nvp['L_PAYMENTREQUEST_0_QTY' . $index] = ($qty);
 
 
@@ -188,7 +189,6 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			}
 		}
 
-		die('<pre>'.print_r($nvp,true));
 		//
 		$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
