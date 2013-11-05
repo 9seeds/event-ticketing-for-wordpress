@@ -11,9 +11,9 @@
 			</th>
 			<td>
 				<fieldset>
-					<label for="options[archive_keep_tickets]"><input type="checkbox" name="options[archive_keep]" id="options[archive_keep_tickets]" value="tickets" /> <?php _e('Tickets', 'wpet'); ?></label>
-					<label for="options[archive_keep_ticketoptions]"><input type="checkbox" name="options[archive_keep]" id="options[archive_keep_ticketoptions]" value="ticketoptions" /> <?php _e('Ticket Options', 'wpet'); ?></label>
-					<label for="options[archive_keep_packages]"><input type="checkbox" name="options[archive_keep]" id="options[archive_keep_packages]" value="packages" /> <?php _e('Packages', 'wpet'); ?></label>
+					<label for="options[archive_keep_tickets]"><input type="checkbox" name="options[archive_keep][]" id="options[archive_keep_tickets]" value="tickets" /> <?php _e('Tickets', 'wpet'); ?></label>
+					<label for="options[archive_keep_ticketoptions]"><input type="checkbox" name="options[archive_keep][]" id="options[archive_keep_ticketoptions]" value="ticketoptions" /> <?php _e('Ticket Options', 'wpet'); ?></label>
+					<label for="options[archive_keep_packages]"><input type="checkbox" name="options[archive_keep][]" id="options[archive_keep_packages]" value="packages" /> <?php _e('Packages', 'wpet'); ?></label>
 				</fieldset>
 	 		</td>
 		</tr>
