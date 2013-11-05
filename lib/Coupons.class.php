@@ -35,27 +35,22 @@ class WPET_Coupons extends WPET_Module {
 	public function ajaxGetCoupon() {
 
 		//@todo refactor this and Payments.class.php:399
-		$total = 0.00;
+		$discount = 0.00;
 		foreach( $_POST['packages'] as $package => $qty ) {
 			if( $qty < 1 ) continue; // No need to do extra processing!
 
 			$p = WPET::getInstance()->packages->findByID( $package );
 
-			$total += $p->wpet_package_cost * $qty;
+			$total = $p->wpet_package_cost * $qty;
 
 			if( '' != trim( $_POST['coupon_code'] ) ) {
 				$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
-
-				$total -= $coupon_amount;
-
-				if( 0 > $total ) {
-					// Oops, total went past zero dollars. Reset it to zero
-					$total = 0.00;
-				}
+				
+				$discount += $coupon_amount;
 			}
 		}
 
-		$c = array( 'amount' => $total );
+		$c = array( 'amount' => $discount );
 		echo json_encode( $c );
 		die();
 	}
