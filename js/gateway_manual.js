@@ -1,7 +1,12 @@
 jQuery(document).ready(function($) {
 	$('#order_form').submit(function() {
 		//do validation
-		if ( jQuery.trim( $( '.quantity' ).val() ) < 1 ) {
+		var qty = 0;
+		$( '.quantity' ).each( function() {
+			qty += $(this).val();
+		});
+
+		if ( qty < 1 ) {
 				alert( wpet_manual_gateway.quantity_required );
 				return false;
 		}
