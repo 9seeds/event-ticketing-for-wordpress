@@ -172,7 +172,8 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		if( count( $payment->wpet_package_purchase ) <= 10 ) {
 			$index = 0;
 			foreach( $payment->wpet_package_purchase AS $pkg => $qty ) {
-				if( $index > 9 ) continue; // last check for valid package count for paypal api
+				if ( $qty < 1 ) continue; //skip zero quantity tickets
+				if ( $index > 9 ) continue; // last check for valid package count for paypal api
 
 				$pack = WPET::getInstance()->packages->findByID( $pkg );
 				$discount =  WPET::getInstance()->coupons->calcDiscount( $pack->wpet_package_cost, $pkg, $payment->wpet_coupon_code );
