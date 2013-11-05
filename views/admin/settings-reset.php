@@ -5,6 +5,7 @@
 			<th scope="row"><label for="archive_name"><?php _e('Archived Event Name', 'wpet'); ?></label></th>
 			<td><input name="options[archive_name]" id="archive_name" type="text" value="<?php esc_attr_e($data['archive_name']) ?>"></td>
 		</tr>
+	 <!--
 		<tr class="form-field form-required">
 			<th scope="row">
 	 			<label for="archive_name"><?php _e('DO NOT Archive', 'wpet'); ?></label>
@@ -17,7 +18,7 @@
 				</fieldset>
 	 		</td>
 		</tr>
-		
+	-->
 	 
 		<tr class="form-field form-required">
 			<th scope="row"><label for="options[archive_confirm]"><?php _e('Check to Confirm', 'wpet'); ?></label></th>
