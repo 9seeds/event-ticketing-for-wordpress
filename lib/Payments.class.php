@@ -402,10 +402,11 @@ class WPET_Payments extends WPET_Module {
 
 					$p = WPET::getInstance()->packages->findByID( $package );
 
-					$total += $p->wpet_package_cost * $qty;
+					$package_cost = $p->wpet_package_cost * $qty;
+					$total += $package_cost;
 
 					if( isset( $_POST['coupon_code'] ) && '' != trim( $_POST['coupon_code'] ) ) {
-						$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
+						$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $package_cost, $package, $_POST['coupon_code'] );
 
 						$total -= $coupon_amount;
 

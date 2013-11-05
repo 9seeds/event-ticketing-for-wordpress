@@ -127,7 +127,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		$payment = WPET::getInstance()->payment->loadPayment();
 		$payment_url = WPET::getInstance()->payment->getPermalink();
 
-		//die('<pre>'.print_r($payment, true));
+		//die('<pre>'.print_r($cart, true));
 		//skip paypal on free tickets
 		if ( $cart['total'] <= 0 )
 			parent::processPayment();
@@ -189,7 +189,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			}
 		}
 
-		//
+		//die('<pre>'.print_r($nvp, true));
 		$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
 		$other_args = array(
