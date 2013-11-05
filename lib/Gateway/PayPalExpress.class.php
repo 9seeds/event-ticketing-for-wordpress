@@ -27,7 +27,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
     }
 
     public function getCurrencyCode() {
-		return empty($this->mSettings->paypal_express_currency) ? $this->getDefaultCurrency() : $this->mSettings->paypal_express_currency;
+		return $this->mSettings->paypal_express_currency ? $this->mSettings->paypal_express_currency : $this->getDefaultCurrency();
     }
 
     public function settingsForm() {

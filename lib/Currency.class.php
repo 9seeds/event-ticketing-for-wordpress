@@ -33,9 +33,9 @@ class WPET_Currency extends WPET_Module {
 	    $currencies = $this->getCurrencies();
 	    $currency = array();
 	    foreach( $currencies AS $c ) {
-		if( $code == $c['code'] ) {
-		    $currency = $c;
-		}
+			if( $code == $c['code'] ) {
+				$currency = $c;
+			}
 	    }
 	    return $currency;
 	}

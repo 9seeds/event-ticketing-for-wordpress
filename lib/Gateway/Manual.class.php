@@ -5,11 +5,11 @@ require_once WPET_PLUGIN_DIR . 'lib/Gateway.class.php';
 class WPET_Gateway_Manual extends WPET_Gateway {
 
     public function getName() {
-	return 'Manual';
+		return 'Manual';
     }
 
     public function getImage() {
-	return '<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" name="paymentButton" />';
+		return '<input type="image" src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" name="paymentButton" />';
     }
 
     public function getCurrencies() {
@@ -22,7 +22,7 @@ class WPET_Gateway_Manual extends WPET_Gateway {
 
     public function getCurrencyCode() {
 		//set a default currency for first time use
-		return empty($this->mSettings->manual_currency) ? $this->getDefaultCurrency() : $this->mSettings->manual_currency;
+		return $this->mSettings->manual_currency ? $this->mSettings->manual_currency : $this->getDefaultCurrency();
     }
 
     public function settingsForm() {
