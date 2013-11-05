@@ -6,6 +6,20 @@
 			<td><input name="options[archive_name]" id="archive_name" type="text" value="<?php esc_attr_e($data['archive_name']) ?>"></td>
 		</tr>
 		<tr class="form-field form-required">
+			<th scope="row">
+	 			<label for="archive_name"><?php _e('DO NOT Archive', 'wpet'); ?></label>
+			</th>
+			<td>
+				<fieldset>
+					<label for="options[archive_keep_tickets]"><input type="checkbox" name="options[archive_keep]" id="options[archive_keep_tickets]" value="tickets" /> <?php _e('Tickets', 'wpet'); ?></label>
+					<label for="options[archive_keep_ticketoptions]"><input type="checkbox" name="options[archive_keep]" id="options[archive_keep_ticketoptions]" value="ticketoptions" /> <?php _e('Ticket Options', 'wpet'); ?></label>
+					<label for="options[archive_keep_packages]"><input type="checkbox" name="options[archive_keep]" id="options[archive_keep_packages]" value="packages" /> <?php _e('Packages', 'wpet'); ?></label>
+				</fieldset>
+	 		</td>
+		</tr>
+		
+	 
+		<tr class="form-field form-required">
 			<th scope="row"><label for="options[archive_confirm]"><?php _e('Check to Confirm', 'wpet'); ?></label></th>
 			<td>
 				<label><input type="checkbox" name="options[archive_confirm]" id="options[archive_confirm]" value="1"></label>
