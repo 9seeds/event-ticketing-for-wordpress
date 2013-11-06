@@ -126,6 +126,8 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		$cart = WPET::getInstance()->payment->getCart();
 		$payment = WPET::getInstance()->payment->loadPayment();
 		$payment_url = WPET::getInstance()->payment->getPermalink();
+		$event = WPET::getInstance()->events->getWorkingEvent();
+
 
 		//die('<pre>'.print_r($cart, true));
 		//skip paypal on free tickets
@@ -158,7 +160,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		  * PAYMENTREQUEST_n_DESC
 		  */
 
-		$nvp['PAYMENTREQUEST_0_DESC'] = "My Awesome Event";
+		$nvp['PAYMENTREQUEST_0_DESC'] = $event->post_title;
 		$nvp['PAYMENTREQUEST_0_AMT'] = $cart['total'];
 		$nvp['PAYMENTREQUEST_0_TAXAMT'] = 0;
 		$nvp['PAYMENTREQUEST_0_SHIPPINGAMT'] = 0;
