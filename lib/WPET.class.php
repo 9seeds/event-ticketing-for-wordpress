@@ -5,13 +5,6 @@
  *
  * WPET is a singleton. Get a reference with WPET::getInstance()
  *
- * @todo Add button to wp_editor() for WPET shortcodes. Should be able to select from list of events
- * @todo Remove pro store. Plugins that purchase things directly are not allowed in the .org repo
- * @todo Add code to allow alternate payment gateways. Do now show this ability to change in free edition?
- * @todo How do we reliably check to see if Pro is installed?
- * @todo How can we reliably allow plugins to tap into our hooks? If the free base is activated first the hooks will all execute before the addons/Pro are loaded. Look at The Events Calendar and Easy Digital Downloads for ideas
- * @todo Send HTML emails
- *
  * @since 2.0
  */
 class WPET {

@@ -32,10 +32,6 @@ $sent = ! empty($data['mail']) && $data['mail'];
 					<input type="checkbox" name="options[to][no-info]" id="attendees-no-info" class="options-to" value="1" <?php if( isset( $_POST['options']['to']['no-info'] ) ) { echo 'checked'; } ?> />
 				</td>
 			</tr>
-<?php
-// @TODO
-// Add a row for each package type
-?>
 		</tbody>
 	</table>
 	<h2><?php _e( 'Message', 'wpet' ); ?></h2>

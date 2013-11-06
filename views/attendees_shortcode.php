@@ -6,11 +6,6 @@ foreach ($data AS $d) {
 		$row_shade = 'even';
 	$i++;
 	?>
-<?php
-/**
- * @todo alternate div class with odd/even
- */
-?>
 	<div class="event-attendee <?php echo $row_shade; ?>">
 		<div class="attendee-gravatar">
 			<?php echo get_avatar($d->wpet_email, '96'); ?>
