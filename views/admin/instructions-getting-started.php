@@ -28,4 +28,4 @@
 <p><?php echo sprintf( __( 'Once you are ready to start selling tickets, return to the %sSettings%s page and switch %sEvent Status%s to %sRegistration is Open%s', 'wpet' ), '<a href="admin.php?page=wpet_settings">', '</a>', '<strong>', '</strong>', '<em>', '</em>' ); ?></p>
 
 <h3><strong><?php _e( 'Step 9', 'wpet' ); ?></strong> <em>(<?php _e( 'Optional', 'wpet' ); ?>)</em></h3>
-<p><?php echo sprintf( __( 'Create a new %sPage%s and add the following shortcode: %s to display a list of all the attendees for your event', 'wpet' ), '<a href="post-new.php?post_type=page">', '</a>', '<strong>[wpet_attendee]</strong>' ); ?></p>
+<p><?php echo sprintf( __( 'Create a new %sPage%s and add the following shortcode: %s to display a list of all the attendees for your event', 'wpet' ), '<a href="post-new.php?post_type=page">', '</a>', '<strong>[wpet_attendees]</strong>' ); ?></p>

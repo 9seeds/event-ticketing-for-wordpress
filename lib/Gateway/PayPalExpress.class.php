@@ -205,8 +205,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		}
 
 		if (empty($response['response']['code']) || $response['response']['code'] != 200) {
-			//@TODO i18n
-			echo '<div class="ticketingerror">' . sprintf(__('Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet'), var_export($response, true)) . '</div>';
+			echo '<div class="ticketingerror">' . sprintf(__( 'Error encountered while trying to contact PayPal<br />Error: <pre>%s</pre>', 'wpet' ), var_export($response, true)) . '</div>';
 			return;
 		}
 
@@ -219,8 +218,7 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			wp_redirect($paypalurl);
 			exit();
 		} else {
-			//@TODO i18n
-			echo '<div class="ticketingerror">There was an error from PayPal<br />Error: <strong>' . urldecode($resp["L_LONGMESSAGE0"]) . '</strong></div>';
+			echo '<div class="ticketingerror">' . sprintf(__( 'There was an error from PayPal<br />Error:' ), 'wpet' ) .' <strong>' . urldecode($resp["L_LONGMESSAGE0"]) . '</strong></div>';
 		}
     }
 
