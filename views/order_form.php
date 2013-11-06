@@ -16,12 +16,7 @@
 
     } else { ?>
 	<form action="" method="post" id="order_form"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
-		<?php
-		/**
-		 * @todo fix nonce
-		 */
-		wp_nonce_field( 'wpet_purchase_tickets', 'wpet_purchase_nonce' );
-		?>
+		<?php wp_nonce_field( 'wpet_purchase_tickets', 'wpet_purchase_nonce' ); ?>
 		<div id="packages">
 			<table>
 				<tr>
