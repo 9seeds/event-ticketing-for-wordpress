@@ -255,11 +255,14 @@ class WPET_Attendees extends WPET_Module {
 	 * Retrieves all the attendees from the db
 	 * @return array
 	 */
-	public function findAllByEvent( ) {
+	public function findAllByEvent( $event_id = NULL ) {
+		$wpet_event_id = $event_id ? $event_id : WPET::getInstance()->events->getWorkingEvent()->ID;
 	    $args = array(
-		'post_type' => 'wpet_attendees',
-		'showposts' => '-1',
-		'posts_per_page' => '-1'
+			'post_type' => 'wpet_attendees',
+			'showposts' => '-1',
+			'posts_per_page' => '-1',
+			'meta_key' => 'wpet_event_id',
+			'meta_value' => $wpet_event_id,
 	    );
 
 	    return get_posts( $args );
