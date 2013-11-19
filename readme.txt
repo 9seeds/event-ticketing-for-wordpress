@@ -15,7 +15,7 @@ The Event Ticketing for WordPress plugin makes it easy for anybody with a WordPr
 
 You may notice that this plugin is very similar to our other plugin, <a href="http://wordpress.org/plugins/wpeventticketing/">WP Event Ticketing</a>. Well, you are correct. This is what we are calling version 2 of the earlier plugin. We chose to release it as a separate plugin so that we wouldn't accidentally break anybody's site who is using the current version and decided to upgrade while they had an ongoing event. We felt this was the safest way for our users.
 
-This plugin is a complete rewrite of the previous version. It contains largely the same functionality as the previous version. The difference being, it's been updated to meet current WordPress coding standards.
+This plugin is a complete rewrite of the previous version. It contains largely the same functionality as the previous version. The difference being, it's been updated to meet current WordPress coding standards. Also, the new version will make updates and new features easier to add.
 
 The plugin contains the following features:
 
@@ -29,7 +29,7 @@ If you run in to any issues and need support, please visit <a href="http://suppo
 
 == Installation ==
 
-1. Upload the `eventticketing` folder to the `/wp-content/plugins/` directory
+1. Upload the `event-ticketing-for-wordpress` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in your WordPress dashboard
 3. Get a Paypal API Signature (<a href="https://vimeo.com/71790459">Instructions can be found here</a>)
 4. Set up your Ticket Options
@@ -41,7 +41,7 @@ If you run in to any issues and need support, please visit <a href="http://suppo
 10. Create a blank page and add the shortcode `[wpet]`
 
 (*optionally*)
-11. Create a blank page and add the shortcode `[wpetattendee]`
+11. Create a blank page and add the shortcode `[wpetattendees]`
 
 == Frequently Asked Questions ==
 
