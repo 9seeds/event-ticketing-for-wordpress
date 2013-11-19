@@ -255,7 +255,7 @@ class WPET_Coupons extends WPET_Module {
 			    $p->wpet_pretty_amount = $p->wpet_amount . '%';
 			    break;
 			case 'flat-rate':
-			    $p->wpet_pretty_amount = WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $p->wpet_amount );
+			    $p->wpet_pretty_amount = WPET::getInstance()->currency->format( $p->wpet_amount );
 			    break;
 		    }
 

@@ -13,20 +13,27 @@ class WPET_Currency extends WPET_Module {
 		return apply_filters( 'wpet_currencies', array() );
 	}
 
-	public function format( $code, $number ) {
-	   $currency = $this->getCurrency( $code );
+	public function format( $number, $code = NULL ) {
+		if ( ! $code )
+			$code = WPET::getInstance()->getGateway()->getCurrencyCode();
+		
+		$currency = $this->getCurrency( $code );
 
-	   $num = number_format( (double)$number, 2, $currency['dec_point'], $currency['thousands_sep'] );
+		$num = $this->formatNumber( $number, $currency );
+		
+		switch( $currency['location'] ) {
+			case 'before':
+				$num = $currency['symbol'] . $num;
+				break;
+			case 'after':
+				$num = $num . ' ' . $currency['symbol'];
+				break;
+		}
+		return $num;
+	}
 
-	   switch( $currency['location'] ) {
-	       case 'before':
-		   $num = $currency['symbol'] . $num;
-		   break;
-	       case 'after':
-		   $num = $num . ' ' . $currency['symbol'];
-		   break;
-	   }
-	   return $num;
+	public function formatNumber( $number, $currency ) {
+		return number_format( (double)$number, 2, $currency['dec_point'], $currency['thousands_sep'] );
 	}
 
 	public function getCurrency( $code ) {

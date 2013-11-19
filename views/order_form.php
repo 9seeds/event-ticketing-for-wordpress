@@ -1,20 +1,18 @@
 <div id="eventTicketing">
-
-
-    <?php
-
-   // $working_event = WPET::getInstance()->events->getWorkingEvent();
-    if( 'closed' == $data['event']->wpet_event_status
-	     /* || time() < strtotime( $working_event->wpet_start_date )
-	      || time() > strtotime( $working_event->wpet_end_date )*/
-	    ) {
-
-
+<?php
+// $working_event = WPET::getInstance()->events->getWorkingEvent();
+if( 'closed' == $data['event']->wpet_event_status
+	/* || time() < strtotime( $working_event->wpet_start_date )
+	   || time() > strtotime( $working_event->wpet_end_date )*/
+	) {
 
     echo WPET::getInstance()->settings->closed_message;
+	
+} else {
+	$code = WPET::getInstance()->getGateway()->getCurrencyCode();
+	$currency = WPET::getInstance()->currency->getCurrency( $code );
 
-
-    } else { ?>
+?>
 	<form action="" method="post" id="order_form"> <?php //echo site_url( '?wpet-action=new-payment' );  ?>
 		<?php wp_nonce_field( 'wpet_purchase_tickets', 'wpet_purchase_nonce' ); ?>
 		<div id="packages">
@@ -49,7 +47,7 @@
 						<div class="packagename"><strong><?php echo $row->post_title ?></strong></div>
 						<div class="packagedescription"><?php echo nl2br( $row->post_content ); ?></div>
 					</td>
-					<td class="price"><?php echo WPET::getInstance()->currency->format( WPET::getInstance()->settings->currency, $row->wpet_package_cost ); ?>
+					<td class="price"><?php echo WPET::getInstance()->currency->format( $row->wpet_package_cost ); ?>
 							</td>
 
 					<?php if( WPET::getInstance()->settings->show_package_count ) {
@@ -86,7 +84,7 @@
 				<?php } ?>
 						<tr>
 						<td colspan="3">
-							<span id="invalid_coupon" >Invalid Coupon</span> Subtotal: $<span id="subTotal">0.00</span>
+							 <span id="invalid_coupon" ><?php _e( 'Invalid Coupon', 'wpet' ); ?></span> <?php _e( 'Subtotal:', 'wpet' ); ?> <?php if ( $currency['location'] == 'before' ) echo $currency['symbol'] ?><span id="subTotal"><?php echo WPET::getInstance()->currency->formatNumber( 0, $currency ); ?></span> <?php if ( $currency['location'] == 'after' ) echo $currency['symbol'] ?>
 						</td>
 						<td>
 						    <input type="submit" name="order_submit" value="Submit" />

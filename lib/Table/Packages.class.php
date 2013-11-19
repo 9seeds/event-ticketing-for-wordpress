@@ -40,6 +40,10 @@ class WPET_Table_Packages extends WPET_Table {
 		return $this->packages->remaining( $this->event_id, $post->ID );
 	}
 
+	protected function column_wpet_package_cost( $post ) {
+		return WPET::getInstance()->currency->format( $post->wpet_package_cost );
+	}
+	
 	protected function column_wpet_quantity( $post ) {
 		$qty = $post->wpet_quantity;
 		if ( $qty == '' )

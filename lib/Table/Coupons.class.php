@@ -41,7 +41,7 @@ class WPET_Table_Coupons extends WPET_Table {
 		if ( $item->wpet_type == 'percentage' )
 			return $item->wpet_amount . '%';
 		else
-		    return WPET::getInstance()->currency->format( WPET::getInstance()->getGateway()->getCurrencyCode(), $item->wpet_amount, true );
+		    return WPET::getInstance()->currency->format( $item->wpet_amount );
 	}
 	
 	public function get_sortable_columns() {
