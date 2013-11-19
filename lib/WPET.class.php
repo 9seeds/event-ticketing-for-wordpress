@@ -79,6 +79,7 @@ class WPET {
 		 */
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( $this, 'setupMenu' ) );
+			add_action( 'admin_init', array( $this, 'checkUpgrade' ) );
 			add_action( 'current_screen', array( $this, 'onAdminScreen' ) );
 			add_filter( 'plugin_row_meta', array( $this, 'addPluginLinks' ), 10, 2	);
 		} else {
@@ -99,6 +100,19 @@ class WPET {
 	}
 	*/
 
+	public function checkUpgrade() {
+		$new_data = get_plugin_data( WPET_PLUGIN_FILE );
+		$old_data = get_option( 'wpet_install_data' );
+
+		if ( isset( $old_data['Version'] ) && isset( $new_data['Version'] ) &&
+			 $old_data['Version'] == $new_data['Version'] )
+			return; //same version
+
+		update_option( 'wpet_install_data', $new_data );
+		//do stuff when a new version is installed
+		flush_rewrite_rules();
+	}
+	
 	/**
 	 * Registers the shortcodes required by the WPET base plugin
 	 *
@@ -455,7 +469,6 @@ class WPET {
 	 * @since 2.0
 	 */
 	public static function deactivate() {
-		delete_option( 'wpet_install_data' );
 	}
 
 	/**

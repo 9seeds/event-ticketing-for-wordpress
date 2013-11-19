@@ -8,7 +8,6 @@ function wpet_maybe_define_old_classes() {
 		class package {}
 	}
 }
-
 add_action( 'init', 'wpet_maybe_define_old_classes' );
 
 class WPET_Installer {
@@ -61,10 +60,6 @@ class WPET_Installer {
 	}
 
     public function install() {
-		$plugin_data = get_plugin_data( WPET_PLUGIN_FILE );
-		//do some comparison of version numbers here for upgrades (2.x+ only)
-		update_option('wpet_install_data', $plugin_data);
-
 		//decide if we're going to convert, install, or do nothing
 		$installed_before = get_option( 'wpet_activate_once' );
 
