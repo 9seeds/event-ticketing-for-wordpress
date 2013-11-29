@@ -137,9 +137,6 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 		$nvp = array(
 			'METHOD' => 'SetExpressCheckout',
 			'VERSION' => self::NVP_VERSION,
-			'PWD' => $this->mSettings->paypal_sandbox_api_password,
-			'USER' => $this->mSettings->paypal_sandbox_api_username,
-			'SIGNATURE' => $this->mSettings->paypal_sandbox_api_signature,
 			'ITEMAMT' => $cart['total'],
 			'AMT' => $cart['total'],
 			'PAYMENTACTION' => 'Sale',
@@ -147,6 +144,16 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			'RETURNURL' => $payment_url,
 			'CANCELURL' => add_query_arg(array('cancel' => '1'), $payment_url),
 		);
+
+		if ( $this->mSettings->paypal_express_status == 'live' ) {
+			$nvp['PWD'] = $this->mSettings->paypal_live_api_password;
+			$nvp['USER'] = $this->mSettings->paypal_live_api_username;
+			$nvp['SIGNATURE'] = $this->mSettings->paypal_live_api_signature;
+		} else {
+			$nvp['PWD'] = $this->mSettings->paypal_sandbox_api_password;
+			$nvp['USER'] = $this->mSettings->paypal_sandbox_api_username;
+			$nvp['SIGNATURE'] = $this->mSettings->paypal_sandbox_api_signature;
+		}
 
 		/*
 		  &PAYMENTREQUEST_0_ITEMAMT=99.30
