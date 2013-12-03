@@ -23,9 +23,9 @@ require_once( 'lib/WPET.class.php' );
 
 $wpet = WPET::getInstance();
 
-register_activation_hook( __FILE__, array( $wpet, 'activate' ) );
-register_deactivation_hook( __FILE__, array( $wpet, 'deactivate' ) );
-register_uninstall_hook( __FILE__, array( $wpet, 'uninstall' ) );
+register_activation_hook( __FILE__, array( 'WPET', 'activate' ) );
+register_deactivation_hook( __FILE__, array( 'WPET', 'deactivate' ) );
+register_uninstall_hook( __FILE__, array( 'WPET', 'uninstall' ) );
 
 if ( defined('WP_CLI') && WP_CLI ) {
 	require_once WPET_PLUGIN_DIR . 'lib/Installer.class.php';

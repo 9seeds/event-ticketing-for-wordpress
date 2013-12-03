@@ -454,7 +454,7 @@ class WPET {
 	 *
 	 * @since 2.0
 	 */
-	public function activate() {
+	public static function activate() {
 		if ( defined( 'WPET_SKIP_INSTALL' ) && WPET_SKIP_INSTALL ) //for CLI testing
 			return;
 
