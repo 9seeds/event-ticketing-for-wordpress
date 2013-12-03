@@ -73,5 +73,11 @@ Not at this time. But, that's a feature we plan to add in the future.
 
 == Changelog ==
 
+= 2.0.1 =
+* Bug fix: order from not displaying proper currency
+* Bug fix: wpet_attendees shortcode not limiting to current event
+* Bug fix: paypal api credentials forcing use of sandbox creds
+
+
 = 2.0 =
 * Iniital release after a complete rewrite
