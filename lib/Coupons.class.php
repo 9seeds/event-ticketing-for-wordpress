@@ -44,7 +44,7 @@ class WPET_Coupons extends WPET_Module {
 			$total = $p->wpet_package_cost * $qty;
 
 			if( '' != trim( $_POST['coupon_code'] ) ) {
-				$coupon_amount = WPET::getInstance()->coupons->calcDiscount( $total, $package, $_POST['coupon_code'] );
+				$coupon_amount = $this->calcDiscount( $total, $package, $_POST['coupon_code'] );
 				
 				$discount += $coupon_amount;
 			}
@@ -57,11 +57,11 @@ class WPET_Coupons extends WPET_Module {
 	
 	public function calcDiscount( $amount, $package_id, $code ) {	    
 	    $coupon = $this->findByCode( $code );
-	    
+		
 	    $discount = 0.00;
 
 	    if( is_a( $coupon, 'WP_Post' ) ) {
-			if ( isset( $_POST['coupon_code'] ) && $_POST['coupon_code'] != $coupon->post_title )
+			if ( $code && $code != $coupon->post_title )
 				return $discount;
 
 			if ( /* applies to any */ '' == $coupon->wpet_package_id 
@@ -89,19 +89,16 @@ class WPET_Coupons extends WPET_Module {
 	}
 	
 	public function findByCode( $code ) {
+		if ( trim( $code ) == '' )
+			return NULL;
+		
 	    $args = array(
-			'name' => $code,
 			'post_type' => $this->mPostType,
+			'name' => $code,
+			'post_status' => array( 'publish' ),
 	    );
-	    
-	    $posts = new WP_Query( $args );
-	    
-	    $posts = ($posts->get_posts());
-	    
-	    if( empty( $posts )) 
-			return false;
-	    
-	    return reset( $posts );
+
+		return $this->findOne( $args );
 	}
 	
 	/**
