@@ -128,6 +128,10 @@ class WPET_Payments extends WPET_Module {
 		if (!$this->loadPayment())
 			return false;
 
+		//possibly initialize the post (payment) if it's brand new
+		if ( ! is_object( $post ) )
+			$post = new stdClass();
+
 		// Figure out which step we are on via the post_status and take action accordingly
 		switch ($this->mPayment->post_status) {
 			case 'draft':
