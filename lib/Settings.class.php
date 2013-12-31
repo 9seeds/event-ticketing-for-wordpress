@@ -197,8 +197,8 @@ class WPET_Settings extends WPET_Module {
 		);
 
 		$email_data = array(
-			//'from_name' => $this->from_name,
-			//'from_email' => $this->from_email,
+			'from_name' => $this->from_name,
+			'from_email' => $this->from_email,
 			'subject' => $this->subject,
 			'email_body' => $this->email_body,
 		);
