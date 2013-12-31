@@ -254,13 +254,9 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			wp_update_post( $purchase );
 			*/
 
-			$cart = WPET::getInstance()->payment->getCart();
 			$nvp = array(
 				'METHOD' => 'DoExpressCheckoutPayment',
 				'VERSION' => self::NVP_VERSION,
-				'PWD' => $this->mSettings->paypal_sandbox_api_password,
-				'USER' => $this->mSettings->paypal_sandbox_api_username,
-				'SIGNATURE' => $this->mSettings->paypal_sandbox_api_signature,
 				'TOKEN' => $_GET['token'],
 				'PAYERID' => $_GET['PayerID'],
 				'AMT' => $cart['total'],
@@ -272,6 +268,15 @@ class WPET_Gateway_PayPalExpress extends WPET_Gateway {
 			);
 
 
+			if ( $this->mSettings->paypal_express_status == 'live' ) {
+				$nvp['PWD'] = $this->mSettings->paypal_live_api_password;
+				$nvp['USER'] = $this->mSettings->paypal_live_api_username;
+				$nvp['SIGNATURE'] = $this->mSettings->paypal_live_api_signature;
+			} else {
+				$nvp['PWD'] = $this->mSettings->paypal_sandbox_api_password;
+				$nvp['USER'] = $this->mSettings->paypal_sandbox_api_username;
+				$nvp['SIGNATURE'] = $this->mSettings->paypal_sandbox_api_signature;
+			}
 
 			$nvpurl = $this->mSettings->paypal_express_status == 'live' ? self::LIVE_NVP_API : self::SANDBOX_NVP_API;
 
