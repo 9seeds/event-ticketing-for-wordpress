@@ -4,7 +4,7 @@ Plugin Name: Event Ticketing for WordPress
 Plugin URI: http://9seeds.com/plugins/
 Description: Event Ticketing for WordPress is the easiest way to sell tickets for your event!
 Author: 9seeds.com
-Version: 2.0
+Version: 2.0.1
 Author URI: http://9seeds.com/
 Text Domain: wpet
 License: GPLv2 or later
