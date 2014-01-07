@@ -11,7 +11,7 @@ endif; ?></h2>
 <form method="post" action="" id="wpet_admin_ticket_add">
 	<table class="form-table">
 		<tbody>
-			<tr class="form-field form-required">
+			<tr class="form-required">
 				<th scope="row"><label for="options[ticket-name]"><?php _e( 'Ticket Name', 'wpet' ); ?></label></th>
 				<td><input name="options[ticket-name]" id="options[ticket-name]" type="text" id="options[ticket-name]" value="<?php echo empty( $data['ticket'] ) ? '' : $data['ticket']->post_title ?>"></td>
 			</tr>
@@ -25,7 +25,7 @@ endif; ?></h2>
 			$checkboxes = WPET::getInstance()->ticket_options->getAdminOptionsCheckboxes( $selected );
 			foreach ( $checkboxes as $cb_info ):
 				?>
-				<tr class="form-field">
+				<tr class="">
 					<th scope="row"><?php echo $cb_info['label']; ?></th>
 					<td><?php echo $cb_info['checkbox']; ?></td>
 				</tr>
