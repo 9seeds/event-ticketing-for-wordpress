@@ -94,39 +94,66 @@ class WPET_Table_Attendees extends WPET_Table {
 		
 		$outstream = fopen( 'php://output', 'w' );
 
+		
 		// wpet_attendees
+
+
 		
 		// Loop process
-		// 1. Grap all ticket types for this event
-		// 2. Grab ticket options for ticket type
-		// 	write header row with column names
-		// 3. Loop through attendees who have this ticket type
-		// 	write rows
-		
-		$ticket_args = array(
-			'post_type'		=> 'wpet_tickets'
+		// 1. Grab all attendees for this event (ordered by ticket ID)
+		// 2. Get ticket options for ticket type (if not already) by looking attendee ticket IDs
+		// 3. Output attendees and their ticket option data
+
+		$wpet_event_id = WPET::getInstance()->events->getWorkingEvent()->ID;
+		$attendee_args = array(
+			'post_type'		=> 'wpet_attendees',
+			'showposts' => '-1',
+			'posts_per_page' => '-1',
+			'meta_key' => 'wpet_ticket_id',
+			'orderby' => 'meta_value_num',
+			'meta_query' => array(
+				array(
+					'meta_key' => 'wpet_event_id',
+					'meta_value' => $wpet_event_id,			
+				),
+			)
 		);
 
-		// Grab all the available tickets
-		$tickets = new WP_Query( $ticket_args );
+		$attendees = get_posts( $attendee_args );
 
-		if ( $tickets->have_posts() ) {
-			while ( $tickets->have_posts() ) {
-				$tickets->the_post();
-				wp_die( print_r( $tickets ));
-				// for
-				$d .= $tickets->post->ID . ', ';
-			}
+		$ticket_ids = array();
+		$columns = array();
+		$meta_keys = array();
+
+		//loop through attendees once for ticket options (column headers)
+		foreach ( $attendees as $attendee ) {
+			if ( ! isset( $ticket_ids[$attendee->wpet_ticket_id] ) ) {
+				//only get these options once per unique ticket ID
+				$ticket_ids[$attendee->wpet_ticket_id] = NULL;
+				
+			    $options = get_post_meta( $attendee->wpet_ticket_id, 'wpet_options_selected',  true );
+
+				if( is_array( $options ) ) {
+					foreach( $options as $o ) {
+						$opts = WPET::getInstance()->ticket_options->findByID( $o );
+						if ( ! isset( $columns[$opts->ID] ) ) {
+							$columns[$opts->ID] = $opts->post_title;
+							$meta_keys[$opts->ID] = $opts->post_name;
+						}
+					}
+				}
+			}				
 		}
+
 		fputcsv( $outstream,  $columns );
-		foreach ( $this->items as $post ) {
-			$data = array();
-			foreach ( $columns as $index => $unused ) {
-				$data[] = isset( $post->{'post_' . $index} ) ?
-					$post->{'post_' . $index} :
-					$post->{$index};
+		
+		//loop through attendees twice for data (rows)
+		foreach ( $attendees as $attendee ) {
+			$row = array();
+			foreach ( $meta_keys as $meta_key ) {
+				 $row[] = $attendee->{'wpet_' . $meta_key};
 			}
-			fputcsv( $outstream, $data );
+			fputcsv( $outstream,  $row );			
 		}		
 		fclose( $outstream );
 		exit();
