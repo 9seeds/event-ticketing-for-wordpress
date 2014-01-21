@@ -84,6 +84,7 @@ class WPET_Table_Attendees extends WPET_Table {
 		$this->prepare_items();
 		$columns = $this->get_columns();		
 
+// 		wp_die( '<pre>' . print_r($this) .'</pre');
 		//@TODO use post object and/or filters/search
 		$filename = "attendees.csv";
 
@@ -91,7 +92,32 @@ class WPET_Table_Attendees extends WPET_Table {
 		header( 'Content-Disposition: attachment; filename=' . $filename );
 		header( 'Content-Type: text/csv; charset=' . get_option( 'blog_charset' ), true );
 		
-		$outstream = fopen( 'php://output', 'w' ); 
+		$outstream = fopen( 'php://output', 'w' );
+
+		// wpet_attendees
+		
+		// Loop process
+		// 1. Grap all ticket types for this event
+		// 2. Grab ticket options for ticket type
+		// 	write header row with column names
+		// 3. Loop through attendees who have this ticket type
+		// 	write rows
+		
+		$ticket_args = array(
+			'post_type'		=> 'wpet_tickets'
+		);
+
+		// Grab all the available tickets
+		$tickets = new WP_Query( $ticket_args );
+
+		if ( $tickets->have_posts() ) {
+			while ( $tickets->have_posts() ) {
+				$tickets->the_post();
+				wp_die( print_r( $tickets ));
+				// for
+				$d .= $tickets->post->ID . ', ';
+			}
+		}
 		fputcsv( $outstream,  $columns );
 		foreach ( $this->items as $post ) {
 			$data = array();
